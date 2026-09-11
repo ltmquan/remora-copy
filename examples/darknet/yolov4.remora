@@ -84,8 +84,11 @@
                  (@replicate (Int) ([$in-c] [$k $k 2])
                    (i-app idxs-of/2 $k $k))))))))
 
+;; Performance change: reduce/zero exposes the sum to Futhark (about 1.89x
+;; faster full inference in the measured fixture). Zero is the additive
+;; identity; the length is n-1+1. Reassociation may change float rounding.
 (def (fun (@dot _ ($n-1) (v [Float (+ 1 $n-1)]) (w [Float (+ 1 $n-1)]) : [Float])
-    (@reduce (Float) ($n-1 []) f.+ (f.* v w))))
+    (@reduce/zero (Float) ((+ $n-1 1) []) f.+ 0.0 (f.* v w))))
 
 (def (fun (@lifted_dot _ ($m-1 $o) (v [Float (+ 1 $m-1)]) (M [Float (+ 1 $m-1) $o]) : [Float $o])
     (@dot _ ($m-1) v (@transpose2d (Float) ((+ 1 $m-1) $o) M))))
@@ -199,13 +202,17 @@
                 : [Float (+ $c1 $c2) $h $w])
      (@append (Float) ($c1 $c2 [$h $w]) a b)))
 
+;; Memory change: cascade 5x5 max pools to obtain 9x9 and 13x13 windows,
+;; avoiding separate large window tensors while preserving output order.
+;; The tested combined variant used 20.1% less peak device allocation
+;; (2.515 -> 2.009 GB); this change alone was not memory-benchmarked.
 (def (fun (@spp _ ($n $k)
                 (in [Float $k $n $n])
                 : [Float (* 4 $k) $n $n])
     (let ((type *map [Float $k $n $n])
           (val (mp5  : *map) (@max-pool-2d _ ((- $n 5) 5 $k 2 1) in))
-          (val (mp9  : *map) (@max-pool-2d _ ((- $n 9) 9 $k 4 1) in))
-          (val (mp13 : *map) (@max-pool-2d _ ((- $n 13) 13 $k 6 1) in)))
+          (val (mp9  : *map) (@max-pool-2d _ ((- $n 5) 5 $k 2 1) mp5))
+          (val (mp13 : *map) (@max-pool-2d _ ((- $n 5) 5 $k 2 1) mp9)))
       (@append (Float) ($k (* 3 $k) [$n $n])
          mp13
          (@append (Float) ($k (* 2 $k) [$n $n])
