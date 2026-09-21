@@ -1,0 +1,798 @@
+{
+  "command": [
+    "./darknet_benchmark",
+    "yolov4.cfg",
+    "memory_matrix/memory/darknet-trained.bin",
+    "yolov4.weights"
+  ],
+  "pid": 2766918,
+  "exit_code": 0,
+  "sampling_requested_ms": 20,
+  "elapsed_seconds": 3.45316550321877,
+  "samples": [
+    {
+      "seconds": 0.9754574606195092,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 14,
+      "host_rss_mib": 219.2421875,
+      "host_hwm_mib": 219.2421875
+    },
+    {
+      "seconds": 0.9968468565493822,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 14,
+      "host_rss_mib": 219.48046875,
+      "host_hwm_mib": 219.48046875
+    },
+    {
+      "seconds": 1.0197194684296846,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 14,
+      "host_rss_mib": 220.00390625,
+      "host_hwm_mib": 220.00390625
+    },
+    {
+      "seconds": 1.039787613786757,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 28,
+      "host_rss_mib": 238.65625,
+      "host_hwm_mib": 238.65625
+    },
+    {
+      "seconds": 1.0600127503275871,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 612,
+      "host_rss_mib": 256.06640625,
+      "host_hwm_mib": 256.06640625
+    },
+    {
+      "seconds": 1.0804024916142225,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 926,
+      "host_rss_mib": 256.703125,
+      "host_hwm_mib": 256.703125
+    },
+    {
+      "seconds": 1.1006522560492158,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1042,
+      "host_rss_mib": 258.70703125,
+      "host_hwm_mib": 258.70703125
+    },
+    {
+      "seconds": 1.1208863770589232,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1092,
+      "host_rss_mib": 261.7578125,
+      "host_hwm_mib": 261.7578125
+    },
+    {
+      "seconds": 1.141130605712533,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1162,
+      "host_rss_mib": 264.65234375,
+      "host_hwm_mib": 264.65234375
+    },
+    {
+      "seconds": 1.1613322859629989,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1172,
+      "host_rss_mib": 269.37890625,
+      "host_hwm_mib": 269.37890625
+    },
+    {
+      "seconds": 1.1815336355939507,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1194,
+      "host_rss_mib": 275.40234375,
+      "host_hwm_mib": 275.40234375
+    },
+    {
+      "seconds": 1.2017410406842828,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1212,
+      "host_rss_mib": 278.8203125,
+      "host_hwm_mib": 278.8203125
+    },
+    {
+      "seconds": 1.2219397770240903,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1224,
+      "host_rss_mib": 283.48828125,
+      "host_hwm_mib": 283.48828125
+    },
+    {
+      "seconds": 1.2421248480677605,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1244,
+      "host_rss_mib": 288.41796875,
+      "host_hwm_mib": 288.41796875
+    },
+    {
+      "seconds": 1.2623570105060935,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1262,
+      "host_rss_mib": 293.33203125,
+      "host_hwm_mib": 293.33203125
+    },
+    {
+      "seconds": 1.2826999928802252,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1278,
+      "host_rss_mib": 299.3203125,
+      "host_hwm_mib": 299.3203125
+    },
+    {
+      "seconds": 1.3028714265674353,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1278,
+      "host_rss_mib": 303.3203125,
+      "host_hwm_mib": 303.3203125
+    },
+    {
+      "seconds": 1.3347808821126819,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1278,
+      "host_rss_mib": 311.3203125,
+      "host_hwm_mib": 311.3203125
+    },
+    {
+      "seconds": 1.354985429905355,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1298,
+      "host_rss_mib": 314.8828125,
+      "host_hwm_mib": 314.8828125
+    },
+    {
+      "seconds": 1.3760566608980298,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1310,
+      "host_rss_mib": 318.53125,
+      "host_hwm_mib": 318.53125
+    },
+    {
+      "seconds": 1.4042276926338673,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1310,
+      "host_rss_mib": 326.140625,
+      "host_hwm_mib": 326.140625
+    },
+    {
+      "seconds": 1.4244367834180593,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1324,
+      "host_rss_mib": 331.80078125,
+      "host_hwm_mib": 331.80078125
+    },
+    {
+      "seconds": 1.456555189564824,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1324,
+      "host_rss_mib": 337.80078125,
+      "host_hwm_mib": 337.80078125
+    },
+    {
+      "seconds": 1.476781819947064,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1338,
+      "host_rss_mib": 341.34375,
+      "host_hwm_mib": 341.34375
+    },
+    {
+      "seconds": 1.4972038650885224,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1338,
+      "host_rss_mib": 347.34375,
+      "host_hwm_mib": 347.34375
+    },
+    {
+      "seconds": 1.5174163533374667,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1352,
+      "host_rss_mib": 350.07421875,
+      "host_hwm_mib": 350.07421875
+    },
+    {
+      "seconds": 1.5375849083065987,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1352,
+      "host_rss_mib": 356.58984375,
+      "host_hwm_mib": 356.58984375
+    },
+    {
+      "seconds": 1.5577430464327335,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1364,
+      "host_rss_mib": 359.27734375,
+      "host_hwm_mib": 359.27734375
+    },
+    {
+      "seconds": 1.5783734768629074,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1370,
+      "host_rss_mib": 364.3203125,
+      "host_hwm_mib": 364.3203125
+    },
+    {
+      "seconds": 1.5986085273325443,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1378,
+      "host_rss_mib": 368.703125,
+      "host_hwm_mib": 368.703125
+    },
+    {
+      "seconds": 1.6188083095476031,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1378,
+      "host_rss_mib": 374.703125,
+      "host_hwm_mib": 374.703125
+    },
+    {
+      "seconds": 1.6390126124024391,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1378,
+      "host_rss_mib": 378.703125,
+      "host_hwm_mib": 378.703125
+    },
+    {
+      "seconds": 1.6664773728698492,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1378,
+      "host_rss_mib": 384.84375,
+      "host_hwm_mib": 384.84375
+    },
+    {
+      "seconds": 1.686675488948822,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1398,
+      "host_rss_mib": 386.3828125,
+      "host_hwm_mib": 386.3828125
+    },
+    {
+      "seconds": 1.7069004569202662,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1416,
+      "host_rss_mib": 391.57421875,
+      "host_hwm_mib": 391.57421875
+    },
+    {
+      "seconds": 1.727101907134056,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1422,
+      "host_rss_mib": 398.09375,
+      "host_hwm_mib": 398.09375
+    },
+    {
+      "seconds": 1.7472484707832336,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1422,
+      "host_rss_mib": 402.09375,
+      "host_hwm_mib": 402.09375
+    },
+    {
+      "seconds": 1.7674163952469826,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1422,
+      "host_rss_mib": 406.09375,
+      "host_hwm_mib": 406.09375
+    },
+    {
+      "seconds": 1.7882410325109959,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1440,
+      "host_rss_mib": 410.09375,
+      "host_hwm_mib": 410.09375
+    },
+    {
+      "seconds": 1.808465575799346,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1466,
+      "host_rss_mib": 414.3125,
+      "host_hwm_mib": 414.3125
+    },
+    {
+      "seconds": 1.8351823640987277,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1468,
+      "host_rss_mib": 419.15625,
+      "host_hwm_mib": 419.15625
+    },
+    {
+      "seconds": 1.8578204615041614,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1478,
+      "host_rss_mib": 419.15625,
+      "host_hwm_mib": 419.15625
+    },
+    {
+      "seconds": 1.878338960930705,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1480,
+      "host_rss_mib": 423.94921875,
+      "host_hwm_mib": 423.94921875
+    },
+    {
+      "seconds": 1.898546764627099,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1544,
+      "host_rss_mib": 426.8203125,
+      "host_hwm_mib": 426.8203125
+    },
+    {
+      "seconds": 1.9187306286767125,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1588,
+      "host_rss_mib": 429.62890625,
+      "host_hwm_mib": 429.6328125
+    },
+    {
+      "seconds": 1.938928296789527,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1610,
+      "host_rss_mib": 447.48046875,
+      "host_hwm_mib": 447.48046875
+    },
+    {
+      "seconds": 1.9590984424576163,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1622,
+      "host_rss_mib": 451.1796875,
+      "host_hwm_mib": 451.1796875
+    },
+    {
+      "seconds": 1.9823340335860848,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1632,
+      "host_rss_mib": 455.19921875,
+      "host_hwm_mib": 455.19921875
+    },
+    {
+      "seconds": 2.010390667244792,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1634,
+      "host_rss_mib": 456.87890625,
+      "host_hwm_mib": 456.87890625
+    },
+    {
+      "seconds": 2.0306339487433434,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1652,
+      "host_rss_mib": 461.875,
+      "host_hwm_mib": 461.875
+    },
+    {
+      "seconds": 2.050803800113499,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1656,
+      "host_rss_mib": 469.8203125,
+      "host_hwm_mib": 469.8203125
+    },
+    {
+      "seconds": 2.0709844306111336,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1668,
+      "host_rss_mib": 476.7421875,
+      "host_hwm_mib": 476.7421875
+    },
+    {
+      "seconds": 2.103973064571619,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1668,
+      "host_rss_mib": 484.7421875,
+      "host_hwm_mib": 484.7421875
+    },
+    {
+      "seconds": 2.124143783003092,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1668,
+      "host_rss_mib": 488.7421875,
+      "host_hwm_mib": 488.7421875
+    },
+    {
+      "seconds": 2.1443363465368748,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1688,
+      "host_rss_mib": 492.78515625,
+      "host_hwm_mib": 492.78515625
+    },
+    {
+      "seconds": 2.164517130702734,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1690,
+      "host_rss_mib": 497.9453125,
+      "host_hwm_mib": 497.9453125
+    },
+    {
+      "seconds": 2.1847024373710155,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1690,
+      "host_rss_mib": 503.9453125,
+      "host_hwm_mib": 503.9453125
+    },
+    {
+      "seconds": 2.204876232892275,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1690,
+      "host_rss_mib": 507.9453125,
+      "host_hwm_mib": 507.9453125
+    },
+    {
+      "seconds": 2.2290631653741,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1708,
+      "host_rss_mib": 512.09765625,
+      "host_hwm_mib": 512.09765625
+    },
+    {
+      "seconds": 2.2493828367441893,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1710,
+      "host_rss_mib": 514.10546875,
+      "host_hwm_mib": 514.10546875
+    },
+    {
+      "seconds": 2.2695427676662803,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1714,
+      "host_rss_mib": 518.25,
+      "host_hwm_mib": 518.25
+    },
+    {
+      "seconds": 2.2896917993202806,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1714,
+      "host_rss_mib": 522.25,
+      "host_hwm_mib": 522.25
+    },
+    {
+      "seconds": 2.3099373634904623,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1714,
+      "host_rss_mib": 528.25,
+      "host_hwm_mib": 528.25
+    },
+    {
+      "seconds": 2.34237954672426,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1714,
+      "host_rss_mib": 532.25,
+      "host_hwm_mib": 532.25
+    },
+    {
+      "seconds": 2.3641398437321186,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1732,
+      "host_rss_mib": 532.40625,
+      "host_hwm_mib": 532.40625
+    },
+    {
+      "seconds": 2.38501157797873,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.50390625,
+      "host_hwm_mib": 538.50390625
+    },
+    {
+      "seconds": 2.4051573844626546,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.50390625,
+      "host_hwm_mib": 538.50390625
+    },
+    {
+      "seconds": 2.425867103971541,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.50390625,
+      "host_hwm_mib": 538.50390625
+    },
+    {
+      "seconds": 2.446163504384458,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.50390625,
+      "host_hwm_mib": 538.50390625
+    },
+    {
+      "seconds": 2.466408161446452,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.50390625,
+      "host_hwm_mib": 538.50390625
+    },
+    {
+      "seconds": 2.498614201322198,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.50390625,
+      "host_hwm_mib": 538.50390625
+    },
+    {
+      "seconds": 2.51898053009063,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.50390625,
+      "host_hwm_mib": 538.50390625
+    },
+    {
+      "seconds": 2.5393079733476043,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.50390625,
+      "host_hwm_mib": 538.50390625
+    },
+    {
+      "seconds": 2.559676665812731,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.50390625,
+      "host_hwm_mib": 538.50390625
+    },
+    {
+      "seconds": 2.585626327432692,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.56640625,
+      "host_hwm_mib": 538.56640625
+    },
+    {
+      "seconds": 2.6114521035924554,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.56640625,
+      "host_hwm_mib": 538.56640625
+    },
+    {
+      "seconds": 2.6353300157934427,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.56640625,
+      "host_hwm_mib": 538.56640625
+    },
+    {
+      "seconds": 2.672888229601085,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.56640625,
+      "host_hwm_mib": 538.56640625
+    },
+    {
+      "seconds": 2.7094136783853173,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.56640625,
+      "host_hwm_mib": 538.56640625
+    },
+    {
+      "seconds": 2.7296073054894805,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.56640625,
+      "host_hwm_mib": 538.56640625
+    },
+    {
+      "seconds": 2.7497428692877293,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1842,
+      "host_rss_mib": 538.56640625,
+      "host_hwm_mib": 538.56640625
+    },
+    {
+      "seconds": 2.7791117569431663,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1844,
+      "host_rss_mib": 551.9453125,
+      "host_hwm_mib": 551.9453125
+    },
+    {
+      "seconds": 2.799629969522357,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1906,
+      "host_rss_mib": 562.1796875,
+      "host_hwm_mib": 562.1796875
+    },
+    {
+      "seconds": 2.819851608015597,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1970,
+      "host_rss_mib": 596.19921875,
+      "host_hwm_mib": 596.19921875
+    },
+    {
+      "seconds": 2.8401341820135713,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1972,
+      "host_rss_mib": 636.08203125,
+      "host_hwm_mib": 636.08203125
+    },
+    {
+      "seconds": 2.8603240875527263,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1972,
+      "host_rss_mib": 686.45703125,
+      "host_hwm_mib": 686.45703125
+    },
+    {
+      "seconds": 2.880515703931451,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1974,
+      "host_rss_mib": 687.03125,
+      "host_hwm_mib": 687.03125
+    },
+    {
+      "seconds": 2.9006901253014803,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1974,
+      "host_rss_mib": 687.03125,
+      "host_hwm_mib": 687.03125
+    },
+    {
+      "seconds": 2.9336780859157443,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1974,
+      "host_rss_mib": 687.03125,
+      "host_hwm_mib": 687.03125
+    },
+    {
+      "seconds": 2.9538477258756757,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1974,
+      "host_rss_mib": 687.03125,
+      "host_hwm_mib": 687.03125
+    },
+    {
+      "seconds": 2.974044074304402,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1974,
+      "host_rss_mib": 687.03125,
+      "host_hwm_mib": 687.03125
+    },
+    {
+      "seconds": 2.994804346933961,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1432,
+      "host_rss_mib": 687.203125,
+      "host_hwm_mib": 687.35546875
+    },
+    {
+      "seconds": 3.014902931638062,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 1224,
+      "host_rss_mib": 637.5546875,
+      "host_hwm_mib": 687.35546875
+    },
+    {
+      "seconds": 3.0350656025111675,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": 485.34765625,
+      "host_hwm_mib": 687.35546875
+    },
+    {
+      "seconds": 3.055956605821848,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.0765786711126566,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.0968090863898396,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.1169023057445884,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.1370606953278184,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.157184826210141,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.177307297475636,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.1974417427554727,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.21757058147341,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.2376848300918937,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.257801253348589,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.27794146258384,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.298269473016262,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.3183859512209892,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.33840758446604,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.3587147342041135,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    },
+    {
+      "seconds": 3.379476041533053,
+      "phase": "setup_and_warmup",
+      "gpu_mib": 652,
+      "host_rss_mib": null,
+      "host_hwm_mib": null
+    }
+  ],
+  "gpu_process_peak_mib": 1974,
+  "host_peak_rss_mib": 687.35546875,
+  "phase_gpu_peak_mib": {
+    "setup_and_warmup": 1974
+  },
+  "definition": "Sampled per-process GPU footprint including context, libraries, reserved caches and setup/autotuning; timings from this instrumented run are not the comparison timings.",
+  "gpu_setup_inference_peak_mib": 1974
+}

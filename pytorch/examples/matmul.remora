@@ -1,0 +1,8 @@
+;; Matrix multiplication expressed through rank-polymorphic dot products.
+(entry (main (a [Float 2 3]) (b [Float 3 4]))
+  (let ((fun (dot (x [Float 3]) (y [Float 3]) : Float)
+           (@reduce (Float) (2 []) f.+ (f.* x y)))
+        (val columns (@transpose2d (Float) (3 4) b)))
+    ((fn ((row [Float 3]))
+       ((fn ((column [Float 3])) (dot row column)) columns))
+     a)))

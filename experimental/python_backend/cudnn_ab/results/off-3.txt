@@ -1,0 +1,80 @@
+net.optimized_memory = 0 
+mini_batch = 1, batch = 8, time_steps = 1, train = 0 
+Create CUDA-stream - 0 
+nms_kind: greedynms (1), beta = 0.600000 
+nms_kind: greedynms (1), beta = 0.600000 
+nms_kind: greedynms (1), beta = 0.600000 
+
+ seen 64, trained: 32032 K-images (500 Kilo-batches_64) 
+context_seconds 1.805672009
+warmup_seconds -5 0.101681148
+predict_seconds -5 0.099581821
+warmup_seconds -4 0.010047390
+predict_seconds -4 0.007898732
+warmup_seconds -3 0.009930872
+predict_seconds -3 0.007866560
+warmup_seconds -2 0.009911818
+predict_seconds -2 0.007868338
+warmup_seconds -1 0.009759812
+predict_seconds -1 0.007841047
+run_seconds 0 0.009764824
+predict_seconds 0 0.007857391
+run_seconds 1 0.009911157
+predict_seconds 1 0.007847944
+run_seconds 2 0.009591874
+predict_seconds 2 0.007772159
+run_seconds 3 0.009664386
+predict_seconds 3 0.007761640
+run_seconds 4 0.009714657
+predict_seconds 4 0.007754112
+run_seconds 5 0.009764445
+predict_seconds 5 0.007754524
+run_seconds 6 0.009633529
+predict_seconds 6 0.007758708
+run_seconds 7 0.009620304
+predict_seconds 7 0.007735667
+run_seconds 8 0.009638012
+predict_seconds 8 0.007746080
+run_seconds 9 0.009781978
+predict_seconds 9 0.007744467
+run_seconds 10 0.009617280
+predict_seconds 10 0.007757612
+run_seconds 11 0.009645366
+predict_seconds 11 0.007751134
+run_seconds 12 0.009432194
+predict_seconds 12 0.007745733
+run_seconds 13 0.009542189
+predict_seconds 13 0.007676653
+run_seconds 14 0.009389620
+predict_seconds 14 0.007689265
+run_seconds 15 0.009394017
+predict_seconds 15 0.007690598
+run_seconds 16 0.009341823
+predict_seconds 16 0.007684599
+run_seconds 17 0.009289150
+predict_seconds 17 0.007663276
+run_seconds 18 0.009245157
+predict_seconds 18 0.007662732
+run_seconds 19 0.009153733
+predict_seconds 19 0.007639378
+run_seconds 20 0.009429450
+predict_seconds 20 0.007660129
+run_seconds 21 0.009230521
+predict_seconds 21 0.007665288
+run_seconds 22 0.009266732
+predict_seconds 22 0.007684290
+run_seconds 23 0.009254989
+predict_seconds 23 0.007668247
+run_seconds 24 0.009250179
+predict_seconds 24 0.007679708
+run_seconds 25 0.009284743
+predict_seconds 25 0.007678885
+run_seconds 26 0.009222056
+predict_seconds 26 0.007667311
+run_seconds 27 0.009226901
+predict_seconds 27 0.007677919
+run_seconds 28 0.009449618
+predict_seconds 28 0.007667921
+run_seconds 29 0.009526577
+predict_seconds 29 0.007659534
+output_elements 1933155 nonfinite 0

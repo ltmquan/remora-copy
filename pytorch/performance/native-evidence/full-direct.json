@@ -1,0 +1,64 @@
+{
+  "backend": "torch",
+  "model": "direct",
+  "mode": "eager",
+  "compile_mode": "default",
+  "device": "cuda",
+  "weights": "/scratch/luu.qu/remora-python-20260911/yolov4.weights",
+  "fold_bn": false,
+  "runs": 10,
+  "warmup": 3,
+  "output": "/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/full-direct.json",
+  "changed_input_max_delta": 8.367815017700195,
+  "changed_input_validation": "passed",
+  "setup_seconds": 3.5262799272313714,
+  "first_eager_seconds": 2.8024647049605846,
+  "warmup_seconds": [
+    0.02561830310150981,
+    0.02311173314228654,
+    0.02323868265375495
+  ],
+  "run_seconds": [
+    0.02313785208389163,
+    0.02305756974965334,
+    0.023092487826943398,
+    0.02318135602399707,
+    0.0230782818980515,
+    0.023037393111735582,
+    0.02328681480139494,
+    0.022948543075472116,
+    0.023072486277669668,
+    0.022989904042333364
+  ],
+  "median_seconds": 0.023075384087860584,
+  "transfer_warmup_seconds": [
+    0.029559554997831583,
+    0.02916951710358262,
+    0.027374594006687403
+  ],
+  "end_to_end_seconds": [
+    0.02760353498160839,
+    0.026538019068539143,
+    0.026808150112628937,
+    0.02763452334329486,
+    0.027604134287685156,
+    0.026611702982336283,
+    0.024188623763620853,
+    0.02438514120876789,
+    0.024173783604055643,
+    0.024266217835247517
+  ],
+  "end_to_end_median_seconds": 0.026574861025437713,
+  "tinygrad_beam": "0",
+  "input_sha256": "ccd50c843493cfdc36d179764a89948945b94ac83e969aa19a4e069e6ceb0dba",
+  "remora_ast_sha256": "9b06a5f2be536d964c1e74f0134d75d3f05b8722fca41269b4b3e6ffd70f8a1d",
+  "versions": {
+    "numpy": "2.5.3",
+    "torch": "2.8.0+cu128",
+    "tinygrad": "0.14.0"
+  },
+  "precision": "float32; torch TF32 disabled; tinygrad ALLOW_TF32=0",
+  "gpu": "Tesla V100-SXM2-32GB",
+  "cuda": "12.8",
+  "cudnn": 91002
+}

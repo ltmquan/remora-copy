@@ -1,0 +1,2 @@
+59692294dca8e1990b454069f6d6289716aea1e432caaf2bbbcb3a18222bcf8c  modified_futhark/model.c
+9a9add8f0de3b89cbae571bc6ab9fbf4b2c170c89f12078702e031e6cd540af6  modified_futhark/benchmark

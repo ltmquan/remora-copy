@@ -1,0 +1,61 @@
+{
+  "backend": "tinygrad",
+  "model": "direct",
+  "mode": "jit",
+  "compile_mode": "default",
+  "device": "CUDA",
+  "weights": "yolov4.weights",
+  "fold_bn": false,
+  "runs": 10,
+  "warmup": 3,
+  "output": "tiny_optimized/im2col-direct-trained",
+  "changed_input_max_delta": 8.367982864379883,
+  "changed_input_validation": "passed",
+  "setup_seconds": 2.535332890227437,
+  "first_eager_seconds": 11.026769360527396,
+  "warmup_seconds": [
+    0.582098769955337,
+    0.7397574968636036,
+    0.036606584675610065
+  ],
+  "run_seconds": [
+    0.03642595745623112,
+    0.036495341919362545,
+    0.03644512686878443,
+    0.036432855762541294,
+    0.03649057820439339,
+    0.03648847807198763,
+    0.03644390590488911,
+    0.03645060583949089,
+    0.036490087397396564,
+    0.03655885625630617
+  ],
+  "median_seconds": 0.03646954195573926,
+  "transfer_warmup_seconds": [
+    0.04241706244647503,
+    0.041382904164493084,
+    0.0410388121381402
+  ],
+  "end_to_end_seconds": [
+    0.04112587682902813,
+    0.041088433004915714,
+    0.04108602460473776,
+    0.04111143387854099,
+    0.04112171847373247,
+    0.04103572852909565,
+    0.04111699014902115,
+    0.041035532020032406,
+    0.04099582601338625,
+    0.04100989643484354
+  ],
+  "end_to_end_median_seconds": 0.041087228804826736,
+  "tinygrad_beam": "0",
+  "input_sha256": "ccd50c843493cfdc36d179764a89948945b94ac83e969aa19a4e069e6ceb0dba",
+  "remora_ast_sha256": "9b06a5f2be536d964c1e74f0134d75d3f05b8722fca41269b4b3e6ffd70f8a1d",
+  "versions": {
+    "numpy": "2.5.3",
+    "torch": "2.8.0+cu128",
+    "tinygrad": "0.14.0"
+  },
+  "precision": "float32; torch TF32 disabled; tinygrad ALLOW_TF32=0"
+}

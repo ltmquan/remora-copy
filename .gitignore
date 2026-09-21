@@ -30,3 +30,13 @@ examples/darknet/*_608.bin
 
 *.actual
 *.expected
+
+# Local caches and experiment payloads; keep source and text evidence in Git.
+.DS_Store
+__pycache__/
+experimental/**/*.bin
+experimental/**/*.tar.gz
+experimental/**/*.zip
+experimental/python_backend/multi_input_validation/evalbox.jpg
+experimental/draper_reproduction_20260916/upstream/
+experimental/draper_reproduction_20260916/darpa-upstream/

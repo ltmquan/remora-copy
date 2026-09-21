@@ -1,0 +1,38 @@
+{
+  "separate-fold": {
+    "round_medians_ms": [
+      1.4212065,
+      1.4219595,
+      1.4240035
+    ],
+    "median_ms": 1.4219595,
+    "bitwise_equal_numpy_reference": true
+  },
+  "separate-zero": {
+    "round_medians_ms": [
+      1.126531,
+      1.12689,
+      1.126694
+    ],
+    "median_ms": 1.126694,
+    "bitwise_equal_numpy_reference": true
+  },
+  "cascade-fold": {
+    "round_medians_ms": [
+      0.45030950000000003,
+      0.450219,
+      0.45065
+    ],
+    "median_ms": 0.45030950000000003,
+    "bitwise_equal_numpy_reference": true
+  },
+  "cascade-zero": {
+    "round_medians_ms": [
+      0.3563835,
+      0.3565585,
+      0.356264
+    ],
+    "median_ms": 0.3563835,
+    "bitwise_equal_numpy_reference": true
+  }
+}

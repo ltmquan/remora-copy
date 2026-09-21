@@ -1,0 +1,7 @@
+setup_seconds 2.369667
+first inference started
+first_eager_seconds 9.174940
+warmup 0: 0.860836s
+warmup 1: 0.998542s
+warmup 2: 0.152523s
+{"backend": "tinygrad", "model": "remora", "mode": "jit", "compile_mode": "default", "device": "CUDA", "weights": "yolov4.weights", "fold_bn": false, "runs": 10, "warmup": 3, "output": "fresh/tinygrad-remora-jit-trained", "changed_input_max_delta": 8.367700576782227, "changed_input_validation": "passed", "setup_seconds": 2.369666709564626, "first_eager_seconds": 9.174940093420446, "warmup_seconds": [0.8608359089121222, 0.9985418245196342, 0.15252305381000042], "run_seconds": [0.15229480993002653, 0.1522907493636012, 0.1522330017760396, 0.1523552443832159, 0.1522185541689396, 0.1522219879552722, 0.15233301743865013, 0.1527810962870717, 0.1524630021303892, 0.15269037149846554], "median_seconds": 0.15231391368433833, "transfer_warmup_seconds": [0.1586476108059287, 0.15621016081422567, 0.15559888817369938], "end_to_end_seconds": [0.15560415666550398, 0.15572774782776833, 0.1557010756805539, 0.1559923654422164, 0.15566369146108627, 0.1568582747131586, 0.15718915313482285, 0.15572504606097937, 0.1555583467707038, 0.1555669130757451], "end_to_end_median_seconds": 0.15571306087076664, "tinygrad_beam": "0", "input_sha256": "ccd50c843493cfdc36d179764a89948945b94ac83e969aa19a4e069e6ceb0dba", "remora_ast_sha256": "9b06a5f2be536d964c1e74f0134d75d3f05b8722fca41269b4b3e6ffd70f8a1d", "versions": {"numpy": "2.5.3", "torch": "2.8.0+cu128", "tinygrad": "0.14.0"}, "precision": "float32; torch TF32 disabled; tinygrad ALLOW_TF32=0"}

@@ -1,0 +1,972 @@
+;; ----------------- UTILITIES -------------------------
+
+(def (fun (@replicate (&t) (@f @s) (in [&t @s]) : [&t @f @s])
+    ((array [] (fn ((x [Int])) in)) (i-app iota/static [@f]))))
+
+(def (fun (@pad/2 (&t) ($n $p) (in [&t $n $n])
+                            (zero [&t]) : [&t (+ $n $p $p) (+ $n $p $p)])
+    (let ((val (vert-pad : [&t $p (+ $p $p $n)]) (@replicate (&t) ([$p (+ $p $p $n)] []) zero))
+          (val (hor-pad : [&t $p]) (@replicate (&t) ([$p] []) zero)))
+      (@append (&t) ($p (+ $n $p) [(+ $p $p $n)])
+         vert-pad
+         (@append (&t) ($n $p [(+ $p $p $n)])
+           (@append (&t) ($p (+ $n $p) []) hor-pad (@append (&t) ($n $p []) in hor-pad))
+           vert-pad)))))
+
+(def (i-fun (idxs-of/2 ($m $n) : [Int $m $n 2])
+     ((fn ((i [Int]))
+        ((fn ((j [Int])) [i j]) (i-app iota/static [$n])))
+      (i-app iota/static [$m]))))
+
+(def (fun (@subarray/2 (&t) ($in-out $m $s)
+                    (in [&t (+ $in-out (* $m $s) 1) (+ $in-out (* $m $s) 1)])
+                    (offset [Int 2]) : [&t (+ $m 1) (+ $m 1)])
+     (@index2d (&t) ((+ $in-out (* $m $s) 1) (+ $in-out (* $m $s) 1))
+                    in
+                     (+ (@replicate (Int) ([(+ $m 1) (+ $m 1)] [2]) offset)
+                        (* (@reify-dim _ ($s)) (i-app idxs-of/2 (+ $m 1) (+ $m 1)))))))
+
+(def (fun (@lifted-subarray/2 (&t) (@shape $in-out $m $s)
+                        (in [&t (+ $in-out (* $m $s) 1) (+ $in-out (* $m $s) 1)])
+                        (offset [Int @shape 2]) : [&t @shape (+ $m 1) (+ $m 1)])
+     (@subarray/2 (&t) ($in-out $m $s) in offset)))
+
+(def (fun (@subarray/1 (&t) ($in-out $out)
+                (in [&t (+ $in-out $out)])
+                (offset [Int])
+                : [&t $out])
+     (@index (&t) ((+ $in-out $out)) in
+        (+ offset (i-app iota/static [$out])))))
+
+;; ----------------- 4D TRANSPOSE (axes 0 1 2 3 -> 0 2 1 3) -------------------------
+
+(def (fun (@transpose4d/0213 (&t) ($a $b $c $d)
+                (in [&t $a $b $c $d])
+                : [&t $a $c $b $d])
+    (let ((val (flat-cd : [&t $a $b (* $c $d)])
+               (@flatten (&t) ($c $d []) in))
+          (val (swapped : [&t $a (* $c $d) $b])
+               (@transpose2d (&t) ($b (* $c $d)) flat-cd))
+          (val (split-cd : [&t $a $c $d $b])
+               (@reshape (&t) ([$a (* $c $d) $b] [$a $c $d $b]) swapped)))
+      (@transpose2d (&t) ($d $b) split-cd))))
+
+;; ----------------- CONVOLUTION -------------------------
+;; Models darknet's truncating output-size division: writing
+;;   n + 2*pad - k = $q * $s + $r
+;; gives out = $q + 1 and leaves $r padded cells no window reads. Instead of
+;; constraining $n, this derives it, which is exact for every (n, pad, k, s):
+;;   n = $q * $s + $k + $r - 2 * $pad
+;; $pad is a plain per-side pixel count, not pre-divided by the stride.
+;;
+;; PRECONDITION: $r < $s. This is what makes $q the true floor quotient, i.e.
+;;   $q + 1 == (n + 2*$pad - $k)/$s + 1 as darknet computes it. Nothing checks
+;;   it; an $r >= $s silently describes a larger input than darknet would pick
+;;   for the same $q, shifting every output position.
+;; Also implicitly required, and equally unchecked:
+;;   - $s >= 1 and $k >= 1; $q, $r, $pad >= 0.
+;;   - (* $q $s) + $k + $r > $pad + $pad, so the derived input size is
+;;     positive. Dim evaluation rejects a negative result, but only at the
+;;     point the shape is used.
+;;   - $in-c >= 1 and $out-c >= 1 (@dot needs $k*$k*$in-c >= 1).
+;;   - the input is square; only one spatial size is tracked.
+;;   - $pad < $k for the result to mean anything: a larger pad admits windows
+;;     lying entirely in padding, which darknet's pad=size/2 never produces.
+
+(def (fun (@im2col/rem _ ($q $k $pad $in-c $s $r)
+                  (im [Float $in-c (- (+ (* $q $s) $k $r) $pad $pad) (- (+ (* $q $s) $k $r) $pad $pad)])
+                  : [Float (* $in-c $k $k) (* (+ $q 1) (+ $q 1))])
+      (@flatten (Float) ($in-c (* $k $k) [(* (+ $q 1) (+ $q 1))])
+        (@flatten (Float) ($k $k [(* (+ $q 1) (+ $q 1))])
+          (@flatten (Float) ((+ $q 1) (+ $q 1) [])
+             (@lifted-subarray/2 (Float) ([$k $k] (- (+ $k $r) 1) $q $s)
+               (@pad/2 (Float) ((- (+ (* $q $s) $k $r) $pad $pad) $pad) im 0.0)
+                 (@replicate (Int) ([$in-c] [$k $k 2])
+                   (i-app idxs-of/2 $k $k))))))))
+
+(def (fun (@dot _ ($n-1) (v [Float (+ 1 $n-1)]) (w [Float (+ 1 $n-1)]) : [Float])
+    (@reduce/zero (Float) ((+ 1 $n-1) []) f.+ 0.0 (f.* v w))))
+
+(def (fun (@lifted_dot _ ($m-1 $o) (v [Float (+ 1 $m-1)]) (M [Float (+ 1 $m-1) $o]) : [Float $o])
+    (@dot _ ($m-1) v (@transpose2d (Float) ((+ 1 $m-1) $o) M))))
+
+(def (fun (@matmul _ ($n $m-1 $o) (xss [Float $n (+ 1 $m-1)])
+                               (yss [Float (+ 1 $m-1) $o]) : [Float $n $o])
+      (@lifted_dot _ ($m-1 $o) xss yss)))
+
+(def (fun (@conv-2d/rem _ ($q $k $in-c $out-c $pad $s $r)
+                (in [Float $in-c (- (+ (* $q $s) $k $r) $pad $pad) (- (+ (* $q $s) $k $r) $pad $pad)])
+                (w  [Float $out-c $in-c $k $k])
+                : [Float $out-c (* (+ $q 1) (+ $q 1))])
+    (@matmul _ ($out-c (- (* $k $k $in-c) 1) (* (+ $q 1) (+ $q 1)))
+             (@flatten (Float) ($in-c (* $k $k) [])
+                (@flatten (Float) ($k $k []) w))
+             (@im2col/rem _ ($q $k $pad $in-c $s $r) in))))
+
+;; ----------------- MAX POOLING -------------------------
+
+(def (fun (@f-max2d _ (@s) (a [Float @s]) (b [Float @s]) : [Float @s])
+     (f.max a b)))
+
+(def (fun (@max-pool-2d _ ($n-k $k $in-c $p $s)
+                (in [Float $in-c (+ (* $n-k $s) $k) (+ (* $n-k $s) $k)])
+                : [Float $in-c (+ $n-k $p $p 1) (+ $n-k $p $p 1)])
+    (let ((val (neg-inf-2d : [Float (+ $n-k $p $p 1) (+ $n-k $p $p 1)])
+               (@replicate (Float) ([(+ $n-k $p $p 1) (+ $n-k $p $p 1)] []) -1.0e30))
+          (val (neg-inf-3d : [Float $k (+ $n-k $p $p 1) (+ $n-k $p $p 1)])
+               (@replicate (Float) ([$k] [(+ $n-k $p $p 1) (+ $n-k $p $p 1)]) neg-inf-2d)))
+      (@reduce/zero (Float) ($k [(+ $n-k $p $p 1) (+ $n-k $p $p 1)])
+                    (@f-max2d _ ([(+ $n-k $p $p 1) (+ $n-k $p $p 1)]))
+                    neg-inf-2d
+        (@reduce/zero (Float) ($k [$k (+ $n-k $p $p 1) (+ $n-k $p $p 1)])
+                      (@f-max2d _ ([$k (+ $n-k $p $p 1) (+ $n-k $p $p 1)]))
+                      neg-inf-3d
+          (@lifted-subarray/2 (Float) ([$k $k] (- $k 1) (+ $n-k $p $p) $s)
+            (@pad/2 (Float) ((+ (* $n-k $s) $k) (* $p $s)) in -1.0e30)
+              (@replicate (Int) ([$in-c] [$k $k 2])
+                (i-app idxs-of/2 $k $k))))))))
+
+;; ----------------- BATCH NORMALIZATION -------------------------
+
+(def (fun (@batch-norm-2d-apply _ ($n $k)
+                (in [Float $k $n $n])
+                (mean [Float $k])
+                (variance [Float $k])
+                (scale [Float $k])
+                (bias [Float $k])
+                : [Float $k $n $n])
+    (f.+ (f.* (f./ (f.- in (@replicate (Float) ([$n $n] []) mean))
+                   (f.sqrt (@replicate (Float) ([$n $n] []) (f.+ variance 0.00001))))
+              (@replicate (Float) ([$n $n] []) scale))
+         (@replicate (Float) ([$n $n] []) bias))))
+
+;; Fold the batch-norm affine into the conv weights, as darknet's
+;; fuse_conv_batchnorm does before inference (src/network.c, called from
+;; detector.c:1635). It rewrites the weights in place and then clears
+;; batch_normalize, so darknet's forward pass is conv + add_bias with no
+;; separate normalize step -- doing the same here keeps the two implementations
+;; on the same arithmetic rather than on two algebraically equal formulations.
+;;
+;; b' deliberately divides scale*mean rather than reusing inv, to match
+;; darknet's association: it computes bias - (scale*mean)/s, and
+;; bias - mean*(scale/s) rounds differently (~1.5e-06 relative on layer 0).
+(def (fun (@fuse-bn _ ($out-c $in-c $k)
+                (p {(w [Float $out-c $in-c $k $k]) (mean [Float $out-c])
+                    (variance [Float $out-c]) (scale [Float $out-c])
+                    (bias [Float $out-c])})
+                : {(w [Float $out-c $in-c $k $k]) (bias [Float $out-c])})
+    (let ((val (denom : [Float $out-c])
+               (f.sqrt (f.+ (field p variance) 0.00001))))
+      {(w [$out-c $in-c $k $k]
+          (f.* (field p w)
+               (@replicate (Float) ([$in-c $k $k] [])
+                  (f./ (field p scale) denom))))
+       (bias [$out-c]
+          (f.- (field p bias)
+               (f./ (f.* (field p scale) (field p mean)) denom)))})))
+
+;; ----------------- ACTIVATIONS -------------------------
+
+(def (fun (@leaky-relu _ () (x [Float]) : [Float])
+    (f.max x (f.* 0.1 x))))
+
+(def (val e 2.718281828459045))
+
+(def (fun (@softplus _ () (x [Float]) : [Float])
+     (f.ln (f.+ 1.0 (f.exp x)))))
+
+(def (fun (@mish _ () (x [Float]) : [Float])
+     (f.* x (f.tanh (@softplus _ () x)))))
+
+(def (fun (@sigmoid _ () (x [Float]) : [Float])
+     (f./ 1.0 (f.+ 1.0 (f.^ e (f.- 0.0 x))))))
+
+;; ----------------- NEAREST NEIGHBOR UPSAMPLING -------------------------
+
+(def (fun (@upsample-nearest _ ($n $k $s)
+                (in [Float $k $n $n])
+                : [Float $k (* $n $s) (* $n $s)])
+    (let ((val (replicated : [Float $k $n $n $s $s])
+               (@replicate (Float) ([$s $s] []) in))
+          (val (transposed : [Float $k $n $s $n $s])
+               (@transpose4d/0213 (Float) ($n $n $s $s) replicated))
+          (val (merged-rows : [Float $k (* $n $s) $n $s])
+               (@flatten (Float) ($n $s [$n $s]) transposed)))
+      (@flatten (Float) ($n $s []) merged-rows))))
+
+;; ----------------- SHORTCUT / ROUTE / SPP -------------------------
+
+(def (fun (@shortcut _ () (a [Float]) (b [Float]) : [Float])
+    (f.+ a b)))
+
+(def (fun (@route2 _ ($c1 $c2 $h $w)
+                (a [Float $c1 $h $w])
+                (b [Float $c2 $h $w])
+                : [Float (+ $c1 $c2) $h $w])
+     (@append (Float) ($c1 $c2 [$h $w]) a b)))
+
+(def (fun (@spp _ ($n $k)
+                (in [Float $k $n $n])
+                : [Float (* 4 $k) $n $n])
+    (let ((type *map [Float $k $n $n])
+          (val (mp5  : *map) (@max-pool-2d _ ((- $n 5) 5 $k 2 1) in))
+          (val (mp9  : *map) (@max-pool-2d _ ((- $n 9) 9 $k 4 1) in))
+          (val (mp13 : *map) (@max-pool-2d _ ((- $n 13) 13 $k 6 1) in)))
+      (@append (Float) ($k (* 3 $k) [$n $n])
+         mp13
+         (@append (Float) ($k (* 2 $k) [$n $n])
+            mp9
+            (@append (Float) ($k $k [$n $n]) mp5 in))))))
+
+;; ----------------- CONV + BATCHNORM + ACTIVATION -------------------------
+;; One record per conv+bn layer holds all five learnable tensors: the conv
+;; kernel plus batchnorm's per-channel mean/variance/scale/bias. At inference
+;; batchnorm uses a trained checkpoint's stored running stats, not anything
+;; recomputed from this call's input (see batch_norm.remora).
+
+;; A conv with a real bias and no batch-norm. Used directly by the three head
+;; 1x1 convs, which darknet stores as weights+bias only, and -- after @fuse-bn
+;; -- by every other conv too, mirroring post-fusion darknet where
+;; batch_normalize is 0 everywhere and the forward pass is always add_bias.
+(def (fun (@conv-bias _ ($q $k $in-c $out-c $pad $s $r)
+                (in [Float $in-c (- (+ (* $q $s) $k $r) $pad $pad) (- (+ (* $q $s) $k $r) $pad $pad)])
+                (p {(w [Float $out-c $in-c $k $k]) (bias [Float $out-c])})
+                : [Float $out-c (+ $q 1) (+ $q 1)])
+    (f.+ (@reshape (Float) ([$out-c (* (+ $q 1) (+ $q 1))] [$out-c (+ $q 1) (+ $q 1)])
+             (@conv-2d/rem _ ($q $k $in-c $out-c $pad $s $r) in (field p w)))
+         (@replicate (Float) ([(+ $q 1) (+ $q 1)] []) (field p bias)))))
+
+(def (fun (@conv-bn-mish _ ($q $k $in-c $out-c $pad $s $r)
+                (in [Float $in-c (- (+ (* $q $s) $k $r) $pad $pad) (- (+ (* $q $s) $k $r) $pad $pad)])
+                (p {(w [Float $out-c $in-c $k $k]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})
+                : [Float $out-c (+ $q 1) (+ $q 1)])
+    (@mish _ ()
+      (@conv-bias _ ($q $k $in-c $out-c $pad $s $r) in
+        (@fuse-bn _ ($out-c $in-c $k) p)))))
+
+(def (fun (@conv-bn-leaky _ ($q $k $in-c $out-c $pad $s $r)
+                (in [Float $in-c (- (+ (* $q $s) $k $r) $pad $pad) (- (+ (* $q $s) $k $r) $pad $pad)])
+                (p {(w [Float $out-c $in-c $k $k]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})
+                : [Float $out-c (+ $q 1) (+ $q 1)])
+    (@leaky-relu _ ()
+      (@conv-bias _ ($q $k $in-c $out-c $pad $s $r) in
+        (@fuse-bn _ ($out-c $in-c $k) p)))))
+
+;; ----------------- CSPDARKNET53 RESIDUAL BLOCK -------------------------
+;; Both convs are stride 1 and size-preserving, so $q = $n - 1 and $r = 0:
+;; 1x1 with pad 0 and 3x3 with pad 1 both leave the spatial size at $n.
+
+(def (fun (@res-block _ ($h $h2 $n)
+                (in [Float $h $n $n])
+                (rp {(w [Float $h2 $h 1 1]) (mean [Float $h2]) (variance [Float $h2]) (scale [Float $h2]) (bias [Float $h2])})
+                (ep {(w [Float $h $h2 3 3]) (mean [Float $h]) (variance [Float $h]) (scale [Float $h]) (bias [Float $h])})
+                : [Float $h $n $n])
+    (let ((val (reduced : [Float $h2 $n $n])
+               (@conv-bn-mish _ ((- $n 1) 1 $h $h2 0 1 0) in rp))
+          (val (expanded : [Float $h $n $n])
+               (@conv-bn-mish _ ((- $n 1) 3 $h2 $h 1 1 0) reduced ep)))
+      (@shortcut _ () expanded in))))
+
+;; ----------------- CSP STAGES -------------------------
+;; Downsample with darknet's real 3x3 / stride 2 / pad 1, then CSP split into
+;; two 1x1-conv paths (skip + main), N residual blocks on the main path, a 1x1
+;; conv, concat, and a 1x1 transition conv. $n-k-down is the downsample's $q,
+;; so the post-downsample spatial size is (+ $n-k-down 1) and the stage input
+;; is (+ (* $n-k-down 2) 2): for an even input N, N/2 - 1 windows of a 3x3 at
+;; stride 2 over N+2 padded columns leaves remainder $r = 1.
+
+;; ----------------- WEIGHT LOADING -------------------------
+;; Paths are Int arrays of bytes. Only the six shared fragments below are
+;; encoded literally; the per-layer index is derived arithmetically, so the
+;; 110 layer names cost nothing. Paths are relative to the working directory,
+;; so run this from the repository root. Produced by
+;; examples/darknet/tools/split_weights.py.
+
+(def (val wdir [101 120 97 109 112 108 101 115 47 100 97 114 107 110 101 116 47 119 101 105 103 104 116 115 47 99 111 110 118 95]))          ;; "examples/darknet/weights/conv_"
+(def (val f-bias [47 98 105 97 115 46 98 105 110]))        ;; "/bias.bin"
+(def (val f-scale [47 115 99 97 108 101 46 98 105 110]))       ;; "/scale.bin"
+(def (val f-mean [47 109 101 97 110 46 98 105 110]))        ;; "/mean.bin"
+(def (val f-var [47 118 97 114 105 97 110 99 101 46 98 105 110]))         ;; "/variance.bin"
+(def (val f-w [47 119 101 105 103 104 116 115 46 98 105 110]))           ;; "/weights.bin"
+(def (val tmsg "finish"))    ;; shared progress marker for @trace
+(def (val f-det-p3 [101 120 97 109 112 108 101 115 47 100 97 114 107 110 101 116 47 118 101 114 105 102 121 47 100 101 116 115 95 112 51 46 98 105 110]))  ;; "examples/darknet/verify/dets_p3.bin"
+(def (val f-det-p4 [101 120 97 109 112 108 101 115 47 100 97 114 107 110 101 116 47 118 101 114 105 102 121 47 100 101 116 115 95 112 52 46 98 105 110]))  ;; "examples/darknet/verify/dets_p4.bin"
+(def (val f-det-p5 [101 120 97 109 112 108 101 115 47 100 97 114 107 110 101 116 47 118 101 114 105 102 121 47 100 101 116 115 95 112 53 46 98 105 110]))  ;; "examples/darknet/verify/dets_p5.bin"
+(def (val f-det-all [101 120 97 109 112 108 101 115 47 100 97 114 107 110 101 116 47 118 101 114 105 102 121 47 100 101 116 115 95 97 108 108 46 98 105 110]))  ;; "examples/darknet/verify/dets_all.bin"
+(def (val f-image [101 120 97 109 112 108 101 115 47 100 97 114 107 110 101 116 47 100 111 103 95 54 48 56 46 98 105 110]))  ;; "examples/darknet/dog_608.bin", produced by tools/prepare_image.py
+
+;; a 3-digit zero-padded index as ASCII bytes, e.g. 137 -> "137"
+(def (fun (@idx3 _ () (i [Int]) : [Int 3])
+    [(+ 48 (/ i 100)) (+ 48 (mod (/ i 10) 10)) (+ 48 (mod i 10))]))
+
+;; wdir ++ idx3(i) ++ suffix
+(def (fun (@path _ ($sfx) (i [Int]) (suffix [Int $sfx]) : [Int (+ 33 $sfx)])
+    (@append (Int) (33 $sfx [])
+       (@append (Int) (30 3 []) wdir (@idx3 _ () i))
+       suffix)))
+
+(def (fun (@load-params _ ($o $i $k) (n [Int]) : {(w [Float $o $i $k $k]) (mean [Float $o]) (variance [Float $o]) (scale [Float $o]) (bias [Float $o])})
+    {(w [$o $i $k $k] (@read-file-f32bin _ (45 [$o $i $k $k]) (@path _ (12) n f-w)))
+     (mean [$o] (@read-file-f32bin _ (42 [$o]) (@path _ (9) n f-mean)))
+     (variance [$o] (@read-file-f32bin _ (46 [$o]) (@path _ (13) n f-var)))
+     (scale [$o] (@read-file-f32bin _ (43 [$o]) (@path _ (10) n f-scale)))
+     (bias [$o] (@read-file-f32bin _ (42 [$o]) (@path _ (9) n f-bias)))}))
+
+;; the three head convs have no batch-norm: only weights and bias on disk
+(def (fun (@load-bias-params _ ($o $i $k) (n [Int])
+                : {(w [Float $o $i $k $k]) (bias [Float $o])})
+    {(w [$o $i $k $k] (@read-file-f32bin _ (45 [$o $i $k $k]) (@path _ (12) n f-w)))
+     (bias [$o] (@read-file-f32bin _ (42 [$o]) (@path _ (9) n f-bias)))}))
+
+;; Stage 1 only. yolov4.cfg special-cases it (layers 1-10): the split does
+;; not compress, so both branches stay at $out-c, the residual block is the
+;; one place a bottleneck appears, and the transition halves the concat.
+;; Stages 2-5 use the generic @csp-stage-xN below instead.
+(def (fun (@csp-stage-1 _ ($in-ch $out-c $bottleneck $n-k-down)
+                (in [Float $in-ch (+ (* $n-k-down 2) 2) (+ (* $n-k-down 2) 2)])
+                (down-p {(w [Float $out-c $in-ch 3 3]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})  ;; 3x3/stride-2/pad-1 downsample
+                (skip-p {(w [Float $out-c $out-c 1 1]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})  ;; CSP skip path, full width
+                (m0-p {(w [Float $out-c $out-c 1 1]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})  ;; CSP main path, full width
+                (r1-rp {(w [Float $bottleneck $out-c 1 1]) (mean [Float $bottleneck]) (variance [Float $bottleneck]) (scale [Float $bottleneck]) (bias [Float $bottleneck])})  ;; residual block 1x1 reduce
+                (r1-ep {(w [Float $out-c $bottleneck 3 3]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})  ;; residual block 3x3 expand
+                (mf-p {(w [Float $out-c $out-c 1 1]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})  ;; main path final 1x1
+                (tr-p {(w [Float $out-c (* 2 $out-c) 1 1]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})  ;; transition, halves the concat
+                : [Float $out-c (+ $n-k-down 1) (+ $n-k-down 1)])
+    (let ((type *map [Float $out-c (+ $n-k-down 1) (+ $n-k-down 1)])
+          (type *cat [Float (* 2 $out-c) (+ $n-k-down 1) (+ $n-k-down 1)])
+          (val (down  : *map)
+               (@conv-bn-mish _ ($n-k-down 3 $in-ch $out-c 1 2 1) in down-p))
+          (val (skip  : *map)
+               (@conv-bn-mish _ ($n-k-down 1 $out-c $out-c 0 1 0) down skip-p))
+          (val (main0 : *map)
+               (@conv-bn-mish _ ($n-k-down 1 $out-c $out-c 0 1 0) down m0-p))
+          (val (main1 : *map)
+               (@res-block _ ($out-c $bottleneck (+ $n-k-down 1)) main0 r1-rp r1-ep))
+          (val (mainF : *map)
+               (@conv-bn-mish _ ($n-k-down 1 $out-c $out-c 0 1 0) main1 mf-p))
+          (val (merged : *cat)
+               (@route2 _ ($out-c $out-c (+ $n-k-down 1) (+ $n-k-down 1)) mainF skip)))
+      (@conv-bn-mish _ ($n-k-down 1 (* 2 $out-c) $out-c 0 1 0) merged tr-p))))
+
+(def (fun (@csp-stage-x2 _ ($in-ch $half $n-k-down)
+                (in [Float $in-ch (+ (* $n-k-down 2) 2) (+ (* $n-k-down 2) 2)])
+                (down-p {(w [Float (+ $half $half) $in-ch 3 3]) (mean [Float (+ $half $half)]) (variance [Float (+ $half $half)]) (scale [Float (+ $half $half)]) (bias [Float (+ $half $half)])})  ;; 3x3/stride-2/pad-1 downsample
+                (skip-p {(w [Float $half (+ $half $half) 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; CSP skip path
+                (m0-p {(w [Float $half (+ $half $half) 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; CSP main path
+                (r1-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 1 1x1
+                (r1-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 1 3x3
+                (r2-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 2 1x1
+                (r2-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 2 3x3
+                (mf-p {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; main path final 1x1
+                (tr-p {(w [Float (+ $half $half) (+ $half $half) 1 1]) (mean [Float (+ $half $half)]) (variance [Float (+ $half $half)]) (scale [Float (+ $half $half)]) (bias [Float (+ $half $half)])})  ;; transition after concat
+                : [Float (+ $half $half) (+ $n-k-down 1) (+ $n-k-down 1)])
+    (let ((type *full-map [Float (+ $half $half) (+ $n-k-down 1) (+ $n-k-down 1)])
+          (type *half-map [Float $half (+ $n-k-down 1) (+ $n-k-down 1)])
+          (val (down  : *full-map)
+               (@conv-bn-mish _ ($n-k-down 3 $in-ch (+ $half $half) 1 2 1) in down-p))
+          (val (skip  : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) $half 0 1 0) down skip-p))
+          (val (main0 : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) $half 0 1 0) down m0-p))
+          (val (main1 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main0 r1-rp r1-ep))
+          (val (main2 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main1 r2-rp r2-ep))
+          (val (mainF : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 $half $half 0 1 0) main2 mf-p))
+          (val (merged : *full-map)
+               (@route2 _ ($half $half (+ $n-k-down 1) (+ $n-k-down 1)) mainF skip)))
+      (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) (+ $half $half) 0 1 0) merged tr-p))))
+
+(def (fun (@csp-stage-x4 _ ($in-ch $half $n-k-down)
+                (in [Float $in-ch (+ (* $n-k-down 2) 2) (+ (* $n-k-down 2) 2)])
+                (down-p {(w [Float (+ $half $half) $in-ch 3 3]) (mean [Float (+ $half $half)]) (variance [Float (+ $half $half)]) (scale [Float (+ $half $half)]) (bias [Float (+ $half $half)])})  ;; 3x3/stride-2/pad-1 downsample
+                (skip-p {(w [Float $half (+ $half $half) 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; CSP skip path
+                (m0-p {(w [Float $half (+ $half $half) 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; CSP main path
+                (r1-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 1 1x1
+                (r1-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 1 3x3
+                (r2-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 2 1x1
+                (r2-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 2 3x3
+                (r3-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 3 1x1
+                (r3-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 3 3x3
+                (r4-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 4 1x1
+                (r4-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 4 3x3
+                (mf-p {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; main path final 1x1
+                (tr-p {(w [Float (+ $half $half) (+ $half $half) 1 1]) (mean [Float (+ $half $half)]) (variance [Float (+ $half $half)]) (scale [Float (+ $half $half)]) (bias [Float (+ $half $half)])})  ;; transition after concat
+                : [Float (+ $half $half) (+ $n-k-down 1) (+ $n-k-down 1)])
+    (let ((type *full-map [Float (+ $half $half) (+ $n-k-down 1) (+ $n-k-down 1)])
+          (type *half-map [Float $half (+ $n-k-down 1) (+ $n-k-down 1)])
+          (val (down  : *full-map)
+               (@conv-bn-mish _ ($n-k-down 3 $in-ch (+ $half $half) 1 2 1) in down-p))
+          (val (skip  : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) $half 0 1 0) down skip-p))
+          (val (main0 : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) $half 0 1 0) down m0-p))
+          (val (main1 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main0 r1-rp r1-ep))
+          (val (main2 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main1 r2-rp r2-ep))
+          (val (main3 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main2 r3-rp r3-ep))
+          (val (main4 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main3 r4-rp r4-ep))
+          (val (mainF : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 $half $half 0 1 0) main4 mf-p))
+          (val (merged : *full-map)
+               (@route2 _ ($half $half (+ $n-k-down 1) (+ $n-k-down 1)) mainF skip)))
+      (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) (+ $half $half) 0 1 0) merged tr-p))))
+
+(def (fun (@csp-stage-x8 _ ($in-ch $half $n-k-down)
+                (in [Float $in-ch (+ (* $n-k-down 2) 2) (+ (* $n-k-down 2) 2)])
+                (down-p {(w [Float (+ $half $half) $in-ch 3 3]) (mean [Float (+ $half $half)]) (variance [Float (+ $half $half)]) (scale [Float (+ $half $half)]) (bias [Float (+ $half $half)])})  ;; 3x3/stride-2/pad-1 downsample
+                (skip-p {(w [Float $half (+ $half $half) 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; CSP skip path
+                (m0-p {(w [Float $half (+ $half $half) 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; CSP main path
+                (r1-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 1 1x1
+                (r1-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 1 3x3
+                (r2-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 2 1x1
+                (r2-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 2 3x3
+                (r3-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 3 1x1
+                (r3-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 3 3x3
+                (r4-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 4 1x1
+                (r4-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 4 3x3
+                (r5-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 5 1x1
+                (r5-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 5 3x3
+                (r6-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 6 1x1
+                (r6-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 6 3x3
+                (r7-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 7 1x1
+                (r7-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 7 3x3
+                (r8-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 8 1x1
+                (r8-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 8 3x3
+                (mf-p {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; main path final 1x1
+                (tr-p {(w [Float (+ $half $half) (+ $half $half) 1 1]) (mean [Float (+ $half $half)]) (variance [Float (+ $half $half)]) (scale [Float (+ $half $half)]) (bias [Float (+ $half $half)])})  ;; transition after concat
+                : [Float (+ $half $half) (+ $n-k-down 1) (+ $n-k-down 1)])
+    (let ((type *full-map [Float (+ $half $half) (+ $n-k-down 1) (+ $n-k-down 1)])
+          (type *half-map [Float $half (+ $n-k-down 1) (+ $n-k-down 1)])
+          (val (down  : *full-map)
+               (@conv-bn-mish _ ($n-k-down 3 $in-ch (+ $half $half) 1 2 1) in down-p))
+          (val (skip  : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) $half 0 1 0) down skip-p))
+          (val (main0 : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) $half 0 1 0) down m0-p))
+          (val (main1 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main0 r1-rp r1-ep))
+          (val (main2 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main1 r2-rp r2-ep))
+          (val (main3 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main2 r3-rp r3-ep))
+          (val (main4 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main3 r4-rp r4-ep))
+          (val (main5 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main4 r5-rp r5-ep))
+          (val (main6 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main5 r6-rp r6-ep))
+          (val (main7 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main6 r7-rp r7-ep))
+          (val (main8 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main7 r8-rp r8-ep))
+          (val (mainF : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 $half $half 0 1 0) main8 mf-p))
+          (val (merged : *full-map)
+               (@route2 _ ($half $half (+ $n-k-down 1) (+ $n-k-down 1)) mainF skip)))
+      (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) (+ $half $half) 0 1 0) merged tr-p))))
+
+;; ----------------- SPP / PANET CONV BLOCKS (leaky) -------------------------
+
+(def (fun (@panet-3conv _ ($in-ch $mid $small $n)
+                (in [Float $in-ch $n $n])
+                (c1-p {(w [Float $small $in-ch 1 1]) (mean [Float $small]) (variance [Float $small]) (scale [Float $small]) (bias [Float $small])})
+                (c2-p {(w [Float $mid $small 3 3]) (mean [Float $mid]) (variance [Float $mid]) (scale [Float $mid]) (bias [Float $mid])})
+                (c3-p {(w [Float $small $mid 1 1]) (mean [Float $small]) (variance [Float $small]) (scale [Float $small]) (bias [Float $small])})
+                : [Float $small $n $n])
+    (let ((val (c1 : [Float $small $n $n]) (@conv-bn-leaky _ ((- $n 1) 1 $in-ch $small 0 1 0) in c1-p))
+          (val (c2 : [Float $mid $n $n]) (@conv-bn-leaky _ ((- $n 1) 3 $small $mid 1 1 0) c1 c2-p)))
+      (@conv-bn-leaky _ ((- $n 1) 1 $mid $small 0 1 0) c2 c3-p))))
+
+(def (fun (@panet-5conv _ ($big $small $n)
+                (in [Float $big $n $n])
+                (c1-p {(w [Float $small $big 1 1]) (mean [Float $small]) (variance [Float $small]) (scale [Float $small]) (bias [Float $small])})
+                (c2-p {(w [Float $big $small 3 3]) (mean [Float $big]) (variance [Float $big]) (scale [Float $big]) (bias [Float $big])})
+                (c3-p {(w [Float $small $big 1 1]) (mean [Float $small]) (variance [Float $small]) (scale [Float $small]) (bias [Float $small])})
+                (c4-p {(w [Float $big $small 3 3]) (mean [Float $big]) (variance [Float $big]) (scale [Float $big]) (bias [Float $big])})
+                (c5-p {(w [Float $small $big 1 1]) (mean [Float $small]) (variance [Float $small]) (scale [Float $small]) (bias [Float $small])})
+                : [Float $small $n $n])
+    (let ((type *small-map [Float $small $n $n])
+          (type *big-map [Float $big $n $n])
+          (val (c1 : *small-map) (@conv-bn-leaky _ ((- $n 1) 1 $big $small 0 1 0) in c1-p))
+          (val (c2 : *big-map) (@conv-bn-leaky _ ((- $n 1) 3 $small $big 1 1 0) c1 c2-p))
+          (val (c3 : *small-map) (@conv-bn-leaky _ ((- $n 1) 1 $big $small 0 1 0) c2 c3-p))
+          (val (c4 : *big-map) (@conv-bn-leaky _ ((- $n 1) 3 $small $big 1 1 0) c3 c4-p)))
+      (@conv-bn-leaky _ ((- $n 1) 1 $big $small 0 1 0) c4 c5-p))))
+
+;; ----------------- FULL NETWORK (CSPDarknet53 + SPP + PANet, no detection heads) ---
+;; Input 608x608x3. Backbone stages halve resolution 5 times: 608 -> 304 ->
+;; 152 -> 76 -> 38 -> 19 (channels 32 -> 64 -> 128 -> 256 -> 512 -> 1024,
+;; block counts 1/2/8/8/4). SPP + PANet then produce 3 feature maps at
+;; 76x76x128, 38x38x256 and 19x19x512 -- the inputs the (omitted) detection
+;; heads would run on. Every layer's parameters are read from the real
+;; yolov4.weights split (see the WEIGHT LOADING section); only the input image
+;; is still a placeholder.
+
+;; ----------------- DETECTION (the [yolo] layers) -------------------------
+;; Head channel layout is anchor-major: channel = anchor*(5+classes) +
+;; attribute, each attribute a full SxS plane (darknet's entry_index), so
+;; every quantity below is a contiguous channel range.
+;;
+;; Decode (forward_yolo_layer + get_yolo_box, new_coords=0):
+;;   x = (col + sigmoid(tx)*sxy - 0.5*(sxy-1)) / S      y likewise with row
+;;   w = exp(tw) * anchor-w / net                       h likewise
+;;   obj, classes = sigmoid  (per-class logistic, not softmax)
+;; Coordinates are normalized to [0,1] relative to the image.
+;;
+;; NMS is deliberately absent: it yields a variable number of surviving boxes,
+;; which needs an existentially sized result. darknet keeps it out of the layer
+;; too (do_nms_sort is post-processing).
+
+(def (fun (@planes _ ($c $n $s)
+                (in [Float $c $s $s])
+                (start [Int])
+                : [Float $n $s $s])
+    (@reshape (Float) ([(* $n $s $s)] [$n $s $s])
+       (@subarray/1 (Float) ((* (- $c $n) $s $s) (* $n $s $s))
+          (@reshape (Float) ([$c $s $s] [(* $c $s $s)]) in)
+          (* start (* (@reify-dim _ ($s)) (@reify-dim _ ($s))))))))
+
+(def (fun (@plane _ ($c $s) (in [Float $c $s $s]) (i [Int]) : [Float $s $s])
+    (@reshape (Float) ([1 $s $s] [$s $s]) (@planes _ ($c 1 $s) in i))))
+
+;; One anchor's (5 + $classes) planes -> an SxS grid of detections. Applying
+;; this to [Float 3 (5+classes) S S] with aw/ah as [Float 3] lifts it over the
+;; anchor axis, so there is no explicit anchor loop.
+(def (fun (@yolo-anchor _ ($s $classes)
+                (block [Float (+ 5 $classes) $s $s])
+                (aw [Float]) (ah [Float])
+                (sxy [Float]) (net [Float])
+                : [Float (+ 5 $classes) $s $s])
+    (let ((type *plane [Float $s $s])
+          (val (grid : [Int $s $s 2]) (i-app idxs-of/2 $s $s))
+          (val (row : *plane) (i->f (@index (Int) (2) grid 0)))
+          (val (col : *plane) (i->f (@index (Int) (2) grid 1)))
+          (val (sf : [Float]) (i->f (@reify-dim _ ($s))))
+          (val (shift : [Float]) (f.* -0.5 (f.- sxy 1.0)))
+          (val (tx : *plane) (@plane _ ((+ 5 $classes) $s) block 0))
+          (val (ty : *plane) (@plane _ ((+ 5 $classes) $s) block 1))
+          (val (tw : *plane) (@plane _ ((+ 5 $classes) $s) block 2))
+          (val (th : *plane) (@plane _ ((+ 5 $classes) $s) block 3))
+          (val (tobj : *plane) (@plane _ ((+ 5 $classes) $s) block 4))
+          (val (tcls : [Float $classes $s $s])
+               (@planes _ ((+ 5 $classes) $classes $s) block 5)))
+      ;; Stack the decoded planes on the leading axis in darknet's attribute
+      ;; order (x, y, w, h, obj, classes), matching entry_index and the
+      ;; `detection` struct. Staying a plain Float array rather than a record
+      ;; also lets the result go straight out through @write-file-f32bin.
+      (@append (Float) (5 $classes [$s $s])
+        [(f./ (f.+ col (f.+ (f.* (@sigmoid _ () tx) sxy) shift)) sf)
+         (f./ (f.+ row (f.+ (f.* (@sigmoid _ () ty) sxy) shift)) sf)
+         (f./ (f.* (f.^ e tw) aw) net)
+         (f./ (f.* (f.^ e th) ah) net)
+         (@sigmoid _ () tobj)]
+        (@sigmoid _ () tcls)))))
+
+;; A full detection head: 3x3 feeder conv (batch-normed, leaky), 1x1 head conv
+;; (bias, linear), then the decode, flattened to one list of detections.
+(def (fun (@yolo-head _ ($s $in-c $mid $classes)
+                (in [Float $in-c $s $s])
+                (fp {(w [Float $mid $in-c 3 3]) (mean [Float $mid]) (variance [Float $mid]) (scale [Float $mid]) (bias [Float $mid])})
+                (hp {(w [Float (* 3 (+ 5 $classes)) $mid 1 1]) (bias [Float (* 3 (+ 5 $classes))])})
+                (aw [Float 3]) (ah [Float 3])
+                (sxy [Float]) (net [Float])
+                : [Float (* 3 (* $s $s)) (+ 5 $classes)])
+    (let ((val (feat : [Float $mid $s $s])
+               (@conv-bn-leaky _ ((- $s 1) 3 $in-c $mid 1 1 0) in fp))
+          (val (raw : [Float (* 3 (+ 5 $classes)) $s $s])
+               (@conv-bias _ ((- $s 1) 1 $mid (* 3 (+ 5 $classes)) 0 1 0) feat hp))
+          (val (blocks : [Float 3 (+ 5 $classes) $s $s])
+               (@reshape (Float) ([(* 3 (+ 5 $classes)) $s $s] [3 (+ 5 $classes) $s $s]) raw))
+          (val (dec : [Float 3 (+ 5 $classes) $s $s])
+               (@yolo-anchor _ ($s $classes) blocks aw ah sxy net))
+          ;; per anchor: [(5+c) S S] -> [(5+c) S*S] -> transpose -> [S*S (5+c)],
+          ;; so each row is one detection's 5+classes attributes
+          (val (rows : [Float 3 (* $s $s) (+ 5 $classes)])
+               (@transpose2d (Float) ((+ 5 $classes) (* $s $s))
+                  (@reshape (Float) ([(+ 5 $classes) $s $s] [(+ 5 $classes) (* $s $s)]) dec))))
+      ;; NB anchor-major: row = anchor*S*S + cell, whereas darknet's
+      ;; get_yolo_detections emits cell*3 + anchor. tools/compare_dets.py
+      ;; permutes rather than paying for a strided gather here.
+      (@flatten (Float) (3 (* $s $s) [(+ 5 $classes)]) rows))))
+
+(entry (main
+        ;; Every input is a parameter. The image first, then each conv layer in
+        ;; cfg-index order with its arrays named after the files in
+        ;; weights/conv_NNN/ -- bias, scale, mean, variance, weights, which is
+        ;; darknet's own storage order in .weights (parser.c:1845-1849).
+        ;; tools/run_yolov4.sh builds the input file in exactly this order;
+        ;; `gen_main.py --print-inputs` is the shared definition of it.
+        (image [Float 3 608 608])
+        ;; cfg#0   3x3 3->32
+        (bias-000 [Float 32]) (scale-000 [Float 32]) (mean-000 [Float 32]) (var-000 [Float 32]) (w-000 [Float 32 3 3 3])
+        ;; cfg#1   3x3 32->64
+        (bias-001 [Float 64]) (scale-001 [Float 64]) (mean-001 [Float 64]) (var-001 [Float 64]) (w-001 [Float 64 32 3 3])
+        ;; cfg#2   1x1 64->64
+        (bias-002 [Float 64]) (scale-002 [Float 64]) (mean-002 [Float 64]) (var-002 [Float 64]) (w-002 [Float 64 64 1 1])
+        ;; cfg#4   1x1 64->64
+        (bias-004 [Float 64]) (scale-004 [Float 64]) (mean-004 [Float 64]) (var-004 [Float 64]) (w-004 [Float 64 64 1 1])
+        ;; cfg#5   1x1 64->32
+        (bias-005 [Float 32]) (scale-005 [Float 32]) (mean-005 [Float 32]) (var-005 [Float 32]) (w-005 [Float 32 64 1 1])
+        ;; cfg#6   3x3 32->64
+        (bias-006 [Float 64]) (scale-006 [Float 64]) (mean-006 [Float 64]) (var-006 [Float 64]) (w-006 [Float 64 32 3 3])
+        ;; cfg#8   1x1 64->64
+        (bias-008 [Float 64]) (scale-008 [Float 64]) (mean-008 [Float 64]) (var-008 [Float 64]) (w-008 [Float 64 64 1 1])
+        ;; cfg#10  1x1 128->64
+        (bias-010 [Float 64]) (scale-010 [Float 64]) (mean-010 [Float 64]) (var-010 [Float 64]) (w-010 [Float 64 128 1 1])
+        ;; cfg#11  3x3 64->128
+        (bias-011 [Float 128]) (scale-011 [Float 128]) (mean-011 [Float 128]) (var-011 [Float 128]) (w-011 [Float 128 64 3 3])
+        ;; cfg#12  1x1 128->64
+        (bias-012 [Float 64]) (scale-012 [Float 64]) (mean-012 [Float 64]) (var-012 [Float 64]) (w-012 [Float 64 128 1 1])
+        ;; cfg#14  1x1 128->64
+        (bias-014 [Float 64]) (scale-014 [Float 64]) (mean-014 [Float 64]) (var-014 [Float 64]) (w-014 [Float 64 128 1 1])
+        ;; cfg#15  1x1 64->64
+        (bias-015 [Float 64]) (scale-015 [Float 64]) (mean-015 [Float 64]) (var-015 [Float 64]) (w-015 [Float 64 64 1 1])
+        ;; cfg#16  3x3 64->64
+        (bias-016 [Float 64]) (scale-016 [Float 64]) (mean-016 [Float 64]) (var-016 [Float 64]) (w-016 [Float 64 64 3 3])
+        ;; cfg#18  1x1 64->64
+        (bias-018 [Float 64]) (scale-018 [Float 64]) (mean-018 [Float 64]) (var-018 [Float 64]) (w-018 [Float 64 64 1 1])
+        ;; cfg#19  3x3 64->64
+        (bias-019 [Float 64]) (scale-019 [Float 64]) (mean-019 [Float 64]) (var-019 [Float 64]) (w-019 [Float 64 64 3 3])
+        ;; cfg#21  1x1 64->64
+        (bias-021 [Float 64]) (scale-021 [Float 64]) (mean-021 [Float 64]) (var-021 [Float 64]) (w-021 [Float 64 64 1 1])
+        ;; cfg#23  1x1 128->128
+        (bias-023 [Float 128]) (scale-023 [Float 128]) (mean-023 [Float 128]) (var-023 [Float 128]) (w-023 [Float 128 128 1 1])
+        ;; cfg#24  3x3 128->256
+        (bias-024 [Float 256]) (scale-024 [Float 256]) (mean-024 [Float 256]) (var-024 [Float 256]) (w-024 [Float 256 128 3 3])
+        ;; cfg#25  1x1 256->128
+        (bias-025 [Float 128]) (scale-025 [Float 128]) (mean-025 [Float 128]) (var-025 [Float 128]) (w-025 [Float 128 256 1 1])
+        ;; cfg#27  1x1 256->128
+        (bias-027 [Float 128]) (scale-027 [Float 128]) (mean-027 [Float 128]) (var-027 [Float 128]) (w-027 [Float 128 256 1 1])
+        ;; cfg#28  1x1 128->128
+        (bias-028 [Float 128]) (scale-028 [Float 128]) (mean-028 [Float 128]) (var-028 [Float 128]) (w-028 [Float 128 128 1 1])
+        ;; cfg#29  3x3 128->128
+        (bias-029 [Float 128]) (scale-029 [Float 128]) (mean-029 [Float 128]) (var-029 [Float 128]) (w-029 [Float 128 128 3 3])
+        ;; cfg#31  1x1 128->128
+        (bias-031 [Float 128]) (scale-031 [Float 128]) (mean-031 [Float 128]) (var-031 [Float 128]) (w-031 [Float 128 128 1 1])
+        ;; cfg#32  3x3 128->128
+        (bias-032 [Float 128]) (scale-032 [Float 128]) (mean-032 [Float 128]) (var-032 [Float 128]) (w-032 [Float 128 128 3 3])
+        ;; cfg#34  1x1 128->128
+        (bias-034 [Float 128]) (scale-034 [Float 128]) (mean-034 [Float 128]) (var-034 [Float 128]) (w-034 [Float 128 128 1 1])
+        ;; cfg#35  3x3 128->128
+        (bias-035 [Float 128]) (scale-035 [Float 128]) (mean-035 [Float 128]) (var-035 [Float 128]) (w-035 [Float 128 128 3 3])
+        ;; cfg#37  1x1 128->128
+        (bias-037 [Float 128]) (scale-037 [Float 128]) (mean-037 [Float 128]) (var-037 [Float 128]) (w-037 [Float 128 128 1 1])
+        ;; cfg#38  3x3 128->128
+        (bias-038 [Float 128]) (scale-038 [Float 128]) (mean-038 [Float 128]) (var-038 [Float 128]) (w-038 [Float 128 128 3 3])
+        ;; cfg#40  1x1 128->128
+        (bias-040 [Float 128]) (scale-040 [Float 128]) (mean-040 [Float 128]) (var-040 [Float 128]) (w-040 [Float 128 128 1 1])
+        ;; cfg#41  3x3 128->128
+        (bias-041 [Float 128]) (scale-041 [Float 128]) (mean-041 [Float 128]) (var-041 [Float 128]) (w-041 [Float 128 128 3 3])
+        ;; cfg#43  1x1 128->128
+        (bias-043 [Float 128]) (scale-043 [Float 128]) (mean-043 [Float 128]) (var-043 [Float 128]) (w-043 [Float 128 128 1 1])
+        ;; cfg#44  3x3 128->128
+        (bias-044 [Float 128]) (scale-044 [Float 128]) (mean-044 [Float 128]) (var-044 [Float 128]) (w-044 [Float 128 128 3 3])
+        ;; cfg#46  1x1 128->128
+        (bias-046 [Float 128]) (scale-046 [Float 128]) (mean-046 [Float 128]) (var-046 [Float 128]) (w-046 [Float 128 128 1 1])
+        ;; cfg#47  3x3 128->128
+        (bias-047 [Float 128]) (scale-047 [Float 128]) (mean-047 [Float 128]) (var-047 [Float 128]) (w-047 [Float 128 128 3 3])
+        ;; cfg#49  1x1 128->128
+        (bias-049 [Float 128]) (scale-049 [Float 128]) (mean-049 [Float 128]) (var-049 [Float 128]) (w-049 [Float 128 128 1 1])
+        ;; cfg#50  3x3 128->128
+        (bias-050 [Float 128]) (scale-050 [Float 128]) (mean-050 [Float 128]) (var-050 [Float 128]) (w-050 [Float 128 128 3 3])
+        ;; cfg#52  1x1 128->128
+        (bias-052 [Float 128]) (scale-052 [Float 128]) (mean-052 [Float 128]) (var-052 [Float 128]) (w-052 [Float 128 128 1 1])
+        ;; cfg#54  1x1 256->256
+        (bias-054 [Float 256]) (scale-054 [Float 256]) (mean-054 [Float 256]) (var-054 [Float 256]) (w-054 [Float 256 256 1 1])
+        ;; cfg#55  3x3 256->512
+        (bias-055 [Float 512]) (scale-055 [Float 512]) (mean-055 [Float 512]) (var-055 [Float 512]) (w-055 [Float 512 256 3 3])
+        ;; cfg#56  1x1 512->256
+        (bias-056 [Float 256]) (scale-056 [Float 256]) (mean-056 [Float 256]) (var-056 [Float 256]) (w-056 [Float 256 512 1 1])
+        ;; cfg#58  1x1 512->256
+        (bias-058 [Float 256]) (scale-058 [Float 256]) (mean-058 [Float 256]) (var-058 [Float 256]) (w-058 [Float 256 512 1 1])
+        ;; cfg#59  1x1 256->256
+        (bias-059 [Float 256]) (scale-059 [Float 256]) (mean-059 [Float 256]) (var-059 [Float 256]) (w-059 [Float 256 256 1 1])
+        ;; cfg#60  3x3 256->256
+        (bias-060 [Float 256]) (scale-060 [Float 256]) (mean-060 [Float 256]) (var-060 [Float 256]) (w-060 [Float 256 256 3 3])
+        ;; cfg#62  1x1 256->256
+        (bias-062 [Float 256]) (scale-062 [Float 256]) (mean-062 [Float 256]) (var-062 [Float 256]) (w-062 [Float 256 256 1 1])
+        ;; cfg#63  3x3 256->256
+        (bias-063 [Float 256]) (scale-063 [Float 256]) (mean-063 [Float 256]) (var-063 [Float 256]) (w-063 [Float 256 256 3 3])
+        ;; cfg#65  1x1 256->256
+        (bias-065 [Float 256]) (scale-065 [Float 256]) (mean-065 [Float 256]) (var-065 [Float 256]) (w-065 [Float 256 256 1 1])
+        ;; cfg#66  3x3 256->256
+        (bias-066 [Float 256]) (scale-066 [Float 256]) (mean-066 [Float 256]) (var-066 [Float 256]) (w-066 [Float 256 256 3 3])
+        ;; cfg#68  1x1 256->256
+        (bias-068 [Float 256]) (scale-068 [Float 256]) (mean-068 [Float 256]) (var-068 [Float 256]) (w-068 [Float 256 256 1 1])
+        ;; cfg#69  3x3 256->256
+        (bias-069 [Float 256]) (scale-069 [Float 256]) (mean-069 [Float 256]) (var-069 [Float 256]) (w-069 [Float 256 256 3 3])
+        ;; cfg#71  1x1 256->256
+        (bias-071 [Float 256]) (scale-071 [Float 256]) (mean-071 [Float 256]) (var-071 [Float 256]) (w-071 [Float 256 256 1 1])
+        ;; cfg#72  3x3 256->256
+        (bias-072 [Float 256]) (scale-072 [Float 256]) (mean-072 [Float 256]) (var-072 [Float 256]) (w-072 [Float 256 256 3 3])
+        ;; cfg#74  1x1 256->256
+        (bias-074 [Float 256]) (scale-074 [Float 256]) (mean-074 [Float 256]) (var-074 [Float 256]) (w-074 [Float 256 256 1 1])
+        ;; cfg#75  3x3 256->256
+        (bias-075 [Float 256]) (scale-075 [Float 256]) (mean-075 [Float 256]) (var-075 [Float 256]) (w-075 [Float 256 256 3 3])
+        ;; cfg#77  1x1 256->256
+        (bias-077 [Float 256]) (scale-077 [Float 256]) (mean-077 [Float 256]) (var-077 [Float 256]) (w-077 [Float 256 256 1 1])
+        ;; cfg#78  3x3 256->256
+        (bias-078 [Float 256]) (scale-078 [Float 256]) (mean-078 [Float 256]) (var-078 [Float 256]) (w-078 [Float 256 256 3 3])
+        ;; cfg#80  1x1 256->256
+        (bias-080 [Float 256]) (scale-080 [Float 256]) (mean-080 [Float 256]) (var-080 [Float 256]) (w-080 [Float 256 256 1 1])
+        ;; cfg#81  3x3 256->256
+        (bias-081 [Float 256]) (scale-081 [Float 256]) (mean-081 [Float 256]) (var-081 [Float 256]) (w-081 [Float 256 256 3 3])
+        ;; cfg#83  1x1 256->256
+        (bias-083 [Float 256]) (scale-083 [Float 256]) (mean-083 [Float 256]) (var-083 [Float 256]) (w-083 [Float 256 256 1 1])
+        ;; cfg#85  1x1 512->512
+        (bias-085 [Float 512]) (scale-085 [Float 512]) (mean-085 [Float 512]) (var-085 [Float 512]) (w-085 [Float 512 512 1 1])
+        ;; cfg#86  3x3 512->1024
+        (bias-086 [Float 1024]) (scale-086 [Float 1024]) (mean-086 [Float 1024]) (var-086 [Float 1024]) (w-086 [Float 1024 512 3 3])
+        ;; cfg#87  1x1 1024->512
+        (bias-087 [Float 512]) (scale-087 [Float 512]) (mean-087 [Float 512]) (var-087 [Float 512]) (w-087 [Float 512 1024 1 1])
+        ;; cfg#89  1x1 1024->512
+        (bias-089 [Float 512]) (scale-089 [Float 512]) (mean-089 [Float 512]) (var-089 [Float 512]) (w-089 [Float 512 1024 1 1])
+        ;; cfg#90  1x1 512->512
+        (bias-090 [Float 512]) (scale-090 [Float 512]) (mean-090 [Float 512]) (var-090 [Float 512]) (w-090 [Float 512 512 1 1])
+        ;; cfg#91  3x3 512->512
+        (bias-091 [Float 512]) (scale-091 [Float 512]) (mean-091 [Float 512]) (var-091 [Float 512]) (w-091 [Float 512 512 3 3])
+        ;; cfg#93  1x1 512->512
+        (bias-093 [Float 512]) (scale-093 [Float 512]) (mean-093 [Float 512]) (var-093 [Float 512]) (w-093 [Float 512 512 1 1])
+        ;; cfg#94  3x3 512->512
+        (bias-094 [Float 512]) (scale-094 [Float 512]) (mean-094 [Float 512]) (var-094 [Float 512]) (w-094 [Float 512 512 3 3])
+        ;; cfg#96  1x1 512->512
+        (bias-096 [Float 512]) (scale-096 [Float 512]) (mean-096 [Float 512]) (var-096 [Float 512]) (w-096 [Float 512 512 1 1])
+        ;; cfg#97  3x3 512->512
+        (bias-097 [Float 512]) (scale-097 [Float 512]) (mean-097 [Float 512]) (var-097 [Float 512]) (w-097 [Float 512 512 3 3])
+        ;; cfg#99  1x1 512->512
+        (bias-099 [Float 512]) (scale-099 [Float 512]) (mean-099 [Float 512]) (var-099 [Float 512]) (w-099 [Float 512 512 1 1])
+        ;; cfg#100 3x3 512->512
+        (bias-100 [Float 512]) (scale-100 [Float 512]) (mean-100 [Float 512]) (var-100 [Float 512]) (w-100 [Float 512 512 3 3])
+        ;; cfg#102 1x1 512->512
+        (bias-102 [Float 512]) (scale-102 [Float 512]) (mean-102 [Float 512]) (var-102 [Float 512]) (w-102 [Float 512 512 1 1])
+        ;; cfg#104 1x1 1024->1024
+        (bias-104 [Float 1024]) (scale-104 [Float 1024]) (mean-104 [Float 1024]) (var-104 [Float 1024]) (w-104 [Float 1024 1024 1 1])
+        ;; cfg#105 1x1 1024->512
+        (bias-105 [Float 512]) (scale-105 [Float 512]) (mean-105 [Float 512]) (var-105 [Float 512]) (w-105 [Float 512 1024 1 1])
+        ;; cfg#106 3x3 512->1024
+        (bias-106 [Float 1024]) (scale-106 [Float 1024]) (mean-106 [Float 1024]) (var-106 [Float 1024]) (w-106 [Float 1024 512 3 3])
+        ;; cfg#107 1x1 1024->512
+        (bias-107 [Float 512]) (scale-107 [Float 512]) (mean-107 [Float 512]) (var-107 [Float 512]) (w-107 [Float 512 1024 1 1])
+        ;; cfg#114 1x1 2048->512
+        (bias-114 [Float 512]) (scale-114 [Float 512]) (mean-114 [Float 512]) (var-114 [Float 512]) (w-114 [Float 512 2048 1 1])
+        ;; cfg#115 3x3 512->1024
+        (bias-115 [Float 1024]) (scale-115 [Float 1024]) (mean-115 [Float 1024]) (var-115 [Float 1024]) (w-115 [Float 1024 512 3 3])
+        ;; cfg#116 1x1 1024->512
+        (bias-116 [Float 512]) (scale-116 [Float 512]) (mean-116 [Float 512]) (var-116 [Float 512]) (w-116 [Float 512 1024 1 1])
+        ;; cfg#117 1x1 512->256
+        (bias-117 [Float 256]) (scale-117 [Float 256]) (mean-117 [Float 256]) (var-117 [Float 256]) (w-117 [Float 256 512 1 1])
+        ;; cfg#120 1x1 512->256
+        (bias-120 [Float 256]) (scale-120 [Float 256]) (mean-120 [Float 256]) (var-120 [Float 256]) (w-120 [Float 256 512 1 1])
+        ;; cfg#122 1x1 512->256
+        (bias-122 [Float 256]) (scale-122 [Float 256]) (mean-122 [Float 256]) (var-122 [Float 256]) (w-122 [Float 256 512 1 1])
+        ;; cfg#123 3x3 256->512
+        (bias-123 [Float 512]) (scale-123 [Float 512]) (mean-123 [Float 512]) (var-123 [Float 512]) (w-123 [Float 512 256 3 3])
+        ;; cfg#124 1x1 512->256
+        (bias-124 [Float 256]) (scale-124 [Float 256]) (mean-124 [Float 256]) (var-124 [Float 256]) (w-124 [Float 256 512 1 1])
+        ;; cfg#125 3x3 256->512
+        (bias-125 [Float 512]) (scale-125 [Float 512]) (mean-125 [Float 512]) (var-125 [Float 512]) (w-125 [Float 512 256 3 3])
+        ;; cfg#126 1x1 512->256
+        (bias-126 [Float 256]) (scale-126 [Float 256]) (mean-126 [Float 256]) (var-126 [Float 256]) (w-126 [Float 256 512 1 1])
+        ;; cfg#127 1x1 256->128
+        (bias-127 [Float 128]) (scale-127 [Float 128]) (mean-127 [Float 128]) (var-127 [Float 128]) (w-127 [Float 128 256 1 1])
+        ;; cfg#130 1x1 256->128
+        (bias-130 [Float 128]) (scale-130 [Float 128]) (mean-130 [Float 128]) (var-130 [Float 128]) (w-130 [Float 128 256 1 1])
+        ;; cfg#132 1x1 256->128
+        (bias-132 [Float 128]) (scale-132 [Float 128]) (mean-132 [Float 128]) (var-132 [Float 128]) (w-132 [Float 128 256 1 1])
+        ;; cfg#133 3x3 128->256
+        (bias-133 [Float 256]) (scale-133 [Float 256]) (mean-133 [Float 256]) (var-133 [Float 256]) (w-133 [Float 256 128 3 3])
+        ;; cfg#134 1x1 256->128
+        (bias-134 [Float 128]) (scale-134 [Float 128]) (mean-134 [Float 128]) (var-134 [Float 128]) (w-134 [Float 128 256 1 1])
+        ;; cfg#135 3x3 128->256
+        (bias-135 [Float 256]) (scale-135 [Float 256]) (mean-135 [Float 256]) (var-135 [Float 256]) (w-135 [Float 256 128 3 3])
+        ;; cfg#136 1x1 256->128
+        (bias-136 [Float 128]) (scale-136 [Float 128]) (mean-136 [Float 128]) (var-136 [Float 128]) (w-136 [Float 128 256 1 1])
+        ;; cfg#137 3x3 128->256
+        (bias-137 [Float 256]) (scale-137 [Float 256]) (mean-137 [Float 256]) (var-137 [Float 256]) (w-137 [Float 256 128 3 3])
+        ;; cfg#138 1x1 256->255  linear head conv
+        (bias-138 [Float 255]) (w-138 [Float 255 256 1 1])
+        ;; cfg#141 3x3 128->256
+        (bias-141 [Float 256]) (scale-141 [Float 256]) (mean-141 [Float 256]) (var-141 [Float 256]) (w-141 [Float 256 128 3 3])
+        ;; cfg#143 1x1 512->256
+        (bias-143 [Float 256]) (scale-143 [Float 256]) (mean-143 [Float 256]) (var-143 [Float 256]) (w-143 [Float 256 512 1 1])
+        ;; cfg#144 3x3 256->512
+        (bias-144 [Float 512]) (scale-144 [Float 512]) (mean-144 [Float 512]) (var-144 [Float 512]) (w-144 [Float 512 256 3 3])
+        ;; cfg#145 1x1 512->256
+        (bias-145 [Float 256]) (scale-145 [Float 256]) (mean-145 [Float 256]) (var-145 [Float 256]) (w-145 [Float 256 512 1 1])
+        ;; cfg#146 3x3 256->512
+        (bias-146 [Float 512]) (scale-146 [Float 512]) (mean-146 [Float 512]) (var-146 [Float 512]) (w-146 [Float 512 256 3 3])
+        ;; cfg#147 1x1 512->256
+        (bias-147 [Float 256]) (scale-147 [Float 256]) (mean-147 [Float 256]) (var-147 [Float 256]) (w-147 [Float 256 512 1 1])
+        ;; cfg#148 3x3 256->512
+        (bias-148 [Float 512]) (scale-148 [Float 512]) (mean-148 [Float 512]) (var-148 [Float 512]) (w-148 [Float 512 256 3 3])
+        ;; cfg#149 1x1 512->255  linear head conv
+        (bias-149 [Float 255]) (w-149 [Float 255 512 1 1])
+        ;; cfg#152 3x3 256->512
+        (bias-152 [Float 512]) (scale-152 [Float 512]) (mean-152 [Float 512]) (var-152 [Float 512]) (w-152 [Float 512 256 3 3])
+        ;; cfg#154 1x1 1024->512
+        (bias-154 [Float 512]) (scale-154 [Float 512]) (mean-154 [Float 512]) (var-154 [Float 512]) (w-154 [Float 512 1024 1 1])
+        ;; cfg#155 3x3 512->1024
+        (bias-155 [Float 1024]) (scale-155 [Float 1024]) (mean-155 [Float 1024]) (var-155 [Float 1024]) (w-155 [Float 1024 512 3 3])
+        ;; cfg#156 1x1 1024->512
+        (bias-156 [Float 512]) (scale-156 [Float 512]) (mean-156 [Float 512]) (var-156 [Float 512]) (w-156 [Float 512 1024 1 1])
+        ;; cfg#157 3x3 512->1024
+        (bias-157 [Float 1024]) (scale-157 [Float 1024]) (mean-157 [Float 1024]) (var-157 [Float 1024]) (w-157 [Float 1024 512 3 3])
+        ;; cfg#158 1x1 1024->512
+        (bias-158 [Float 512]) (scale-158 [Float 512]) (mean-158 [Float 512]) (var-158 [Float 512]) (w-158 [Float 512 1024 1 1])
+        ;; cfg#159 3x3 512->1024
+        (bias-159 [Float 1024]) (scale-159 [Float 1024]) (mean-159 [Float 1024]) (var-159 [Float 1024]) (w-159 [Float 1024 512 3 3])
+        ;; cfg#160 1x1 1024->255  linear head conv
+        (bias-160 [Float 255]) (w-160 [Float 255 1024 1 1]))
+  (let (
+        (type *f128x76 [Float 128 76 76])
+        (type *f256x76 [Float 256 76 76])
+        (type *f256x38 [Float 256 38 38])
+        (type *f512x38 [Float 512 38 38])
+        (type *f512x19 [Float 512 19 19])
+        (type *f1024x19 [Float 1024 19 19])
+        (val stem-p {(w [32 3 3 3] w-000) (mean [32] mean-000) (variance [32] var-000) (scale [32] scale-000) (bias [32] bias-000)})
+        (val (stem : [Float 32 608 608]) (@conv-bn-mish _ (607 3 3 32 1 1 0) image stem-p))
+        (val s1-down-p {(w [64 32 3 3] w-001) (mean [64] mean-001) (variance [64] var-001) (scale [64] scale-001) (bias [64] bias-001)})
+        (val s1-skip-p {(w [64 64 1 1] w-002) (mean [64] mean-002) (variance [64] var-002) (scale [64] scale-002) (bias [64] bias-002)})
+        (val s1-m0-p {(w [64 64 1 1] w-004) (mean [64] mean-004) (variance [64] var-004) (scale [64] scale-004) (bias [64] bias-004)})
+        (val s1-r1-rp {(w [32 64 1 1] w-005) (mean [32] mean-005) (variance [32] var-005) (scale [32] scale-005) (bias [32] bias-005)})
+        (val s1-r1-ep {(w [64 32 3 3] w-006) (mean [64] mean-006) (variance [64] var-006) (scale [64] scale-006) (bias [64] bias-006)})
+        (val s1-mf-p {(w [64 64 1 1] w-008) (mean [64] mean-008) (variance [64] var-008) (scale [64] scale-008) (bias [64] bias-008)})
+        (val s1-tr-p {(w [64 128 1 1] w-010) (mean [64] mean-010) (variance [64] var-010) (scale [64] scale-010) (bias [64] bias-010)})
+        (val (s1 : [Float 64 304 304]) (@csp-stage-1 _ (32 64 32 303) stem s1-down-p s1-skip-p s1-m0-p s1-r1-rp s1-r1-ep s1-mf-p s1-tr-p))
+        (val s2-down-p {(w [128 64 3 3] w-011) (mean [128] mean-011) (variance [128] var-011) (scale [128] scale-011) (bias [128] bias-011)})
+        (val s2-skip-p {(w [64 128 1 1] w-012) (mean [64] mean-012) (variance [64] var-012) (scale [64] scale-012) (bias [64] bias-012)})
+        (val s2-m0-p {(w [64 128 1 1] w-014) (mean [64] mean-014) (variance [64] var-014) (scale [64] scale-014) (bias [64] bias-014)})
+        (val s2-r1-rp {(w [64 64 1 1] w-015) (mean [64] mean-015) (variance [64] var-015) (scale [64] scale-015) (bias [64] bias-015)})
+        (val s2-r1-ep {(w [64 64 3 3] w-016) (mean [64] mean-016) (variance [64] var-016) (scale [64] scale-016) (bias [64] bias-016)})
+        (val s2-r2-rp {(w [64 64 1 1] w-018) (mean [64] mean-018) (variance [64] var-018) (scale [64] scale-018) (bias [64] bias-018)})
+        (val s2-r2-ep {(w [64 64 3 3] w-019) (mean [64] mean-019) (variance [64] var-019) (scale [64] scale-019) (bias [64] bias-019)})
+        (val s2-mf-p {(w [64 64 1 1] w-021) (mean [64] mean-021) (variance [64] var-021) (scale [64] scale-021) (bias [64] bias-021)})
+        (val s2-tr-p {(w [128 128 1 1] w-023) (mean [128] mean-023) (variance [128] var-023) (scale [128] scale-023) (bias [128] bias-023)})
+        (val (s2 : [Float 128 152 152]) (@csp-stage-x2 _ (64 64 151) s1 s2-down-p s2-skip-p s2-m0-p s2-r1-rp s2-r1-ep s2-r2-rp s2-r2-ep s2-mf-p s2-tr-p))
+        (val s3-down-p {(w [256 128 3 3] w-024) (mean [256] mean-024) (variance [256] var-024) (scale [256] scale-024) (bias [256] bias-024)})
+        (val s3-skip-p {(w [128 256 1 1] w-025) (mean [128] mean-025) (variance [128] var-025) (scale [128] scale-025) (bias [128] bias-025)})
+        (val s3-m0-p {(w [128 256 1 1] w-027) (mean [128] mean-027) (variance [128] var-027) (scale [128] scale-027) (bias [128] bias-027)})
+        (val s3-r1-rp {(w [128 128 1 1] w-028) (mean [128] mean-028) (variance [128] var-028) (scale [128] scale-028) (bias [128] bias-028)})
+        (val s3-r1-ep {(w [128 128 3 3] w-029) (mean [128] mean-029) (variance [128] var-029) (scale [128] scale-029) (bias [128] bias-029)})
+        (val s3-r2-rp {(w [128 128 1 1] w-031) (mean [128] mean-031) (variance [128] var-031) (scale [128] scale-031) (bias [128] bias-031)})
+        (val s3-r2-ep {(w [128 128 3 3] w-032) (mean [128] mean-032) (variance [128] var-032) (scale [128] scale-032) (bias [128] bias-032)})
+        (val s3-r3-rp {(w [128 128 1 1] w-034) (mean [128] mean-034) (variance [128] var-034) (scale [128] scale-034) (bias [128] bias-034)})
+        (val s3-r3-ep {(w [128 128 3 3] w-035) (mean [128] mean-035) (variance [128] var-035) (scale [128] scale-035) (bias [128] bias-035)})
+        (val s3-r4-rp {(w [128 128 1 1] w-037) (mean [128] mean-037) (variance [128] var-037) (scale [128] scale-037) (bias [128] bias-037)})
+        (val s3-r4-ep {(w [128 128 3 3] w-038) (mean [128] mean-038) (variance [128] var-038) (scale [128] scale-038) (bias [128] bias-038)})
+        (val s3-r5-rp {(w [128 128 1 1] w-040) (mean [128] mean-040) (variance [128] var-040) (scale [128] scale-040) (bias [128] bias-040)})
+        (val s3-r5-ep {(w [128 128 3 3] w-041) (mean [128] mean-041) (variance [128] var-041) (scale [128] scale-041) (bias [128] bias-041)})
+        (val s3-r6-rp {(w [128 128 1 1] w-043) (mean [128] mean-043) (variance [128] var-043) (scale [128] scale-043) (bias [128] bias-043)})
+        (val s3-r6-ep {(w [128 128 3 3] w-044) (mean [128] mean-044) (variance [128] var-044) (scale [128] scale-044) (bias [128] bias-044)})
+        (val s3-r7-rp {(w [128 128 1 1] w-046) (mean [128] mean-046) (variance [128] var-046) (scale [128] scale-046) (bias [128] bias-046)})
+        (val s3-r7-ep {(w [128 128 3 3] w-047) (mean [128] mean-047) (variance [128] var-047) (scale [128] scale-047) (bias [128] bias-047)})
+        (val s3-r8-rp {(w [128 128 1 1] w-049) (mean [128] mean-049) (variance [128] var-049) (scale [128] scale-049) (bias [128] bias-049)})
+        (val s3-r8-ep {(w [128 128 3 3] w-050) (mean [128] mean-050) (variance [128] var-050) (scale [128] scale-050) (bias [128] bias-050)})
+        (val s3-mf-p {(w [128 128 1 1] w-052) (mean [128] mean-052) (variance [128] var-052) (scale [128] scale-052) (bias [128] bias-052)})
+        (val s3-tr-p {(w [256 256 1 1] w-054) (mean [256] mean-054) (variance [256] var-054) (scale [256] scale-054) (bias [256] bias-054)})
+        (val (s3 : *f256x76) (@csp-stage-x8 _ (128 128 75) s2 s3-down-p s3-skip-p s3-m0-p s3-r1-rp s3-r1-ep s3-r2-rp s3-r2-ep s3-r3-rp s3-r3-ep s3-r4-rp s3-r4-ep s3-r5-rp s3-r5-ep s3-r6-rp s3-r6-ep s3-r7-rp s3-r7-ep s3-r8-rp s3-r8-ep s3-mf-p s3-tr-p))
+        (val s4-down-p {(w [512 256 3 3] w-055) (mean [512] mean-055) (variance [512] var-055) (scale [512] scale-055) (bias [512] bias-055)})
+        (val s4-skip-p {(w [256 512 1 1] w-056) (mean [256] mean-056) (variance [256] var-056) (scale [256] scale-056) (bias [256] bias-056)})
+        (val s4-m0-p {(w [256 512 1 1] w-058) (mean [256] mean-058) (variance [256] var-058) (scale [256] scale-058) (bias [256] bias-058)})
+        (val s4-r1-rp {(w [256 256 1 1] w-059) (mean [256] mean-059) (variance [256] var-059) (scale [256] scale-059) (bias [256] bias-059)})
+        (val s4-r1-ep {(w [256 256 3 3] w-060) (mean [256] mean-060) (variance [256] var-060) (scale [256] scale-060) (bias [256] bias-060)})
+        (val s4-r2-rp {(w [256 256 1 1] w-062) (mean [256] mean-062) (variance [256] var-062) (scale [256] scale-062) (bias [256] bias-062)})
+        (val s4-r2-ep {(w [256 256 3 3] w-063) (mean [256] mean-063) (variance [256] var-063) (scale [256] scale-063) (bias [256] bias-063)})
+        (val s4-r3-rp {(w [256 256 1 1] w-065) (mean [256] mean-065) (variance [256] var-065) (scale [256] scale-065) (bias [256] bias-065)})
+        (val s4-r3-ep {(w [256 256 3 3] w-066) (mean [256] mean-066) (variance [256] var-066) (scale [256] scale-066) (bias [256] bias-066)})
+        (val s4-r4-rp {(w [256 256 1 1] w-068) (mean [256] mean-068) (variance [256] var-068) (scale [256] scale-068) (bias [256] bias-068)})
+        (val s4-r4-ep {(w [256 256 3 3] w-069) (mean [256] mean-069) (variance [256] var-069) (scale [256] scale-069) (bias [256] bias-069)})
+        (val s4-r5-rp {(w [256 256 1 1] w-071) (mean [256] mean-071) (variance [256] var-071) (scale [256] scale-071) (bias [256] bias-071)})
+        (val s4-r5-ep {(w [256 256 3 3] w-072) (mean [256] mean-072) (variance [256] var-072) (scale [256] scale-072) (bias [256] bias-072)})
+        (val s4-r6-rp {(w [256 256 1 1] w-074) (mean [256] mean-074) (variance [256] var-074) (scale [256] scale-074) (bias [256] bias-074)})
+        (val s4-r6-ep {(w [256 256 3 3] w-075) (mean [256] mean-075) (variance [256] var-075) (scale [256] scale-075) (bias [256] bias-075)})
+        (val s4-r7-rp {(w [256 256 1 1] w-077) (mean [256] mean-077) (variance [256] var-077) (scale [256] scale-077) (bias [256] bias-077)})
+        (val s4-r7-ep {(w [256 256 3 3] w-078) (mean [256] mean-078) (variance [256] var-078) (scale [256] scale-078) (bias [256] bias-078)})
+        (val s4-r8-rp {(w [256 256 1 1] w-080) (mean [256] mean-080) (variance [256] var-080) (scale [256] scale-080) (bias [256] bias-080)})
+        (val s4-r8-ep {(w [256 256 3 3] w-081) (mean [256] mean-081) (variance [256] var-081) (scale [256] scale-081) (bias [256] bias-081)})
+        (val s4-mf-p {(w [256 256 1 1] w-083) (mean [256] mean-083) (variance [256] var-083) (scale [256] scale-083) (bias [256] bias-083)})
+        (val s4-tr-p {(w [512 512 1 1] w-085) (mean [512] mean-085) (variance [512] var-085) (scale [512] scale-085) (bias [512] bias-085)})
+        (val (s4 : *f512x38) (@csp-stage-x8 _ (256 256 37) s3 s4-down-p s4-skip-p s4-m0-p s4-r1-rp s4-r1-ep s4-r2-rp s4-r2-ep s4-r3-rp s4-r3-ep s4-r4-rp s4-r4-ep s4-r5-rp s4-r5-ep s4-r6-rp s4-r6-ep s4-r7-rp s4-r7-ep s4-r8-rp s4-r8-ep s4-mf-p s4-tr-p))
+        (val s5-down-p {(w [1024 512 3 3] w-086) (mean [1024] mean-086) (variance [1024] var-086) (scale [1024] scale-086) (bias [1024] bias-086)})
+        (val s5-skip-p {(w [512 1024 1 1] w-087) (mean [512] mean-087) (variance [512] var-087) (scale [512] scale-087) (bias [512] bias-087)})
+        (val s5-m0-p {(w [512 1024 1 1] w-089) (mean [512] mean-089) (variance [512] var-089) (scale [512] scale-089) (bias [512] bias-089)})
+        (val s5-r1-rp {(w [512 512 1 1] w-090) (mean [512] mean-090) (variance [512] var-090) (scale [512] scale-090) (bias [512] bias-090)})
+        (val s5-r1-ep {(w [512 512 3 3] w-091) (mean [512] mean-091) (variance [512] var-091) (scale [512] scale-091) (bias [512] bias-091)})
+        (val s5-r2-rp {(w [512 512 1 1] w-093) (mean [512] mean-093) (variance [512] var-093) (scale [512] scale-093) (bias [512] bias-093)})
+        (val s5-r2-ep {(w [512 512 3 3] w-094) (mean [512] mean-094) (variance [512] var-094) (scale [512] scale-094) (bias [512] bias-094)})
+        (val s5-r3-rp {(w [512 512 1 1] w-096) (mean [512] mean-096) (variance [512] var-096) (scale [512] scale-096) (bias [512] bias-096)})
+        (val s5-r3-ep {(w [512 512 3 3] w-097) (mean [512] mean-097) (variance [512] var-097) (scale [512] scale-097) (bias [512] bias-097)})
+        (val s5-r4-rp {(w [512 512 1 1] w-099) (mean [512] mean-099) (variance [512] var-099) (scale [512] scale-099) (bias [512] bias-099)})
+        (val s5-r4-ep {(w [512 512 3 3] w-100) (mean [512] mean-100) (variance [512] var-100) (scale [512] scale-100) (bias [512] bias-100)})
+        (val s5-mf-p {(w [512 512 1 1] w-102) (mean [512] mean-102) (variance [512] var-102) (scale [512] scale-102) (bias [512] bias-102)})
+        (val s5-tr-p {(w [1024 1024 1 1] w-104) (mean [1024] mean-104) (variance [1024] var-104) (scale [1024] scale-104) (bias [1024] bias-104)})
+        (val (s5 : *f1024x19) (@csp-stage-x4 _ (512 512 18) s4 s5-down-p s5-skip-p s5-m0-p s5-r1-rp s5-r1-ep s5-r2-rp s5-r2-ep s5-r3-rp s5-r3-ep s5-r4-rp s5-r4-ep s5-mf-p s5-tr-p))
+        (val pspp-c1-p {(w [512 1024 1 1] w-105) (mean [512] mean-105) (variance [512] var-105) (scale [512] scale-105) (bias [512] bias-105)})
+        (val pspp-c2-p {(w [1024 512 3 3] w-106) (mean [1024] mean-106) (variance [1024] var-106) (scale [1024] scale-106) (bias [1024] bias-106)})
+        (val pspp-c3-p {(w [512 1024 1 1] w-107) (mean [512] mean-107) (variance [512] var-107) (scale [512] scale-107) (bias [512] bias-107)})
+        (val (pre-spp : *f512x19) (@panet-3conv _ (1024 1024 512 19) s5 pspp-c1-p pspp-c2-p pspp-c3-p))
+        (val (spp-out : [Float 2048 19 19]) (@spp _ (19 512) pre-spp))
+        (val post-c1-p {(w [512 2048 1 1] w-114) (mean [512] mean-114) (variance [512] var-114) (scale [512] scale-114) (bias [512] bias-114)})
+        (val post-c2-p {(w [1024 512 3 3] w-115) (mean [1024] mean-115) (variance [1024] var-115) (scale [1024] scale-115) (bias [1024] bias-115)})
+        (val post-c3-p {(w [512 1024 1 1] w-116) (mean [512] mean-116) (variance [512] var-116) (scale [512] scale-116) (bias [512] bias-116)})
+        (val (p5 : *f512x19) (@panet-3conv _ (2048 1024 512 19) spp-out post-c1-p post-c2-p post-c3-p))
+        (val p5r-p {(w [256 512 1 1] w-117) (mean [256] mean-117) (variance [256] var-117) (scale [256] scale-117) (bias [256] bias-117)})
+        (val s4l-p {(w [256 512 1 1] w-120) (mean [256] mean-120) (variance [256] var-120) (scale [256] scale-120) (bias [256] bias-120)})
+        (val (p5-reduce : [Float 256 19 19]) (@conv-bn-leaky _ (18 1 512 256 0 1 0) p5 p5r-p))
+        (val (p5-up : *f256x38) (@upsample-nearest _ (19 256 2) p5-reduce))
+        (val (s4-lateral : *f256x38) (@conv-bn-leaky _ (37 1 512 256 0 1 0) s4 s4l-p))
+        (val (merge-38 : *f512x38) (@route2 _ (256 256 38 38) s4-lateral p5-up))
+        (val p4td-c1-p {(w [256 512 1 1] w-122) (mean [256] mean-122) (variance [256] var-122) (scale [256] scale-122) (bias [256] bias-122)})
+        (val p4td-c2-p {(w [512 256 3 3] w-123) (mean [512] mean-123) (variance [512] var-123) (scale [512] scale-123) (bias [512] bias-123)})
+        (val p4td-c3-p {(w [256 512 1 1] w-124) (mean [256] mean-124) (variance [256] var-124) (scale [256] scale-124) (bias [256] bias-124)})
+        (val p4td-c4-p {(w [512 256 3 3] w-125) (mean [512] mean-125) (variance [512] var-125) (scale [512] scale-125) (bias [512] bias-125)})
+        (val p4td-c5-p {(w [256 512 1 1] w-126) (mean [256] mean-126) (variance [256] var-126) (scale [256] scale-126) (bias [256] bias-126)})
+        (val (p4td : *f256x38) (@panet-5conv _ (512 256 38) merge-38 p4td-c1-p p4td-c2-p p4td-c3-p p4td-c4-p p4td-c5-p))
+        (val p4tdr-p {(w [128 256 1 1] w-127) (mean [128] mean-127) (variance [128] var-127) (scale [128] scale-127) (bias [128] bias-127)})
+        (val s3l-p {(w [128 256 1 1] w-130) (mean [128] mean-130) (variance [128] var-130) (scale [128] scale-130) (bias [128] bias-130)})
+        (val (p4td-reduce : [Float 128 38 38]) (@conv-bn-leaky _ (37 1 256 128 0 1 0) p4td p4tdr-p))
+        (val (p4td-up : *f128x76) (@upsample-nearest _ (38 128 2) p4td-reduce))
+        (val (s3-lateral : *f128x76) (@conv-bn-leaky _ (75 1 256 128 0 1 0) s3 s3l-p))
+        (val (merge-76 : *f256x76) (@route2 _ (128 128 76 76) s3-lateral p4td-up))
+        (val p3o-c1-p {(w [128 256 1 1] w-132) (mean [128] mean-132) (variance [128] var-132) (scale [128] scale-132) (bias [128] bias-132)})
+        (val p3o-c2-p {(w [256 128 3 3] w-133) (mean [256] mean-133) (variance [256] var-133) (scale [256] scale-133) (bias [256] bias-133)})
+        (val p3o-c3-p {(w [128 256 1 1] w-134) (mean [128] mean-134) (variance [128] var-134) (scale [128] scale-134) (bias [128] bias-134)})
+        (val p3o-c4-p {(w [256 128 3 3] w-135) (mean [256] mean-135) (variance [256] var-135) (scale [256] scale-135) (bias [256] bias-135)})
+        (val p3o-c5-p {(w [128 256 1 1] w-136) (mean [128] mean-136) (variance [128] var-136) (scale [128] scale-136) (bias [128] bias-136)})
+        (val (p3out : *f128x76) (@panet-5conv _ (256 128 76) merge-76 p3o-c1-p p3o-c2-p p3o-c3-p p3o-c4-p p3o-c5-p))
+        (val p3-feed-p {(w [256 128 3 3] w-137) (mean [256] mean-137) (variance [256] var-137) (scale [256] scale-137) (bias [256] bias-137)})
+        (val p3-head-p {(w [255 256 1 1] w-138) (bias [255] bias-138)})
+        (val (p3-det : [Float 17328 85]) (@yolo-head _ (76 128 256 80) p3out p3-feed-p p3-head-p [12.0 19.0 40.0] [16.0 36.0 28.0] 1.2 608.0))
+        (val p3d-p {(w [256 128 3 3] w-141) (mean [256] mean-141) (variance [256] var-141) (scale [256] scale-141) (bias [256] bias-141)})
+        (val (p3-down : *f256x38) (@conv-bn-leaky _ (37 3 128 256 1 2 1) p3out p3d-p))
+        (val (merge-38b : *f512x38) (@route2 _ (256 256 38 38) p3-down p4td))
+        (val p4o-c1-p {(w [256 512 1 1] w-143) (mean [256] mean-143) (variance [256] var-143) (scale [256] scale-143) (bias [256] bias-143)})
+        (val p4o-c2-p {(w [512 256 3 3] w-144) (mean [512] mean-144) (variance [512] var-144) (scale [512] scale-144) (bias [512] bias-144)})
+        (val p4o-c3-p {(w [256 512 1 1] w-145) (mean [256] mean-145) (variance [256] var-145) (scale [256] scale-145) (bias [256] bias-145)})
+        (val p4o-c4-p {(w [512 256 3 3] w-146) (mean [512] mean-146) (variance [512] var-146) (scale [512] scale-146) (bias [512] bias-146)})
+        (val p4o-c5-p {(w [256 512 1 1] w-147) (mean [256] mean-147) (variance [256] var-147) (scale [256] scale-147) (bias [256] bias-147)})
+        (val (p4out : *f256x38) (@panet-5conv _ (512 256 38) merge-38b p4o-c1-p p4o-c2-p p4o-c3-p p4o-c4-p p4o-c5-p))
+        (val p4-feed-p {(w [512 256 3 3] w-148) (mean [512] mean-148) (variance [512] var-148) (scale [512] scale-148) (bias [512] bias-148)})
+        (val p4-head-p {(w [255 512 1 1] w-149) (bias [255] bias-149)})
+        (val (p4-det : [Float 4332 85]) (@yolo-head _ (38 256 512 80) p4out p4-feed-p p4-head-p [36.0 76.0 72.0] [75.0 55.0 146.0] 1.1 608.0))
+        (val p4od-p {(w [512 256 3 3] w-152) (mean [512] mean-152) (variance [512] var-152) (scale [512] scale-152) (bias [512] bias-152)})
+        (val (p4out-down : *f512x19) (@conv-bn-leaky _ (18 3 256 512 1 2 1) p4out p4od-p))
+        (val (merge-19 : *f1024x19) (@route2 _ (512 512 19 19) p4out-down p5))
+        (val p5o-c1-p {(w [512 1024 1 1] w-154) (mean [512] mean-154) (variance [512] var-154) (scale [512] scale-154) (bias [512] bias-154)})
+        (val p5o-c2-p {(w [1024 512 3 3] w-155) (mean [1024] mean-155) (variance [1024] var-155) (scale [1024] scale-155) (bias [1024] bias-155)})
+        (val p5o-c3-p {(w [512 1024 1 1] w-156) (mean [512] mean-156) (variance [512] var-156) (scale [512] scale-156) (bias [512] bias-156)})
+        (val p5o-c4-p {(w [1024 512 3 3] w-157) (mean [1024] mean-157) (variance [1024] var-157) (scale [1024] scale-157) (bias [1024] bias-157)})
+        (val p5o-c5-p {(w [512 1024 1 1] w-158) (mean [512] mean-158) (variance [512] var-158) (scale [512] scale-158) (bias [512] bias-158)})
+        (val (p5out : *f512x19) (@panet-5conv _ (1024 512 19) merge-19 p5o-c1-p p5o-c2-p p5o-c3-p p5o-c4-p p5o-c5-p))
+        (val p5-feed-p {(w [1024 512 3 3] w-159) (mean [1024] mean-159) (variance [1024] var-159) (scale [1024] scale-159) (bias [1024] bias-159)})
+        (val p5-head-p {(w [255 1024 1 1] w-160) (bias [255] bias-160)})
+        (val (p5-det : [Float 1083 85]) (@yolo-head _ (19 512 1024 80) p5out p5-feed-p p5-head-p [142.0 192.0 459.0] [110.0 243.0 401.0] 1.05 608.0))
+        (val (dets : [Float 22743 85]) (@append (Float) (17328 5415 [85]) p3-det (@append (Float) (4332 1083 [85]) p4-det p5-det)))
+       )
+    dets))

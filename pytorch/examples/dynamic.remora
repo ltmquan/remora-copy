@@ -1,0 +1,4 @@
+;; Runtime dimensions are carried by a box and unpacked by an index binder.
+(entry (main (n Int))
+  (unbox (@s contents (@iota _ (1) [n]))
+    (@sum _ (@s) contents)))

@@ -140,3 +140,12 @@ $ remora futhark -f tests/accel.remora --backend=cuda
 $ echo "" | ./accel
 [0.074032f32, 0.001346f32, 0.033651f32]
 ```
+
+## Experimental Python tensor backends
+
+The [Python backend prototype](experimental/python_backend/README.md) lowers
+the original YOLOv4 Remora program directly to PyTorch or tinygrad, without
+Futhark. It includes independent Python YOLOv4 models, a native Darknet CUDA
+reference harness, numerical validation, and a single-H200 Slurm benchmark.
+This currently supports checked YOLO library idioms rather than arbitrary
+Remora programs.

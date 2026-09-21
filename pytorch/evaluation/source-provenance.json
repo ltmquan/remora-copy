@@ -1,0 +1,9 @@
+{
+  "darpa-mocha/README.md": "86616938e99993e7ed28360beaa53f4c6d841a1829e2f20662bacd3e43bd877a",
+  "darpa-mocha/evaluation/README.md": "1ab1e407507b1374b79d45fa3405b1d38e6e1f99af75bb6456f6d866934271e9",
+  "darpa-mocha/65_hnsw/include/bruteforceGPU.h": "68cf3d2e015391bdf5f17d5e922f22f9fa943b6889665c5dd35dbb22433a5f0b",
+  "darpa-mocha/15_transformers/model_configs/llama3.py": "ef284054ec1c0f01210657aa10a67d517b88a9dcde38da8beb8e02ed6410d122",
+  "darpa-mocha/46_pyg/node_classification.py": "23d6daf84776137c14745d72647f7d23920401ba1bec5be0cd9692922d0a257d",
+  "darpa-mocha/49_pygod/vertex_nomination.py": "d24e89b394c78a5f23e74553e64f95d71837423adbe73171d820c127b35ffff9",
+  "darpa-mocha/41_or-tools/vrp_problem.cc": "beffafd20ce304342ce414fadd8e39cad2eaba7fc3e816ee4f675a6aca2de077"
+}

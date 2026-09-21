@@ -1,0 +1,7 @@
+Futhark 0.27.1.
+git: f547a39abb1f3773f7cdb324ec8ea7cb8cf13ea0
+Compiled with GHC 9.10.3.
+
+Copyright (C) DIKU, University of Copenhagen, released under the ISC license.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.

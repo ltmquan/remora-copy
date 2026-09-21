@@ -1,0 +1,503 @@
+make: Entering directory '/scratch/luu.qu/remora-copy/experimental/cudnn-comparison-20260912/darknet'
+mkdir -p ./obj/
+g++ -std=c++11 -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/image_opencv.cpp -o obj/image_opencv.o
+g++ -std=c++11 -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/http_stream.cpp -o obj/http_stream.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/gemm.c -o obj/gemm.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/utils.c -o obj/utils.o
+./src/gemm.c: In function ‘convolution_2d’:
+./src/gemm.c:2042:15: warning: unused variable ‘out_w’ [-Wunused-variable]
+ 2042 |     const int out_w = (w + 2 * pad - ksize) / stride + 1;    // output_width=input_width for stride=1 and pad=1
+      |               ^~~~~
+./src/gemm.c:2041:15: warning: unused variable ‘out_h’ [-Wunused-variable]
+ 2041 |     const int out_h = (h + 2 * pad - ksize) / stride + 1;    // output_height=input_height for stride=1 and pad=1
+      |               ^~~~~
+./src/utils.c: In function ‘custom_hash’:
+./src/utils.c:1095:12: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+ 1095 |     while (c = *str++)
+      |            ^
+./src/utils.c: In function ‘copy_string’:
+./src/utils.c:565:5: warning: ‘strncpy’ specified bound depends on the length of the source argument [-Wstringop-truncation]
+  565 |     strncpy(copy, s, strlen(s)+1);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/utils.c:565:22: note: length computed here
+  565 |     strncpy(copy, s, strlen(s)+1);
+      |                      ^~~~~~~~~
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/dark_cuda.c -o obj/dark_cuda.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/convolutional_layer.c -o obj/convolutional_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/list.c -o obj/list.o
+./src/dark_cuda.c: In function ‘cudnn_check_error_extended’:
+./src/dark_cuda.c:218:20: warning: comparison between ‘cudaError_t’ {aka ‘enum cudaError’} and ‘enum <anonymous>’ [-Wenum-compare]
+  218 |         if (status != CUDNN_STATUS_SUCCESS)
+      |                    ^~
+./src/dark_cuda.c: In function ‘cublas_check_error_extended’:
+./src/dark_cuda.c:252:18: warning: comparison between ‘cudaError_t’ {aka ‘enum cudaError’} and ‘enum cudaError_enum’ [-Wenum-compare]
+  252 |       if (status != CUDA_SUCCESS)
+      |                  ^~
+At top level:
+./src/dark_cuda.c:275:23: warning: ‘switchBlasHandle’ defined but not used [-Wunused-variable]
+  275 | static cublasHandle_t switchBlasHandle[16];
+      |                       ^~~~~~~~~~~~~~~~
+./src/dark_cuda.c:274:12: warning: ‘switchBlasInit’ defined but not used [-Wunused-variable]
+  274 | static int switchBlasInit[16] = { 0 };
+      |            ^~~~~~~~~~~~~~
+./src/convolutional_layer.c: In function ‘forward_convolutional_layer’:
+./src/convolutional_layer.c:1336:32: warning: unused variable ‘t_intput_size’ [-Wunused-variable]
+ 1336 |                         size_t t_intput_size = binary_transpose_align_input(k, n, state.workspace, &l.t_bit_input, ldb_align, l.bit_align);
+      |                                ^~~~~~~~~~~~~
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/image.c -o obj/image.o
+./src/http_stream.cpp: In member function ‘bool JSON_sender::write(const char*)’:
+./src/http_stream.cpp:253:21: warning: unused variable ‘n’ [-Wunused-variable]
+  253 |                 int n = _write(client, outputbuf, outlen);
+      |                     ^
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/activations.c -o obj/activations.o
+./src/http_stream.cpp: In function ‘void set_track_id(detection*, int, float, float, float, int, int, int)’:
+./src/http_stream.cpp:866:27: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<detection_t>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+  866 |         for (int i = 0; i < v.size(); ++i) {
+      |                         ~~^~~~~~~~~~
+./src/http_stream.cpp:874:33: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<detection_t>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+  874 |     for (int old_id = 0; old_id < old_dets.size(); ++old_id) {
+      |                          ~~~~~~~^~~~~~~~~~~~~~~~~
+./src/http_stream.cpp:893:31: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<detection_t>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+  893 |     for (int index = 0; index < new_dets_num*old_dets.size(); ++index) {
+      |                         ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/http_stream.cpp:929:28: warning: comparison of integer expressions of different signedness: ‘std::deque<std::vector<detection_t> >::size_type’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  929 |     if (old_dets_dq.size() > deque_size) old_dets_dq.pop_front();
+      |         ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+./src/activations.c: In function ‘activate’:
+./src/activations.c:79:5: warning: enumeration value ‘RELU6’ not handled in switch [-Wswitch]
+   79 |     switch(a){
+      |     ^~~~~~
+./src/activations.c:79:5: warning: enumeration value ‘SWISH’ not handled in switch [-Wswitch]
+./src/activations.c:79:5: warning: enumeration value ‘MISH’ not handled in switch [-Wswitch]
+./src/activations.c:79:5: warning: enumeration value ‘HARD_MISH’ not handled in switch [-Wswitch]
+./src/activations.c:79:5: warning: enumeration value ‘NORM_CHAN’ not handled in switch [-Wswitch]
+./src/activations.c:79:5: warning: enumeration value ‘NORM_CHAN_SOFTMAX’ not handled in switch [-Wswitch]
+./src/activations.c:79:5: warning: enumeration value ‘NORM_CHAN_SOFTMAX_MAXVAL’ not handled in switch [-Wswitch]
+./src/activations.c: In function ‘gradient’:
+./src/activations.c:310:5: warning: enumeration value ‘SWISH’ not handled in switch [-Wswitch]
+  310 |     switch(a){
+      |     ^~~~~~
+./src/activations.c:310:5: warning: enumeration value ‘MISH’ not handled in switch [-Wswitch]
+./src/activations.c:310:5: warning: enumeration value ‘HARD_MISH’ not handled in switch [-Wswitch]
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/im2col.c -o obj/im2col.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/col2im.c -o obj/col2im.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/blas.c -o obj/blas.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/crop_layer.c -o obj/crop_layer.o
+./src/blas.c: In function ‘backward_shortcut_multilayer_cpu’:
+./src/blas.c:207:21: warning: unused variable ‘out_index’ [-Wunused-variable]
+  207 |                 int out_index = id;
+      |                     ^~~~~~~~~
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/dropout_layer.c -o obj/dropout_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/maxpool_layer.c -o obj/maxpool_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/softmax_layer.c -o obj/softmax_layer.o
+./src/softmax_layer.c: In function ‘forward_contrastive_layer’:
+./src/softmax_layer.c:242:27: warning: variable ‘max_truth’ set but not used [-Wunused-but-set-variable]
+  242 |                     float max_truth = 0;
+      |                           ^~~~~~~~~
+./src/softmax_layer.c:421:71: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘size_t’ {aka ‘long unsigned int’} [-Wformat=]
+  421 |             printf(" Error: too large number of bboxes: contr_size = %d > max_contr_size  = %d \n", contr_size, max_contr_size);
+      |                                                                      ~^                             ~~~~~~~~~~
+      |                                                                       |                             |
+      |                                                                       int                           size_t {aka long unsigned int}
+      |                                                                      %ld
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/data.c -o obj/data.o
+./src/data.c: In function ‘load_data_detection’:
+./src/data.c:1399:43: warning: variable ‘r_scale’ set but not used [-Wunused-but-set-variable]
+ 1399 |     float r1 = 0, r2 = 0, r3 = 0, r4 = 0, r_scale;
+      |                                           ^~~~~~~
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/matrix.c -o obj/matrix.o
+./src/data.c: In function ‘fill_truth_detection’:
+./src/data.c:431:33: warning: ‘%s’ directive writing up to 4095 bytes into a region of size 251 [-Wformat-overflow=]
+  431 |             sprintf(buff, "echo %s \"Wrong annotation: w = %f\" >> bad_label.list", labelpath, w);
+      |                                 ^~                                                  ~~~~~~~~~
+./src/data.c:431:27: note: assuming directive output of 8 bytes
+  431 |             sprintf(buff, "echo %s \"Wrong annotation: w = %f\" >> bad_label.list", labelpath, w);
+      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/data.c:431:13: note: ‘sprintf’ output between 52 and 4461 bytes into a destination of size 256
+  431 |             sprintf(buff, "echo %s \"Wrong annotation: w = %f\" >> bad_label.list", labelpath, w);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/data.c:437:33: warning: ‘%s’ directive writing up to 4095 bytes into a region of size 251 [-Wformat-overflow=]
+  437 |             sprintf(buff, "echo %s \"Wrong annotation: h = %f\" >> bad_label.list", labelpath, h);
+      |                                 ^~                                                  ~~~~~~~~~
+./src/data.c:437:27: note: assuming directive output of 8 bytes
+  437 |             sprintf(buff, "echo %s \"Wrong annotation: h = %f\" >> bad_label.list", labelpath, h);
+      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/data.c:437:13: note: ‘sprintf’ output between 52 and 4461 bytes into a destination of size 256
+  437 |             sprintf(buff, "echo %s \"Wrong annotation: h = %f\" >> bad_label.list", labelpath, h);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/data.c:424:33: warning: ‘%s’ directive writing up to 4095 bytes into a region of size 251 [-Wformat-overflow=]
+  424 |             sprintf(buff, "echo %s \"Wrong annotation: x = %f, y = %f\" >> bad_label.list", labelpath, x, y);
+      |                                 ^~                                                          ~~~~~~~~~
+./src/data.c:424:27: note: assuming directive output of 8 bytes
+  424 |             sprintf(buff, "echo %s \"Wrong annotation: x = %f, y = %f\" >> bad_label.list", labelpath, x, y);
+      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/data.c:424:27: note: assuming directive output of 8 bytes
+./src/data.c:424:13: note: ‘sprintf’ output between 61 and 4784 bytes into a destination of size 256
+  424 |             sprintf(buff, "echo %s \"Wrong annotation: x = %f, y = %f\" >> bad_label.list", labelpath, x, y);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/data.c:417:33: warning: ‘%s’ directive writing up to 4095 bytes into a region of size 251 [-Wformat-overflow=]
+  417 |             sprintf(buff, "echo %s \"Wrong annotation: x = 0 or y = 0\" >> bad_label.list", labelpath);
+      |                                 ^~                                                          ~~~~~~~~~
+./src/data.c:417:13: note: ‘sprintf’ output between 59 and 4154 bytes into a destination of size 256
+  417 |             sprintf(buff, "echo %s \"Wrong annotation: x = 0 or y = 0\" >> bad_label.list", labelpath);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/data.c:404:33: warning: ‘%s’ directive writing up to 4095 bytes into a region of size 251 [-Wformat-overflow=]
+  404 |             sprintf(buff, "echo %s \"Wrong annotation: class_id = %d. But class_id should be [from 0 to %d]\" >> bad_label.list", labelpath, id, (classes-1));
+      |                                 ^~                                                                                                ~~~~~~~~~
+./src/data.c:404:13: note: ‘sprintf’ output between 95 and 4210 bytes into a destination of size 256
+  404 |             sprintf(buff, "echo %s \"Wrong annotation: class_id = %d. But class_id should be [from 0 to %d]\" >> bad_label.list", labelpath, id, (classes-1));
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/network.c -o obj/network.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/connected_layer.c -o obj/connected_layer.o
+./src/network.c: In function ‘train_network_waitkey’:
+./src/network.c:435:13: warning: unused variable ‘ema_period’ [-Wunused-variable]
+  435 |         int ema_period = (net.max_batches - ema_start_point - 1000) * (1.0 - net.ema_alpha);
+      |             ^~~~~~~~~~
+./src/network.c: In function ‘resize_network’:
+./src/network.c:660:42: warning: passing argument 1 of ‘cudaHostAlloc’ from incompatible pointer type [-Wincompatible-pointer-types]
+  660 |         if (cudaSuccess == cudaHostAlloc(&net->input_pinned_cpu, size * sizeof(float), cudaHostRegisterMapped))
+      |                                          ^~~~~~~~~~~~~~~~~~~~~~
+      |                                          |
+      |                                          float **
+In file included from /usr/local/cuda/include/cuda_runtime.h:95,
+                 from include/darknet.h:41,
+                 from ./src/network.c:1:
+/usr/local/cuda/include/cuda_runtime_api.h:5782:60: note: expected ‘void **’ but argument is of type ‘float **’
+ 5782 | extern __host__ cudaError_t CUDARTAPI cudaHostAlloc(void **pHost, size_t size, unsigned int flags);
+      |                                                     ~~~~~~~^~~~~
+./src/connected_layer.c: In function ‘forward_connected_layer_gpu’:
+./src/connected_layer.c:346:11: warning: unused variable ‘one’ [-Wunused-variable]
+  346 |     float one = 1;    // alpha[0], beta[0]
+      |           ^~~
+./src/connected_layer.c:344:13: warning: unused variable ‘c’ [-Wunused-variable]
+  344 |     float * c = l.output_gpu;
+      |             ^
+./src/connected_layer.c:343:13: warning: unused variable ‘b’ [-Wunused-variable]
+  343 |     float * b = l.weights_gpu;
+      |             ^
+./src/connected_layer.c:342:13: warning: unused variable ‘a’ [-Wunused-variable]
+  342 |     float * a = state.input;
+      |             ^
+./src/connected_layer.c:341:9: warning: unused variable ‘n’ [-Wunused-variable]
+  341 |     int n = l.outputs;
+      |         ^
+./src/connected_layer.c:340:9: warning: unused variable ‘k’ [-Wunused-variable]
+  340 |     int k = l.inputs;
+      |         ^
+./src/connected_layer.c:339:9: warning: unused variable ‘m’ [-Wunused-variable]
+  339 |     int m = l.batch;
+      |         ^
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/cost_layer.c -o obj/cost_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/parser.c -o obj/parser.o
+./src/parser.c: In function ‘parse_network_cfg_custom’:
+./src/parser.c:1761:42: warning: passing argument 1 of ‘cudaHostAlloc’ from incompatible pointer type [-Wincompatible-pointer-types]
+ 1761 |         if (cudaSuccess == cudaHostAlloc(&net.input_pinned_cpu, size * sizeof(float), cudaHostRegisterMapped)) net.input_pinned_cpu_flag = 1;
+      |                                          ^~~~~~~~~~~~~~~~~~~~~
+      |                                          |
+      |                                          float **
+In file included from /usr/local/cuda/include/cuda_runtime.h:95,
+                 from include/darknet.h:41,
+                 from ./src/activations.h:3,
+                 from ./src/activation_layer.h:4,
+                 from ./src/parser.c:6:
+/usr/local/cuda/include/cuda_runtime_api.h:5782:60: note: expected ‘void **’ but argument is of type ‘float **’
+ 5782 | extern __host__ cudaError_t CUDARTAPI cudaHostAlloc(void **pHost, size_t size, unsigned int flags);
+      |                                                     ~~~~~~~^~~~~
+./src/parser.c: In function ‘save_implicit_weights’:
+./src/parser.c:1893:9: warning: unused variable ‘i’ [-Wunused-variable]
+ 1893 |     int i;
+      |         ^
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/option_list.c -o obj/option_list.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/darknet.c -o obj/darknet.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/detection_layer.c -o obj/detection_layer.o
+./src/parser.c: In function ‘get_classes_multipliers’:
+./src/parser.c:435:40: warning: argument 1 range [18446744071562067968, 18446744073709551615] exceeds maximum object size 9223372036854775807 [-Walloc-size-larger-than=]
+  435 |         classes_multipliers = (float *)calloc(classes_counters, sizeof(float));
+      |                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from ./src/parser.c:3:
+/usr/include/stdlib.h:542:14: note: in a call to allocation function ‘calloc’ declared here
+  542 | extern void *calloc (size_t __nmemb, size_t __size)
+      |              ^~~~~~
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/captcha.c -o obj/captcha.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/route_layer.c -o obj/route_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/writing.c -o obj/writing.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/box.c -o obj/box.o
+./src/box.c: In function ‘box_iou_kind’:
+./src/box.c:154:5: warning: enumeration value ‘MSE’ not handled in switch [-Wswitch]
+  154 |     switch(iou_kind) {
+      |     ^~~~~~
+./src/box.c: In function ‘diounms_sort’:
+./src/box.c:898:27: warning: unused variable ‘beta_prob’ [-Wunused-variable]
+  898 |                     float beta_prob = pow(dets[j].prob[k], 2) / sum_prob;
+      |                           ^~~~~~~~~
+./src/box.c:897:27: warning: unused variable ‘alpha_prob’ [-Wunused-variable]
+  897 |                     float alpha_prob = pow(dets[i].prob[k], 2) / sum_prob;
+      |                           ^~~~~~~~~~
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/nightmare.c -o obj/nightmare.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/normalization_layer.c -o obj/normalization_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/avgpool_layer.c -o obj/avgpool_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/coco.c -o obj/coco.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/dice.c -o obj/dice.o
+./src/coco.c: In function ‘validate_coco_recall’:
+./src/coco.c:248:11: warning: unused variable ‘base’ [-Wunused-variable]
+  248 |     char *base = "results/comp4_det_test_";
+      |           ^~~~
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/yolo.c -o obj/yolo.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/detector.c -o obj/detector.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/layer.c -o obj/layer.o
+./src/detector.c: In function ‘train_detector’:
+./src/detector.c:328:13: warning: variable ‘draw_precision’ set but not used [-Wunused-but-set-variable]
+  328 |         int draw_precision = 0;
+      |             ^~~~~~~~~~~~~~
+./src/detector.c:64:11: warning: unused variable ‘avg_contrastive_acc’ [-Wunused-variable]
+   64 |     float avg_contrastive_acc = 0;
+      |           ^~~~~~~~~~~~~~~~~~~
+./src/detector.c: In function ‘eliminate_bdd’:
+./src/detector.c:585:21: warning: statement with no effect [-Wunused-value]
+  585 |                     for (k; buf[k + n] != '\0'; k++)
+      |                     ^~~
+./src/detector.c: In function ‘validate_detector’:
+./src/detector.c:706:13: warning: unused variable ‘mkd2’ [-Wunused-variable]
+  706 |         int mkd2 = make_directory(buff2, 0777);
+      |             ^~~~
+./src/detector.c:704:13: warning: unused variable ‘mkd’ [-Wunused-variable]
+  704 |         int mkd = make_directory(buff, 0777);
+      |             ^~~
+./src/detector.c: In function ‘validate_detector_map’:
+./src/detector.c:1323:24: warning: variable ‘cur_prob’ set but not used [-Wunused-but-set-variable]
+ 1323 |                 double cur_prob = 0;
+      |                        ^~~~~~~~
+./src/detector.c:1344:15: warning: unused variable ‘class_recall’ [-Wunused-variable]
+ 1344 |         float class_recall = (float)tp_for_thresh_per_class[i] / ((float)tp_for_thresh_per_class[i] + (float)(truth_classes_count[i] - tp_for_thresh_per_class[i]));
+      |               ^~~~~~~~~~~~
+./src/detector.c:1343:15: warning: unused variable ‘class_precision’ [-Wunused-variable]
+ 1343 |         float class_precision = (float)tp_for_thresh_per_class[i] / ((float)tp_for_thresh_per_class[i] + (float)fp_for_thresh_per_class[i]);
+      |               ^~~~~~~~~~~~~~~
+./src/layer.c: In function ‘free_layer_custom’:
+./src/layer.c:208:68: warning: suggest parentheses around ‘&&’ within ‘||’ [-Wparentheses]
+  208 |     if (l.delta_gpu && (l.optimized_memory < 1 || l.keep_delta_gpu && l.optimized_memory < 3)) cuda_free(l.delta_gpu), l.delta_gpu = NULL;
+      |                                                   ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/compare.c -o obj/compare.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/classifier.c -o obj/classifier.o
+./src/classifier.c: In function ‘train_classifier’:
+./src/classifier.c:190:13: warning: variable ‘draw_precision’ set but not used [-Wunused-but-set-variable]
+  190 |         int draw_precision = 0;
+      |             ^~~~~~~~~~~~~~
+./src/classifier.c:146:9: warning: unused variable ‘count’ [-Wunused-variable]
+  146 |     int count = 0;
+      |         ^~~~~
+./src/classifier.c:35:11: warning: unused variable ‘avg_contrastive_acc’ [-Wunused-variable]
+   35 |     float avg_contrastive_acc = 0;
+      |           ^~~~~~~~~~~~~~~~~~~
+./src/classifier.c: In function ‘predict_classifier’:
+./src/classifier.c:855:13: warning: unused variable ‘time’ [-Wunused-variable]
+  855 |     clock_t time;
+      |             ^~~~
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/local_layer.c -o obj/local_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/swag.c -o obj/swag.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/shortcut_layer.c -o obj/shortcut_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/representation_layer.c -o obj/representation_layer.o
+./src/shortcut_layer.c: In function ‘make_shortcut_layer’:
+./src/shortcut_layer.c:55:15: warning: unused variable ‘scale’ [-Wunused-variable]
+   55 |         float scale = sqrt(2. / l.nweights);
+      |               ^~~~~
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/activation_layer.c -o obj/activation_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/rnn_layer.c -o obj/rnn_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/gru_layer.c -o obj/gru_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/rnn.c -o obj/rnn.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/rnn_vid.c -o obj/rnn_vid.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/crnn_layer.c -o obj/crnn_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/demo.c -o obj/demo.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/tag.c -o obj/tag.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/cifar.c -o obj/cifar.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/go.c -o obj/go.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/batchnorm_layer.c -o obj/batchnorm_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/art.c -o obj/art.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/region_layer.c -o obj/region_layer.o
+./src/region_layer.c: In function ‘resize_region_layer’:
+./src/region_layer.c:63:9: warning: unused variable ‘old_h’ [-Wunused-variable]
+   63 |     int old_h = l->h;
+      |         ^~~~~
+./src/region_layer.c:62:9: warning: unused variable ‘old_w’ [-Wunused-variable]
+   62 |     int old_w = l->w;
+      |         ^~~~~
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/reorg_layer.c -o obj/reorg_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/reorg_old_layer.c -o obj/reorg_old_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/super.c -o obj/super.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/voxel.c -o obj/voxel.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/tree.c -o obj/tree.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/yolo_layer.c -o obj/yolo_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/gaussian_yolo_layer.c -o obj/gaussian_yolo_layer.o
+./src/yolo_layer.c: In function ‘make_yolo_layer’:
+./src/yolo_layer.c:67:38: warning: passing argument 1 of ‘cudaHostAlloc’ from incompatible pointer type [-Wincompatible-pointer-types]
+   67 |     if (cudaSuccess == cudaHostAlloc(&l.output, batch*l.outputs*sizeof(float), cudaHostRegisterMapped)) l.output_pinned = 1;
+      |                                      ^~~~~~~~~
+      |                                      |
+      |                                      float **
+In file included from /usr/local/cuda/include/cuda_runtime.h:95,
+                 from include/darknet.h:41,
+                 from ./src/activations.h:3,
+                 from ./src/layer.h:4,
+                 from ./src/yolo_layer.h:5,
+                 from ./src/yolo_layer.c:1:
+/usr/local/cuda/include/cuda_runtime_api.h:5782:60: note: expected ‘void **’ but argument is of type ‘float **’
+ 5782 | extern __host__ cudaError_t CUDARTAPI cudaHostAlloc(void **pHost, size_t size, unsigned int flags);
+      |                                                     ~~~~~~~^~~~~
+./src/yolo_layer.c:74:38: warning: passing argument 1 of ‘cudaHostAlloc’ from incompatible pointer type [-Wincompatible-pointer-types]
+   74 |     if (cudaSuccess == cudaHostAlloc(&l.delta, batch*l.outputs*sizeof(float), cudaHostRegisterMapped)) l.delta_pinned = 1;
+      |                                      ^~~~~~~~
+      |                                      |
+      |                                      float **
+In file included from /usr/local/cuda/include/cuda_runtime.h:95,
+                 from include/darknet.h:41,
+                 from ./src/activations.h:3,
+                 from ./src/layer.h:4,
+                 from ./src/yolo_layer.h:5,
+                 from ./src/yolo_layer.c:1:
+/usr/local/cuda/include/cuda_runtime_api.h:5782:60: note: expected ‘void **’ but argument is of type ‘float **’
+ 5782 | extern __host__ cudaError_t CUDARTAPI cudaHostAlloc(void **pHost, size_t size, unsigned int flags);
+      |                                                     ~~~~~~~^~~~~
+./src/yolo_layer.c: In function ‘resize_yolo_layer’:
+./src/yolo_layer.c:105:42: warning: passing argument 1 of ‘cudaHostAlloc’ from incompatible pointer type [-Wincompatible-pointer-types]
+  105 |         if (cudaSuccess != cudaHostAlloc(&l->output, l->batch*l->outputs * sizeof(float), cudaHostRegisterMapped)) {
+      |                                          ^~~~~~~~~~
+      |                                          |
+      |                                          float **
+In file included from /usr/local/cuda/include/cuda_runtime.h:95,
+                 from include/darknet.h:41,
+                 from ./src/activations.h:3,
+                 from ./src/layer.h:4,
+                 from ./src/yolo_layer.h:5,
+                 from ./src/yolo_layer.c:1:
+/usr/local/cuda/include/cuda_runtime_api.h:5782:60: note: expected ‘void **’ but argument is of type ‘float **’
+ 5782 | extern __host__ cudaError_t CUDARTAPI cudaHostAlloc(void **pHost, size_t size, unsigned int flags);
+      |                                                     ~~~~~~~^~~~~
+./src/yolo_layer.c:114:42: warning: passing argument 1 of ‘cudaHostAlloc’ from incompatible pointer type [-Wincompatible-pointer-types]
+  114 |         if (cudaSuccess != cudaHostAlloc(&l->delta, l->batch*l->outputs * sizeof(float), cudaHostRegisterMapped)) {
+      |                                          ^~~~~~~~~
+      |                                          |
+      |                                          float **
+In file included from /usr/local/cuda/include/cuda_runtime.h:95,
+                 from include/darknet.h:41,
+                 from ./src/activations.h:3,
+                 from ./src/layer.h:4,
+                 from ./src/yolo_layer.h:5,
+                 from ./src/yolo_layer.c:1:
+/usr/local/cuda/include/cuda_runtime_api.h:5782:60: note: expected ‘void **’ but argument is of type ‘float **’
+ 5782 | extern __host__ cudaError_t CUDARTAPI cudaHostAlloc(void **pHost, size_t size, unsigned int flags);
+      |                                                     ~~~~~~~^~~~~
+./src/yolo_layer.c: In function ‘process_batch’:
+./src/yolo_layer.c:425:25: warning: variable ‘best_match_t’ set but not used [-Wunused-but-set-variable]
+  425 |                     int best_match_t = 0;
+      |                         ^~~~~~~~~~~~
+./src/yolo_layer.c: In function ‘forward_yolo_layer’:
+./src/yolo_layer.c:705:11: warning: unused variable ‘avg_anyobj’ [-Wunused-variable]
+  705 |     float avg_anyobj = 0;
+      |           ^~~~~~~~~~
+./src/yolo_layer.c:704:11: warning: unused variable ‘avg_obj’ [-Wunused-variable]
+  704 |     float avg_obj = 0;
+      |           ^~~~~~~
+./src/yolo_layer.c:703:11: warning: unused variable ‘avg_cat’ [-Wunused-variable]
+  703 |     float avg_cat = 0;
+      |           ^~~~~~~
+./src/yolo_layer.c:702:11: warning: unused variable ‘recall75’ [-Wunused-variable]
+  702 |     float recall75 = 0;
+      |           ^~~~~~~~
+./src/yolo_layer.c:701:11: warning: unused variable ‘recall’ [-Wunused-variable]
+  701 |     float recall = 0;
+      |           ^~~~~~
+./src/yolo_layer.c:700:11: warning: unused variable ‘tot_ciou_loss’ [-Wunused-variable]
+  700 |     float tot_ciou_loss = 0;
+      |           ^~~~~~~~~~~~~
+./src/yolo_layer.c:699:11: warning: unused variable ‘tot_diou_loss’ [-Wunused-variable]
+  699 |     float tot_diou_loss = 0;
+      |           ^~~~~~~~~~~~~
+./src/yolo_layer.c:696:11: warning: unused variable ‘tot_ciou’ [-Wunused-variable]
+  696 |     float tot_ciou = 0;
+      |           ^~~~~~~~
+./src/yolo_layer.c:695:11: warning: unused variable ‘tot_diou’ [-Wunused-variable]
+  695 |     float tot_diou = 0;
+      |           ^~~~~~~~
+./src/yolo_layer.c:694:11: warning: unused variable ‘tot_giou’ [-Wunused-variable]
+  694 |     float tot_giou = 0;
+      |           ^~~~~~~~
+./src/yolo_layer.c:666:12: warning: unused variable ‘n’ [-Wunused-variable]
+  666 |     int b, n;
+      |            ^
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/upsample_layer.c -o obj/upsample_layer.o
+./src/gaussian_yolo_layer.c: In function ‘make_gaussian_yolo_layer’:
+./src/gaussian_yolo_layer.c:70:38: warning: passing argument 1 of ‘cudaHostAlloc’ from incompatible pointer type [-Wincompatible-pointer-types]
+   70 |     if (cudaSuccess == cudaHostAlloc(&l.output, batch*l.outputs * sizeof(float), cudaHostRegisterMapped)) l.output_pinned = 1;
+      |                                      ^~~~~~~~~
+      |                                      |
+      |                                      float **
+In file included from /usr/local/cuda/include/cuda_runtime.h:95,
+                 from include/darknet.h:41,
+                 from ./src/gaussian_yolo_layer.h:5,
+                 from ./src/gaussian_yolo_layer.c:7:
+/usr/local/cuda/include/cuda_runtime_api.h:5782:60: note: expected ‘void **’ but argument is of type ‘float **’
+ 5782 | extern __host__ cudaError_t CUDARTAPI cudaHostAlloc(void **pHost, size_t size, unsigned int flags);
+      |                                                     ~~~~~~~^~~~~
+./src/gaussian_yolo_layer.c:77:38: warning: passing argument 1 of ‘cudaHostAlloc’ from incompatible pointer type [-Wincompatible-pointer-types]
+   77 |     if (cudaSuccess == cudaHostAlloc(&l.delta, batch*l.outputs * sizeof(float), cudaHostRegisterMapped)) l.delta_pinned = 1;
+      |                                      ^~~~~~~~
+      |                                      |
+      |                                      float **
+In file included from /usr/local/cuda/include/cuda_runtime.h:95,
+                 from include/darknet.h:41,
+                 from ./src/gaussian_yolo_layer.h:5,
+                 from ./src/gaussian_yolo_layer.c:7:
+/usr/local/cuda/include/cuda_runtime_api.h:5782:60: note: expected ‘void **’ but argument is of type ‘float **’
+ 5782 | extern __host__ cudaError_t CUDARTAPI cudaHostAlloc(void **pHost, size_t size, unsigned int flags);
+      |                                                     ~~~~~~~^~~~~
+./src/gaussian_yolo_layer.c: In function ‘resize_gaussian_yolo_layer’:
+./src/gaussian_yolo_layer.c:109:42: warning: passing argument 1 of ‘cudaHostAlloc’ from incompatible pointer type [-Wincompatible-pointer-types]
+  109 |         if (cudaSuccess != cudaHostAlloc(&l->output, l->batch*l->outputs * sizeof(float), cudaHostRegisterMapped)) {
+      |                                          ^~~~~~~~~~
+      |                                          |
+      |                                          float **
+In file included from /usr/local/cuda/include/cuda_runtime.h:95,
+                 from include/darknet.h:41,
+                 from ./src/gaussian_yolo_layer.h:5,
+                 from ./src/gaussian_yolo_layer.c:7:
+/usr/local/cuda/include/cuda_runtime_api.h:5782:60: note: expected ‘void **’ but argument is of type ‘float **’
+ 5782 | extern __host__ cudaError_t CUDARTAPI cudaHostAlloc(void **pHost, size_t size, unsigned int flags);
+      |                                                     ~~~~~~~^~~~~
+./src/gaussian_yolo_layer.c:118:42: warning: passing argument 1 of ‘cudaHostAlloc’ from incompatible pointer type [-Wincompatible-pointer-types]
+  118 |         if (cudaSuccess != cudaHostAlloc(&l->delta, l->batch*l->outputs * sizeof(float), cudaHostRegisterMapped)) {
+      |                                          ^~~~~~~~~
+      |                                          |
+      |                                          float **
+In file included from /usr/local/cuda/include/cuda_runtime.h:95,
+                 from include/darknet.h:41,
+                 from ./src/gaussian_yolo_layer.h:5,
+                 from ./src/gaussian_yolo_layer.c:7:
+/usr/local/cuda/include/cuda_runtime_api.h:5782:60: note: expected ‘void **’ but argument is of type ‘float **’
+ 5782 | extern __host__ cudaError_t CUDARTAPI cudaHostAlloc(void **pHost, size_t size, unsigned int flags);
+      |                                                     ~~~~~~~^~~~~
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/lstm_layer.c -o obj/lstm_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/conv_lstm_layer.c -o obj/conv_lstm_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/scale_channels_layer.c -o obj/scale_channels_layer.o
+gcc -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC -c ./src/sam_layer.c -o obj/sam_layer.o
+nvcc -ccbin g++ -gencode arch=compute_90,code=sm_90 -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN --compiler-options "-Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC" -c ./src/convolutional_kernels.cu -o obj/convolutional_kernels.o
+nvcc -ccbin g++ -gencode arch=compute_90,code=sm_90 -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN --compiler-options "-Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC" -c ./src/activation_kernels.cu -o obj/activation_kernels.o
+nvcc -ccbin g++ -gencode arch=compute_90,code=sm_90 -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN --compiler-options "-Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC" -c ./src/im2col_kernels.cu -o obj/im2col_kernels.o
+nvcc -ccbin g++ -gencode arch=compute_90,code=sm_90 -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN --compiler-options "-Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC" -c ./src/col2im_kernels.cu -o obj/col2im_kernels.o
+nvcc -ccbin g++ -gencode arch=compute_90,code=sm_90 -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN --compiler-options "-Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC" -c ./src/blas_kernels.cu -o obj/blas_kernels.o
+nvcc -ccbin g++ -gencode arch=compute_90,code=sm_90 -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN --compiler-options "-Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC" -c ./src/crop_layer_kernels.cu -o obj/crop_layer_kernels.o
+nvcc -ccbin g++ -gencode arch=compute_90,code=sm_90 -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN --compiler-options "-Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC" -c ./src/dropout_layer_kernels.cu -o obj/dropout_layer_kernels.o
+nvcc -ccbin g++ -gencode arch=compute_90,code=sm_90 -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN --compiler-options "-Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC" -c ./src/maxpool_layer_kernels.cu -o obj/maxpool_layer_kernels.o
+nvcc -ccbin g++ -gencode arch=compute_90,code=sm_90 -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN --compiler-options "-Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC" -c ./src/network_kernels.cu -o obj/network_kernels.o
+nvcc -ccbin g++ -gencode arch=compute_90,code=sm_90 -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN --compiler-options "-Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC" -c ./src/avgpool_layer_kernels.cu -o obj/avgpool_layer_kernels.o
+g++ -shared -std=c++11 -fvisibility=hidden -DLIB_EXPORTS -Iinclude/ -I3rdparty/stb/include -DGPU -I/usr/local/cuda/include/ -DCUDNN -Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic -Ofast -DGPU -DCUDNN -I/usr/local/cudnn/include -fPIC ./obj/image_opencv.o ./obj/http_stream.o ./obj/gemm.o ./obj/utils.o ./obj/dark_cuda.o ./obj/convolutional_layer.o ./obj/list.o ./obj/image.o ./obj/activations.o ./obj/im2col.o ./obj/col2im.o ./obj/blas.o ./obj/crop_layer.o ./obj/dropout_layer.o ./obj/maxpool_layer.o ./obj/softmax_layer.o ./obj/data.o ./obj/matrix.o ./obj/network.o ./obj/connected_layer.o ./obj/cost_layer.o ./obj/parser.o ./obj/option_list.o ./obj/darknet.o ./obj/detection_layer.o ./obj/captcha.o ./obj/route_layer.o ./obj/writing.o ./obj/box.o ./obj/nightmare.o ./obj/normalization_layer.o ./obj/avgpool_layer.o ./obj/coco.o ./obj/dice.o ./obj/yolo.o ./obj/detector.o ./obj/layer.o ./obj/compare.o ./obj/classifier.o ./obj/local_layer.o ./obj/swag.o ./obj/shortcut_layer.o ./obj/representation_layer.o ./obj/activation_layer.o ./obj/rnn_layer.o ./obj/gru_layer.o ./obj/rnn.o ./obj/rnn_vid.o ./obj/crnn_layer.o ./obj/demo.o ./obj/tag.o ./obj/cifar.o ./obj/go.o ./obj/batchnorm_layer.o ./obj/art.o ./obj/region_layer.o ./obj/reorg_layer.o ./obj/reorg_old_layer.o ./obj/super.o ./obj/voxel.o ./obj/tree.o ./obj/yolo_layer.o ./obj/gaussian_yolo_layer.o ./obj/upsample_layer.o ./obj/lstm_layer.o ./obj/conv_lstm_layer.o ./obj/scale_channels_layer.o ./obj/sam_layer.o ./obj/convolutional_kernels.o ./obj/activation_kernels.o ./obj/im2col_kernels.o ./obj/col2im_kernels.o ./obj/blas_kernels.o ./obj/crop_layer_kernels.o ./obj/dropout_layer_kernels.o ./obj/maxpool_layer_kernels.o ./obj/network_kernels.o ./obj/avgpool_layer_kernels.o src/yolo_v2_class.cpp -o libdarknet.so -lm -pthread -L/usr/local/cuda/lib64 -lcuda -lcudart -lcublas -lcurand -L/usr/local/cudnn/lib64 -lcudnn -lstdc++
+src/yolo_v2_class.cpp: In member function ‘std::vector<bbox_t> Detector::tracking_id(std::vector<bbox_t>, bool, int, int)’:
+src/yolo_v2_class.cpp:439:40: warning: comparison of integer expressions of different signedness: ‘std::deque<std::vector<bbox_t> >::size_type’ {aka ‘long unsigned int’} and ‘const int’ [-Wsign-compare]
+  439 |         if (prev_bbox_vec_deque.size() > frames_story) prev_bbox_vec_deque.pop_back();
+      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+src/yolo_v2_class.cpp:454:34: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘const int’ [-Wsign-compare]
+  454 |                     if (cur_dist < max_dist && (k.track_id == 0 || dist_vec[m] > cur_dist)) {
+      |                         ~~~~~~~~~^~~~~~~~~~
+src/yolo_v2_class.cpp:478:40: warning: comparison of integer expressions of different signedness: ‘std::deque<std::vector<bbox_t> >::size_type’ {aka ‘long unsigned int’} and ‘const int’ [-Wsign-compare]
+  478 |         if (prev_bbox_vec_deque.size() > frames_story) prev_bbox_vec_deque.pop_back();
+      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+make: Leaving directory '/scratch/luu.qu/remora-copy/experimental/cudnn-comparison-20260912/darknet'

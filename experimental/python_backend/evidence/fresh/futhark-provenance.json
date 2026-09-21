@@ -1,0 +1,6 @@
+{
+  "source_sha256": "05882890a3a6b1b14470ab2a91593185df9535ff49dfb94b3a06f2172b8876d7",
+  "futhark_version": "0.27.0 (prerelease - include info below when reporting bugs).\nCompiled with GHC 9.12.2.\n",
+  "cuda_source_sha256": "dad27b92fd37bf52ff2c41d109ad53cd157f397296db9238fc00d13003263378",
+  "input_count": 542
+}

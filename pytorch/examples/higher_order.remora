@@ -1,0 +1,5 @@
+;; The two closures capture k; Remora lifts each over its corresponding row.
+(entry (main (k Float) (values [Float 2 3]))
+  (let ((val functions [(fn ((x Float)) (f.+ x k))
+                       (fn ((x Float)) (f.* x k))]))
+    (functions values)))

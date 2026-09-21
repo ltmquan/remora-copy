@@ -1,0 +1,114 @@
+{
+  "on-remora": {
+    "passed": true,
+    "rounds": [
+      {
+        "round": 1,
+        "resident_ms": 9.223537519574165,
+        "transfer_ms": 10.150484275072813,
+        "failed_values": 0,
+        "max_absolute_error": 0.0
+      },
+      {
+        "round": 2,
+        "resident_ms": 9.23602795228362,
+        "transfer_ms": 10.166145861148834,
+        "failed_values": 0,
+        "max_absolute_error": 0.0
+      },
+      {
+        "round": 3,
+        "resident_ms": 9.245670400559902,
+        "transfer_ms": 10.163991712033749,
+        "failed_values": 0,
+        "max_absolute_error": 0.0
+      }
+    ],
+    "resident_ms": 9.23602795228362,
+    "transfer_ms": 10.163991712033749
+  },
+  "off-remora": {
+    "passed": true,
+    "rounds": [
+      {
+        "round": 1,
+        "resident_ms": 7.977782282978296,
+        "transfer_ms": 8.951542433351278,
+        "failed_values": 0,
+        "max_absolute_error": 5.364418029785156e-06
+      },
+      {
+        "round": 2,
+        "resident_ms": 7.973313797265291,
+        "transfer_ms": 8.851968683302402,
+        "failed_values": 0,
+        "max_absolute_error": 5.364418029785156e-06
+      },
+      {
+        "round": 3,
+        "resident_ms": 7.96462781727314,
+        "transfer_ms": 8.862223476171494,
+        "failed_values": 0,
+        "max_absolute_error": 5.364418029785156e-06
+      }
+    ],
+    "resident_ms": 7.973313797265291,
+    "transfer_ms": 8.862223476171494
+  },
+  "on-direct": {
+    "passed": true,
+    "rounds": [
+      {
+        "round": 1,
+        "resident_ms": 9.332907386124134,
+        "transfer_ms": 10.260645765811205,
+        "failed_values": 0,
+        "max_absolute_error": 0.0
+      },
+      {
+        "round": 2,
+        "resident_ms": 9.313815273344517,
+        "transfer_ms": 10.358429979532957,
+        "failed_values": 0,
+        "max_absolute_error": 0.0
+      },
+      {
+        "round": 3,
+        "resident_ms": 9.28876455873251,
+        "transfer_ms": 10.175849311053753,
+        "failed_values": 0,
+        "max_absolute_error": 0.0
+      }
+    ],
+    "resident_ms": 9.313815273344517,
+    "transfer_ms": 10.260645765811205
+  },
+  "off-direct": {
+    "passed": true,
+    "rounds": [
+      {
+        "round": 1,
+        "resident_ms": 8.05032392963767,
+        "transfer_ms": 8.92679626122117,
+        "failed_values": 0,
+        "max_absolute_error": 5.364418029785156e-06
+      },
+      {
+        "round": 2,
+        "resident_ms": 8.049274329096079,
+        "transfer_ms": 9.050903841853142,
+        "failed_values": 0,
+        "max_absolute_error": 5.364418029785156e-06
+      },
+      {
+        "round": 3,
+        "resident_ms": 8.031879551708698,
+        "transfer_ms": 8.916514925658703,
+        "failed_values": 0,
+        "max_absolute_error": 5.364418029785156e-06
+      }
+    ],
+    "resident_ms": 8.049274329096079,
+    "transfer_ms": 8.92679626122117
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "backend": "tinygrad",
+  "model": "remora",
+  "mode": "jit",
+  "compile_mode": "default",
+  "device": "CUDA",
+  "weights": "yolov4.weights",
+  "fold_bn": false,
+  "runs": 1,
+  "warmup": 3,
+  "output": "tiny_investigation/profile-trained",
+  "changed_input_max_delta": 8.367700576782227,
+  "changed_input_validation": "passed",
+  "setup_seconds": 2.479160358197987,
+  "first_eager_seconds": 9.494188621640205,
+  "warmup_seconds": [
+    0.9141733404248953,
+    1.0212892908602953,
+    0.15295567456632853
+  ],
+  "run_seconds": [
+    0.15256011858582497
+  ],
+  "median_seconds": 0.15256011858582497,
+  "transfer_warmup_seconds": [
+    0.1591951660811901,
+    0.15807446278631687,
+    0.15757358353585005
+  ],
+  "end_to_end_seconds": [
+    0.15759894158691168
+  ],
+  "end_to_end_median_seconds": 0.15759894158691168,
+  "tinygrad_beam": "0",
+  "input_sha256": "ccd50c843493cfdc36d179764a89948945b94ac83e969aa19a4e069e6ceb0dba",
+  "remora_ast_sha256": "9b06a5f2be536d964c1e74f0134d75d3f05b8722fca41269b4b3e6ffd70f8a1d",
+  "versions": {
+    "numpy": "2.5.3",
+    "torch": "2.8.0+cu128",
+    "tinygrad": "0.14.0"
+  },
+  "precision": "float32; torch TF32 disabled; tinygrad ALLOW_TF32=0"
+}

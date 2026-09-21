@@ -1,0 +1,6 @@
+{
+  "completed_beam_searches": 21,
+  "beam_width": 2,
+  "cuda_compilations_all_workloads": 4396,
+  "note": "Read-only cache counts before the new GPU experiments; compilation entries also include prior BEAM=0 work."
+}

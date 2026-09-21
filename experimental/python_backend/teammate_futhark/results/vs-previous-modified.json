@@ -1,0 +1,9 @@
+{
+  "black": true,
+  "white": true,
+  "noise": true,
+  "gradient": true,
+  "checkerboard": true,
+  "evalbox": true,
+  "original": true
+}

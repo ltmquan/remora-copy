@@ -1,0 +1,85 @@
+[
+  {
+    "source": "examples/extras/convolution-1d.remora",
+    "sha256": "4391ee9aa7abfd4d5e11210e45a2dcf5d2d1eb5574d71d1a977a517381ad8128",
+    "compiled": true,
+    "lowering": "general",
+    "compiled_cpu_ms_single_run": 5.06029196549207,
+    "interpreter_agreement": true,
+    "shape": [
+      10
+    ]
+  },
+  {
+    "source": "examples/extras/fft-fixed.remora",
+    "sha256": "4ab0326d4049924de22b6dfe383ac4ad3a70f617d5829ece438fb630099c0996",
+    "compiled": true,
+    "lowering": "general",
+    "compiled_cpu_ms_single_run": 37.43120899889618,
+    "interpreter_agreement": true,
+    "shape": [
+      16,
+      2
+    ]
+  },
+  {
+    "source": "examples/extras/life.remora",
+    "sha256": "ab319feeca37c409e7ef0e64ddf4a4836512cb39f22b2e23a3b2f710d4d6f53a",
+    "compiled": true,
+    "lowering": "general",
+    "compiled_cpu_ms_single_run": 16.139917075634003,
+    "interpreter_agreement": true,
+    "shape": [
+      5,
+      5
+    ]
+  },
+  {
+    "source": "examples/extras/matmult.remora",
+    "sha256": "172034221c205d8e978a70494961462141b22d87839bee0b2d6ba10d7e959009",
+    "compiled": true,
+    "lowering": "general",
+    "compiled_cpu_ms_single_run": 1.866375096142292,
+    "interpreter_agreement": true,
+    "shape": [
+      2,
+      3
+    ]
+  },
+  {
+    "source": "examples/extras/row-col-sums.remora",
+    "sha256": "9c4b2b5cac2b0cfeab5fe51d934fee49e319cf5080b3e1fd60792b4cf7fd5709",
+    "compiled": true,
+    "lowering": "general",
+    "compiled_cpu_ms_single_run": 1.2648749398067594,
+    "interpreter_agreement": true,
+    "shape": [
+      2
+    ]
+  },
+  {
+    "source": "examples/extras/rule30.remora",
+    "sha256": "5fa1d728304394fc1b328db0da77f56f7730977864a812366662e5e7245b31cb",
+    "compiled": true,
+    "lowering": "general",
+    "compiled_cpu_ms_single_run": 12.816749978810549,
+    "interpreter_agreement": true,
+    "shape": [
+      4,
+      9
+    ]
+  },
+  {
+    "source": "examples/nbody.remora",
+    "sha256": "d2b3130908928cf973620b2f26822dab15052e84694a2da6a742fc25889f42c6",
+    "compiled": true,
+    "lowering": "general",
+    "compiled_cpu_ms_single_run": 3096.1078330874443,
+    "interpreter_agreement": true,
+    "shape": [
+      2,
+      32,
+      3
+    ]
+  }
+]

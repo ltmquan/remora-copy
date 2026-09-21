@@ -1,0 +1,64 @@
+{
+  "backend": "torch",
+  "model": "remora",
+  "mode": "compile",
+  "compile_mode": "reduce-overhead",
+  "device": "cuda",
+  "weights": "/scratch/luu.qu/remora-python-20260911/yolov4.weights",
+  "fold_bn": true,
+  "runs": 10,
+  "warmup": 3,
+  "output": "/scratch/luu.qu/remora-copy/experimental/cudnn-comparison-20260912/results/memory/torch-remora-compile-trained",
+  "changed_input_max_delta": 8.367902755737305,
+  "changed_input_validation": "passed",
+  "setup_seconds": 2.5080447336658835,
+  "first_eager_seconds": 0.7309854896739125,
+  "warmup_seconds": [
+    6.77571492549032,
+    0.23110288195312023,
+    0.009738153778016567
+  ],
+  "run_seconds": [
+    0.009534262120723724,
+    0.009316019713878632,
+    0.009481246583163738,
+    0.009292681701481342,
+    0.009388566948473454,
+    0.009296548552811146,
+    0.009481558576226234,
+    0.009284606203436852,
+    0.009341496974229813,
+    0.009278540499508381
+  ],
+  "median_seconds": 0.009328758344054222,
+  "transfer_warmup_seconds": [
+    3.021026510745287,
+    0.27082524355500937,
+    0.013238833285868168
+  ],
+  "end_to_end_seconds": [
+    0.012639367952942848,
+    0.010831326246261597,
+    0.010727663524448872,
+    0.010844438336789608,
+    0.010743141174316406,
+    0.010673830285668373,
+    0.010588237084448338,
+    0.01050642877817154,
+    0.010520030744373798,
+    0.010522626340389252
+  ],
+  "end_to_end_median_seconds": 0.010700746905058622,
+  "tinygrad_beam": "0",
+  "input_sha256": "ccd50c843493cfdc36d179764a89948945b94ac83e969aa19a4e069e6ceb0dba",
+  "remora_ast_sha256": "9b06a5f2be536d964c1e74f0134d75d3f05b8722fca41269b4b3e6ffd70f8a1d",
+  "versions": {
+    "numpy": "2.5.3",
+    "torch": "2.8.0+cu128",
+    "tinygrad": "0.14.0"
+  },
+  "precision": "float32; torch TF32 disabled; tinygrad ALLOW_TF32=0",
+  "gpu": "NVIDIA H200",
+  "cuda": "12.8",
+  "cudnn": 91002
+}

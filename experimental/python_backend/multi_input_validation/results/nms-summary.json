@@ -1,0 +1,975 @@
+{
+  "confidence_threshold": 0.25,
+  "nms_iou_threshold": 0.45,
+  "method": "Class-wise greedy IoU NMS on objectness*class probability; float32, no clipping, normalized boxes in resized 608x608 image; rules from DARPA do_nms_sort. No ground-truth evaluation.",
+  "detections": {
+    "black": {
+      "darknet": [],
+      "fresh_futhark": [],
+      "modified_futhark": [],
+      "torch-remora": [],
+      "torch-direct": [],
+      "baseline-remora": [],
+      "baseline-direct": [],
+      "im2col-remora": [],
+      "im2col-direct": []
+    },
+    "white": {
+      "darknet": [],
+      "fresh_futhark": [],
+      "modified_futhark": [],
+      "torch-remora": [],
+      "torch-direct": [],
+      "baseline-remora": [],
+      "baseline-direct": [],
+      "im2col-remora": [],
+      "im2col-direct": []
+    },
+    "noise": {
+      "darknet": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.2562488615512848,
+          "xywh": [
+            0.5039025545120239,
+            0.4967655837535858,
+            0.9464508891105652,
+            0.9637948274612427
+          ]
+        }
+      ],
+      "fresh_futhark": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.25621092319488525,
+          "xywh": [
+            0.5038982629776001,
+            0.4967678487300873,
+            0.9465505480766296,
+            0.9637754559516907
+          ]
+        }
+      ],
+      "modified_futhark": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.25624895095825195,
+          "xywh": [
+            0.5039024949073792,
+            0.4967656433582306,
+            0.9464505910873413,
+            0.9637956023216248
+          ]
+        }
+      ],
+      "torch-remora": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.2562483251094818,
+          "xywh": [
+            0.5039025545120239,
+            0.4967656433582306,
+            0.9464507102966309,
+            0.9637951254844666
+          ]
+        }
+      ],
+      "torch-direct": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.2562483251094818,
+          "xywh": [
+            0.5039025545120239,
+            0.4967656433582306,
+            0.9464507102966309,
+            0.9637951254844666
+          ]
+        }
+      ],
+      "baseline-remora": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.25624901056289673,
+          "xywh": [
+            0.5039025545120239,
+            0.4967656433582306,
+            0.9464513659477234,
+            0.9637948870658875
+          ]
+        }
+      ],
+      "baseline-direct": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.25624901056289673,
+          "xywh": [
+            0.5039025545120239,
+            0.4967656433582306,
+            0.9464513659477234,
+            0.9637948870658875
+          ]
+        }
+      ],
+      "im2col-remora": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.25624850392341614,
+          "xywh": [
+            0.5039024949073792,
+            0.49676570296287537,
+            0.9464510679244995,
+            0.9637956023216248
+          ]
+        }
+      ],
+      "im2col-direct": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.25624850392341614,
+          "xywh": [
+            0.5039024949073792,
+            0.49676570296287537,
+            0.9464510679244995,
+            0.9637956023216248
+          ]
+        }
+      ]
+    },
+    "gradient": {
+      "darknet": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.8573018312454224,
+          "xywh": [
+            0.5034082531929016,
+            0.505988597869873,
+            0.9597910046577454,
+            0.9660852551460266
+          ]
+        }
+      ],
+      "fresh_futhark": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.8573881387710571,
+          "xywh": [
+            0.5034444332122803,
+            0.5059850215911865,
+            0.9600155353546143,
+            0.965903103351593
+          ]
+        }
+      ],
+      "modified_futhark": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.8573018312454224,
+          "xywh": [
+            0.5034083127975464,
+            0.505988597869873,
+            0.9597917795181274,
+            0.9660851359367371
+          ]
+        }
+      ],
+      "torch-remora": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.8573018908500671,
+          "xywh": [
+            0.5034083127975464,
+            0.505988597869873,
+            0.9597910046577454,
+            0.9660847187042236
+          ]
+        }
+      ],
+      "torch-direct": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.8573018908500671,
+          "xywh": [
+            0.5034083127975464,
+            0.505988597869873,
+            0.9597910046577454,
+            0.9660847187042236
+          ]
+        }
+      ],
+      "baseline-remora": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.8573023676872253,
+          "xywh": [
+            0.5034082531929016,
+            0.505988597869873,
+            0.9597926735877991,
+            0.9660856127738953
+          ]
+        }
+      ],
+      "baseline-direct": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.8573023676872253,
+          "xywh": [
+            0.5034082531929016,
+            0.505988597869873,
+            0.9597926735877991,
+            0.9660856127738953
+          ]
+        }
+      ],
+      "im2col-remora": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.8573021292686462,
+          "xywh": [
+            0.5034083127975464,
+            0.505988597869873,
+            0.9597920179367065,
+            0.9660853147506714
+          ]
+        }
+      ],
+      "im2col-direct": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.8573021292686462,
+          "xywh": [
+            0.5034083127975464,
+            0.505988597869873,
+            0.9597920179367065,
+            0.9660853147506714
+          ]
+        }
+      ]
+    },
+    "checkerboard": {
+      "darknet": [],
+      "fresh_futhark": [],
+      "modified_futhark": [],
+      "torch-remora": [],
+      "torch-direct": [],
+      "baseline-remora": [],
+      "baseline-direct": [],
+      "im2col-remora": [],
+      "im2col-direct": []
+    },
+    "evalbox": {
+      "darknet": [
+        {
+          "candidate": 22524,
+          "class_id": 74,
+          "confidence": 0.7143436074256897,
+          "xywh": [
+            0.5036090016365051,
+            0.4018925428390503,
+            0.8326043486595154,
+            0.7472536563873291
+          ]
+        }
+      ],
+      "fresh_futhark": [
+        {
+          "candidate": 22524,
+          "class_id": 74,
+          "confidence": 0.7144739627838135,
+          "xywh": [
+            0.5035940408706665,
+            0.40188467502593994,
+            0.8325390815734863,
+            0.7472654581069946
+          ]
+        }
+      ],
+      "modified_futhark": [
+        {
+          "candidate": 22524,
+          "class_id": 74,
+          "confidence": 0.7143443822860718,
+          "xywh": [
+            0.5036089420318604,
+            0.4018925428390503,
+            0.8326042294502258,
+            0.7472536563873291
+          ]
+        }
+      ],
+      "torch-remora": [
+        {
+          "candidate": 22524,
+          "class_id": 74,
+          "confidence": 0.7143430113792419,
+          "xywh": [
+            0.5036090016365051,
+            0.4018925726413727,
+            0.8326045870780945,
+            0.7472536563873291
+          ]
+        }
+      ],
+      "torch-direct": [
+        {
+          "candidate": 22524,
+          "class_id": 74,
+          "confidence": 0.7143430113792419,
+          "xywh": [
+            0.5036090016365051,
+            0.4018925726413727,
+            0.8326045870780945,
+            0.7472536563873291
+          ]
+        }
+      ],
+      "baseline-remora": [
+        {
+          "candidate": 22524,
+          "class_id": 74,
+          "confidence": 0.7143430709838867,
+          "xywh": [
+            0.5036090016365051,
+            0.4018925428390503,
+            0.8326044678688049,
+            0.7472530007362366
+          ]
+        }
+      ],
+      "baseline-direct": [
+        {
+          "candidate": 22524,
+          "class_id": 74,
+          "confidence": 0.7143430709838867,
+          "xywh": [
+            0.5036090016365051,
+            0.4018925428390503,
+            0.8326044678688049,
+            0.7472530007362366
+          ]
+        }
+      ],
+      "im2col-remora": [
+        {
+          "candidate": 22524,
+          "class_id": 74,
+          "confidence": 0.7143445014953613,
+          "xywh": [
+            0.5036090016365051,
+            0.4018925428390503,
+            0.8326043486595154,
+            0.7472533583641052
+          ]
+        }
+      ],
+      "im2col-direct": [
+        {
+          "candidate": 22524,
+          "class_id": 74,
+          "confidence": 0.7143445014953613,
+          "xywh": [
+            0.5036090016365051,
+            0.4018925428390503,
+            0.8326043486595154,
+            0.7472533583641052
+          ]
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "input": "black",
+      "pipeline": "fresh_futhark",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "black",
+      "pipeline": "modified_futhark",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "black",
+      "pipeline": "torch-remora",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "black",
+      "pipeline": "torch-direct",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "black",
+      "pipeline": "baseline-remora",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "black",
+      "pipeline": "baseline-direct",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "black",
+      "pipeline": "im2col-remora",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "black",
+      "pipeline": "im2col-direct",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "white",
+      "pipeline": "fresh_futhark",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "white",
+      "pipeline": "modified_futhark",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "white",
+      "pipeline": "torch-remora",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "white",
+      "pipeline": "torch-direct",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "white",
+      "pipeline": "baseline-remora",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "white",
+      "pipeline": "baseline-direct",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "white",
+      "pipeline": "im2col-remora",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "white",
+      "pipeline": "im2col-direct",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "noise",
+      "pipeline": "fresh_futhark",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 3.793835639953613e-05,
+      "max_xywh_difference_608_pixels": 0.0605926513671875,
+      "minimum_matched_iou": 0.9998747110366821
+    },
+    {
+      "input": "noise",
+      "pipeline": "modified_futhark",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 8.940696716308594e-08,
+      "max_xywh_difference_608_pixels": 0.0004711151123046875,
+      "minimum_matched_iou": 0.9999988079071045
+    },
+    {
+      "input": "noise",
+      "pipeline": "torch-remora",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 5.364418029785156e-07,
+      "max_xywh_difference_608_pixels": 0.0001811981201171875,
+      "minimum_matched_iou": 0.999999463558197
+    },
+    {
+      "input": "noise",
+      "pipeline": "torch-direct",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 5.364418029785156e-07,
+      "max_xywh_difference_608_pixels": 0.0001811981201171875,
+      "minimum_matched_iou": 0.999999463558197
+    },
+    {
+      "input": "noise",
+      "pipeline": "baseline-remora",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 1.4901161193847656e-07,
+      "max_xywh_difference_608_pixels": 0.0002899169921875,
+      "minimum_matched_iou": 0.999999463558197
+    },
+    {
+      "input": "noise",
+      "pipeline": "baseline-direct",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 1.4901161193847656e-07,
+      "max_xywh_difference_608_pixels": 0.0002899169921875,
+      "minimum_matched_iou": 0.999999463558197
+    },
+    {
+      "input": "noise",
+      "pipeline": "im2col-remora",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 3.5762786865234375e-07,
+      "max_xywh_difference_608_pixels": 0.0004711151123046875,
+      "minimum_matched_iou": 0.9999991059303284
+    },
+    {
+      "input": "noise",
+      "pipeline": "im2col-direct",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 3.5762786865234375e-07,
+      "max_xywh_difference_608_pixels": 0.0004711151123046875,
+      "minimum_matched_iou": 0.9999991059303284
+    },
+    {
+      "input": "gradient",
+      "pipeline": "fresh_futhark",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 8.630752563476562e-05,
+      "max_xywh_difference_608_pixels": 0.13651466369628906,
+      "minimum_matched_iou": 0.9995776414871216
+    },
+    {
+      "input": "gradient",
+      "pipeline": "modified_futhark",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 0.0,
+      "max_xywh_difference_608_pixels": 0.0004711151123046875,
+      "minimum_matched_iou": 0.9999993443489075
+    },
+    {
+      "input": "gradient",
+      "pipeline": "torch-remora",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 5.960464477539063e-08,
+      "max_xywh_difference_608_pixels": 0.0003261566162109375,
+      "minimum_matched_iou": 0.9999993443489075
+    },
+    {
+      "input": "gradient",
+      "pipeline": "torch-direct",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 5.960464477539063e-08,
+      "max_xywh_difference_608_pixels": 0.0003261566162109375,
+      "minimum_matched_iou": 0.9999993443489075
+    },
+    {
+      "input": "gradient",
+      "pipeline": "baseline-remora",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 5.364418029785156e-07,
+      "max_xywh_difference_608_pixels": 0.00101470947265625,
+      "minimum_matched_iou": 0.9999977946281433
+    },
+    {
+      "input": "gradient",
+      "pipeline": "baseline-direct",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 5.364418029785156e-07,
+      "max_xywh_difference_608_pixels": 0.00101470947265625,
+      "minimum_matched_iou": 0.9999977946281433
+    },
+    {
+      "input": "gradient",
+      "pipeline": "im2col-remora",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 2.980232238769531e-07,
+      "max_xywh_difference_608_pixels": 0.0006160736083984375,
+      "minimum_matched_iou": 0.9999988675117493
+    },
+    {
+      "input": "gradient",
+      "pipeline": "im2col-direct",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 2.980232238769531e-07,
+      "max_xywh_difference_608_pixels": 0.0006160736083984375,
+      "minimum_matched_iou": 0.9999988675117493
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "fresh_futhark",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "modified_futhark",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "torch-remora",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "torch-direct",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "baseline-remora",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "baseline-direct",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "im2col-remora",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "im2col-direct",
+      "detections": 0,
+      "darknet_detections": 0,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": null,
+      "max_xywh_difference_608_pixels": null,
+      "minimum_matched_iou": null
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "fresh_futhark",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 0.0001303553581237793,
+      "max_xywh_difference_608_pixels": 0.03968238830566406,
+      "minimum_matched_iou": 0.9999003410339355
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "modified_futhark",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 7.748603820800781e-07,
+      "max_xywh_difference_608_pixels": 7.2479248046875e-05,
+      "minimum_matched_iou": 0.9999996423721313
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "torch-remora",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 5.960464477539062e-07,
+      "max_xywh_difference_608_pixels": 0.00014495849609375,
+      "minimum_matched_iou": 0.9999994039535522
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "torch-direct",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 5.960464477539062e-07,
+      "max_xywh_difference_608_pixels": 0.00014495849609375,
+      "minimum_matched_iou": 0.9999994039535522
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "baseline-remora",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 5.364418029785156e-07,
+      "max_xywh_difference_608_pixels": 0.0003986358642578125,
+      "minimum_matched_iou": 0.9999986290931702
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "baseline-direct",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 5.364418029785156e-07,
+      "max_xywh_difference_608_pixels": 0.0003986358642578125,
+      "minimum_matched_iou": 0.9999986290931702
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "im2col-remora",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 8.940696716308594e-07,
+      "max_xywh_difference_608_pixels": 0.0001811981201171875,
+      "minimum_matched_iou": 0.9999996423721313
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "im2col-direct",
+      "detections": 1,
+      "darknet_detections": 1,
+      "same_surviving_candidates_and_classes": true,
+      "added": [],
+      "removed": [],
+      "max_confidence_difference": 8.940696716308594e-07,
+      "max_xywh_difference_608_pixels": 0.0001811981201171875,
+      "minimum_matched_iou": 0.9999996423721313
+    }
+  ]
+}

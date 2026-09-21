@@ -1,0 +1,3 @@
+dad27b92fd37bf52ff2c41d109ad53cd157f397296db9238fc00d13003263378  /scratch/luu.qu/remora-python-20260911/fresh_futhark/model.c
+aedd03953d63dee881fe0d6532047571d3422f77280a28830c60cb652f93bac5  fresh_futhark/harness.c
+7ac88013b6b64ab50c2f99352e4ef9f035e7a8fdb243206ba70130a988d1c58d  fresh_futhark/benchmark

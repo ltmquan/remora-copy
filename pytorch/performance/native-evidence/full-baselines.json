@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "source_sha256": "334346d83578f49a52507fab11d0cfed0da269b10f20ab012ade4f6ca98a6e89",
+  "shape": [
+    22743,
+    85
+  ],
+  "scalars": 1933155,
+  "max_abs": 5.811452865600586e-06,
+  "max_error_over_tolerance": 0.1382325133371637,
+  "direct_pytorch_eager_median_ms": 23.075384087860584,
+  "remora_futhark_median_ms": 1015.5813755,
+  "futhark_samples_ms": [
+    1015.8486280000001,
+    1018.14587,
+    1011.4470879999999,
+    1015.314123,
+    1013.755355,
+    1017.8382399999999,
+    1020.5905799999999,
+    1016.492952,
+    1010.291128,
+    1012.8998019999999
+  ],
+  "direct_samples_ms": [
+    23.13785208389163,
+    23.05756974965334,
+    23.092487826943398,
+    23.18135602399707,
+    23.0782818980515,
+    23.037393111735582,
+    23.28681480139494,
+    22.948543075472116,
+    23.072486277669668,
+    22.989904042333364
+  ],
+  "futhark_binary_sha256": "3aab9b9e1f3c5a7baf119b5ae1e85281e2c908aeaab3d6570df6418e73d518b7",
+  "futhark_build": {
+    "source_sha256": "334346d83578f49a52507fab11d0cfed0da269b10f20ab012ade4f6ca98a6e89",
+    "stages": [
+      {
+        "stage": "remora",
+        "command": [
+          "/Users/quanluusmacbook/MOCHA/scheduling-investigation/bin/remora",
+          "futhark",
+          "-f",
+          "/Users/quanluusmacbook/MOCHA/remora-copy/examples/darknet/yolov4.remora"
+        ],
+        "exit_code": 0,
+        "seconds": 18.974034709041007
+      },
+      {
+        "stage": "gpu-memory",
+        "command": [
+          "/Users/quanluusmacbook/MOCHA/scheduling-investigation/bin/futhark",
+          "dev",
+          "--gpu-mem",
+          "/Users/quanluusmacbook/MOCHA/remora/experimental/python_backend/modified_futhark/model.fut_soacs"
+        ],
+        "exit_code": 0,
+        "seconds": 67.02632045804057
+      },
+      {
+        "stage": "cuda-library",
+        "command": [
+          "/Users/quanluusmacbook/MOCHA/scheduling-investigation/bin/futhark",
+          "dev",
+          "--backend=cuda",
+          "--library",
+          "/Users/quanluusmacbook/MOCHA/remora/experimental/python_backend/modified_futhark/model.fut_gpu_mem"
+        ],
+        "exit_code": 0,
+        "seconds": 8.849018958979286
+      }
+    ]
+  },
+  "gpu": "Tesla V100-SXM2-32GB",
+  "new_compiler_full_network": "Not timed: prior general-backend attempt did not complete within its test limit. See small workload timings."
+}

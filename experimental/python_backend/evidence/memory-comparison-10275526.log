@@ -1,0 +1,23 @@
+fresh_futhark-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 4.708766937255859e-06, 'mean_abs': 1.4561945485621987e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+modified_futhark-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.8694353103637695e-06, 'mean_abs': 1.6296251038744958e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-direct-jit-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.735324859619141e-06, 'mean_abs': 1.8516501291504886e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-remora-jit-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.735324859619141e-06, 'mean_abs': 1.8516501291504886e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-direct-compile-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.4373016357421875e-06, 'mean_abs': 1.6746699902370474e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-remora-compile-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.4373016357421875e-06, 'mean_abs': 1.6746699902370474e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-compile-trained remora vs direct {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 0.0, 'mean_abs': 0.0, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-jit-trained remora vs direct {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 0.0, 'mean_abs': 0.0, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+memory_matrix/memory/darknet 1974
+memory_matrix/memory/fresh_futhark 30044
+memory_matrix/memory/modified_futhark 30048
+memory_matrix/memory/torch-remora 12968
+memory_matrix/memory/tinygrad-remora 1012
+memory_matrix/memory/torch-direct 13020
+memory_matrix/memory/tinygrad-direct 1012
+fresh_futhark-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 4.708766937255859e-06, 'mean_abs': 1.4561945485621987e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+modified_futhark-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.8694353103637695e-06, 'mean_abs': 1.6296251038744958e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-direct-jit-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.735324859619141e-06, 'mean_abs': 1.8516501291504886e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-remora-jit-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.735324859619141e-06, 'mean_abs': 1.8516501291504886e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-direct-compile-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.4373016357421875e-06, 'mean_abs': 1.6746699902370474e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-remora-compile-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.4373016357421875e-06, 'mean_abs': 1.6746699902370474e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-compile-trained remora vs direct {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 0.0, 'mean_abs': 0.0, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-jit-trained remora vs direct {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 0.0, 'mean_abs': 0.0, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}

@@ -1,0 +1,62 @@
+{
+  "baseline-trained vs darknet": {
+    "elements": 1933155,
+    "nonfinite": 0,
+    "failed": 0,
+    "max_abs": 6.735324859619141e-06,
+    "mean_abs": 1.8516501291504886e-08,
+    "atol": 1e-05,
+    "rtol": 0.0001,
+    "passed": true
+  },
+  "fold-trained vs darknet": {
+    "elements": 1933155,
+    "nonfinite": 0,
+    "failed": 0,
+    "max_abs": 5.781650543212891e-06,
+    "mean_abs": 1.673102184389933e-08,
+    "atol": 1e-05,
+    "rtol": 0.0001,
+    "passed": true
+  },
+  "im2col-trained vs darknet": {
+    "elements": 1933155,
+    "nonfinite": 0,
+    "failed": 0,
+    "max_abs": 4.5299530029296875e-06,
+    "mean_abs": 1.7032090403516923e-08,
+    "atol": 1e-05,
+    "rtol": 0.0001,
+    "passed": true
+  },
+  "materialize-trained vs darknet": {
+    "elements": 1933155,
+    "nonfinite": 0,
+    "failed": 0,
+    "max_abs": 4.887580871582031e-06,
+    "mean_abs": 1.7783422567665953e-08,
+    "atol": 1e-05,
+    "rtol": 0.0001,
+    "passed": true
+  },
+  "profile-trained vs darknet": {
+    "elements": 1933155,
+    "nonfinite": 0,
+    "failed": 0,
+    "max_abs": 6.735324859619141e-06,
+    "mean_abs": 1.8516501291504886e-08,
+    "atol": 1e-05,
+    "rtol": 0.0001,
+    "passed": true
+  },
+  "winograd-trained vs darknet": {
+    "elements": 1933155,
+    "nonfinite": 0,
+    "failed": 0,
+    "max_abs": 6.9141387939453125e-06,
+    "mean_abs": 2.2696154127960175e-08,
+    "atol": 1e-05,
+    "rtol": 0.0001,
+    "passed": true
+  }
+}

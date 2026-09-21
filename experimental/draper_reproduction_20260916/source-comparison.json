@@ -1,0 +1,7 @@
+{
+  "demo_commit": "5d7cf48e53a6b1576932a68d6afee3472579e780",
+  "demo_sha256": "8c7e7fc60d2cb061f6870e8a433f07a96a58b25ed8bf536aa8929a77d67fed0b",
+  "teammate_sha256": "1940e201db84ce522c9dfa4740a305ea04016c912f9b000a4672b067dde03639",
+  "equal_after_stripping_trailing_newline": true,
+  "only_difference": "one terminal newline"
+}

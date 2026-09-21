@@ -1,0 +1,9 @@
+setup_seconds 2.266521
+first inference started
+first_eager_seconds 9.368453
+validated output black
+validated output white
+validated output noise
+validated output gradient
+validated output checkerboard
+validated output evalbox

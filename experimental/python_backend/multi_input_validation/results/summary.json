@@ -1,0 +1,345 @@
+{
+  "atol": 1e-05,
+  "rtol": 0.0001,
+  "images": 6,
+  "pipelines_including_darknet": 9,
+  "comparisons": [
+    {
+      "input": "black",
+      "pipeline": "fresh_futhark",
+      "passed": false,
+      "failed_values": 206851,
+      "max_absolute_error": 0.020394980907440186
+    },
+    {
+      "input": "black",
+      "pipeline": "modified_futhark",
+      "passed": false,
+      "failed_values": 18,
+      "max_absolute_error": 0.0002498626708984375
+    },
+    {
+      "input": "black",
+      "pipeline": "torch-remora",
+      "passed": false,
+      "failed_values": 4,
+      "max_absolute_error": 0.00018024444580078125
+    },
+    {
+      "input": "black",
+      "pipeline": "torch-direct",
+      "passed": false,
+      "failed_values": 4,
+      "max_absolute_error": 0.00018024444580078125
+    },
+    {
+      "input": "black",
+      "pipeline": "baseline-remora",
+      "passed": false,
+      "failed_values": 896,
+      "max_absolute_error": 0.0004477500915527344
+    },
+    {
+      "input": "black",
+      "pipeline": "baseline-direct",
+      "passed": false,
+      "failed_values": 896,
+      "max_absolute_error": 0.0004477500915527344
+    },
+    {
+      "input": "black",
+      "pipeline": "im2col-remora",
+      "passed": false,
+      "failed_values": 13,
+      "max_absolute_error": 0.0002532005310058594
+    },
+    {
+      "input": "black",
+      "pipeline": "im2col-direct",
+      "passed": false,
+      "failed_values": 13,
+      "max_absolute_error": 0.0002532005310058594
+    },
+    {
+      "input": "white",
+      "pipeline": "fresh_futhark",
+      "passed": false,
+      "failed_values": 670037,
+      "max_absolute_error": 1.6667976379394531
+    },
+    {
+      "input": "white",
+      "pipeline": "modified_futhark",
+      "passed": false,
+      "failed_values": 17,
+      "max_absolute_error": 0.00086212158203125
+    },
+    {
+      "input": "white",
+      "pipeline": "torch-remora",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 0.000347137451171875
+    },
+    {
+      "input": "white",
+      "pipeline": "torch-direct",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 0.000347137451171875
+    },
+    {
+      "input": "white",
+      "pipeline": "baseline-remora",
+      "passed": false,
+      "failed_values": 13,
+      "max_absolute_error": 0.001560211181640625
+    },
+    {
+      "input": "white",
+      "pipeline": "baseline-direct",
+      "passed": false,
+      "failed_values": 13,
+      "max_absolute_error": 0.001560211181640625
+    },
+    {
+      "input": "white",
+      "pipeline": "im2col-remora",
+      "passed": false,
+      "failed_values": 29,
+      "max_absolute_error": 0.001888275146484375
+    },
+    {
+      "input": "white",
+      "pipeline": "im2col-direct",
+      "passed": false,
+      "failed_values": 29,
+      "max_absolute_error": 0.001888275146484375
+    },
+    {
+      "input": "noise",
+      "pipeline": "fresh_futhark",
+      "passed": false,
+      "failed_values": 294948,
+      "max_absolute_error": 0.008674204349517822
+    },
+    {
+      "input": "noise",
+      "pipeline": "modified_futhark",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 1.9788742065429688e-05
+    },
+    {
+      "input": "noise",
+      "pipeline": "torch-remora",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 1.0013580322265625e-05
+    },
+    {
+      "input": "noise",
+      "pipeline": "torch-direct",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 1.0013580322265625e-05
+    },
+    {
+      "input": "noise",
+      "pipeline": "baseline-remora",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 2.0116567611694336e-05
+    },
+    {
+      "input": "noise",
+      "pipeline": "baseline-direct",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 2.0116567611694336e-05
+    },
+    {
+      "input": "noise",
+      "pipeline": "im2col-remora",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 2.3245811462402344e-05
+    },
+    {
+      "input": "noise",
+      "pipeline": "im2col-direct",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 2.3245811462402344e-05
+    },
+    {
+      "input": "gradient",
+      "pipeline": "fresh_futhark",
+      "passed": false,
+      "failed_values": 178424,
+      "max_absolute_error": 0.044020652770996094
+    },
+    {
+      "input": "gradient",
+      "pipeline": "modified_futhark",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 0.00012540817260742188
+    },
+    {
+      "input": "gradient",
+      "pipeline": "torch-remora",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 5.054473876953125e-05
+    },
+    {
+      "input": "gradient",
+      "pipeline": "torch-direct",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 5.054473876953125e-05
+    },
+    {
+      "input": "gradient",
+      "pipeline": "baseline-remora",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 0.00016355514526367188
+    },
+    {
+      "input": "gradient",
+      "pipeline": "baseline-direct",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 0.00016355514526367188
+    },
+    {
+      "input": "gradient",
+      "pipeline": "im2col-remora",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 5.53131103515625e-05
+    },
+    {
+      "input": "gradient",
+      "pipeline": "im2col-direct",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 5.53131103515625e-05
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "fresh_futhark",
+      "passed": false,
+      "failed_values": 41260,
+      "max_absolute_error": 0.0017696022987365723
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "modified_futhark",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 8.463859558105469e-06
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "torch-remora",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 3.546476364135742e-06
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "torch-direct",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 3.546476364135742e-06
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "baseline-remora",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 7.987022399902344e-06
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "baseline-direct",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 7.987022399902344e-06
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "im2col-remora",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 1.3738870620727539e-05
+    },
+    {
+      "input": "checkerboard",
+      "pipeline": "im2col-direct",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 1.3738870620727539e-05
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "fresh_futhark",
+      "passed": false,
+      "failed_values": 239548,
+      "max_absolute_error": 0.01832994818687439
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "modified_futhark",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 1.913309097290039e-05
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "torch-remora",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 1.329183578491211e-05
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "torch-direct",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 1.329183578491211e-05
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "baseline-remora",
+      "passed": false,
+      "failed_values": 3,
+      "max_absolute_error": 4.4286251068115234e-05
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "baseline-direct",
+      "passed": false,
+      "failed_values": 3,
+      "max_absolute_error": 4.4286251068115234e-05
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "im2col-remora",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 2.512335777282715e-05
+    },
+    {
+      "input": "evalbox",
+      "pipeline": "im2col-direct",
+      "passed": true,
+      "failed_values": 0,
+      "max_absolute_error": 2.512335777282715e-05
+    }
+  ],
+  "passed": false
+}

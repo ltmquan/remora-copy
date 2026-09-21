@@ -1,0 +1,39 @@
+{
+  "source_sha256": "334346d83578f49a52507fab11d0cfed0da269b10f20ab012ade4f6ca98a6e89",
+  "stages": [
+    {
+      "stage": "remora",
+      "command": [
+        "/Users/quanluusmacbook/MOCHA/scheduling-investigation/bin/remora",
+        "futhark",
+        "-f",
+        "/Users/quanluusmacbook/MOCHA/remora-copy/examples/darknet/yolov4.remora"
+      ],
+      "exit_code": 0,
+      "seconds": 18.974034709041007
+    },
+    {
+      "stage": "gpu-memory",
+      "command": [
+        "/Users/quanluusmacbook/MOCHA/scheduling-investigation/bin/futhark",
+        "dev",
+        "--gpu-mem",
+        "/Users/quanluusmacbook/MOCHA/remora/experimental/python_backend/modified_futhark/model.fut_soacs"
+      ],
+      "exit_code": 0,
+      "seconds": 67.02632045804057
+    },
+    {
+      "stage": "cuda-library",
+      "command": [
+        "/Users/quanluusmacbook/MOCHA/scheduling-investigation/bin/futhark",
+        "dev",
+        "--backend=cuda",
+        "--library",
+        "/Users/quanluusmacbook/MOCHA/remora/experimental/python_backend/modified_futhark/model.fut_gpu_mem"
+      ],
+      "exit_code": 0,
+      "seconds": 8.849018958979286
+    }
+  ]
+}

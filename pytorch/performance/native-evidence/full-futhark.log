@@ -1,0 +1,30 @@
+setup_seconds 34.041389022
+MEMORY_PHASE resident
+resident_warmup_seconds -3 1.269808874
+resident_warmup_seconds -2 1.029380699
+resident_warmup_seconds -1 1.020735629
+resident_run_seconds 0 1.015848628
+resident_run_seconds 1 1.018145870
+resident_run_seconds 2 1.011447088
+resident_run_seconds 3 1.015314123
+resident_run_seconds 4 1.013755355
+resident_run_seconds 5 1.017838240
+resident_run_seconds 6 1.020590580
+resident_run_seconds 7 1.016492952
+resident_run_seconds 8 1.010291128
+resident_run_seconds 9 1.012899802
+MEMORY_PHASE transfer
+transfer_warmup_seconds -3 1.016281858
+transfer_warmup_seconds -2 1.015438441
+transfer_warmup_seconds -1 1.016322671
+transfer_run_seconds 0 1.016874392
+transfer_run_seconds 1 1.018816315
+transfer_run_seconds 2 1.016827205
+transfer_run_seconds 3 1.019508741
+transfer_run_seconds 4 1.018346139
+transfer_run_seconds 5 1.018344037
+transfer_run_seconds 6 1.016080107
+transfer_run_seconds 7 1.017349554
+transfer_run_seconds 8 1.015686271
+transfer_run_seconds 9 1.012018150
+FUTHARK_MEMORY_REPORT {"memory":{"space 'device'": 2009077508,"default space": 0},"events":[]}

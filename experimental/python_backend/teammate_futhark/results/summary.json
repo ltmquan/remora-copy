@@ -1,0 +1,199 @@
+{
+  "rounds": [
+    {
+      "round": 1,
+      "resident_ms": 481.8969095,
+      "transfer_ms": 482.8203335
+    },
+    {
+      "round": 2,
+      "resident_ms": 481.95442099999997,
+      "transfer_ms": 482.89912449999997
+    },
+    {
+      "round": 3,
+      "resident_ms": 481.928952,
+      "transfer_ms": 482.851956
+    }
+  ],
+  "resident_ms": 481.928952,
+  "transfer_ms": 482.851956,
+  "gpu_footprint_MiB": 30050,
+  "checks": [
+    {
+      "input": "ramp-1",
+      "passed_dense": true,
+      "failed_values": 0,
+      "max_absolute_error": 6.8694353103637695e-06,
+      "detections": [],
+      "darknet_detections": [],
+      "same_nms_candidates_classes": true,
+      "max_matched_confidence_error": 0,
+      "max_matched_xywh_error_pixels": 0
+    },
+    {
+      "input": "ramp-2",
+      "passed_dense": true,
+      "failed_values": 0,
+      "max_absolute_error": 6.8694353103637695e-06,
+      "detections": [],
+      "darknet_detections": [],
+      "same_nms_candidates_classes": true,
+      "max_matched_confidence_error": 0,
+      "max_matched_xywh_error_pixels": 0
+    },
+    {
+      "input": "ramp-3",
+      "passed_dense": true,
+      "failed_values": 0,
+      "max_absolute_error": 6.8694353103637695e-06,
+      "detections": [],
+      "darknet_detections": [],
+      "same_nms_candidates_classes": true,
+      "max_matched_confidence_error": 0,
+      "max_matched_xywh_error_pixels": 0
+    },
+    {
+      "input": "black",
+      "passed_dense": false,
+      "failed_values": 18,
+      "max_absolute_error": 0.0002498626708984375,
+      "detections": [],
+      "darknet_detections": [],
+      "same_nms_candidates_classes": true,
+      "max_matched_confidence_error": 0,
+      "max_matched_xywh_error_pixels": 0
+    },
+    {
+      "input": "white",
+      "passed_dense": false,
+      "failed_values": 17,
+      "max_absolute_error": 0.00086212158203125,
+      "detections": [],
+      "darknet_detections": [],
+      "same_nms_candidates_classes": true,
+      "max_matched_confidence_error": 0,
+      "max_matched_xywh_error_pixels": 0
+    },
+    {
+      "input": "noise",
+      "passed_dense": true,
+      "failed_values": 0,
+      "max_absolute_error": 1.9788742065429688e-05,
+      "detections": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.25624895095825195,
+          "xywh": [
+            0.5039024949073792,
+            0.4967656433582306,
+            0.9464505910873413,
+            0.9637956023216248
+          ]
+        }
+      ],
+      "darknet_detections": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.2562488615512848,
+          "xywh": [
+            0.5039025545120239,
+            0.4967655837535858,
+            0.9464508891105652,
+            0.9637948274612427
+          ]
+        }
+      ],
+      "same_nms_candidates_classes": true,
+      "max_matched_confidence_error": 8.940696716308594e-08,
+      "max_matched_xywh_error_pixels": 0.0004711151123046875
+    },
+    {
+      "input": "gradient",
+      "passed_dense": true,
+      "failed_values": 0,
+      "max_absolute_error": 0.00012540817260742188,
+      "detections": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.8573018312454224,
+          "xywh": [
+            0.5034083127975464,
+            0.505988597869873,
+            0.9597917795181274,
+            0.9660851359367371
+          ]
+        }
+      ],
+      "darknet_detections": [
+        {
+          "candidate": 22562,
+          "class_id": 28,
+          "confidence": 0.8573018312454224,
+          "xywh": [
+            0.5034082531929016,
+            0.505988597869873,
+            0.9597910046577454,
+            0.9660852551460266
+          ]
+        }
+      ],
+      "same_nms_candidates_classes": true,
+      "max_matched_confidence_error": 0.0,
+      "max_matched_xywh_error_pixels": 0.0004711151123046875
+    },
+    {
+      "input": "checkerboard",
+      "passed_dense": true,
+      "failed_values": 0,
+      "max_absolute_error": 8.463859558105469e-06,
+      "detections": [],
+      "darknet_detections": [],
+      "same_nms_candidates_classes": true,
+      "max_matched_confidence_error": 0,
+      "max_matched_xywh_error_pixels": 0
+    },
+    {
+      "input": "evalbox",
+      "passed_dense": true,
+      "failed_values": 0,
+      "max_absolute_error": 1.913309097290039e-05,
+      "detections": [
+        {
+          "candidate": 22524,
+          "class_id": 74,
+          "confidence": 0.7143443822860718,
+          "xywh": [
+            0.5036089420318604,
+            0.4018925428390503,
+            0.8326042294502258,
+            0.7472536563873291
+          ]
+        }
+      ],
+      "darknet_detections": [
+        {
+          "candidate": 22524,
+          "class_id": 74,
+          "confidence": 0.7143436074256897,
+          "xywh": [
+            0.5036090016365051,
+            0.4018925428390503,
+            0.8326043486595154,
+            0.7472536563873291
+          ]
+        }
+      ],
+      "same_nms_candidates_classes": true,
+      "max_matched_confidence_error": 7.748603820800781e-07,
+      "max_matched_xywh_error_pixels": 7.2479248046875e-05
+    }
+  ],
+  "atol": 1e-05,
+  "rtol": 0.0001,
+  "nms_confidence": 0.25,
+  "nms_iou": 0.45
+}

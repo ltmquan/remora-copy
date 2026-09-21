@@ -1,0 +1,3 @@
+59692294dca8e1990b454069f6d6289716aea1e432caaf2bbbcb3a18222bcf8c  /scratch/luu.qu/remora-python-20260911/modified_futhark/model.c
+aedd03953d63dee881fe0d6532047571d3422f77280a28830c60cb652f93bac5  modified_futhark/harness.c
+77ff53a9b4676a73b1b8b195e9656bb61fa297b6532ffac86e4d29417042c53e  modified_futhark/benchmark

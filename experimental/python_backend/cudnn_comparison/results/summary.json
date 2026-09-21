@@ -1,0 +1,23 @@
+{
+  "job": "10301860",
+  "elapsed": "00:02:50",
+  "cuDNN": "9.10.2",
+  "tf32": false,
+  "rows": {
+    "darknet": {
+      "resident_ms": null,
+      "transfer_ms": 12.140749999999999,
+      "setup_inference_peak_MiB": 1818
+    },
+    "torch-remora": {
+      "resident_ms": 9.268405381590128,
+      "transfer_ms": 10.471411515027285,
+      "setup_inference_peak_MiB": 12480
+    },
+    "torch-direct": {
+      "resident_ms": 9.403173346072435,
+      "transfer_ms": 10.565110482275486,
+      "setup_inference_peak_MiB": 12462
+    }
+  }
+}

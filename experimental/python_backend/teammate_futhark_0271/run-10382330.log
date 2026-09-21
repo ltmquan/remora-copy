@@ -1,0 +1,22 @@
+{
+  "compiler": "0.27.1",
+  "processes": 1,
+  "warmups_per_mode": 5,
+  "timed_calls_per_mode": 3,
+  "resident": {
+    "samples_ms": [
+      482.388499,
+      482.37672,
+      482.386078
+    ],
+    "mean_ms": 482.38376566666665
+  },
+  "transfer": {
+    "samples_ms": [
+      483.18829200000005,
+      483.275685,
+      483.236768
+    ],
+    "mean_ms": 483.2335816666667
+  }
+}

@@ -1,0 +1,38 @@
+\frametitle{Example: a convolution computation}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Remora AST, schematic}
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+Call: conv-bn-mish
+  input: image
+  parameters: p
+  definition:
+    mish
+      add bias
+        reshape
+          matrix multiply
+            im2col(image)
+            folded weights
+\end{lstlisting}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Generated Python}
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+ops.conv(image, p,
+  stride=1, pad=1,
+  activation='mish',
+  shape=[3,608,32,608,3])
+\end{lstlisting}
+\vspace{1mm}
+\textbf{PyTorch runtime, schematic}
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+w, b = fold_batch_norm(p)
+y = F.conv2d(x, w, b,
+             padding=1)
+y = mish(y)
+\end{lstlisting}
+\end{column}
+\end{columns}
+\vspace{3mm}
+One supported computation becomes a convolution operation plus activation. tinygrad uses the same generated call with its own runtime.
+\note{100 seconds. Read the left as an abstract tree, not verbatim parser JSON. The actual AST has App, IApp, variable and binding nodes. The checked conv-bn-mish definition combines convolution with folded batch normalization and Mish. Its convolution implementation contains im2col, matrix multiplication and reshaping. The compiler recognizes the supported library call; it does not rediscover arbitrary convolution from this illustrative tree. The right generated call uses the real ops.conv signature, with named arguments for readability. The runtime sketch omits batch-dimension handling, shape validation and caching. One ops.conv is not necessarily one CUDA kernel. Sources: yolov4-parse.json, generated_yolov4.py and runtime.py.}

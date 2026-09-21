@@ -1,0 +1,84 @@
+{
+  "10271432": {
+    "phase": "main",
+    "node": "d4054",
+    "elapsed": "00:04:14",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "gpus": 1,
+    "gpu_type": "h200",
+    "cpus": 4,
+    "host_memory": "32G"
+  },
+  "10271579": {
+    "phase": "tuning",
+    "node": "d4053",
+    "elapsed": "00:16:21",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "gpus": 1,
+    "gpu_type": "h200",
+    "cpus": 4,
+    "host_memory": "32G"
+  },
+  "10271760": {
+    "phase": "graphs",
+    "node": "d4052",
+    "elapsed": "00:01:03",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "gpus": 1,
+    "gpu_type": "h200",
+    "cpus": 4,
+    "host_memory": "32G"
+  },
+  "10272588": {
+    "phase": "fresh Futhark CPU build",
+    "node": "c0611",
+    "elapsed": "00:00:57",
+    "state": "COMPLETED",
+    "gpus": 0
+  },
+  "10272589": {
+    "phase": "fresh six-path comparison",
+    "node": "d4052",
+    "elapsed": "00:02:03",
+    "state": "COMPLETED",
+    "gpus": 1,
+    "gpu_type": "h200",
+    "cpus": 4,
+    "host_memory": "32G"
+  },
+  "10275525": {
+    "phase": "modified Futhark CPU build",
+    "node": "c0628",
+    "elapsed": "00:02:17",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "gpus": 0
+  },
+  "10275526": {
+    "phase": "timing and memory matrix",
+    "node": "d4052",
+    "elapsed": "00:05:57",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "gpus": 1
+  },
+  "10275537": {
+    "phase": "tinygrad profiling and optimization sweep",
+    "node": "d4052",
+    "elapsed": "00:05:35",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "gpus": 1
+  },
+  "10275644": {
+    "phase": "optimized tinygrad confirmation",
+    "node": "d4052",
+    "elapsed": "00:01:59",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "gpus": 1
+  }
+}

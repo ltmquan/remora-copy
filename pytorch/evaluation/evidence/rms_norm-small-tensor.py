@@ -1,0 +1,213 @@
+"""Helpers for typed structural tensor lowering (embedded in generated code)."""
+
+def _tensor_dot(a,b,shapes):
+    ash,bsh=shapes
+    if len(ash)==1 and len(bsh)>1:return torch.matmul(b,a)
+    if len(bsh)==1:return torch.matmul(a,b)
+    af,bf=tuple(ash[:-1]),tuple(bsh[:-1]);frame=max((af,bf),key=len)
+    return (_prefix_expand(a,(ash[-1],),frame)*_prefix_expand(b,(bsh[-1],),frame)).sum(dim=-1)
+
+
+def _tensor_add_initial(value,initial,result_shape,cell_shape):
+    # The zero argument may carry its own lifted prefix frame.
+    frame=tuple(result_shape[:len(result_shape)-len(cell_shape)]) if cell_shape else tuple(result_shape)
+    return _prefix_expand(value,tuple(cell_shape),frame)+_prefix_expand(initial,tuple(cell_shape),frame)
+
+"""Runtime embedded verbatim in generated modules; never interprets an AST."""
+import functools
+import math
+import torch
+
+
+def _tree_map(fn, *xs):
+    if isinstance(xs[0], dict):
+        return {k: _tree_map(fn, *(x[k] for x in xs)) for k in xs[0]}
+    return fn(*xs)
+
+
+def _first_tensor(x):
+    while isinstance(x, dict):
+        x = next(iter(x.values()))
+    return x
+
+
+def _reshape(x, shapes):
+    if isinstance(x, dict):
+        return {k: _reshape(v, shapes[k]) for k, v in x.items()}
+    return x.reshape(shapes)
+
+
+class _Partial:
+    def __init__(self, fn, args, shapes):
+        self.fn, self.args, self.shapes = fn, args, shapes
+
+
+def _prefix_expand(x, cell, frame):
+    if isinstance(x, dict):
+        return {k: _prefix_expand(v, cell[k], frame) for k, v in x.items()}
+    own = tuple(x.shape[:x.ndim - len(cell)])
+    if own != tuple(frame[:len(own)]):
+        raise ValueError(f'incompatible Remora frames: {own} and {frame}')
+    return x.reshape(own + (1,) * (len(frame) - len(own)) + cell).expand(frame + cell)
+
+
+def _empty(spec, device):
+    if isinstance(spec, dict):
+        return {k: _empty(v, device) for k, v in spec.items()}
+    shape, dtype = spec
+    return torch.empty(shape, dtype=dtype, device=device)
+
+
+def _apply(fn, args, shapes, spec, device, partial=False):
+    # Remora frames agree by PREFIX, unlike NumPy/PyTorch broadcasting.
+    if isinstance(fn, _Partial):
+        args, shapes, fn = fn.args + args, fn.shapes + shapes, fn.fn
+    if partial:
+        return _Partial(fn, args, shapes)
+    def leaves(x, s):
+        if isinstance(x, dict):
+            return [pair for k, v in x.items() for pair in leaves(v, s[k])]
+        return [(x, s)] if isinstance(x, torch.Tensor) else []
+    pairs = [pair for x, s in zip(args, shapes) for pair in leaves(x, s)]
+    frames = [tuple(x.shape[:x.ndim - len(s)]) for x, s in pairs]
+    frame = max(frames, key=len, default=())
+    if not frame:
+        return fn(*args)
+    def expand(x, s):
+        if isinstance(x, dict):
+            return {k: expand(v, s[k]) for k, v in x.items()}
+        return (_prefix_expand(x, s, frame).reshape((math.prod(frame),) + s)
+                if isinstance(x, torch.Tensor) else x)
+    def indims(x):
+        if isinstance(x, dict):
+            return {k: indims(v) for k, v in x.items()}
+        return 0 if isinstance(x, torch.Tensor) else None
+    expanded = [expand(x, s) for x, s in zip(args, shapes)]
+    if math.prod(frame) == 0:
+        result = _empty(spec, device)
+        # Empty maps still have zero derivatives with respect to float inputs.
+        for x, _ in pairs:
+            if x.is_floating_point():
+                zero = x.reshape(-1)[:0].sum()
+                result = _tree_map(lambda v: v + zero.to(v.dtype) if v.is_floating_point() else v, result)
+        return result
+    dims = tuple(indims(x) for x in args)
+    result = torch.vmap(fn, in_dims=dims)(*expanded)
+    def unflatten(x):
+        if isinstance(x, dict):
+            return {k: unflatten(v) for k, v in x.items()}
+        return x.reshape(frame + tuple(x.shape[1:]))
+    return unflatten(result)
+
+
+def _invoke(fn, *args):
+    if isinstance(fn, _Partial):
+        return fn.fn(*(fn.args + list(args)))
+    return fn(*args)
+
+
+def _reduce(fn, arr, zero=None, right=False):
+    # Preserve ordered interpreter semantics, including non-associative ops.
+    # torch.compile can unroll this shape-static loop; no tensor-to-host reads.
+    if zero is None:
+        acc, start = _tree_map(lambda v: v[0], arr), 1
+    else:
+        acc, start = zero, 0
+    if right:
+        for i in range(_first_tensor(arr).shape[0] - 1, -1, -1):
+            acc = _invoke(fn, _tree_map(lambda v: v[i], arr), acc)
+    else:
+        for i in range(start, _first_tensor(arr).shape[0]):
+            acc = _invoke(fn, acc, _tree_map(lambda v: v[i], arr))
+    return acc
+
+
+def _index(arr, idx):
+    # index_select rejects negative/out-of-range indices, preserves cells, and
+    # works under vmap without extracting indices onto the host.
+    return _tree_map(lambda x: torch.index_select(x, 0, idx.to(torch.int64).reshape(1)).squeeze(0), arr)
+
+
+def _index2d(arr, idx):
+    # Separate selections preserve per-axis bounds for tensors and records.
+    return _index(_index(arr, idx[0]), idx[1])
+
+
+def _popc(x):
+    result = torch.zeros_like(x)
+    for bit in range(64):
+        result = result + ((x >> bit) & 1)
+    return result
+
+
+def _prepare(args, specs, device):
+    tensors = [x for x in args if isinstance(x, torch.Tensor)]
+    target = torch.device(device) if device is not None else (tensors[0].device if tensors else torch.device('cpu'))
+    converted = []
+    for x, (shape, dtype) in zip(args, specs):
+        if isinstance(x, torch.Tensor):
+            if x.dtype != dtype:
+                raise TypeError(f'expected {dtype}, got {x.dtype}')
+            if device is None and x.device != target:
+                raise ValueError('entry tensors must be on the same device')
+            x = x.to(device=target)
+        else:
+            x = torch.as_tensor(x, dtype=dtype, device=target)
+        if tuple(x.shape) != shape:
+            raise ValueError(f'expected shape {shape}, got {tuple(x.shape)}')
+        converted.append(x)
+    return converted, target
+
+
+def _run_cli():
+    import argparse
+    import json
+    p = argparse.ArgumentParser(description='Compiled Remora/PyTorch program')
+    p.add_argument('--entry', default='main', choices=sorted(ENTRIES))
+    p.add_argument('--device', default='cpu')
+    p.add_argument('--compile', action='store_true', help='Use torch.compile(fullgraph=True)')
+    p.add_argument('args', nargs='*', help='One JSON value per entry argument')
+    a = p.parse_args()
+    fn = ENTRIES[a.entry]
+    if a.compile:
+        fn = torch.compile(fn, fullgraph=True)
+    value = fn(*(json.loads(x) for x in a.args), device=a.device)
+    def encode(v):
+        if isinstance(v, dict):
+            return {k: encode(x) for k, x in v.items()}
+        return v.detach().cpu().tolist()
+    print(json.dumps(encode(value)))
+
+
+def _r_main_149(_device, _r_rows_146, _r_weight_147):
+    _v1 = _apply(functools.partial(_r_lam_150, _device), [_r_weight_147, _r_rows_146], [(4,), (4,)], ((3, 4), torch.float32), _device, partial=False)
+    return _v1
+
+def _r_lam_150(_device, _r_weight_151, _r_row_152):
+    _v2 = torch.tensor([1e-05], dtype=torch.float32, device=_device).reshape(())
+    _v3 = torch.tensor([0], dtype=torch.float32, device=_device).reshape(())
+    _v4 = _apply((torch.mul), [_r_row_152, _r_row_152], [(), ()], ((4,), torch.float32), _device, partial=False)
+    _v5 = torch.sum(_v4, dim=0, dtype=_v4.dtype)
+    _v6 = _tensor_add_initial(_v5, _v3, (), ())
+    _v7 = torch.tensor([4], dtype=torch.float32, device=_device).reshape(())
+    _v8 = _apply((torch.div), [_v6, _v7], [(), ()], ((), torch.float32), _device, partial=False)
+    _v9 = _apply((torch.add), [_v2, _v8], [(), ()], ((), torch.float32), _device, partial=False)
+    _v10 = _apply((torch.sqrt), [_v9], [()], ((), torch.float32), _device, partial=False)
+    _v11 = _apply((torch.div), [_r_row_152, _v10], [(), ()], ((4,), torch.float32), _device, partial=False)
+    _v12 = _apply((torch.mul), [_r_weight_151, _v11], [(), ()], ((4,), torch.float32), _device, partial=False)
+    return _v12
+
+def main(arg0, arg1, *, device=None):
+    'Remora entry main: tensor arguments preserve autograd.'
+    _args, _device = _prepare([arg0, arg1], [((3, 4), torch.float32), ((4,), torch.float32)], device)
+    return _r_main_149(_device, *_args)
+
+
+ENTRIES = {'main': main}
+
+LOWERING = 'tensor'
+TENSOR_OPS = ['sum']
+NUMERICS = 'native reductions; reassociation permitted'
+
+if __name__ == '__main__':
+    _run_cli()

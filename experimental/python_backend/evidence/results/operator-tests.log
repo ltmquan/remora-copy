@@ -1,0 +1,9 @@
+test_decode_anchor_order (test_runtime.RuntimeTests.test_decode_anchor_order) ... ok
+test_spp_negative_padding (test_runtime.RuntimeTests.test_spp_negative_padding) ... ok
+test_strided_conv_with_bn (test_runtime.RuntimeTests.test_strided_conv_with_bn) ... ok
+test_upsample_order (test_runtime.RuntimeTests.test_upsample_order) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 15.550s
+
+OK

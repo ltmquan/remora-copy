@@ -1,0 +1,11 @@
+;; Fixed-degree neighbor mean, a component of GraphSAGE-style aggregation.
+;; Not the PyG convolution, graph sampler, or training loop.
+(entry (main (features [Float 4 3]) (neighbors [Int 2 2]))
+  ((fn ((indices [Int 2]))
+     (f./ (@reduce/zero (Float) (2 [3])
+       (fn ((left [Float 3]) (right [Float 3])) (f.+ left right))
+       [0.0 0.0 0.0]
+       ((fn ((row Int))
+          (@index2d (Float) (4 3) features
+            ((fn ((column Int)) [row column]) [0 1 2]))) indices)) 2.0))
+   neighbors))

@@ -1,0 +1,23 @@
+{
+  "darknet": {
+    "gpu_process_peak_MiB": 1974,
+    "sample_count": 170,
+    "scope": "setup/warmup/inference; extra correctness phase excluded",
+    "cudnn_enabled": false,
+    "sampling_requested_ms": 20
+  },
+  "torch-remora": {
+    "gpu_process_peak_MiB": 2156,
+    "sample_count": 1173,
+    "scope": "setup/warmup/inference; extra correctness phase excluded",
+    "cudnn_enabled": false,
+    "sampling_requested_ms": 20
+  },
+  "torch-direct": {
+    "gpu_process_peak_MiB": 2130,
+    "sample_count": 703,
+    "scope": "setup/warmup/inference; extra correctness phase excluded",
+    "cudnn_enabled": false,
+    "sampling_requested_ms": 20
+  }
+}

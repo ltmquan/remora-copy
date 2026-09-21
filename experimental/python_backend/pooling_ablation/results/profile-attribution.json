@@ -1,0 +1,818 @@
+{
+  "previous": {
+    "scope": "second of two profiled invocations, transfer mode; not a warmed latency estimate",
+    "pooling_kernel_ms": 3.76051217,
+    "max_reduction_kernel_ms": 0.196352002,
+    "max_reduction_launches": 24,
+    "main_kernel_ms": 487.36841746600004,
+    "pooling_events": [
+      {
+        "name": "main.segmap_295187",
+        "provenance": "unknown",
+        "duration": 3309.472168,
+        "details": {
+          "kernel": "main.segmap_295187",
+          "grid": [
+            36100,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_295205",
+        "provenance": "unknown",
+        "duration": 43.232002,
+        "details": {
+          "kernel": "main.segmap_295205",
+          "grid": [
+            18050,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_295816",
+        "provenance": "unknown",
+        "duration": 10.112,
+        "details": {
+          "kernel": "main.segmap_295816",
+          "grid": [
+            3610,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_295816",
+        "provenance": "unknown",
+        "duration": 10.4,
+        "details": {
+          "kernel": "main.segmap_295816",
+          "grid": [
+            3610,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_295816",
+        "provenance": "unknown",
+        "duration": 9.888,
+        "details": {
+          "kernel": "main.segmap_295816",
+          "grid": [
+            3610,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_295816",
+        "provenance": "unknown",
+        "duration": 10.464,
+        "details": {
+          "kernel": "main.segmap_295816",
+          "grid": [
+            3610,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_297057",
+        "provenance": "unknown",
+        "duration": 6.144,
+        "details": {
+          "kernel": "main.segmap_297057",
+          "grid": [
+            722,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_297057",
+        "provenance": "unknown",
+        "duration": 6.208,
+        "details": {
+          "kernel": "main.segmap_297057",
+          "grid": [
+            722,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_297057",
+        "provenance": "unknown",
+        "duration": 6.08,
+        "details": {
+          "kernel": "main.segmap_297057",
+          "grid": [
+            722,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_297057",
+        "provenance": "unknown",
+        "duration": 6.176,
+        "details": {
+          "kernel": "main.segmap_297057",
+          "grid": [
+            722,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_297100",
+        "provenance": "unknown",
+        "duration": 64.447998,
+        "details": {
+          "kernel": "main.segmap_297100",
+          "grid": [
+            36100,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_297118",
+        "provenance": "unknown",
+        "duration": 41.280003,
+        "details": {
+          "kernel": "main.segmap_297118",
+          "grid": [
+            18050,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_297699",
+        "provenance": "unknown",
+        "duration": 10.048,
+        "details": {
+          "kernel": "main.segmap_297699",
+          "grid": [
+            3610,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_297699",
+        "provenance": "unknown",
+        "duration": 10.112,
+        "details": {
+          "kernel": "main.segmap_297699",
+          "grid": [
+            3610,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_297699",
+        "provenance": "unknown",
+        "duration": 10.176001,
+        "details": {
+          "kernel": "main.segmap_297699",
+          "grid": [
+            3610,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_297699",
+        "provenance": "unknown",
+        "duration": 10.176001,
+        "details": {
+          "kernel": "main.segmap_297699",
+          "grid": [
+            3610,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_298940",
+        "provenance": "unknown",
+        "duration": 5.92,
+        "details": {
+          "kernel": "main.segmap_298940",
+          "grid": [
+            722,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_298940",
+        "provenance": "unknown",
+        "duration": 6.144,
+        "details": {
+          "kernel": "main.segmap_298940",
+          "grid": [
+            722,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_298940",
+        "provenance": "unknown",
+        "duration": 6.176,
+        "details": {
+          "kernel": "main.segmap_298940",
+          "grid": [
+            722,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_298940",
+        "provenance": "unknown",
+        "duration": 6.272,
+        "details": {
+          "kernel": "main.segmap_298940",
+          "grid": [
+            722,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_298983",
+        "provenance": "unknown",
+        "duration": 64.223999,
+        "details": {
+          "kernel": "main.segmap_298983",
+          "grid": [
+            36100,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_299001",
+        "provenance": "unknown",
+        "duration": 41.503998,
+        "details": {
+          "kernel": "main.segmap_299001",
+          "grid": [
+            18050,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_299582",
+        "provenance": "unknown",
+        "duration": 10.272,
+        "details": {
+          "kernel": "main.segmap_299582",
+          "grid": [
+            3610,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_299582",
+        "provenance": "unknown",
+        "duration": 10.272,
+        "details": {
+          "kernel": "main.segmap_299582",
+          "grid": [
+            3610,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_299582",
+        "provenance": "unknown",
+        "duration": 9.792,
+        "details": {
+          "kernel": "main.segmap_299582",
+          "grid": [
+            3610,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_299582",
+        "provenance": "unknown",
+        "duration": 10.24,
+        "details": {
+          "kernel": "main.segmap_299582",
+          "grid": [
+            3610,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_299949",
+        "provenance": "unknown",
+        "duration": 6.272,
+        "details": {
+          "kernel": "main.segmap_299949",
+          "grid": [
+            722,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_299949",
+        "provenance": "unknown",
+        "duration": 6.368,
+        "details": {
+          "kernel": "main.segmap_299949",
+          "grid": [
+            722,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_299949",
+        "provenance": "unknown",
+        "duration": 6.528,
+        "details": {
+          "kernel": "main.segmap_299949",
+          "grid": [
+            722,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_299949",
+        "provenance": "unknown",
+        "duration": 6.112,
+        "details": {
+          "kernel": "main.segmap_299949",
+          "grid": [
+            722,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      }
+    ]
+  },
+  "teammate": {
+    "scope": "second of two profiled invocations, transfer mode; not a warmed latency estimate",
+    "pooling_kernel_ms": 5.320511969,
+    "max_reduction_kernel_ms": 0.09151999999999999,
+    "max_reduction_launches": 6,
+    "main_kernel_ms": 489.566848164,
+    "pooling_events": [
+      {
+        "name": "main.segmap_304382",
+        "provenance": "unknown",
+        "duration": 4239.583984,
+        "details": {
+          "kernel": "main.segmap_304382",
+          "grid": [
+            36100,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_304400",
+        "provenance": "unknown",
+        "duration": 43.871998,
+        "details": {
+          "kernel": "main.segmap_304400",
+          "grid": [
+            18050,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_304454",
+        "provenance": "unknown",
+        "duration": 10.88,
+        "details": {
+          "kernel": "main.segmap_304454",
+          "grid": [
+            3610,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_304520",
+        "provenance": "unknown",
+        "duration": 5.824,
+        "details": {
+          "kernel": "main.segmap_304520",
+          "grid": [
+            722,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_304637",
+        "provenance": "unknown",
+        "duration": 192.287994,
+        "details": {
+          "kernel": "main.segmap_304637",
+          "grid": [
+            116964,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_304655",
+        "provenance": "unknown",
+        "duration": 116.127998,
+        "details": {
+          "kernel": "main.segmap_304655",
+          "grid": [
+            58482,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_304709",
+        "provenance": "unknown",
+        "duration": 21.824001,
+        "details": {
+          "kernel": "main.segmap_304709",
+          "grid": [
+            6498,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_304775",
+        "provenance": "unknown",
+        "duration": 7.328,
+        "details": {
+          "kernel": "main.segmap_304775",
+          "grid": [
+            722,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_304892",
+        "provenance": "unknown",
+        "duration": 401.791992,
+        "details": {
+          "kernel": "main.segmap_304892",
+          "grid": [
+            244036,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_304910",
+        "provenance": "unknown",
+        "duration": 235.328003,
+        "details": {
+          "kernel": "main.segmap_304910",
+          "grid": [
+            122018,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_304964",
+        "provenance": "unknown",
+        "duration": 37.535999,
+        "details": {
+          "kernel": "main.segmap_304964",
+          "grid": [
+            9386,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      },
+      {
+        "name": "main.segmap_305030",
+        "provenance": "unknown",
+        "duration": 8.128,
+        "details": {
+          "kernel": "main.segmap_305030",
+          "grid": [
+            722,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "shared memory": 0
+        }
+      }
+    ]
+  }
+}

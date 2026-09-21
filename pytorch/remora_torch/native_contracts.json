@@ -1,0 +1,634 @@
+{
+  "replicate": {
+    "sha256": "b0ca550a7b18f77716303b7f6d0ade98ec825f47f6426c74ae5f74ca5b56c935",
+    "dependencies": [
+      "replicate"
+    ],
+    "references": [
+      "in",
+      "iota/static",
+      "replicate"
+    ]
+  },
+  "pad/2": {
+    "sha256": "7ca81706a26c8c8f76e0ab8dbf8f3965f97eb2aad7c92286bc444139330b734e",
+    "dependencies": [
+      "pad/2",
+      "replicate"
+    ],
+    "references": [
+      "append",
+      "hor-pad",
+      "in",
+      "pad/2",
+      "replicate",
+      "vert-pad",
+      "zero"
+    ]
+  },
+  "idxs-of/2": {
+    "sha256": "c6c10515c62dfddca1f8478f834ee1276e5cb651864e8c595496d8d1ccf18080",
+    "dependencies": [],
+    "references": [
+      "i",
+      "iota/static",
+      "j"
+    ]
+  },
+  "subarray/2": {
+    "sha256": "47de2d3ed4e28f4578c3d79ca0584a0d92794aabf3bf2444917481685a45d8ad",
+    "dependencies": [
+      "idxs-of/2",
+      "replicate",
+      "subarray/2"
+    ],
+    "references": [
+      "*",
+      "+",
+      "idxs-of/2",
+      "in",
+      "index2d",
+      "offset",
+      "reify-dim",
+      "replicate",
+      "subarray/2"
+    ]
+  },
+  "lifted-subarray/2": {
+    "sha256": "9f7614d68569eda1dce5caf0c35c8edd2055d3e097f48b529a65633c3db2360d",
+    "dependencies": [
+      "lifted-subarray/2",
+      "subarray/2"
+    ],
+    "references": [
+      "in",
+      "lifted-subarray/2",
+      "offset",
+      "subarray/2"
+    ]
+  },
+  "subarray/1": {
+    "sha256": "900183bb63417fe441f2146a0c264c977d2eba7edba0e63efc6dfd8540c2169a",
+    "dependencies": [
+      "subarray/1"
+    ],
+    "references": [
+      "+",
+      "in",
+      "index",
+      "iota/static",
+      "offset",
+      "subarray/1"
+    ]
+  },
+  "transpose4d/0213": {
+    "sha256": "b520cfeefea8c00156b974075c05463418d168fcd37cbff13e0cd30947e8596f",
+    "dependencies": [
+      "transpose4d/0213"
+    ],
+    "references": [
+      "flat-cd",
+      "flatten",
+      "in",
+      "reshape",
+      "split-cd",
+      "swapped",
+      "transpose2d",
+      "transpose4d/0213"
+    ]
+  },
+  "im2col/rem": {
+    "sha256": "1d037352afe16e54e1c986cfdaf6ff8a09719b30eb774d4a9a796ec362228a0c",
+    "dependencies": [
+      "idxs-of/2",
+      "im2col/rem",
+      "lifted-subarray/2",
+      "pad/2",
+      "replicate"
+    ],
+    "references": [
+      "flatten",
+      "idxs-of/2",
+      "im",
+      "im2col/rem",
+      "lifted-subarray/2",
+      "pad/2",
+      "replicate"
+    ]
+  },
+  "dot": {
+    "sha256": "43728a9f946806e52bfb743b0d618d76377d97e8ec606605faaa9d3afb1321cd",
+    "dependencies": [
+      "dot"
+    ],
+    "references": [
+      "dot",
+      "f.*",
+      "f.+",
+      "reduce/zero",
+      "v",
+      "w"
+    ]
+  },
+  "lifted_dot": {
+    "sha256": "6f700a1f483af3ea561be0ac76f73dbcd44680b42887c1b6af05fb45aed07bbb",
+    "dependencies": [
+      "dot",
+      "lifted_dot"
+    ],
+    "references": [
+      "M",
+      "dot",
+      "lifted_dot",
+      "transpose2d",
+      "v"
+    ]
+  },
+  "matmul": {
+    "sha256": "9682d96b789353c2101c831a800dc87ea5f9202cbb67894c30a072a2a44316fc",
+    "dependencies": [
+      "lifted_dot",
+      "matmul"
+    ],
+    "references": [
+      "lifted_dot",
+      "matmul",
+      "xss",
+      "yss"
+    ]
+  },
+  "conv-2d/rem": {
+    "sha256": "98923582d87db571ecddd0b778963036e9913e07f85cb342819a7aea6feb057d",
+    "dependencies": [
+      "conv-2d/rem",
+      "im2col/rem",
+      "matmul"
+    ],
+    "references": [
+      "conv-2d/rem",
+      "flatten",
+      "im2col/rem",
+      "in",
+      "matmul",
+      "w"
+    ]
+  },
+  "f-max2d": {
+    "sha256": "89f607eef1908a3cae187ae967bd350e80d0b16fd4f30f4b3184987cd2ecfbe6",
+    "dependencies": [
+      "f-max2d"
+    ],
+    "references": [
+      "a",
+      "b",
+      "f-max2d",
+      "f.max"
+    ]
+  },
+  "max-pool-2d": {
+    "sha256": "a8ff8794b8aa81dc51198a37c0136798975e6be04489b057f7236e2c8f3e2a44",
+    "dependencies": [
+      "f-max2d",
+      "idxs-of/2",
+      "lifted-subarray/2",
+      "max-pool-2d",
+      "pad/2",
+      "replicate"
+    ],
+    "references": [
+      "f-max2d",
+      "idxs-of/2",
+      "in",
+      "lifted-subarray/2",
+      "max-pool-2d",
+      "pad/2",
+      "reduce",
+      "replicate"
+    ]
+  },
+  "batch-norm-2d-apply": {
+    "sha256": "275e692330418b49881828ce24f642eb755f5f5964f4341cbcc3f7406068f764",
+    "dependencies": [
+      "batch-norm-2d-apply",
+      "replicate"
+    ],
+    "references": [
+      "batch-norm-2d-apply",
+      "bias",
+      "f.*",
+      "f.+",
+      "f.-",
+      "f./",
+      "f.sqrt",
+      "in",
+      "mean",
+      "replicate",
+      "scale",
+      "variance"
+    ]
+  },
+  "fuse-bn": {
+    "sha256": "1cebeb17f55dc518409021b1b886b94592ebf6affd8f3a99896e7cadc7d56131",
+    "dependencies": [
+      "fuse-bn",
+      "replicate"
+    ],
+    "references": [
+      "denom",
+      "f.*",
+      "f.+",
+      "f.-",
+      "f./",
+      "f.sqrt",
+      "fuse-bn",
+      "p",
+      "replicate"
+    ]
+  },
+  "leaky-relu": {
+    "sha256": "b9d4b5112aff90897a49e97a8e3177a087ffd8beff20e3f9237e0c071c2a3a21",
+    "dependencies": [],
+    "references": [
+      "f.*",
+      "f.max",
+      "x"
+    ]
+  },
+  "e": {
+    "sha256": "e8ed749960cd49fe537183b5876a0f09e2f5002fcfe4bbb45f70183fc835eab9",
+    "dependencies": [],
+    "references": []
+  },
+  "softplus": {
+    "sha256": "5ed2f27663ab2631b6960b48524a6a70d722b11165cbb057391126c3b87b94c9",
+    "dependencies": [],
+    "references": [
+      "f.+",
+      "f.exp",
+      "f.ln",
+      "x"
+    ]
+  },
+  "mish": {
+    "sha256": "55114c182a184912d1dbdb3565dbbee9734571fa4af8d41da298d575fd8af46c",
+    "dependencies": [
+      "softplus"
+    ],
+    "references": [
+      "f.*",
+      "f.tanh",
+      "softplus",
+      "x"
+    ]
+  },
+  "sigmoid": {
+    "sha256": "ffffc0fe5190a9489471d26535f4b191c68f5978cc2f05940efd692e5d5352a7",
+    "dependencies": [
+      "e"
+    ],
+    "references": [
+      "e",
+      "f.+",
+      "f.-",
+      "f./",
+      "f.^",
+      "x"
+    ]
+  },
+  "upsample-nearest": {
+    "sha256": "c0e3166a3d7deb61a8998d7efee42c2428c2d288129567ee26a51f5b20d04ed9",
+    "dependencies": [
+      "replicate",
+      "transpose4d/0213",
+      "upsample-nearest"
+    ],
+    "references": [
+      "flatten",
+      "in",
+      "merged-rows",
+      "replicate",
+      "replicated",
+      "transpose4d/0213",
+      "transposed",
+      "upsample-nearest"
+    ]
+  },
+  "shortcut": {
+    "sha256": "0034fcea2638cb5a8e45c1d644f14c43d1b030aaf0a78d7bab5caa7e65782f97",
+    "dependencies": [],
+    "references": [
+      "a",
+      "b",
+      "f.+"
+    ]
+  },
+  "route2": {
+    "sha256": "fbdd2de82d25fa38862911c9cd108280f39261f52eb5fe218a375f7cedc4d596",
+    "dependencies": [
+      "route2"
+    ],
+    "references": [
+      "a",
+      "append",
+      "b",
+      "route2"
+    ]
+  },
+  "spp": {
+    "sha256": "811be5c9cb00cd6a45bd4e0696ce7233b186748f5a829791981c302f42e1853d",
+    "dependencies": [
+      "max-pool-2d",
+      "spp"
+    ],
+    "references": [
+      "append",
+      "in",
+      "max-pool-2d",
+      "mp13",
+      "mp5",
+      "mp9",
+      "spp"
+    ]
+  },
+  "conv-bias": {
+    "sha256": "8e2250bf5f35fb7bd5fd5e60ef48f7ad582a8b8158800a22301cda07dba47396",
+    "dependencies": [
+      "conv-2d/rem",
+      "conv-bias",
+      "replicate"
+    ],
+    "references": [
+      "conv-2d/rem",
+      "conv-bias",
+      "f.+",
+      "in",
+      "p",
+      "replicate",
+      "reshape"
+    ]
+  },
+  "conv-bn-mish": {
+    "sha256": "0937772f87c52b4991cad0170f4a48b72e32337d06f377cfec5839a1f36d7c62",
+    "dependencies": [
+      "conv-bias",
+      "conv-bn-mish",
+      "fuse-bn",
+      "mish"
+    ],
+    "references": [
+      "conv-bias",
+      "conv-bn-mish",
+      "fuse-bn",
+      "in",
+      "mish",
+      "p"
+    ]
+  },
+  "conv-bn-leaky": {
+    "sha256": "fa7665007283436ff12ad7082d9f59978fbfc13f82318d7e7591699c20b7cb83",
+    "dependencies": [
+      "conv-bias",
+      "conv-bn-leaky",
+      "fuse-bn",
+      "leaky-relu"
+    ],
+    "references": [
+      "conv-bias",
+      "conv-bn-leaky",
+      "fuse-bn",
+      "in",
+      "leaky-relu",
+      "p"
+    ]
+  },
+  "wdir": {
+    "sha256": "ed710ce85fdd3e382331ab964e032fedf53a59a589f6cf24dd5882809d302785",
+    "dependencies": [],
+    "references": []
+  },
+  "f-bias": {
+    "sha256": "53d4411a575f5706d87c15af281b6f7b2321b5ae55eeeae070f958850bb5abcd",
+    "dependencies": [],
+    "references": []
+  },
+  "f-scale": {
+    "sha256": "9a850d1256c344ffff0b4470aa1db91df23a00e9047921511a15d6f5180155cc",
+    "dependencies": [],
+    "references": []
+  },
+  "f-mean": {
+    "sha256": "a88e25286cea82ecdef45ca2c95273e3b295330be4e3c9de214b302f8e8bedb4",
+    "dependencies": [],
+    "references": []
+  },
+  "f-var": {
+    "sha256": "cc56c7dc033c2484832a21476851fd7e72dcd392e5f9ffd0087f86a0e8383512",
+    "dependencies": [],
+    "references": []
+  },
+  "f-w": {
+    "sha256": "20a08b7baec3e1c52f39644c97612d1db5864c0e7cb280ba8d64bddd42cebc48",
+    "dependencies": [],
+    "references": []
+  },
+  "tmsg": {
+    "sha256": "f646cfc70169ac378cc775f074b54e5ef0fd7394b6d563d839a7e536fe9981b6",
+    "dependencies": [],
+    "references": []
+  },
+  "f-det-p3": {
+    "sha256": "ea5cbaf7b2477f7405b66a40506e66d45c8deac085e9d60dab8d5494d6dc78c1",
+    "dependencies": [],
+    "references": []
+  },
+  "f-det-p4": {
+    "sha256": "6b6e719da69208d73066c15360c00012c0e587f8ca0eceb1b9ac6c97e88351c6",
+    "dependencies": [],
+    "references": []
+  },
+  "f-det-p5": {
+    "sha256": "32127a3740851e4c7c8646e7d12b1967e14c5de821f8daa7b9c93e19896dea91",
+    "dependencies": [],
+    "references": []
+  },
+  "f-det-all": {
+    "sha256": "4494e011d57280b3d2ba6d9416661ead4dd66d73111a8db8609847cfbc7a926a",
+    "dependencies": [],
+    "references": []
+  },
+  "f-image": {
+    "sha256": "a0d8c0ff1f6841bcec0a3c97b4bce426e8e0541ad35ba88ed7d6cccac82ead1a",
+    "dependencies": [],
+    "references": []
+  },
+  "idx3": {
+    "sha256": "960209b686bb88e1709c91ec6b0ef4bd81ce5f52876f7ba5f9f685b19668b309",
+    "dependencies": [],
+    "references": [
+      "+",
+      "/",
+      "i",
+      "mod"
+    ]
+  },
+  "path": {
+    "sha256": "de37bb17d861b389dd247718124f32aedadaa1cf1d3625f2eced88fef8bca5ad",
+    "dependencies": [
+      "idx3",
+      "path",
+      "wdir"
+    ],
+    "references": [
+      "append",
+      "i",
+      "idx3",
+      "path",
+      "suffix",
+      "wdir"
+    ]
+  },
+  "load-params": {
+    "sha256": "804b1fb65a8942c48829f2e134fae13d79e139326f6bdd496747e6ae5e6b83ca",
+    "dependencies": [
+      "f-bias",
+      "f-mean",
+      "f-scale",
+      "f-var",
+      "f-w",
+      "load-params",
+      "path"
+    ],
+    "references": [
+      "f-bias",
+      "f-mean",
+      "f-scale",
+      "f-var",
+      "f-w",
+      "load-params",
+      "n",
+      "path",
+      "read-file-f32bin"
+    ]
+  },
+  "load-bias-params": {
+    "sha256": "57107b6b9f88c40a9fa529ebb42bbf53a76e4f4732f9af5edd29158bb9c4df8b",
+    "dependencies": [
+      "f-bias",
+      "f-w",
+      "load-bias-params",
+      "path"
+    ],
+    "references": [
+      "f-bias",
+      "f-w",
+      "load-bias-params",
+      "n",
+      "path",
+      "read-file-f32bin"
+    ]
+  },
+  "planes": {
+    "sha256": "29f6d8f64715ea5dc013e74ec56b6bc87ac941d3abae2cf235841beeaab15e4c",
+    "dependencies": [
+      "planes",
+      "subarray/1"
+    ],
+    "references": [
+      "*",
+      "in",
+      "planes",
+      "reify-dim",
+      "reshape",
+      "start",
+      "subarray/1"
+    ]
+  },
+  "plane": {
+    "sha256": "2f630933588b2475d363bd0d9a463544e464aa4675b9afc1fb3ea0e3fcf6e877",
+    "dependencies": [
+      "plane",
+      "planes"
+    ],
+    "references": [
+      "i",
+      "in",
+      "plane",
+      "planes",
+      "reshape"
+    ]
+  },
+  "yolo-anchor": {
+    "sha256": "9b8ad1e5dd519896ea0df437e244c239a8c40672d0eedabc6b40cb8ded5019d1",
+    "dependencies": [
+      "e",
+      "idxs-of/2",
+      "plane",
+      "planes",
+      "sigmoid",
+      "yolo-anchor"
+    ],
+    "references": [
+      "ah",
+      "append",
+      "aw",
+      "block",
+      "col",
+      "e",
+      "f.*",
+      "f.+",
+      "f.-",
+      "f./",
+      "f.^",
+      "grid",
+      "i->f",
+      "idxs-of/2",
+      "index",
+      "net",
+      "plane",
+      "planes",
+      "reify-dim",
+      "row",
+      "sf",
+      "shift",
+      "sigmoid",
+      "sxy",
+      "tcls",
+      "th",
+      "tobj",
+      "tw",
+      "tx",
+      "ty",
+      "yolo-anchor"
+    ]
+  },
+  "yolo-head": {
+    "sha256": "bdfb1277c142275e62805bc5bb8ac18e54043ab4931d3e610c5ab28052e3aa7b",
+    "dependencies": [
+      "conv-bias",
+      "conv-bn-leaky",
+      "yolo-anchor",
+      "yolo-head"
+    ],
+    "references": [
+      "ah",
+      "aw",
+      "blocks",
+      "conv-bias",
+      "conv-bn-leaky",
+      "dec",
+      "feat",
+      "flatten",
+      "fp",
+      "hp",
+      "in",
+      "net",
+      "raw",
+      "reshape",
+      "rows",
+      "sxy",
+      "transpose2d",
+      "yolo-anchor",
+      "yolo-head"
+    ]
+  }
+}

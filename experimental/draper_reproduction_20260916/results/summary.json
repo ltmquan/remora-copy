@@ -1,0 +1,13 @@
+{
+  "job": "10380877",
+  "status": "COMPLETED",
+  "elapsed": "00:03:14",
+  "calls": 30,
+  "mean_ms": 482.9926666666667,
+  "median_ms": 482.9025,
+  "min_ms": 482.318,
+  "max_ms": 486.675,
+  "expected_output_check": "passed as part of futhark bench",
+  "gpu": "H200",
+  "protocol_patch": "max_num_tokens 1000 to 4096"
+}

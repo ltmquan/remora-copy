@@ -1,0 +1,9 @@
+{
+  "job": "10382183",
+  "state": "COMPLETED",
+  "elapsed": "00:01:49",
+  "samples": 10,
+  "mean_ms": 482.7557,
+  "median_ms": 482.368,
+  "expected_output_check": "passed"
+}

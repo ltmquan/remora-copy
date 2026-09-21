@@ -1,0 +1,241 @@
+{
+  "scope": "first eager GPU execution in separate DEBUG=2 run; excludes CPU compilation time",
+  "total_kernel_ms": 154.52279000000004,
+  "groups": [
+    {
+      "kernel": "r_8_19_19_32_4_512_3_3",
+      "calls": 6,
+      "milliseconds": 41.31172
+    },
+    {
+      "kernel": "r_4_19_19_32_2_2_4_256_3_3",
+      "calls": 6,
+      "milliseconds": 40.28608
+    },
+    {
+      "kernel": "r_2_19_19_32_2_2_4_256_3_3",
+      "calls": 8,
+      "milliseconds": 29.39271
+    },
+    {
+      "kernel": "r_4_19_19_32_4_512_3_3",
+      "calls": 4,
+      "milliseconds": 13.768930000000001
+    },
+    {
+      "kernel": "r_19_19_32_4_4_4_128_3_3",
+      "calls": 8,
+      "milliseconds": 7.54294
+    },
+    {
+      "kernel": "r_2_19_19_32_4_4_4_128_3_3",
+      "calls": 4,
+      "milliseconds": 7.467809999999999
+    },
+    {
+      "kernel": "r_2_19_19_32_2_2_4_128_3_3",
+      "calls": 1,
+      "milliseconds": 1.8468499999999999
+    },
+    {
+      "kernel": "r_4_19_19_32_4_256_3_3",
+      "calls": 1,
+      "milliseconds": 1.72998
+    },
+    {
+      "kernel": "r_4_361_32_4_256_4",
+      "calls": 7,
+      "milliseconds": 1.44313
+    },
+    {
+      "kernel": "r_8_19_19_2_16_4_4_4_32_3_3",
+      "calls": 2,
+      "milliseconds": 0.64553
+    },
+    {
+      "kernel": "r_2_361_32_4_4_128_4",
+      "calls": 7,
+      "milliseconds": 0.55936
+    },
+    {
+      "kernel": "r_2_19_19_8_8_2_4_4_64_3_3",
+      "calls": 2,
+      "milliseconds": 0.5410299999999999
+    },
+    {
+      "kernel": "r_4_361_32_4_128_4",
+      "calls": 5,
+      "milliseconds": 0.54083
+    },
+    {
+      "kernel": "r_85_361_3_256_4",
+      "calls": 1,
+      "milliseconds": 0.51562
+    },
+    {
+      "kernel": "r_4_19_19_8_8_2_4_4_64_3_3",
+      "calls": 1,
+      "milliseconds": 0.50688
+    },
+    {
+      "kernel": "r_85_361_4_3_128_4",
+      "calls": 1,
+      "milliseconds": 0.46413
+    },
+    {
+      "kernel": "r_4_361_32_4_4_128_4",
+      "calls": 1,
+      "milliseconds": 0.44982
+    },
+    {
+      "kernel": "r_2_361_32_4_4_64_4",
+      "calls": 9,
+      "milliseconds": 0.414
+    },
+    {
+      "kernel": "r_2_1444_8_16_4_4_16_4",
+      "calls": 3,
+      "milliseconds": 0.41213
+    },
+    {
+      "kernel": "r_8_361_32_4_2_128_4",
+      "calls": 1,
+      "milliseconds": 0.39619
+    },
+    {
+      "kernel": "r_361_32_4_4_4_32_4",
+      "calls": 9,
+      "milliseconds": 0.37475
+    },
+    {
+      "kernel": "r_361_32_4_4_4_64_4",
+      "calls": 5,
+      "milliseconds": 0.36382
+    },
+    {
+      "kernel": "E_2_32_4",
+      "calls": 33,
+      "milliseconds": 0.32824
+    },
+    {
+      "kernel": "E_32_4",
+      "calls": 26,
+      "milliseconds": 0.25872999999999996
+    },
+    {
+      "kernel": "E_4_32_4",
+      "calls": 26,
+      "milliseconds": 0.25445000000000007
+    },
+    {
+      "kernel": "E_7_19_19_85_3_3",
+      "calls": 1,
+      "milliseconds": 0.24928
+    },
+    {
+      "kernel": "r_85_361_4_4_3_64_4",
+      "calls": 1,
+      "milliseconds": 0.24666
+    },
+    {
+      "kernel": "r_2_1444_8_16_4_4_2_16_4",
+      "calls": 1,
+      "milliseconds": 0.24304
+    },
+    {
+      "kernel": "r_2_19_19_32_2_2_4_2_64_4",
+      "calls": 1,
+      "milliseconds": 0.22819
+    },
+    {
+      "kernel": "r_4_361_32_4_2_128_4",
+      "calls": 1,
+      "milliseconds": 0.20618
+    },
+    {
+      "kernel": "r_2_361_8_16_4_4_32_4",
+      "calls": 2,
+      "milliseconds": 0.15091
+    },
+    {
+      "kernel": "E_16_4",
+      "calls": 13,
+      "milliseconds": 0.14254
+    },
+    {
+      "kernel": "r_4_361_8_16_4_4_2_16_4",
+      "calls": 1,
+      "milliseconds": 0.14250000000000002
+    },
+    {
+      "kernel": "r_2_361_32_4_4_4_2_32_4",
+      "calls": 1,
+      "milliseconds": 0.13373
+    },
+    {
+      "kernel": "r_2_361_8_16_4_4_16_4",
+      "calls": 3,
+      "milliseconds": 0.1336
+    },
+    {
+      "kernel": "r_4_361_32_4_4_2_64_4",
+      "calls": 1,
+      "milliseconds": 0.12659
+    },
+    {
+      "kernel": "r_8_38_19_16_8_4_4_3_3_3",
+      "calls": 1,
+      "milliseconds": 0.10614
+    },
+    {
+      "kernel": "r_1444_8_16_4_4_16_4",
+      "calls": 1,
+      "milliseconds": 0.09276999999999999
+    },
+    {
+      "kernel": "r_2_361_32_4_4_2_64_4",
+      "calls": 1,
+      "milliseconds": 0.08220999999999999
+    },
+    {
+      "kernel": "r_19_19_32_4_4_4_2_32_4",
+      "calls": 1,
+      "milliseconds": 0.07619
+    },
+    {
+      "kernel": "E_8_32_4",
+      "calls": 7,
+      "milliseconds": 0.07203
+    },
+    {
+      "kernel": "r_2_361_32_4_128_4",
+      "calls": 1,
+      "milliseconds": 0.07066
+    },
+    {
+      "kernel": "E_8_4",
+      "calls": 2,
+      "milliseconds": 0.05210000000000001
+    },
+    {
+      "kernel": "r_16_19_19_32_13_13",
+      "calls": 1,
+      "milliseconds": 0.05146
+    },
+    {
+      "kernel": "r_361_32_4_4_64_4",
+      "calls": 1,
+      "milliseconds": 0.03731
+    },
+    {
+      "kernel": "r_16_19_19_32_9_9",
+      "calls": 1,
+      "milliseconds": 0.03603
+    },
+    {
+      "kernel": "r_16_19_19_32_5_5",
+      "calls": 1,
+      "milliseconds": 0.027010000000000003
+    }
+  ]
+}

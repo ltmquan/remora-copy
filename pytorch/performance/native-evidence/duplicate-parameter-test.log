@@ -1,0 +1,6 @@
+test_duplicate_entry_parameters_rejected (test_native.NativeTests.test_duplicate_entry_parameters_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.340s
+
+OK

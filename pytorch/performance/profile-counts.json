@@ -1,0 +1,68 @@
+{
+  "conv_same": [
+    {
+      "function": "_g_cell",
+      "calls": 10508
+    },
+    {
+      "function": "<method 'reshape' of 'torch._C.TensorBase' objects>",
+      "calls": 6888
+    },
+    {
+      "function": "<built-in method torch.stack>",
+      "calls": 748
+    },
+    {
+      "function": "_g_apply",
+      "calls": 533
+    },
+    {
+      "function": "_g_index",
+      "calls": 576
+    }
+  ],
+  "spp_cascade": [
+    {
+      "function": "<method 'reshape' of 'torch._C.TensorBase' objects>",
+      "calls": 57673
+    },
+    {
+      "function": "<built-in method torch.stack>",
+      "calls": 6838
+    },
+    {
+      "function": "_g_cell",
+      "calls": 87125
+    },
+    {
+      "function": "_g_apply",
+      "calls": 2338
+    },
+    {
+      "function": "_g_index",
+      "calls": 7500
+    }
+  ],
+  "composed_pipeline": [
+    {
+      "function": "<method 'reshape' of 'torch._C.TensorBase' objects>",
+      "calls": 135363
+    },
+    {
+      "function": "<built-in method torch.stack>",
+      "calls": 18748
+    },
+    {
+      "function": "_g_cell",
+      "calls": 205659
+    },
+    {
+      "function": "_g_apply",
+      "calls": 26650
+    },
+    {
+      "function": "_g_index",
+      "calls": 14300
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+fresh_futhark black
+fresh_futhark white
+fresh_futhark noise
+fresh_futhark gradient
+fresh_futhark checkerboard
+fresh_futhark evalbox
+modified_futhark black
+modified_futhark white
+modified_futhark noise
+modified_futhark gradient
+modified_futhark checkerboard
+modified_futhark evalbox
+darknet black
+darknet white
+darknet noise
+darknet gradient
+darknet checkerboard
+darknet evalbox
+torch remora
+tinygrad baseline remora
+tinygrad im2col remora
+torch direct
+tinygrad baseline direct
+tinygrad im2col direct

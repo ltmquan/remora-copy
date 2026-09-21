@@ -1,0 +1,8 @@
+{
+  "passed": false,
+  "stage": "compiled_inference",
+  "gpu": "NVIDIA H200",
+  "torch": "2.8.0+cu128",
+  "generated_sha256": "640cd778b684df95975c3d784e8086012dca4958735a05d034cbcf7a655df9df",
+  "lowering": "general"
+}

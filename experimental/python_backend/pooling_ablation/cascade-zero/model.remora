@@ -1,0 +1,606 @@
+;; ----------------- UTILITIES -------------------------
+
+(def (fun (@replicate (&t) (@f @s) (in [&t @s]) : [&t @f @s])
+    ((array [] (fn ((x [Int])) in)) (i-app iota/static [@f]))))
+
+(def (fun (@pad/2 (&t) ($n $p) (in [&t $n $n])
+                            (zero [&t]) : [&t (+ $n $p $p) (+ $n $p $p)])
+    (let ((val (vert-pad : [&t $p (+ $p $p $n)]) (@replicate (&t) ([$p (+ $p $p $n)] []) zero))
+          (val (hor-pad : [&t $p]) (@replicate (&t) ([$p] []) zero)))
+      (@append (&t) ($p (+ $n $p) [(+ $p $p $n)])
+         vert-pad
+         (@append (&t) ($n $p [(+ $p $p $n)])
+           (@append (&t) ($p (+ $n $p) []) hor-pad (@append (&t) ($n $p []) in hor-pad))
+           vert-pad)))))
+
+(def (i-fun (idxs-of/2 ($m $n) : [Int $m $n 2])
+     ((fn ((i [Int]))
+        ((fn ((j [Int])) [i j]) (i-app iota/static [$n])))
+      (i-app iota/static [$m]))))
+
+(def (fun (@subarray/2 (&t) ($in-out $m $s)
+                    (in [&t (+ $in-out (* $m $s) 1) (+ $in-out (* $m $s) 1)])
+                    (offset [Int 2]) : [&t (+ $m 1) (+ $m 1)])
+     (@index2d (&t) ((+ $in-out (* $m $s) 1) (+ $in-out (* $m $s) 1))
+                    in
+                     (+ (@replicate (Int) ([(+ $m 1) (+ $m 1)] [2]) offset)
+                        (* (@reify-dim _ ($s)) (i-app idxs-of/2 (+ $m 1) (+ $m 1)))))))
+
+(def (fun (@lifted-subarray/2 (&t) (@shape $in-out $m $s)
+                        (in [&t (+ $in-out (* $m $s) 1) (+ $in-out (* $m $s) 1)])
+                        (offset [Int @shape 2]) : [&t @shape (+ $m 1) (+ $m 1)])
+     (@subarray/2 (&t) ($in-out $m $s) in offset)))
+
+(def (fun (@subarray/1 (&t) ($in-out $out)
+                (in [&t (+ $in-out $out)])
+                (offset [Int])
+                : [&t $out])
+     (@index (&t) ((+ $in-out $out)) in
+        (+ offset (i-app iota/static [$out])))))
+
+;; ----------------- 4D TRANSPOSE (axes 0 1 2 3 -> 0 2 1 3) -------------------------
+
+(def (fun (@transpose4d/0213 (&t) ($a $b $c $d)
+                (in [&t $a $b $c $d])
+                : [&t $a $c $b $d])
+    (let ((val (flat-cd : [&t $a $b (* $c $d)])
+               (@flatten (&t) ($c $d []) in))
+          (val (swapped : [&t $a (* $c $d) $b])
+               (@transpose2d (&t) ($b (* $c $d)) flat-cd))
+          (val (split-cd : [&t $a $c $d $b])
+               (@reshape (&t) ([$a (* $c $d) $b] [$a $c $d $b]) swapped)))
+      (@transpose2d (&t) ($d $b) split-cd))))
+
+;; ----------------- CONVOLUTION -------------------------
+;; Models darknet's truncating output-size division: writing
+;;   n + 2*pad - k = $q * $s + $r
+;; gives out = $q + 1 and leaves $r padded cells no window reads. Instead of
+;; constraining $n, this derives it, which is exact for every (n, pad, k, s):
+;;   n = $q * $s + $k + $r - 2 * $pad
+;; $pad is a plain per-side pixel count, not pre-divided by the stride.
+;;
+;; PRECONDITION: $r < $s. This is what makes $q the true floor quotient, i.e.
+;;   $q + 1 == (n + 2*$pad - $k)/$s + 1 as darknet computes it. Nothing checks
+;;   it; an $r >= $s silently describes a larger input than darknet would pick
+;;   for the same $q, shifting every output position.
+;; Also implicitly required, and equally unchecked:
+;;   - $s >= 1 and $k >= 1; $q, $r, $pad >= 0.
+;;   - (* $q $s) + $k + $r > $pad + $pad, so the derived input size is
+;;     positive. Dim evaluation rejects a negative result, but only at the
+;;     point the shape is used.
+;;   - $in-c >= 1 and $out-c >= 1 (@dot needs $k*$k*$in-c >= 1).
+;;   - the input is square; only one spatial size is tracked.
+;;   - $pad < $k for the result to mean anything: a larger pad admits windows
+;;     lying entirely in padding, which darknet's pad=size/2 never produces.
+
+(def (fun (@im2col/rem _ ($q $k $pad $in-c $s $r)
+                  (im [Float $in-c (- (+ (* $q $s) $k $r) $pad $pad) (- (+ (* $q $s) $k $r) $pad $pad)])
+                  : [Float (* $in-c $k $k) (* (+ $q 1) (+ $q 1))])
+      (@flatten (Float) ($in-c (* $k $k) [(* (+ $q 1) (+ $q 1))])
+        (@flatten (Float) ($k $k [(* (+ $q 1) (+ $q 1))])
+          (@flatten (Float) ((+ $q 1) (+ $q 1) [])
+             (@lifted-subarray/2 (Float) ([$k $k] (- (+ $k $r) 1) $q $s)
+               (@pad/2 (Float) ((- (+ (* $q $s) $k $r) $pad $pad) $pad) im 0.0)
+                 (@replicate (Int) ([$in-c] [$k $k 2])
+                   (i-app idxs-of/2 $k $k))))))))
+
+;; Performance change: reduce/zero exposes the sum to Futhark (about 1.89x
+;; faster full inference in the measured fixture). Zero is the additive
+;; identity; the length is n-1+1. Reassociation may change float rounding.
+(def (fun (@dot _ ($n-1) (v [Float (+ 1 $n-1)]) (w [Float (+ 1 $n-1)]) : [Float])
+    (@reduce/zero (Float) ((+ $n-1 1) []) f.+ 0.0 (f.* v w))))
+
+(def (fun (@lifted_dot _ ($m-1 $o) (v [Float (+ 1 $m-1)]) (M [Float (+ 1 $m-1) $o]) : [Float $o])
+    (@dot _ ($m-1) v (@transpose2d (Float) ((+ 1 $m-1) $o) M))))
+
+(def (fun (@matmul _ ($n $m-1 $o) (xss [Float $n (+ 1 $m-1)])
+                               (yss [Float (+ 1 $m-1) $o]) : [Float $n $o])
+      (@lifted_dot _ ($m-1 $o) xss yss)))
+
+(def (fun (@conv-2d/rem _ ($q $k $in-c $out-c $pad $s $r)
+                (in [Float $in-c (- (+ (* $q $s) $k $r) $pad $pad) (- (+ (* $q $s) $k $r) $pad $pad)])
+                (w  [Float $out-c $in-c $k $k])
+                : [Float $out-c (* (+ $q 1) (+ $q 1))])
+    (@matmul _ ($out-c (- (* $k $k $in-c) 1) (* (+ $q 1) (+ $q 1)))
+             (@flatten (Float) ($in-c (* $k $k) [])
+                (@flatten (Float) ($k $k []) w))
+             (@im2col/rem _ ($q $k $pad $in-c $s $r) in))))
+
+;; ----------------- MAX POOLING -------------------------
+
+(def (fun (@f-max2d _ (@s) (a [Float @s]) (b [Float @s]) : [Float @s])
+     (f.max a b)))
+
+(def (fun (@max-pool-2d _ ($n-k $k $in-c $p $s)
+                (in [Float $in-c (+ (* $n-k $s) $k) (+ (* $n-k $s) $k)])
+                : [Float $in-c (+ $n-k $p $p 1) (+ $n-k $p $p 1)])
+    (let ((val (neg-inf-2d : [Float (+ $n-k $p $p 1) (+ $n-k $p $p 1)])
+               (@replicate (Float) ([(+ $n-k $p $p 1) (+ $n-k $p $p 1)] []) -1.0e30))
+          (val (neg-inf-3d : [Float $k (+ $n-k $p $p 1) (+ $n-k $p $p 1)])
+               (@replicate (Float) ([$k] [(+ $n-k $p $p 1) (+ $n-k $p $p 1)]) neg-inf-2d)))
+      (@reduce/zero (Float) ($k [(+ $n-k $p $p 1) (+ $n-k $p $p 1)])
+                    (@f-max2d _ ([(+ $n-k $p $p 1) (+ $n-k $p $p 1)]))
+                    neg-inf-2d
+        (@reduce/zero (Float) ($k [$k (+ $n-k $p $p 1) (+ $n-k $p $p 1)])
+                      (@f-max2d _ ([$k (+ $n-k $p $p 1) (+ $n-k $p $p 1)]))
+                      neg-inf-3d
+          (@lifted-subarray/2 (Float) ([$k $k] (- $k 1) (+ $n-k $p $p) $s)
+            (@pad/2 (Float) ((+ (* $n-k $s) $k) (* $p $s)) in -1.0e30)
+              (@replicate (Int) ([$in-c] [$k $k 2])
+                (i-app idxs-of/2 $k $k))))))))
+
+;; ----------------- BATCH NORMALIZATION -------------------------
+
+(def (fun (@batch-norm-2d-apply _ ($n $k)
+                (in [Float $k $n $n])
+                (mean [Float $k])
+                (variance [Float $k])
+                (scale [Float $k])
+                (bias [Float $k])
+                : [Float $k $n $n])
+    (f.+ (f.* (f./ (f.- in (@replicate (Float) ([$n $n] []) mean))
+                   (f.sqrt (@replicate (Float) ([$n $n] []) (f.+ variance 0.00001))))
+              (@replicate (Float) ([$n $n] []) scale))
+         (@replicate (Float) ([$n $n] []) bias))))
+
+;; Fold the batch-norm affine into the conv weights, as darknet's
+;; fuse_conv_batchnorm does before inference (src/network.c, called from
+;; detector.c:1635). It rewrites the weights in place and then clears
+;; batch_normalize, so darknet's forward pass is conv + add_bias with no
+;; separate normalize step -- doing the same here keeps the two implementations
+;; on the same arithmetic rather than on two algebraically equal formulations.
+;;
+;; b' deliberately divides scale*mean rather than reusing inv, to match
+;; darknet's association: it computes bias - (scale*mean)/s, and
+;; bias - mean*(scale/s) rounds differently (~1.5e-06 relative on layer 0).
+(def (fun (@fuse-bn _ ($out-c $in-c $k)
+                (p {(w [Float $out-c $in-c $k $k]) (mean [Float $out-c])
+                    (variance [Float $out-c]) (scale [Float $out-c])
+                    (bias [Float $out-c])})
+                : {(w [Float $out-c $in-c $k $k]) (bias [Float $out-c])})
+    (let ((val (denom : [Float $out-c])
+               (f.sqrt (f.+ (field p variance) 0.00001))))
+      {(w [$out-c $in-c $k $k]
+          (f.* (field p w)
+               (@replicate (Float) ([$in-c $k $k] [])
+                  (f./ (field p scale) denom))))
+       (bias [$out-c]
+          (f.- (field p bias)
+               (f./ (f.* (field p scale) (field p mean)) denom)))})))
+
+;; ----------------- ACTIVATIONS -------------------------
+
+(def (fun (@leaky-relu _ () (x [Float]) : [Float])
+    (f.max x (f.* 0.1 x))))
+
+(def (val e 2.718281828459045))
+
+(def (fun (@softplus _ () (x [Float]) : [Float])
+     (f.ln (f.+ 1.0 (f.exp x)))))
+
+(def (fun (@mish _ () (x [Float]) : [Float])
+     (f.* x (f.tanh (@softplus _ () x)))))
+
+(def (fun (@sigmoid _ () (x [Float]) : [Float])
+     (f./ 1.0 (f.+ 1.0 (f.^ e (f.- 0.0 x))))))
+
+;; ----------------- NEAREST NEIGHBOR UPSAMPLING -------------------------
+
+(def (fun (@upsample-nearest _ ($n $k $s)
+                (in [Float $k $n $n])
+                : [Float $k (* $n $s) (* $n $s)])
+    (let ((val (replicated : [Float $k $n $n $s $s])
+               (@replicate (Float) ([$s $s] []) in))
+          (val (transposed : [Float $k $n $s $n $s])
+               (@transpose4d/0213 (Float) ($n $n $s $s) replicated))
+          (val (merged-rows : [Float $k (* $n $s) $n $s])
+               (@flatten (Float) ($n $s [$n $s]) transposed)))
+      (@flatten (Float) ($n $s []) merged-rows))))
+
+;; ----------------- SHORTCUT / ROUTE / SPP -------------------------
+
+(def (fun (@shortcut _ () (a [Float]) (b [Float]) : [Float])
+    (f.+ a b)))
+
+(def (fun (@route2 _ ($c1 $c2 $h $w)
+                (a [Float $c1 $h $w])
+                (b [Float $c2 $h $w])
+                : [Float (+ $c1 $c2) $h $w])
+     (@append (Float) ($c1 $c2 [$h $w]) a b)))
+
+;; Memory change: cascade 5x5 max pools to obtain 9x9 and 13x13 windows,
+;; avoiding separate large window tensors while preserving output order.
+;; The tested combined variant used 20.1% less peak device allocation
+;; (2.515 -> 2.009 GB); this change alone was not memory-benchmarked.
+(def (fun (@spp _ ($n $k)
+                (in [Float $k $n $n])
+                : [Float (* 4 $k) $n $n])
+    (let ((type *map [Float $k $n $n])
+          (val (mp5  : *map) (@max-pool-2d _ ((- $n 5) 5 $k 2 1) in))
+          (val (mp9  : *map) (@max-pool-2d _ ((- $n 5) 5 $k 2 1) mp5))
+          (val (mp13 : *map) (@max-pool-2d _ ((- $n 5) 5 $k 2 1) mp9)))
+      (@append (Float) ($k (* 3 $k) [$n $n])
+         mp13
+         (@append (Float) ($k (* 2 $k) [$n $n])
+            mp9
+            (@append (Float) ($k $k [$n $n]) mp5 in))))))
+
+;; ----------------- CONV + BATCHNORM + ACTIVATION -------------------------
+;; One record per conv+bn layer holds all five learnable tensors: the conv
+;; kernel plus batchnorm's per-channel mean/variance/scale/bias. At inference
+;; batchnorm uses a trained checkpoint's stored running stats, not anything
+;; recomputed from this call's input (see batch_norm.remora).
+
+;; A conv with a real bias and no batch-norm. Used directly by the three head
+;; 1x1 convs, which darknet stores as weights+bias only, and -- after @fuse-bn
+;; -- by every other conv too, mirroring post-fusion darknet where
+;; batch_normalize is 0 everywhere and the forward pass is always add_bias.
+(def (fun (@conv-bias _ ($q $k $in-c $out-c $pad $s $r)
+                (in [Float $in-c (- (+ (* $q $s) $k $r) $pad $pad) (- (+ (* $q $s) $k $r) $pad $pad)])
+                (p {(w [Float $out-c $in-c $k $k]) (bias [Float $out-c])})
+                : [Float $out-c (+ $q 1) (+ $q 1)])
+    (f.+ (@reshape (Float) ([$out-c (* (+ $q 1) (+ $q 1))] [$out-c (+ $q 1) (+ $q 1)])
+             (@conv-2d/rem _ ($q $k $in-c $out-c $pad $s $r) in (field p w)))
+         (@replicate (Float) ([(+ $q 1) (+ $q 1)] []) (field p bias)))))
+
+(def (fun (@conv-bn-mish _ ($q $k $in-c $out-c $pad $s $r)
+                (in [Float $in-c (- (+ (* $q $s) $k $r) $pad $pad) (- (+ (* $q $s) $k $r) $pad $pad)])
+                (p {(w [Float $out-c $in-c $k $k]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})
+                : [Float $out-c (+ $q 1) (+ $q 1)])
+    (@mish _ ()
+      (@conv-bias _ ($q $k $in-c $out-c $pad $s $r) in
+        (@fuse-bn _ ($out-c $in-c $k) p)))))
+
+(def (fun (@conv-bn-leaky _ ($q $k $in-c $out-c $pad $s $r)
+                (in [Float $in-c (- (+ (* $q $s) $k $r) $pad $pad) (- (+ (* $q $s) $k $r) $pad $pad)])
+                (p {(w [Float $out-c $in-c $k $k]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})
+                : [Float $out-c (+ $q 1) (+ $q 1)])
+    (@leaky-relu _ ()
+      (@conv-bias _ ($q $k $in-c $out-c $pad $s $r) in
+        (@fuse-bn _ ($out-c $in-c $k) p)))))
+
+;; ----------------- CSPDARKNET53 RESIDUAL BLOCK -------------------------
+;; Both convs are stride 1 and size-preserving, so $q = $n - 1 and $r = 0:
+;; 1x1 with pad 0 and 3x3 with pad 1 both leave the spatial size at $n.
+
+(def (fun (@res-block _ ($h $h2 $n)
+                (in [Float $h $n $n])
+                (rp {(w [Float $h2 $h 1 1]) (mean [Float $h2]) (variance [Float $h2]) (scale [Float $h2]) (bias [Float $h2])})
+                (ep {(w [Float $h $h2 3 3]) (mean [Float $h]) (variance [Float $h]) (scale [Float $h]) (bias [Float $h])})
+                : [Float $h $n $n])
+    (let ((val (reduced : [Float $h2 $n $n])
+               (@conv-bn-mish _ ((- $n 1) 1 $h $h2 0 1 0) in rp))
+          (val (expanded : [Float $h $n $n])
+               (@conv-bn-mish _ ((- $n 1) 3 $h2 $h 1 1 0) reduced ep)))
+      (@shortcut _ () expanded in))))
+
+;; ----------------- CSP STAGES -------------------------
+;; Downsample with darknet's real 3x3 / stride 2 / pad 1, then CSP split into
+;; two 1x1-conv paths (skip + main), N residual blocks on the main path, a 1x1
+;; conv, concat, and a 1x1 transition conv. $n-k-down is the downsample's $q,
+;; so the post-downsample spatial size is (+ $n-k-down 1) and the stage input
+;; is (+ (* $n-k-down 2) 2): for an even input N, N/2 - 1 windows of a 3x3 at
+;; stride 2 over N+2 padded columns leaves remainder $r = 1.
+
+;; ----------------- WEIGHT LOADING -------------------------
+;; Paths are Int arrays of bytes. Only the six shared fragments below are
+;; encoded literally; the per-layer index is derived arithmetically, so the
+;; 110 layer names cost nothing. Paths are relative to the working directory,
+;; so run this from the repository root. Produced by
+;; examples/darknet/tools/split_weights.py.
+
+(def (val wdir [101 120 97 109 112 108 101 115 47 100 97 114 107 110 101 116 47 119 101 105 103 104 116 115 47 99 111 110 118 95]))          ;; "examples/darknet/weights/conv_"
+(def (val f-bias [47 98 105 97 115 46 98 105 110]))        ;; "/bias.bin"
+(def (val f-scale [47 115 99 97 108 101 46 98 105 110]))       ;; "/scale.bin"
+(def (val f-mean [47 109 101 97 110 46 98 105 110]))        ;; "/mean.bin"
+(def (val f-var [47 118 97 114 105 97 110 99 101 46 98 105 110]))         ;; "/variance.bin"
+(def (val f-w [47 119 101 105 103 104 116 115 46 98 105 110]))           ;; "/weights.bin"
+(def (val tmsg "finish"))    ;; shared progress marker for @trace
+(def (val f-det-p3 [101 120 97 109 112 108 101 115 47 100 97 114 107 110 101 116 47 118 101 114 105 102 121 47 100 101 116 115 95 112 51 46 98 105 110]))  ;; "examples/darknet/verify/dets_p3.bin"
+(def (val f-det-p4 [101 120 97 109 112 108 101 115 47 100 97 114 107 110 101 116 47 118 101 114 105 102 121 47 100 101 116 115 95 112 52 46 98 105 110]))  ;; "examples/darknet/verify/dets_p4.bin"
+(def (val f-det-p5 [101 120 97 109 112 108 101 115 47 100 97 114 107 110 101 116 47 118 101 114 105 102 121 47 100 101 116 115 95 112 53 46 98 105 110]))  ;; "examples/darknet/verify/dets_p5.bin"
+(def (val f-det-all [101 120 97 109 112 108 101 115 47 100 97 114 107 110 101 116 47 118 101 114 105 102 121 47 100 101 116 115 95 97 108 108 46 98 105 110]))  ;; "examples/darknet/verify/dets_all.bin"
+(def (val f-image [101 120 97 109 112 108 101 115 47 100 97 114 107 110 101 116 47 100 111 103 95 54 48 56 46 98 105 110]))  ;; "examples/darknet/dog_608.bin", produced by tools/prepare_image.py
+
+;; a 3-digit zero-padded index as ASCII bytes, e.g. 137 -> "137"
+(def (fun (@idx3 _ () (i [Int]) : [Int 3])
+    [(+ 48 (/ i 100)) (+ 48 (mod (/ i 10) 10)) (+ 48 (mod i 10))]))
+
+;; wdir ++ idx3(i) ++ suffix
+(def (fun (@path _ ($sfx) (i [Int]) (suffix [Int $sfx]) : [Int (+ 33 $sfx)])
+    (@append (Int) (33 $sfx [])
+       (@append (Int) (30 3 []) wdir (@idx3 _ () i))
+       suffix)))
+
+(def (fun (@load-params _ ($o $i $k) (n [Int]) : {(w [Float $o $i $k $k]) (mean [Float $o]) (variance [Float $o]) (scale [Float $o]) (bias [Float $o])})
+    {(w [$o $i $k $k] (@read-file-f32bin _ (45 [$o $i $k $k]) (@path _ (12) n f-w)))
+     (mean [$o] (@read-file-f32bin _ (42 [$o]) (@path _ (9) n f-mean)))
+     (variance [$o] (@read-file-f32bin _ (46 [$o]) (@path _ (13) n f-var)))
+     (scale [$o] (@read-file-f32bin _ (43 [$o]) (@path _ (10) n f-scale)))
+     (bias [$o] (@read-file-f32bin _ (42 [$o]) (@path _ (9) n f-bias)))}))
+
+;; the three head convs have no batch-norm: only weights and bias on disk
+(def (fun (@load-bias-params _ ($o $i $k) (n [Int])
+                : {(w [Float $o $i $k $k]) (bias [Float $o])})
+    {(w [$o $i $k $k] (@read-file-f32bin _ (45 [$o $i $k $k]) (@path _ (12) n f-w)))
+     (bias [$o] (@read-file-f32bin _ (42 [$o]) (@path _ (9) n f-bias)))}))
+
+;; Stage 1 only. yolov4.cfg special-cases it (layers 1-10): the split does
+;; not compress, so both branches stay at $out-c, the residual block is the
+;; one place a bottleneck appears, and the transition halves the concat.
+;; Stages 2-5 use the generic @csp-stage-xN below instead.
+(def (fun (@csp-stage-1 _ ($in-ch $out-c $bottleneck $n-k-down)
+                (in [Float $in-ch (+ (* $n-k-down 2) 2) (+ (* $n-k-down 2) 2)])
+                (down-p {(w [Float $out-c $in-ch 3 3]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})  ;; 3x3/stride-2/pad-1 downsample
+                (skip-p {(w [Float $out-c $out-c 1 1]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})  ;; CSP skip path, full width
+                (m0-p {(w [Float $out-c $out-c 1 1]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})  ;; CSP main path, full width
+                (r1-rp {(w [Float $bottleneck $out-c 1 1]) (mean [Float $bottleneck]) (variance [Float $bottleneck]) (scale [Float $bottleneck]) (bias [Float $bottleneck])})  ;; residual block 1x1 reduce
+                (r1-ep {(w [Float $out-c $bottleneck 3 3]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})  ;; residual block 3x3 expand
+                (mf-p {(w [Float $out-c $out-c 1 1]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})  ;; main path final 1x1
+                (tr-p {(w [Float $out-c (* 2 $out-c) 1 1]) (mean [Float $out-c]) (variance [Float $out-c]) (scale [Float $out-c]) (bias [Float $out-c])})  ;; transition, halves the concat
+                : [Float $out-c (+ $n-k-down 1) (+ $n-k-down 1)])
+    (let ((type *map [Float $out-c (+ $n-k-down 1) (+ $n-k-down 1)])
+          (type *cat [Float (* 2 $out-c) (+ $n-k-down 1) (+ $n-k-down 1)])
+          (val (down  : *map)
+               (@conv-bn-mish _ ($n-k-down 3 $in-ch $out-c 1 2 1) in down-p))
+          (val (skip  : *map)
+               (@conv-bn-mish _ ($n-k-down 1 $out-c $out-c 0 1 0) down skip-p))
+          (val (main0 : *map)
+               (@conv-bn-mish _ ($n-k-down 1 $out-c $out-c 0 1 0) down m0-p))
+          (val (main1 : *map)
+               (@res-block _ ($out-c $bottleneck (+ $n-k-down 1)) main0 r1-rp r1-ep))
+          (val (mainF : *map)
+               (@conv-bn-mish _ ($n-k-down 1 $out-c $out-c 0 1 0) main1 mf-p))
+          (val (merged : *cat)
+               (@route2 _ ($out-c $out-c (+ $n-k-down 1) (+ $n-k-down 1)) mainF skip)))
+      (@conv-bn-mish _ ($n-k-down 1 (* 2 $out-c) $out-c 0 1 0) merged tr-p))))
+
+(def (fun (@csp-stage-x2 _ ($in-ch $half $n-k-down)
+                (in [Float $in-ch (+ (* $n-k-down 2) 2) (+ (* $n-k-down 2) 2)])
+                (down-p {(w [Float (+ $half $half) $in-ch 3 3]) (mean [Float (+ $half $half)]) (variance [Float (+ $half $half)]) (scale [Float (+ $half $half)]) (bias [Float (+ $half $half)])})  ;; 3x3/stride-2/pad-1 downsample
+                (skip-p {(w [Float $half (+ $half $half) 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; CSP skip path
+                (m0-p {(w [Float $half (+ $half $half) 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; CSP main path
+                (r1-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 1 1x1
+                (r1-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 1 3x3
+                (r2-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 2 1x1
+                (r2-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 2 3x3
+                (mf-p {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; main path final 1x1
+                (tr-p {(w [Float (+ $half $half) (+ $half $half) 1 1]) (mean [Float (+ $half $half)]) (variance [Float (+ $half $half)]) (scale [Float (+ $half $half)]) (bias [Float (+ $half $half)])})  ;; transition after concat
+                : [Float (+ $half $half) (+ $n-k-down 1) (+ $n-k-down 1)])
+    (let ((type *full-map [Float (+ $half $half) (+ $n-k-down 1) (+ $n-k-down 1)])
+          (type *half-map [Float $half (+ $n-k-down 1) (+ $n-k-down 1)])
+          (val (down  : *full-map)
+               (@conv-bn-mish _ ($n-k-down 3 $in-ch (+ $half $half) 1 2 1) in down-p))
+          (val (skip  : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) $half 0 1 0) down skip-p))
+          (val (main0 : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) $half 0 1 0) down m0-p))
+          (val (main1 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main0 r1-rp r1-ep))
+          (val (main2 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main1 r2-rp r2-ep))
+          (val (mainF : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 $half $half 0 1 0) main2 mf-p))
+          (val (merged : *full-map)
+               (@route2 _ ($half $half (+ $n-k-down 1) (+ $n-k-down 1)) mainF skip)))
+      (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) (+ $half $half) 0 1 0) merged tr-p))))
+
+(def (fun (@csp-stage-x4 _ ($in-ch $half $n-k-down)
+                (in [Float $in-ch (+ (* $n-k-down 2) 2) (+ (* $n-k-down 2) 2)])
+                (down-p {(w [Float (+ $half $half) $in-ch 3 3]) (mean [Float (+ $half $half)]) (variance [Float (+ $half $half)]) (scale [Float (+ $half $half)]) (bias [Float (+ $half $half)])})  ;; 3x3/stride-2/pad-1 downsample
+                (skip-p {(w [Float $half (+ $half $half) 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; CSP skip path
+                (m0-p {(w [Float $half (+ $half $half) 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; CSP main path
+                (r1-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 1 1x1
+                (r1-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 1 3x3
+                (r2-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 2 1x1
+                (r2-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 2 3x3
+                (r3-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 3 1x1
+                (r3-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 3 3x3
+                (r4-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 4 1x1
+                (r4-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 4 3x3
+                (mf-p {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; main path final 1x1
+                (tr-p {(w [Float (+ $half $half) (+ $half $half) 1 1]) (mean [Float (+ $half $half)]) (variance [Float (+ $half $half)]) (scale [Float (+ $half $half)]) (bias [Float (+ $half $half)])})  ;; transition after concat
+                : [Float (+ $half $half) (+ $n-k-down 1) (+ $n-k-down 1)])
+    (let ((type *full-map [Float (+ $half $half) (+ $n-k-down 1) (+ $n-k-down 1)])
+          (type *half-map [Float $half (+ $n-k-down 1) (+ $n-k-down 1)])
+          (val (down  : *full-map)
+               (@conv-bn-mish _ ($n-k-down 3 $in-ch (+ $half $half) 1 2 1) in down-p))
+          (val (skip  : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) $half 0 1 0) down skip-p))
+          (val (main0 : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) $half 0 1 0) down m0-p))
+          (val (main1 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main0 r1-rp r1-ep))
+          (val (main2 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main1 r2-rp r2-ep))
+          (val (main3 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main2 r3-rp r3-ep))
+          (val (main4 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main3 r4-rp r4-ep))
+          (val (mainF : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 $half $half 0 1 0) main4 mf-p))
+          (val (merged : *full-map)
+               (@route2 _ ($half $half (+ $n-k-down 1) (+ $n-k-down 1)) mainF skip)))
+      (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) (+ $half $half) 0 1 0) merged tr-p))))
+
+(def (fun (@csp-stage-x8 _ ($in-ch $half $n-k-down)
+                (in [Float $in-ch (+ (* $n-k-down 2) 2) (+ (* $n-k-down 2) 2)])
+                (down-p {(w [Float (+ $half $half) $in-ch 3 3]) (mean [Float (+ $half $half)]) (variance [Float (+ $half $half)]) (scale [Float (+ $half $half)]) (bias [Float (+ $half $half)])})  ;; 3x3/stride-2/pad-1 downsample
+                (skip-p {(w [Float $half (+ $half $half) 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; CSP skip path
+                (m0-p {(w [Float $half (+ $half $half) 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; CSP main path
+                (r1-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 1 1x1
+                (r1-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 1 3x3
+                (r2-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 2 1x1
+                (r2-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 2 3x3
+                (r3-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 3 1x1
+                (r3-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 3 3x3
+                (r4-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 4 1x1
+                (r4-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 4 3x3
+                (r5-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 5 1x1
+                (r5-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 5 3x3
+                (r6-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 6 1x1
+                (r6-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 6 3x3
+                (r7-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 7 1x1
+                (r7-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 7 3x3
+                (r8-rp {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 8 1x1
+                (r8-ep {(w [Float $half $half 3 3]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; residual block 8 3x3
+                (mf-p {(w [Float $half $half 1 1]) (mean [Float $half]) (variance [Float $half]) (scale [Float $half]) (bias [Float $half])})  ;; main path final 1x1
+                (tr-p {(w [Float (+ $half $half) (+ $half $half) 1 1]) (mean [Float (+ $half $half)]) (variance [Float (+ $half $half)]) (scale [Float (+ $half $half)]) (bias [Float (+ $half $half)])})  ;; transition after concat
+                : [Float (+ $half $half) (+ $n-k-down 1) (+ $n-k-down 1)])
+    (let ((type *full-map [Float (+ $half $half) (+ $n-k-down 1) (+ $n-k-down 1)])
+          (type *half-map [Float $half (+ $n-k-down 1) (+ $n-k-down 1)])
+          (val (down  : *full-map)
+               (@conv-bn-mish _ ($n-k-down 3 $in-ch (+ $half $half) 1 2 1) in down-p))
+          (val (skip  : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) $half 0 1 0) down skip-p))
+          (val (main0 : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) $half 0 1 0) down m0-p))
+          (val (main1 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main0 r1-rp r1-ep))
+          (val (main2 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main1 r2-rp r2-ep))
+          (val (main3 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main2 r3-rp r3-ep))
+          (val (main4 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main3 r4-rp r4-ep))
+          (val (main5 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main4 r5-rp r5-ep))
+          (val (main6 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main5 r6-rp r6-ep))
+          (val (main7 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main6 r7-rp r7-ep))
+          (val (main8 : *half-map)
+               (@res-block _ ($half $half (+ $n-k-down 1)) main7 r8-rp r8-ep))
+          (val (mainF : *half-map)
+               (@conv-bn-mish _ ($n-k-down 1 $half $half 0 1 0) main8 mf-p))
+          (val (merged : *full-map)
+               (@route2 _ ($half $half (+ $n-k-down 1) (+ $n-k-down 1)) mainF skip)))
+      (@conv-bn-mish _ ($n-k-down 1 (+ $half $half) (+ $half $half) 0 1 0) merged tr-p))))
+
+;; ----------------- SPP / PANET CONV BLOCKS (leaky) -------------------------
+
+(def (fun (@panet-3conv _ ($in-ch $mid $small $n)
+                (in [Float $in-ch $n $n])
+                (c1-p {(w [Float $small $in-ch 1 1]) (mean [Float $small]) (variance [Float $small]) (scale [Float $small]) (bias [Float $small])})
+                (c2-p {(w [Float $mid $small 3 3]) (mean [Float $mid]) (variance [Float $mid]) (scale [Float $mid]) (bias [Float $mid])})
+                (c3-p {(w [Float $small $mid 1 1]) (mean [Float $small]) (variance [Float $small]) (scale [Float $small]) (bias [Float $small])})
+                : [Float $small $n $n])
+    (let ((val (c1 : [Float $small $n $n]) (@conv-bn-leaky _ ((- $n 1) 1 $in-ch $small 0 1 0) in c1-p))
+          (val (c2 : [Float $mid $n $n]) (@conv-bn-leaky _ ((- $n 1) 3 $small $mid 1 1 0) c1 c2-p)))
+      (@conv-bn-leaky _ ((- $n 1) 1 $mid $small 0 1 0) c2 c3-p))))
+
+(def (fun (@panet-5conv _ ($big $small $n)
+                (in [Float $big $n $n])
+                (c1-p {(w [Float $small $big 1 1]) (mean [Float $small]) (variance [Float $small]) (scale [Float $small]) (bias [Float $small])})
+                (c2-p {(w [Float $big $small 3 3]) (mean [Float $big]) (variance [Float $big]) (scale [Float $big]) (bias [Float $big])})
+                (c3-p {(w [Float $small $big 1 1]) (mean [Float $small]) (variance [Float $small]) (scale [Float $small]) (bias [Float $small])})
+                (c4-p {(w [Float $big $small 3 3]) (mean [Float $big]) (variance [Float $big]) (scale [Float $big]) (bias [Float $big])})
+                (c5-p {(w [Float $small $big 1 1]) (mean [Float $small]) (variance [Float $small]) (scale [Float $small]) (bias [Float $small])})
+                : [Float $small $n $n])
+    (let ((type *small-map [Float $small $n $n])
+          (type *big-map [Float $big $n $n])
+          (val (c1 : *small-map) (@conv-bn-leaky _ ((- $n 1) 1 $big $small 0 1 0) in c1-p))
+          (val (c2 : *big-map) (@conv-bn-leaky _ ((- $n 1) 3 $small $big 1 1 0) c1 c2-p))
+          (val (c3 : *small-map) (@conv-bn-leaky _ ((- $n 1) 1 $big $small 0 1 0) c2 c3-p))
+          (val (c4 : *big-map) (@conv-bn-leaky _ ((- $n 1) 3 $small $big 1 1 0) c3 c4-p)))
+      (@conv-bn-leaky _ ((- $n 1) 1 $big $small 0 1 0) c4 c5-p))))
+
+;; ----------------- FULL NETWORK (CSPDarknet53 + SPP + PANet, no detection heads) ---
+;; Input 608x608x3. Backbone stages halve resolution 5 times: 608 -> 304 ->
+;; 152 -> 76 -> 38 -> 19 (channels 32 -> 64 -> 128 -> 256 -> 512 -> 1024,
+;; block counts 1/2/8/8/4). SPP + PANet then produce 3 feature maps at
+;; 76x76x128, 38x38x256 and 19x19x512 -- the inputs the (omitted) detection
+;; heads would run on. Every layer's parameters are read from the real
+;; yolov4.weights split (see the WEIGHT LOADING section); only the input image
+;; is still a placeholder.
+
+;; ----------------- DETECTION (the [yolo] layers) -------------------------
+;; Head channel layout is anchor-major: channel = anchor*(5+classes) +
+;; attribute, each attribute a full SxS plane (darknet's entry_index), so
+;; every quantity below is a contiguous channel range.
+;;
+;; Decode (forward_yolo_layer + get_yolo_box, new_coords=0):
+;;   x = (col + sigmoid(tx)*sxy - 0.5*(sxy-1)) / S      y likewise with row
+;;   w = exp(tw) * anchor-w / net                       h likewise
+;;   obj, classes = sigmoid  (per-class logistic, not softmax)
+;; Coordinates are normalized to [0,1] relative to the image.
+;;
+;; NMS is deliberately absent: it yields a variable number of surviving boxes,
+;; which needs an existentially sized result. darknet keeps it out of the layer
+;; too (do_nms_sort is post-processing).
+
+(def (fun (@planes _ ($c $n $s)
+                (in [Float $c $s $s])
+                (start [Int])
+                : [Float $n $s $s])
+    (@reshape (Float) ([(* $n $s $s)] [$n $s $s])
+       (@subarray/1 (Float) ((* (- $c $n) $s $s) (* $n $s $s))
+          (@reshape (Float) ([$c $s $s] [(* $c $s $s)]) in)
+          (* start (* (@reify-dim _ ($s)) (@reify-dim _ ($s))))))))
+
+(def (fun (@plane _ ($c $s) (in [Float $c $s $s]) (i [Int]) : [Float $s $s])
+    (@reshape (Float) ([1 $s $s] [$s $s]) (@planes _ ($c 1 $s) in i))))
+
+;; One anchor's (5 + $classes) planes -> an SxS grid of detections. Applying
+;; this to [Float 3 (5+classes) S S] with aw/ah as [Float 3] lifts it over the
+;; anchor axis, so there is no explicit anchor loop.
+(def (fun (@yolo-anchor _ ($s $classes)
+                (block [Float (+ 5 $classes) $s $s])
+                (aw [Float]) (ah [Float])
+                (sxy [Float]) (net [Float])
+                : [Float (+ 5 $classes) $s $s])
+    (let ((type *plane [Float $s $s])
+          (val (grid : [Int $s $s 2]) (i-app idxs-of/2 $s $s))
+          (val (row : *plane) (i->f (@index (Int) (2) grid 0)))
+          (val (col : *plane) (i->f (@index (Int) (2) grid 1)))
+          (val (sf : [Float]) (i->f (@reify-dim _ ($s))))
+          (val (shift : [Float]) (f.* -0.5 (f.- sxy 1.0)))
+          (val (tx : *plane) (@plane _ ((+ 5 $classes) $s) block 0))
+          (val (ty : *plane) (@plane _ ((+ 5 $classes) $s) block 1))
+          (val (tw : *plane) (@plane _ ((+ 5 $classes) $s) block 2))
+          (val (th : *plane) (@plane _ ((+ 5 $classes) $s) block 3))
+          (val (tobj : *plane) (@plane _ ((+ 5 $classes) $s) block 4))
+          (val (tcls : [Float $classes $s $s])
+               (@planes _ ((+ 5 $classes) $classes $s) block 5)))
+      ;; Stack the decoded planes on the leading axis in darknet's attribute
+      ;; order (x, y, w, h, obj, classes), matching entry_index and the
+      ;; `detection` struct. Staying a plain Float array rather than a record
+      ;; also lets the result go straight out through @write-file-f32bin.
+      (@append (Float) (5 $classes [$s $s])
+        [(f./ (f.+ col (f.+ (f.* (@sigmoid _ () tx) sxy) shift)) sf)
+         (f./ (f.+ row (f.+ (f.* (@sigmoid _ () ty) sxy) shift)) sf)
+         (f./ (f.* (f.^ e tw) aw) net)
+         (f./ (f.* (f.^ e th) ah) net)
+         (@sigmoid _ () tobj)]
+        (@sigmoid _ () tcls)))))
+
+;; A full detection head: 3x3 feeder conv (batch-normed, leaky), 1x1 head conv
+;; (bias, linear), then the decode, flattened to one list of detections.
+(def (fun (@yolo-head _ ($s $in-c $mid $classes)
+                (in [Float $in-c $s $s])
+                (fp {(w [Float $mid $in-c 3 3]) (mean [Float $mid]) (variance [Float $mid]) (scale [Float $mid]) (bias [Float $mid])})
+                (hp {(w [Float (* 3 (+ 5 $classes)) $mid 1 1]) (bias [Float (* 3 (+ 5 $classes))])})
+                (aw [Float 3]) (ah [Float 3])
+                (sxy [Float]) (net [Float])
+                : [Float (* 3 (* $s $s)) (+ 5 $classes)])
+    (let ((val (feat : [Float $mid $s $s])
+               (@conv-bn-leaky _ ((- $s 1) 3 $in-c $mid 1 1 0) in fp))
+          (val (raw : [Float (* 3 (+ 5 $classes)) $s $s])
+               (@conv-bias _ ((- $s 1) 1 $mid (* 3 (+ 5 $classes)) 0 1 0) feat hp))
+          (val (blocks : [Float 3 (+ 5 $classes) $s $s])
+               (@reshape (Float) ([(* 3 (+ 5 $classes)) $s $s] [3 (+ 5 $classes) $s $s]) raw))
+          (val (dec : [Float 3 (+ 5 $classes) $s $s])
+               (@yolo-anchor _ ($s $classes) blocks aw ah sxy net))
+          ;; per anchor: [(5+c) S S] -> [(5+c) S*S] -> transpose -> [S*S (5+c)],
+          ;; so each row is one detection's 5+classes attributes
+          (val (rows : [Float 3 (* $s $s) (+ 5 $classes)])
+               (@transpose2d (Float) ((+ 5 $classes) (* $s $s))
+                  (@reshape (Float) ([(+ 5 $classes) $s $s] [(+ 5 $classes) (* $s $s)]) dec))))
+      ;; NB anchor-major: row = anchor*S*S + cell, whereas darknet's
+      ;; get_yolo_detections emits cell*3 + anchor. tools/compare_dets.py
+      ;; permutes rather than paying for a strided gather here.
+      (@flatten (Float) (3 (* $s $s) [(+ 5 $classes)]) rows))))
+
+
+(entry (main (image [Float 512 19 19]))
+  (@spp _ (19 512) image))

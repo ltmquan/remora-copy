@@ -1,0 +1,39 @@
+{
+  "source_sha256": "30b28c3dd85149f2067c4c6424bd6b2847137bcd42bd44e0211266a5295bf597",
+  "stages": [
+    {
+      "stage": "remora",
+      "command": [
+        "/Users/quanluusmacbook/MOCHA/scheduling-investigation/bin/remora",
+        "futhark",
+        "-f",
+        "/Users/quanluusmacbook/MOCHA/remora-copy/experimental/python_backend/pooling_ablation/cascade-zero/model.remora"
+      ],
+      "exit_code": 0,
+      "seconds": 20.261326457955875
+    },
+    {
+      "stage": "gpu-memory",
+      "command": [
+        "/Users/quanluusmacbook/MOCHA/scheduling-investigation/bin/futhark",
+        "dev",
+        "--gpu-mem",
+        "/Users/quanluusmacbook/MOCHA/remora-copy/experimental/python_backend/pooling_ablation/cascade-zero/model.fut_soacs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.9771130420267582
+    },
+    {
+      "stage": "cuda-library",
+      "command": [
+        "/Users/quanluusmacbook/MOCHA/scheduling-investigation/bin/futhark",
+        "dev",
+        "--backend=cuda",
+        "--library",
+        "/Users/quanluusmacbook/MOCHA/remora-copy/experimental/python_backend/pooling_ablation/cascade-zero/model.fut_gpu_mem"
+      ],
+      "exit_code": 0,
+      "seconds": 0.512324457988143
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "seed": 0,
+    "lowering": "tensor",
+    "interpreter_and_direct_agreement": true
+  },
+  {
+    "seed": 1,
+    "lowering": "tensor",
+    "interpreter_and_direct_agreement": true
+  },
+  {
+    "seed": 2,
+    "lowering": "tensor",
+    "interpreter_and_direct_agreement": true
+  }
+]

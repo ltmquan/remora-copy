@@ -1,0 +1,622 @@
+implementation,image_side,gpus,mode,status,images_per_second,megapixels_per_second,median_seconds_for_128_images,total_seconds_across_5_trials,amortized_milliseconds_per_image,speedup_vs_1_gpu,requests,trials,reason,error
+remora-torch,608,1,resident,passed,105.04738908900433,38.8322380401977,1.2184976809994623,6.090638092998233,9.5195131328083,1.0,128,5,,
+remora-torch,608,1,transfer,passed,88.26557821604418,32.628606705655756,1.4501689399994575,7.249822425997991,11.329444843745762,1.0,128,5,,
+remora-torch,608,2,resident,passed,209.60260332188435,77.48253675438106,0.6106794380002611,3.0534101349985576,4.77093310937704,1.9953147349934865,128,5,,
+remora-torch,608,2,transfer,passed,174.41742977373121,64.47584475987657,0.733871609999369,3.672755149998011,5.73337195312007,1.9760526504093878,128,5,,
+remora-torch,608,4,resident,passed,415.53962230263716,153.61003893888204,0.30803320099948905,1.5441429319989766,2.4065093828085082,3.9557348917121553,128,5,,
+remora-torch,608,4,transfer,passed,350.72585785132696,129.65072351675295,0.3649574080000093,1.8323512289989594,2.8512297500000727,3.9735292618020255,128,5,,
+remora-torch,608,8,resident,passed,831.472048510477,307.3652833405769,0.15394383999955608,0.7701488999964567,1.2026862499965318,7.915209085358505,128,5,,
+remora-torch,608,8,transfer,passed,662.9186763899182,245.05716958900277,0.19308552399979817,0.9706854369978828,1.5084806562484232,7.510500580048525,128,5,,
+direct-torch,608,1,resident,passed,103.2813477455568,38.17939613301351,1.23933316899911,6.197422214998369,9.682290382805547,1.0,128,5,,
+direct-torch,608,1,transfer,passed,87.87736319620464,32.48509758856179,1.4565753379993112,7.291602140997384,11.379494828119618,1.0,128,5,,
+direct-torch,608,2,resident,passed,207.68433533480857,76.77342213720668,0.616319953999664,3.082887861999552,4.814999640622375,2.0108600426715793,128,5,,
+direct-torch,608,2,transfer,passed,173.99319240236312,64.31901947622715,0.7356609659991591,3.6801774139985355,5.74735129686843,1.9799546330707127,128,5,,
+direct-torch,608,4,resident,passed,412.162935969494,152.36179956222705,0.31055679399923974,1.5516663279977365,2.4262249531190605,3.9906812310863304,128,5,,
+direct-torch,608,4,transfer,passed,344.0963869468502,127.20004678432043,0.37198879399966245,1.858809963998283,2.906162453122363,3.9156430556363286,128,5,,
+direct-torch,608,8,resident,passed,813.3923835879631,300.6818820866608,0.15736562399979448,0.7835100059983233,1.2294189374983944,7.875501253061016,128,5,,
+direct-torch,608,8,transfer,passed,679.0583569945088,251.0234284800181,0.18849631799912459,0.9403021929974784,1.4726274843681608,7.727341061410418,128,5,,
+remora-tinygrad,608,1,resident,passed,6.61127717780272,2.443951166655265,19.360858205999648,96.80638929799716,151.25670473437225,1.0,128,5,,
+remora-tinygrad,608,1,transfer,passed,6.421560002414447,2.373819556732534,19.932851200000187,99.6770125239982,155.72540000000146,1.0,128,5,,
+remora-tinygrad,608,2,resident,passed,13.131120573667602,4.8541025557442605,9.747835250000207,48.73958854399734,76.15496289062662,1.9861700274426812,128,5,,
+remora-tinygrad,608,2,transfer,passed,12.761169179952235,4.717344843737863,10.030428888999268,50.15888216899748,78.36272569530678,1.9872381750157524,128,5,,
+remora-tinygrad,608,4,resident,passed,26.261306576014974,9.707859634116,4.874091075000251,24.37124579599913,38.07883652343946,3.9721986947071253,128,5,,
+remora-tinygrad,608,4,transfer,passed,25.525974322207404,9.436033771844478,5.014500068999951,25.079215982998903,39.175781789062114,3.975042561715514,128,5,,
+remora-tinygrad,608,8,resident,passed,52.50307971069515,19.40849845817441,2.437952224999208,12.190345384998182,19.04650175780631,7.941442825445827,128,5,,
+remora-tinygrad,608,8,transfer,passed,50.66452435209953,18.728850730094518,2.5264226129993403,12.635884366997743,19.737676664057346,7.889753320540513,128,5,,
+direct-tinygrad,608,1,resident,passed,6.567458648971532,2.4277530340134126,19.490035162999447,97.45302402499874,152.26589971093318,1.0,128,5,,
+direct-tinygrad,608,1,transfer,passed,6.365608777852282,2.353136403255986,20.10805320700001,100.54813886899865,157.0941656796876,1.0,128,5,,
+direct-tinygrad,608,2,resident,passed,13.133210423686789,4.854875098061753,9.746284105000086,48.73631822999778,76.14284457031317,1.9997401012556748,128,5,,
+direct-tinygrad,608,2,transfer,passed,12.77211960982798,4.7213928234474505,10.021829102000083,50.127240475998406,78.29553985937565,2.0064254740671035,128,5,,
+direct-tinygrad,608,4,resident,passed,26.25824344268792,9.706727303997786,4.874659657999473,24.376216794998072,38.08327857812088,3.998235062629588,128,5,,
+direct-tinygrad,608,4,transfer,passed,25.526027995842803,9.436053613055234,5.01448952499959,25.08849158799694,39.175699414059295,4.009990071123273,128,5,,
+direct-tinygrad,608,8,resident,passed,52.52503019583109,19.416612762311704,2.436933391999446,12.184865633998015,19.038542124995672,7.997770980112154,128,5,,
+direct-tinygrad,608,8,transfer,passed,51.008395938140424,18.855967676076745,2.509390809999786,12.554916157999287,19.60461570312333,8.013121402561335,128,5,,
+remora-tinygrad-im2col,608,1,resident,passed,26.865920029382014,9.931363461741473,4.764400394999029,23.825287979997483,37.221878085929916,1.0,128,5,,
+remora-tinygrad-im2col,608,1,transfer,passed,23.8366226930675,8.811541291210103,5.369888244999856,26.8481497069979,41.95225191406138,1.0,128,5,,
+remora-tinygrad-im2col,608,2,resident,passed,53.68858666227597,19.846737699923587,2.3841193809994365,11.931045465998977,18.625932664058098,1.9983900273491193,128,5,,
+remora-tinygrad-im2col,608,2,transfer,passed,47.55375571097466,17.57891155114174,2.691690657999061,13.456372680998356,21.028833265617664,1.9949871390465441,128,5,,
+remora-tinygrad-im2col,608,4,resident,passed,107.3236820355047,39.673701595972815,1.192653825999514,5.964981717997944,9.317608015621204,3.9947890084586626,128,5,,
+remora-tinygrad-im2col,608,4,transfer,passed,94.08944810532857,34.78148174440818,1.3604075969997211,6.796967906997452,10.628184351560321,3.9472642293697495,128,5,,
+remora-tinygrad-im2col,608,8,resident,passed,213.5452260754043,78.93998245193823,0.599404642999616,2.9992430489983235,4.6828487734345,7.94855437081104,128,5,,
+remora-tinygrad-im2col,608,8,transfer,passed,181.7616067107489,67.19072258312228,0.7042191270002149,3.500983266998446,5.501711929689179,7.6253087130338875,128,5,,
+direct-tinygrad-im2col,608,1,resident,passed,26.70070031381209,9.870287680805031,4.793881751999834,23.973062222998124,37.4522011874987,1.0,128,5,,
+direct-tinygrad-im2col,608,1,transfer,passed,23.728878131907813,8.77171200575357,5.394271035000202,26.98553651599923,42.142742460939075,1.0,128,5,,
+direct-tinygrad-im2col,608,2,resident,passed,53.420418921878436,19.74760574033727,2.396087536999403,11.981611924998106,18.719433882807834,2.0007122769826537,128,5,,
+direct-tinygrad-im2col,608,2,transfer,passed,47.50897097702282,17.56235624725016,2.6942280029998074,13.477566312998533,21.048656273435995,2.0021583284689015,128,5,,
+direct-tinygrad-im2col,608,4,resident,passed,106.8129893357108,39.484916889796196,1.1983561249999184,5.993620549998923,9.362157226561862,4.000381566039194,128,5,,
+direct-tinygrad-im2col,608,4,transfer,passed,93.6253757788762,34.60993091192249,1.3671507210001437,6.841436289998455,10.680865007813622,3.945630099257823,128,5,,
+direct-tinygrad-im2col,608,8,resident,passed,213.35926501861587,78.87123934384161,0.5999270759994033,2.999729484996351,4.686930281245338,7.990774118694055,128,5,,
+direct-tinygrad-im2col,608,8,transfer,passed,186.31842902232628,68.87521574610923,0.686995916998967,3.467908216998694,5.36715560155443,7.851969570014653,128,5,,
+remora-futhark-original,608,1,resident,passed,1.0174361494762263,0.3761095167599797,125.8064204479997,629.032107908999,982.8626597499976,1.0,128,5,,
+remora-futhark-original,608,1,transfer,passed,1.0164498121775247,0.3757449033687925,125.92849982999905,629.6426071149981,983.8164049218676,1.0,128,5,,
+remora-futhark-original,608,2,resident,passed,2.0349071345582104,0.7522319109893263,62.902133383000546,314.51028884100197,491.4229170546918,2.000034238616129,128,5,,
+remora-futhark-original,608,2,transfer,passed,2.032956620045561,0.7515108759925222,62.9624846580009,314.8149523469965,491.894411390632,2.0000560732953354,128,5,,
+remora-futhark-original,608,4,resident,passed,4.069276315253535,1.5042649598018827,31.455224487999658,157.27603798299788,245.74394131249733,3.9995397424677592,128,5,,
+remora-futhark-original,608,4,transfer,passed,4.065229346609553,1.5027689411850738,31.486538417999327,157.4348023329967,245.98858139061974,3.9994393209642833,128,5,,
+remora-futhark-original,608,8,resident,passed,8.139236879404065,3.008782861788024,15.726290055999925,78.6316141499974,122.86164106249942,7.99975200762635,128,5,,
+remora-futhark-original,608,8,transfer,passed,8.127783513845046,3.004548964862015,15.748450949999096,78.75950589699642,123.03477304686794,7.996246756574258,128,5,,
+remora-futhark-modified,608,1,resident,passed,2.07567440383704,0.7673021028200155,61.666704451999976,308.3325040599975,481.7711285312498,1.0,128,5,,
+remora-futhark-modified,608,1,transfer,passed,2.072368880354602,0.7660801697874037,61.76506567599972,308.8306208899976,482.53957559374777,1.0,128,5,,
+remora-futhark-modified,608,2,resident,passed,4.151072077319117,1.5345019083900944,30.83540772500055,154.17744261699772,240.9016228515668,1.9998666793045907,128,5,,
+remora-futhark-modified,608,2,transfer,passed,4.1436634427877275,1.5317632029146824,30.890539680000074,154.45924302399726,241.33234125000055,1.9994815990861179,128,5,,
+remora-futhark-modified,608,4,resident,passed,8.300370733017619,3.068348246650225,15.420997942999747,77.10501149599804,120.47654642968551,3.998878975273656,128,5,,
+remora-futhark-modified,608,4,transfer,passed,8.283247275491101,3.062018320847142,15.452876842000478,77.26901849399837,120.72560032812873,3.996994624853544,128,5,,
+remora-futhark-modified,608,8,resident,passed,16.597995684031503,6.135681476541821,7.7117745079995075,38.55910741799744,60.24823834374616,7.996435112052671,128,5,,
+remora-futhark-modified,608,8,transfer,passed,16.556913921869143,6.120495028013835,7.7309093109997775,38.658813935999206,60.39772899218576,7.98936621700095,128,5,,
+darknet-dense,608,1,transfer,passed,102.6456473754013,37.944400591380344,1.2470085509994533,6.312726215999646,9.742254304683229,1.0,128,5,,
+darknet-dense,608,2,transfer,passed,203.336547502144,75.16620149583257,0.6294982459985476,3.1413225089982006,4.9179550468636535,1.980956355202188,128,5,,
+darknet-dense,608,4,transfer,passed,385.5061308189858,142.50773834306958,0.33203103599953465,1.6817927489992144,2.5939924687463645,3.7556987624530405,128,5,,
+darknet-dense,608,8,transfer,passed,691.6329295688113,255.67179527612504,0.18506926800000656,0.9163890429990715,1.4458536562500512,6.738063885352424,128,5,,
+remora-torch,960,1,resident,passed,62.608281236416495,57.69979198748145,2.0444579769991833,10.221397247998539,15.97232794530612,1.0,128,5,,
+remora-torch,960,1,transfer,passed,49.57047810040923,45.684152617337155,2.5821820749988547,12.911717365996083,20.173297460928552,1.0,128,5,,
+remora-torch,960,2,resident,passed,125.01104357805606,115.21017776153647,1.0239095390006696,5.120391395998013,7.999293273442731,1.9967173848136661,128,5,,
+remora-torch,960,2,transfer,passed,98.32363547855145,90.615062457033,1.3018233040002087,6.506203849998201,10.17049456250163,1.9835119459487265,128,5,,
+remora-torch,960,4,resident,passed,249.4412914562865,229.88509420611368,0.5131467980008892,2.5657395790003648,4.008959359381947,3.984158110240494,128,5,,
+remora-torch,960,4,transfer,passed,194.3110453155706,179.07705936282986,0.6587376429997676,3.305879779996758,5.146387835935684,3.9198945170949733,128,5,,
+remora-torch,960,8,resident,passed,498.8555746476828,459.7452975953044,0.25658728999951563,1.2851917119987775,2.004588203121216,7.9678848356169265,128,5,,
+remora-torch,960,8,transfer,passed,359.99320884139416,331.7697412682288,0.35556226299922855,1.8013576319990534,2.777830179681473,7.262250085871619,128,5,,
+direct-torch,960,1,resident,passed,62.39398497261573,57.50229655076266,2.051479802999893,10.257485954998629,16.027185960936663,1.0,128,5,,
+direct-torch,960,1,transfer,passed,49.54955692026675,45.66487165771784,2.5832723429994076,12.925995955996768,20.18181517968287,1.0,128,5,,
+direct-torch,960,2,resident,passed,124.70873507697104,114.9315702469365,1.0263916149979195,5.13230269199812,8.018684492171246,1.9987300880317997,128,5,,
+direct-torch,960,2,transfer,passed,98.33212498909775,90.62288638995248,1.301710910998736,6.509309171997302,10.169616492177624,1.9845207727554464,128,5,,
+direct-torch,960,4,resident,passed,246.5743516829344,227.24292251099234,0.51911319699866,2.5913225449967285,4.055571851552031,3.951892987619786,128,5,,
+direct-torch,960,4,transfer,passed,194.90938708270997,179.62849113542552,0.6567154200001823,3.28281762199731,5.130589218751425,3.9336252268885206,128,5,,
+direct-torch,960,8,resident,passed,494.41585298327186,455.65365010938336,0.2588913749987114,1.2991888499964261,2.022588867177433,7.92409481779802,128,5,,
+direct-torch,960,8,transfer,passed,373.8272633526313,344.51920590578504,0.34240413299994543,1.7115492809971329,2.6750322890620737,7.54451273810944,128,5,,
+remora-tinygrad,960,1,resident,failed,,,,,,,128,5,,"Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 116, in main
+    ready=receive(replies,processes,'ready',len(processes),a.setup_timeout); result['workers']=ready
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 80, in receive
+    if kind=='error': raise RuntimeError(f'GPU worker {rank}: {data}')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: GPU worker 0: Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 33, in worker
+    np.testing.assert_allclose(actual,refs[key],atol=a.atol,rtol=a.rtol)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         verbose=verbose, header=header, equal_nan=equal_nan,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         strict=strict)
+                         ^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=0.0002, atol=2e-05
+
+Mismatched elements: 142 / 4819500 (0.00295%)
+First 5 mismatches are at indices:
+ [13721, 14]: 0.06940174847841263 (ACTUAL), 0.06936204103057292 (DESIRED)
+ [13722, 14]: 0.08241421729326248 (ACTUAL), 0.08236640574829215 (DESIRED)
+ [13723, 14]: 0.09544391185045242 (ACTUAL), 0.09539065165061424 (DESIRED)
+ [13724, 14]: 0.10476743429899216 (ACTUAL), 0.10470831723794981 (DESIRED)
+ [13725, 14]: 0.11514265090227127 (ACTUAL), 0.1150817836431025 (DESIRED)
+Max absolute difference among violations: 0.00024255
+Max relative difference among violations: 0.00080941
+ ACTUAL: array([[4.850032e-03, 3.934013e-03, 1.092643e-02, ..., 2.658979e-04,
+        4.660124e-04, 6.958939e-04],
+       [1.292114e-02, 3.922254e-03, 2.578998e-02, ..., 1.635681e-04,...
+ DESIRED: array([[4.850029e-03, 3.934012e-03, 1.092642e-02, ..., 2.658970e-04,
+        4.660121e-04, 6.958940e-04],
+       [1.292114e-02, 3.922253e-03, 2.578998e-02, ..., 1.635672e-04,...
+
+"
+remora-tinygrad,960,1,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,960,2,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,960,2,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,960,4,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,960,4,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,960,8,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,960,8,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,960,1,resident,failed,,,,,,,128,5,,"Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 116, in main
+    ready=receive(replies,processes,'ready',len(processes),a.setup_timeout); result['workers']=ready
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 80, in receive
+    if kind=='error': raise RuntimeError(f'GPU worker {rank}: {data}')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: GPU worker 0: Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 33, in worker
+    np.testing.assert_allclose(actual,refs[key],atol=a.atol,rtol=a.rtol)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         verbose=verbose, header=header, equal_nan=equal_nan,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         strict=strict)
+                         ^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=0.0002, atol=2e-05
+
+Mismatched elements: 142 / 4819500 (0.00295%)
+First 5 mismatches are at indices:
+ [13721, 14]: 0.06940174847841263 (ACTUAL), 0.06936204103057292 (DESIRED)
+ [13722, 14]: 0.08241421729326248 (ACTUAL), 0.08236640574829215 (DESIRED)
+ [13723, 14]: 0.09544391185045242 (ACTUAL), 0.09539065165061424 (DESIRED)
+ [13724, 14]: 0.10476743429899216 (ACTUAL), 0.10470831723794981 (DESIRED)
+ [13725, 14]: 0.11514265090227127 (ACTUAL), 0.1150817836431025 (DESIRED)
+Max absolute difference among violations: 0.00024255
+Max relative difference among violations: 0.00080941
+ ACTUAL: array([[4.850032e-03, 3.934013e-03, 1.092643e-02, ..., 2.658979e-04,
+        4.660124e-04, 6.958939e-04],
+       [1.292114e-02, 3.922254e-03, 2.578998e-02, ..., 1.635681e-04,...
+ DESIRED: array([[4.850029e-03, 3.934012e-03, 1.092642e-02, ..., 2.658970e-04,
+        4.660121e-04, 6.958940e-04],
+       [1.292114e-02, 3.922253e-03, 2.578998e-02, ..., 1.635672e-04,...
+
+"
+direct-tinygrad,960,1,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,960,2,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,960,2,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,960,4,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,960,4,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,960,8,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,960,8,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad-im2col,960,1,resident,passed,13.72521018749216,12.649153708792774,9.32590454000092,46.63073249000081,72.85862921875719,1.0,128,5,,
+remora-tinygrad-im2col,960,1,transfer,passed,11.701433670807464,10.78404127101616,10.93883053999889,54.69316022599742,85.45961359374132,1.0,128,5,,
+remora-tinygrad-im2col,960,2,resident,passed,27.45769745180699,25.30501397158532,4.6617164539984515,23.31232459599414,36.4196597968629,2.0005301978420196,128,5,,
+remora-tinygrad-im2col,960,2,transfer,passed,23.49735710208741,21.65516430528376,5.447421147999194,27.24229507599557,42.5579777187437,2.008075058418543,128,5,,
+remora-tinygrad-im2col,960,4,resident,passed,54.900197128938366,50.5960216740296,2.331503467999937,11.659706912001639,18.21487084374951,3.999953106653998,128,5,,
+remora-tinygrad-im2col,960,4,transfer,passed,46.51252440546653,42.865942492077956,2.7519469569997455,13.764513899997837,21.49958560156051,3.974942362960632,128,5,,
+remora-tinygrad-im2col,960,8,resident,passed,109.67707582342598,101.07839307886937,1.1670624790003785,5.83733402499638,9.117675617190457,7.990921401216511,128,5,,
+remora-tinygrad-im2col,960,8,transfer,passed,91.81245260581235,84.61435632151667,1.3941463969986216,6.985419703998559,10.891768726551732,7.846256722786412,128,5,,
+direct-tinygrad-im2col,960,1,resident,passed,13.7271788758573,12.650968051990088,9.324567061999915,46.62677292199987,72.84818017187433,1.0,128,5,,
+direct-tinygrad-im2col,960,1,transfer,passed,11.634481572817304,10.722338217508428,11.001779426000212,55.02425418200073,85.95140176562666,1.0,128,5,,
+direct-tinygrad-im2col,960,2,resident,passed,27.45333556873823,25.30099406014915,4.662457123999047,23.317619742996612,36.42544628124256,1.9999255358303687,128,5,,
+direct-tinygrad-im2col,960,2,transfer,passed,23.245725177841393,21.423260323898628,5.506388766998498,27.530567377996704,43.018662242175765,1.9980026640939887,128,5,,
+direct-tinygrad-im2col,960,4,resident,passed,54.86899160426141,50.567262662487316,2.3328294589991856,11.665839712995876,18.225230148431137,3.9971061862362953,128,5,,
+direct-tinygrad-im2col,960,4,transfer,passed,46.57388773454201,42.92249493615392,2.7483211350008787,13.741557451001427,21.471258867194365,4.003090936458812,128,5,,
+direct-tinygrad-im2col,960,8,resident,passed,109.67536838125586,101.0768195001654,1.1670806479996827,5.837596809999013,9.117817562497521,7.989650996254417,128,5,,
+direct-tinygrad-im2col,960,8,transfer,passed,91.60354302905434,84.42182525557648,1.3973258649984928,6.974294283996642,10.916608320300725,7.873452930045119,128,5,,
+remora-futhark-original,960,1,resident,timeout,,,,,,,128,5,,"Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 116, in main
+    ready=receive(replies,processes,'ready',len(processes),a.setup_timeout); result['workers']=ready
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 75, in receive
+    if time.monotonic()>deadline: raise TimeoutError(f'{event} exceeded explicit {timeout}s limit')
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: ready exceeded explicit 600.0s limit
+"
+remora-futhark-original,960,1,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-futhark-original,960,2,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-futhark-original,960,2,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-futhark-original,960,4,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-futhark-original,960,4,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-futhark-original,960,8,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-futhark-original,960,8,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-futhark-modified,960,1,resident,passed,0.8186569034241777,0.7544742021957223,156.3536561710007,782.8578676650013,1221.5129388359428,1.0,128,5,,
+remora-futhark-modified,960,1,transfer,passed,0.8170501744800384,0.7529934408008033,156.66112559300018,783.2987225559991,1223.915043695314,1.0,128,5,,
+remora-futhark-modified,960,2,resident,passed,1.6368005210031118,1.508475360156468,78.2013436319994,392.0935166929994,610.9479971249954,1.9993730146987134,128,5,,
+remora-futhark-modified,960,2,transfer,passed,1.633609805935926,1.5055347971505495,78.35408402599933,391.7701847759963,612.1412814531197,1.9993996170131623,128,5,,
+remora-futhark-modified,960,4,resident,passed,3.263141095176815,3.007310833314953,39.22600839699953,196.59425120000014,306.45319060155884,3.9859690690057685,128,5,,
+remora-futhark-modified,960,4,transfer,passed,3.2656892545285645,3.009659216973525,39.19540103899999,195.98571672499747,306.2140706171874,3.9969262066516453,128,5,,
+remora-futhark-modified,960,8,resident,passed,6.5083259487203176,5.998073194340646,19.667115784999623,98.66831770999852,153.64934207030956,7.950004356523581,128,5,,
+remora-futhark-modified,960,8,transfer,passed,6.526350057824464,6.0146842132910265,19.612800242999583,98.06279197300137,153.22500189843424,7.987698016193144,128,5,,
+darknet-dense,960,1,transfer,failed,,,,,,,128,5,,"Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 116, in main
+    ready=receive(replies,processes,'ready',len(processes),a.setup_timeout); result['workers']=ready
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 80, in receive
+    if kind=='error': raise RuntimeError(f'GPU worker {rank}: {data}')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: GPU worker 0: Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 33, in worker
+    np.testing.assert_allclose(actual,refs[key],atol=a.atol,rtol=a.rtol)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         verbose=verbose, header=header, equal_nan=equal_nan,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         strict=strict)
+                         ^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=0.0002, atol=2e-05
+
+Mismatched elements: 232 / 4819500 (0.00481%)
+First 5 mismatches are at indices:
+ [13720, 14]: 0.05165252089500427 (ACTUAL), 0.051694701019559725 (DESIRED)
+ [13721, 14]: 0.06930769234895706 (ACTUAL), 0.06936204103057292 (DESIRED)
+ [13722, 14]: 0.08230242878198624 (ACTUAL), 0.08236640574829215 (DESIRED)
+ [13723, 14]: 0.09532137215137482 (ACTUAL), 0.09539065165061424 (DESIRED)
+ [13724, 14]: 0.10463160276412964 (ACTUAL), 0.10470831723794981 (DESIRED)
+Max absolute difference among violations: 0.00032567
+Max relative difference among violations: 0.00120587
+ ACTUAL: array([[4.850025e-03, 3.934016e-03, 1.092642e-02, ..., 2.658972e-04,
+        4.660131e-04, 6.958980e-04],
+       [1.292114e-02, 3.922253e-03, 2.578997e-02, ..., 1.635673e-04,...
+ DESIRED: array([[4.850029e-03, 3.934012e-03, 1.092642e-02, ..., 2.658970e-04,
+        4.660121e-04, 6.958940e-04],
+       [1.292114e-02, 3.922253e-03, 2.578998e-02, ..., 1.635672e-04,...
+
+"
+darknet-dense,960,2,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+darknet-dense,960,4,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+darknet-dense,960,8,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-torch,1216,1,resident,passed,40.36780664051336,59.690099495834914,3.170843567000702,15.854134629007604,24.772215367192985,1.0,128,5,,
+remora-torch,1216,1,transfer,passed,32.04963963563961,47.390391945076324,3.9938046560018847,19.985390282006847,31.20159887501472,1.0,128,5,,
+remora-torch,1216,2,resident,passed,80.76757969102512,119.42746631561243,1.5847943010012386,7.9251742520064,12.381205476572177,2.0007918787929966,128,5,,
+remora-torch,1216,2,transfer,passed,63.15382005851858,93.38277495244886,2.026797427002748,10.125298125007248,15.834354898458969,1.9705001608907555,128,5,,
+remora-torch,1216,4,resident,passed,160.58419748127707,237.44878711087526,0.7970896390033886,3.9849848470075813,6.227262804713973,3.978026324574045,128,5,,
+remora-torch,1216,4,transfer,passed,123.52814621432691,182.6556345686918,1.0362010919998283,5.183290120006859,8.095321031248659,3.8542756679535963,128,5,,
+remora-torch,1216,8,resident,passed,319.0363785344446,471.74505533822776,0.4012081649998436,2.0000604890083196,3.1344387890612775,7.903237879024567,128,5,,
+remora-torch,1216,8,transfer,passed,236.47817648327273,349.66987452605014,0.5412761629995657,2.73895572901165,4.228720023434107,7.378497205326015,128,5,,
+direct-torch,1216,1,resident,passed,40.243808752117175,59.50674927417057,3.180613465003262,15.905465780007944,24.848542695337983,1.0,128,5,,
+direct-torch,1216,1,transfer,passed,32.05569250230941,47.39934205269482,3.9930505320007796,19.975748457007285,31.19570728125609,1.0,128,5,,
+direct-torch,1216,2,resident,passed,80.4288733948941,118.92663621860052,1.591468270002224,7.9562076780166535,12.433345859392373,1.9985402944909592,128,5,,
+direct-torch,1216,2,transfer,passed,63.24153750546777,93.51247888168494,2.023986213000171,10.132607287006977,15.812392289063837,1.972864492037151,128,5,,
+direct-torch,1216,4,resident,passed,160.51541801667742,237.34708594286815,0.7974311850011873,3.988582164005493,6.2299311328217755,3.9885742178474324,128,5,,
+direct-torch,1216,4,transfer,passed,123.45987995446548,182.55469225395012,1.0367740520014195,5.19484679200832,8.09979728126109,3.8514182760385216,128,5,,
+direct-torch,1216,8,resident,passed,318.67549461653846,471.21143216771225,0.4016625130025204,2.0071647820041107,3.137988382832191,7.918621633937005,128,5,,
+direct-torch,1216,8,transfer,passed,238.14252639654134,352.1308755114042,0.5374932480008283,2.7146142050078197,4.199166000006471,7.429024544685306,128,5,,
+remora-tinygrad,1216,1,resident,failed,,,,,,,128,5,,"Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 116, in main
+    ready=receive(replies,processes,'ready',len(processes),a.setup_timeout); result['workers']=ready
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 80, in receive
+    if kind=='error': raise RuntimeError(f'GPU worker {rank}: {data}')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: GPU worker 0: Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 33, in worker
+    np.testing.assert_allclose(actual,refs[key],atol=a.atol,rtol=a.rtol)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         verbose=verbose, header=header, equal_nan=equal_nan,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         strict=strict)
+                         ^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=0.0002, atol=2e-05
+
+Mismatched elements: 192 / 7732620 (0.00248%)
+First 5 mismatches are at indices:
+ [22233, 14]: 0.06940014660358429 (ACTUAL), 0.06936204068558834 (DESIRED)
+ [22234, 14]: 0.0824122503399849 (ACTUAL), 0.08236640394905809 (DESIRED)
+ [22235, 14]: 0.09544126689434052 (ACTUAL), 0.09539064652928055 (DESIRED)
+ [22236, 14]: 0.10476494580507278 (ACTUAL), 0.10470830628079486 (DESIRED)
+ [22237, 14]: 0.1151399165391922 (ACTUAL), 0.1150817815363278 (DESIRED)
+Max absolute difference among violations: 0.00023301
+Max relative difference among violations: 0.00075279
+ ACTUAL: array([[3.828971e-03, 3.105798e-03, 8.626127e-03, ..., 2.658979e-04,
+        4.660127e-04, 6.958944e-04],
+       [1.020090e-02, 3.096515e-03, 2.036051e-02, ..., 1.635681e-04,...
+ DESIRED: array([[3.828970e-03, 3.105799e-03, 8.626123e-03, ..., 2.658970e-04,
+        4.660121e-04, 6.958940e-04],
+       [1.020090e-02, 3.096516e-03, 2.036051e-02, ..., 1.635672e-04,...
+
+"
+remora-tinygrad,1216,1,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,1216,2,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,1216,2,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,1216,4,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,1216,4,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,1216,8,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,1216,8,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,1216,1,resident,failed,,,,,,,128,5,,"Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 116, in main
+    ready=receive(replies,processes,'ready',len(processes),a.setup_timeout); result['workers']=ready
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 80, in receive
+    if kind=='error': raise RuntimeError(f'GPU worker {rank}: {data}')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: GPU worker 0: Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 33, in worker
+    np.testing.assert_allclose(actual,refs[key],atol=a.atol,rtol=a.rtol)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         verbose=verbose, header=header, equal_nan=equal_nan,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         strict=strict)
+                         ^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=0.0002, atol=2e-05
+
+Mismatched elements: 192 / 7732620 (0.00248%)
+First 5 mismatches are at indices:
+ [22233, 14]: 0.06940014660358429 (ACTUAL), 0.06936204068558834 (DESIRED)
+ [22234, 14]: 0.0824122503399849 (ACTUAL), 0.08236640394905809 (DESIRED)
+ [22235, 14]: 0.09544126689434052 (ACTUAL), 0.09539064652928055 (DESIRED)
+ [22236, 14]: 0.10476494580507278 (ACTUAL), 0.10470830628079486 (DESIRED)
+ [22237, 14]: 0.1151399165391922 (ACTUAL), 0.1150817815363278 (DESIRED)
+Max absolute difference among violations: 0.00023301
+Max relative difference among violations: 0.00075279
+ ACTUAL: array([[3.828971e-03, 3.105798e-03, 8.626127e-03, ..., 2.658979e-04,
+        4.660127e-04, 6.958944e-04],
+       [1.020090e-02, 3.096515e-03, 2.036051e-02, ..., 1.635681e-04,...
+ DESIRED: array([[3.828970e-03, 3.105799e-03, 8.626123e-03, ..., 2.658970e-04,
+        4.660121e-04, 6.958940e-04],
+       [1.020090e-02, 3.096516e-03, 2.036051e-02, ..., 1.635672e-04,...
+
+"
+direct-tinygrad,1216,1,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,1216,2,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,1216,2,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,1216,4,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,1216,4,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,1216,8,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,1216,8,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad-im2col,1216,1,resident,passed,11.258677061860595,16.647710389582542,11.369008925001253,56.84502022000743,88.82038222657229,1.0,128,5,,
+remora-tinygrad-im2col,1216,1,transfer,passed,10.078635121437392,14.902834294124128,12.700132354999369,63.511423463005485,99.21978402343255,1.0,128,5,,
+remora-tinygrad-im2col,1216,2,resident,passed,22.504992067449923,33.27714155048723,5.687626977000036,28.43522581200523,44.43458575781278,1.9989019974368796,128,5,,
+remora-tinygrad-im2col,1216,2,transfer,passed,19.961360298940733,29.515985174190508,6.412388639004348,32.08702702700975,50.09678624222147,1.9805618576748207,128,5,,
+remora-tinygrad-im2col,1216,4,resident,passed,44.996507311300306,66.53435551489807,2.844665234002605,14.224358387007669,22.22394714064535,3.996606978250448,128,5,,
+remora-tinygrad-im2col,1216,4,transfer,passed,39.98722282019078,59.12734694641202,3.2010225010017166,16.004164974008745,25.00798828907591,3.967523611916203,128,5,,
+remora-tinygrad-im2col,1216,8,resident,passed,89.972042249242,133.03770010409517,1.4226641610002844,7.114308358006383,11.114563757814722,7.991351182282985,128,5,,
+remora-tinygrad-im2col,1216,8,transfer,passed,79.60787652743107,117.71266427454513,1.607881099000224,8.04298258601193,12.56157108593925,7.8986763156157975,128,5,,
+direct-tinygrad-im2col,1216,1,resident,passed,11.259234028564752,16.64853395174144,11.368446528002096,56.841562281013466,88.81598850001637,1.0,128,5,,
+direct-tinygrad-im2col,1216,1,transfer,passed,10.068700198268148,14.888143960370385,12.712663747999613,63.58023370600131,99.31768553124698,1.0,128,5,,
+direct-tinygrad-im2col,1216,2,resident,passed,22.512352498357224,33.2880250958109,5.6857674029997725,28.428925187006826,44.42005783593572,1.99945684060241,128,5,,
+direct-tinygrad-im2col,1216,2,transfer,passed,20.0817514641002,29.694002292900542,6.373946029001672,31.87904132800395,49.796453351575565,1.9944730768281622,128,5,,
+direct-tinygrad-im2col,1216,4,resident,passed,45.01012704825681,66.55449442066723,2.843804459000239,14.220383197003684,22.21722233593937,3.997618926302253,128,5,,
+direct-tinygrad-im2col,1216,4,transfer,passed,40.03142252749032,59.19270310880873,3.1974881710011687,15.993358116003947,24.98037633594663,3.9758282339537594,128,5,,
+direct-tinygrad-im2col,1216,8,resident,passed,89.95691580267173,133.01533329311536,1.422903385002428,7.11617655500595,11.116432695331468,7.989612399427034,128,5,,
+direct-tinygrad-im2col,1216,8,transfer,passed,79.1599355674044,117.05031368635592,1.6169795880014135,8.076372813007765,12.632653031261041,7.861981587357243,128,5,,
+remora-futhark-original,1216,1,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-original,1216,1,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-original,1216,2,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-original,1216,2,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-original,1216,4,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-original,1216,4,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-original,1216,8,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-original,1216,8,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1216,1,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1216,1,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1216,2,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1216,2,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1216,4,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1216,4,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1216,8,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1216,8,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+darknet-dense,1216,1,transfer,failed,,,,,,,128,5,,"Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 116, in main
+    ready=receive(replies,processes,'ready',len(processes),a.setup_timeout); result['workers']=ready
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 80, in receive
+    if kind=='error': raise RuntimeError(f'GPU worker {rank}: {data}')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: GPU worker 0: Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 33, in worker
+    np.testing.assert_allclose(actual,refs[key],atol=a.atol,rtol=a.rtol)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         verbose=verbose, header=header, equal_nan=equal_nan,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         strict=strict)
+                         ^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=0.0002, atol=2e-05
+
+Mismatched elements: 289 / 7732620 (0.00374%)
+First 5 mismatches are at indices:
+ [22232, 14]: 0.05165799707174301 (ACTUAL), 0.05169470101850006 (DESIRED)
+ [22233, 14]: 0.0693148747086525 (ACTUAL), 0.06936204068558834 (DESIRED)
+ [22234, 14]: 0.08231143653392792 (ACTUAL), 0.08236640394905809 (DESIRED)
+ [22235, 14]: 0.0953303873538971 (ACTUAL), 0.09539064652928055 (DESIRED)
+ [22236, 14]: 0.1046418771147728 (ACTUAL), 0.10470830628079486 (DESIRED)
+Max absolute difference among violations: 0.00028579
+Max relative difference among violations: 0.00105102
+ ACTUAL: array([[3.828967e-03, 3.105801e-03, 8.626127e-03, ..., 2.658970e-04,
+        4.660142e-04, 6.958966e-04],
+       [1.020090e-02, 3.096514e-03, 2.036051e-02, ..., 1.635670e-04,...
+ DESIRED: array([[3.828970e-03, 3.105799e-03, 8.626123e-03, ..., 2.658970e-04,
+        4.660121e-04, 6.958940e-04],
+       [1.020090e-02, 3.096516e-03, 2.036051e-02, ..., 1.635672e-04,...
+
+"
+darknet-dense,1216,2,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+darknet-dense,1216,4,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+darknet-dense,1216,8,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-torch,1536,1,resident,passed,25.66381711046,60.54854105343983,4.987566715000867,24.939448526005435,38.96536496094427,1.0,128,5,,
+remora-torch,1536,1,transfer,passed,11.890377449867357,28.052919955962256,10.765007295998657,53.835388495008374,84.10161949998951,1.0,128,5,,
+remora-torch,1536,2,resident,passed,51.32368980501392,121.08777606221012,2.4939750140001706,12.468928657006472,19.484179796876333,1.999846304394662,128,5,,
+remora-torch,1536,2,transfer,passed,23.628476995136698,55.746571260718035,5.417192146000161,27.07410781400904,42.32181364062626,1.987193181609242,128,5,,
+remora-torch,1536,4,resident,passed,102.29763934521021,241.3504113165971,1.2512507700012065,6.250929051009734,9.775396640634426,3.986064851729168,128,5,,
+remora-torch,1536,4,transfer,passed,45.49381066814457,107.33336553411081,2.8135695410019252,14.070560872009082,21.98101203907754,3.8261031544168578,128,5,,
+remora-torch,1536,8,resident,passed,203.584656279422,480.3164652214152,0.6287310760017135,3.1422584950050805,4.911961531263387,7.932750432376073,128,5,,
+remora-torch,1536,8,transfer,passed,88.81332219688386,209.5369158058193,1.4412252220026858,7.229113015007897,11.259572046895983,7.4693442299322985,128,5,,
+direct-torch,1536,1,resident,passed,25.46573441095349,60.08120533282493,5.026362010001321,25.132566487005533,39.26845320313532,1.0,128,5,,
+direct-torch,1536,1,transfer,passed,11.855712986425758,27.971136226022345,10.796482687001117,54.012793782010704,84.34752099219622,1.0,128,5,,
+direct-torch,1536,2,resident,passed,50.9858369084378,120.29068107472966,2.5105011070008914,12.550081836012396,19.613289898444464,2.0021349506616795,128,5,,
+direct-torch,1536,2,transfer,passed,23.273549963083543,54.90919333370315,5.499805582003319,27.494568384008744,42.96723110940093,1.963066244074117,128,5,,
+direct-torch,1536,4,resident,passed,101.8548263604372,240.30568441287403,1.2566905720013892,6.285093529008009,9.817895093760853,3.999681482448302,128,5,,
+direct-torch,1536,4,transfer,passed,45.392098983025264,107.09339756225556,2.8198740059997363,14.117472107009235,22.03026567187294,3.828711021850572,128,5,,
+direct-torch,1536,8,resident,passed,203.43698683427866,479.96806929016634,0.6291874550042849,3.14564901500853,4.915526992220975,7.988655797288728,128,5,,
+direct-torch,1536,8,transfer,passed,89.65308933199525,211.51817504861904,1.4277254799999355,7.170459632012353,11.154105312499496,7.562015834445712,128,5,,
+remora-tinygrad,1536,1,resident,failed,,,,,,,128,5,,"Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 116, in main
+    ready=receive(replies,processes,'ready',len(processes),a.setup_timeout); result['workers']=ready
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 80, in receive
+    if kind=='error': raise RuntimeError(f'GPU worker {rank}: {data}')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: GPU worker 0: Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 33, in worker
+    np.testing.assert_allclose(actual,refs[key],atol=a.atol,rtol=a.rtol)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         verbose=verbose, header=header, equal_nan=equal_nan,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         strict=strict)
+                         ^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=0.0002, atol=2e-05
+
+Mismatched elements: 435 / 12337920 (0.00353%)
+First 5 mismatches are at indices:
+ [35753, 14]: 0.06940186768770218 (ACTUAL), 0.06936204068558834 (DESIRED)
+ [35754, 14]: 0.0824144259095192 (ACTUAL), 0.08236640394905809 (DESIRED)
+ [35755, 14]: 0.0954437330365181 (ACTUAL), 0.09539064652928055 (DESIRED)
+ [35756, 14]: 0.10476753115653992 (ACTUAL), 0.10470830628079486 (DESIRED)
+ [35757, 14]: 0.11514303088188171 (ACTUAL), 0.1150817815363278 (DESIRED)
+Max absolute difference among violations: 0.00024231
+Max relative difference among violations: 0.00080089
+ ACTUAL: array([[3.031270e-03, 2.458758e-03, 6.829017e-03, ..., 2.658979e-04,
+        4.660124e-04, 6.958939e-04],
+       [8.075712e-03, 2.451409e-03, 1.611874e-02, ..., 1.635681e-04,...
+ DESIRED: array([[3.031268e-03, 2.458757e-03, 6.829014e-03, ..., 2.658970e-04,
+        4.660121e-04, 6.958940e-04],
+       [8.075715e-03, 2.451408e-03, 1.611873e-02, ..., 1.635672e-04,...
+
+"
+remora-tinygrad,1536,1,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,1536,2,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,1536,2,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,1536,4,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,1536,4,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,1536,8,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad,1536,8,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,1536,1,resident,failed,,,,,,,128,5,,"Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 116, in main
+    ready=receive(replies,processes,'ready',len(processes),a.setup_timeout); result['workers']=ready
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 80, in receive
+    if kind=='error': raise RuntimeError(f'GPU worker {rank}: {data}')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: GPU worker 0: Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 33, in worker
+    np.testing.assert_allclose(actual,refs[key],atol=a.atol,rtol=a.rtol)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         verbose=verbose, header=header, equal_nan=equal_nan,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         strict=strict)
+                         ^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=0.0002, atol=2e-05
+
+Mismatched elements: 435 / 12337920 (0.00353%)
+First 5 mismatches are at indices:
+ [35753, 14]: 0.06940186768770218 (ACTUAL), 0.06936204068558834 (DESIRED)
+ [35754, 14]: 0.0824144259095192 (ACTUAL), 0.08236640394905809 (DESIRED)
+ [35755, 14]: 0.0954437330365181 (ACTUAL), 0.09539064652928055 (DESIRED)
+ [35756, 14]: 0.10476753115653992 (ACTUAL), 0.10470830628079486 (DESIRED)
+ [35757, 14]: 0.11514303088188171 (ACTUAL), 0.1150817815363278 (DESIRED)
+Max absolute difference among violations: 0.00024231
+Max relative difference among violations: 0.00080089
+ ACTUAL: array([[3.031270e-03, 2.458758e-03, 6.829017e-03, ..., 2.658979e-04,
+        4.660124e-04, 6.958939e-04],
+       [8.075712e-03, 2.451409e-03, 1.611874e-02, ..., 1.635681e-04,...
+ DESIRED: array([[3.031268e-03, 2.458757e-03, 6.829014e-03, ..., 2.658970e-04,
+        4.660121e-04, 6.958940e-04],
+       [8.075715e-03, 2.451408e-03, 1.611873e-02, ..., 1.635672e-04,...
+
+"
+direct-tinygrad,1536,1,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,1536,2,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,1536,2,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,1536,4,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,1536,4,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,1536,8,resident,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+direct-tinygrad,1536,8,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+remora-tinygrad-im2col,1536,1,resident,passed,6.139667918785127,14.485293962118075,20.84803310100324,104.24240793500576,162.8752586015878,1.0,128,5,,
+remora-tinygrad-im2col,1536,1,transfer,passed,5.303063709286165,12.511496997064013,24.136990807004622,120.69674812501034,188.5702406797236,1.0,128,5,,
+remora-tinygrad-im2col,1536,2,resident,passed,12.276956099331437,28.964973417328263,10.426037119003013,52.129109875011636,81.45341499221104,1.9996123995189485,128,5,,
+remora-tinygrad-im2col,1536,2,transfer,passed,10.591950866074342,24.98954731052573,12.084648203002871,60.428712603010354,94.41131408595993,1.9973267240834458,128,5,,
+remora-tinygrad-im2col,1536,4,resident,passed,24.55040055965011,57.92166183878027,5.213764218999131,26.07076808900092,40.73253296093071,3.998652839925578,128,5,,
+remora-tinygrad-im2col,1536,4,transfer,passed,21.116087335031565,49.81910038519064,6.06172904900086,30.30588324600467,47.35725819531922,3.981865670980966,128,5,,
+remora-tinygrad-im2col,1536,8,resident,passed,49.030897154610074,115.67839953328294,2.6105987740011187,13.053659687007894,20.39530292188374,7.985920053524971,128,5,,
+remora-tinygrad-im2col,1536,8,transfer,passed,41.66339417792757,98.2962792304078,3.072241293000843,15.355390044005617,24.001885101569087,7.8564762676659985,128,5,,
+direct-tinygrad-im2col,1536,1,resident,passed,6.139360792802352,14.484569361015419,20.849076039001375,104.2485720130062,162.88340655469824,1.0,128,5,,
+direct-tinygrad-im2col,1536,1,transfer,passed,5.3412381254028,12.601561744310324,23.96448108000186,119.82696988900716,187.22250843751453,1.0,128,5,,
+direct-tinygrad-im2col,1536,2,resident,passed,12.2779317368706,28.96727523507186,10.425208638000186,52.12770466000438,81.44694248437645,1.9998713467475264,128,5,,
+direct-tinygrad-im2col,1536,2,transfer,passed,10.63293620100268,25.086243847280823,12.038067151002906,60.2724434900083,94.0473996172102,1.990724987607778,128,5,,
+direct-tinygrad-im2col,1536,4,resident,passed,24.552129702970543,57.92574139969958,5.21339702700061,26.068628970006102,40.72966427344227,3.9991345241926335,128,5,,
+direct-tinygrad-im2col,1536,4,transfer,passed,21.064754272267482,49.697990495543586,6.076500981002027,30.361624273005873,47.47266391407834,3.943796134473769,128,5,,
+direct-tinygrad-im2col,1536,8,resident,passed,49.03494399508717,115.68794722783318,2.6103833220004162,13.055810503006796,20.393619703128252,7.9869787181386425,128,5,,
+direct-tinygrad-im2col,1536,8,transfer,passed,41.82576757050165,98.67936612601424,3.0603144289998454,15.300719822007522,23.908706476561292,7.830725121873766,128,5,,
+remora-futhark-original,1536,1,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-original,1536,1,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-original,1536,2,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-original,1536,2,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-original,1536,4,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-original,1536,4,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-original,1536,8,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-original,1536,8,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1536,1,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1536,1,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1536,2,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1536,2,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1536,4,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1536,4,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1536,8,resident,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+remora-futhark-modified,1536,8,transfer,skipped,,,,,,,128,5,User stopped further runs of this implementation to limit rental cost; not measured,
+darknet-dense,1536,1,transfer,failed,,,,,,,128,5,,"Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 116, in main
+    ready=receive(replies,processes,'ready',len(processes),a.setup_timeout); result['workers']=ready
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 80, in receive
+    if kind=='error': raise RuntimeError(f'GPU worker {rank}: {data}')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: GPU worker 0: Traceback (most recent call last):
+  File ""/home/ubuntu/remora-copy/experimental/scaling/run.py"", line 33, in worker
+    np.testing.assert_allclose(actual,refs[key],atol=a.atol,rtol=a.rtol)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         verbose=verbose, header=header, equal_nan=equal_nan,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         strict=strict)
+                         ^^^^^^^^^^^^^^
+  File ""/home/ubuntu/remora-copy/experimental/scaling/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py"", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=0.0002, atol=2e-05
+
+Mismatched elements: 748 / 12337920 (0.00606%)
+First 5 mismatches are at indices:
+ [35752, 14]: 0.05165271833539009 (ACTUAL), 0.05169470101850006 (DESIRED)
+ [35753, 14]: 0.06930841505527496 (ACTUAL), 0.06936204068558834 (DESIRED)
+ [35754, 14]: 0.08230303972959518 (ACTUAL), 0.08236640394905809 (DESIRED)
+ [35755, 14]: 0.09532207250595093 (ACTUAL), 0.09539064652928055 (DESIRED)
+ [35756, 14]: 0.10463213920593262 (ACTUAL), 0.10470830628079486 (DESIRED)
+Max absolute difference among violations: 0.0003302
+Max relative difference among violations: 0.00122337
+ ACTUAL: array([[3.031266e-03, 2.458757e-03, 6.829017e-03, ..., 2.658972e-04,
+        4.660138e-04, 6.958969e-04],
+       [8.075715e-03, 2.451407e-03, 1.611874e-02, ..., 1.635671e-04,...
+ DESIRED: array([[3.031268e-03, 2.458757e-03, 6.829014e-03, ..., 2.658970e-04,
+        4.660121e-04, 6.958940e-04],
+       [8.075715e-03, 2.451408e-03, 1.611873e-02, ..., 1.635672e-04,...
+
+"
+darknet-dense,1536,2,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+darknet-dense,1536,4,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,
+darknet-dense,1536,8,transfer,skipped,,,,,,,128,5,Earlier failure for this implementation and image size; not measured,

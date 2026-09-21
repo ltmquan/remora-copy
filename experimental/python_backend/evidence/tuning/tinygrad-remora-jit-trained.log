@@ -1,0 +1,4 @@
+setup_seconds 3.127461
+first inference started
+/shared/EL9/explorer/python/3.13.5/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown: {'/mp-jgyftadq', '/mp-g062p_n6', '/mp-h1c5sa1f', '/mp-kin5r26n', '/mp-yo0mtuox', '/mp-sgwu_48r'}
+  warnings.warn(

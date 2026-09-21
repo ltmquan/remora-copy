@@ -1,0 +1,3 @@
+(entry (main (features [Float 3 4]) (reconstructed [Float 3 4]))
+        ((fn ((x [Float 4]) (y [Float 4]))
+          (let ((val delta (f.- x y))) (sqrt (@reduce/zero (Float) (4 []) f.+ 0.0 (f.* delta delta))))) features reconstructed))

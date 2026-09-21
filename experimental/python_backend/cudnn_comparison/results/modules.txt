@@ -1,0 +1,2 @@
+Currently Loaded Modulefiles:
+ 1) explorer/1.0   2) python/3.13.5   3) cuda/12.8.0   4) cuDNN/9.10.2  

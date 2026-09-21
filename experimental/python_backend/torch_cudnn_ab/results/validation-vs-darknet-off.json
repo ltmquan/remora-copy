@@ -1,0 +1,62 @@
+{
+  "torch_cudnn_ab/results/off-remora-1.bin": {
+    "failed": 0,
+    "max_abs": 3.039836883544922e-06,
+    "passed": true
+  },
+  "torch_cudnn_ab/results/off-remora-2.bin": {
+    "failed": 0,
+    "max_abs": 3.039836883544922e-06,
+    "passed": true
+  },
+  "torch_cudnn_ab/results/off-remora-3.bin": {
+    "failed": 0,
+    "max_abs": 3.039836883544922e-06,
+    "passed": true
+  },
+  "torch_cudnn_ab/results/off-direct-1.bin": {
+    "failed": 0,
+    "max_abs": 3.039836883544922e-06,
+    "passed": true
+  },
+  "torch_cudnn_ab/results/off-direct-2.bin": {
+    "failed": 0,
+    "max_abs": 3.039836883544922e-06,
+    "passed": true
+  },
+  "torch_cudnn_ab/results/off-direct-3.bin": {
+    "failed": 0,
+    "max_abs": 3.039836883544922e-06,
+    "passed": true
+  },
+  "evidence/memory_matrix/fresh_futhark-trained.bin": {
+    "failed": 0,
+    "max_abs": 4.708766937255859e-06,
+    "passed": true
+  },
+  "evidence/memory_matrix/modified_futhark-trained.bin": {
+    "failed": 0,
+    "max_abs": 6.8694353103637695e-06,
+    "passed": true
+  },
+  "evidence/memory_matrix/tinygrad-remora-jit-trained.bin": {
+    "failed": 0,
+    "max_abs": 6.735324859619141e-06,
+    "passed": true
+  },
+  "evidence/memory_matrix/tinygrad-direct-jit-trained.bin": {
+    "failed": 0,
+    "max_abs": 6.735324859619141e-06,
+    "passed": true
+  },
+  "evidence/tiny_optimized/im2col-remora-trained.bin": {
+    "failed": 0,
+    "max_abs": 4.5299530029296875e-06,
+    "passed": true
+  },
+  "evidence/tiny_optimized/im2col-direct-trained.bin": {
+    "failed": 0,
+    "max_abs": 4.5299530029296875e-06,
+    "passed": true
+  }
+}

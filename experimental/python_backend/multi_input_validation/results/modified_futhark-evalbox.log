@@ -1,0 +1,6 @@
+setup_seconds 25.351584995
+MEMORY_PHASE resident
+resident_run_seconds 0 0.618667256
+MEMORY_PHASE transfer
+transfer_run_seconds 0 0.486508369
+FUTHARK_MEMORY_REPORT {"memory":{"space 'device'": 2009077508,"default space": 0},"events":[]}

@@ -1,0 +1,32 @@
+net.optimized_memory = 0 
+mini_batch = 1, batch = 8, time_steps = 1, train = 0 
+Create CUDA-stream - 0 
+nms_kind: greedynms (1), beta = 0.600000 
+nms_kind: greedynms (1), beta = 0.600000 
+nms_kind: greedynms (1), beta = 0.600000 
+
+ seen 64, trained: 32032 K-images (500 Kilo-batches_64) 
+context_seconds 1.543543047
+warmup_seconds -1 0.099774423
+predict_seconds -1 0.097632678
+run_seconds 0 0.009946638
+predict_seconds 0 0.007984482
+run_seconds 1 0.009418946
+predict_seconds 1 0.007918596
+run_seconds 2 0.009174916
+predict_seconds 2 0.007737457
+run_seconds 3 0.009058946
+predict_seconds 3 0.007726082
+run_seconds 4 0.008964853
+predict_seconds 4 0.007726222
+run_seconds 5 0.009133338
+predict_seconds 5 0.007723995
+run_seconds 6 0.008956361
+predict_seconds 6 0.007728686
+run_seconds 7 0.008986086
+predict_seconds 7 0.007710568
+run_seconds 8 0.008858666
+predict_seconds 8 0.007719891
+run_seconds 9 0.008943384
+predict_seconds 9 0.007716421
+output_elements 1933155 nonfinite 0

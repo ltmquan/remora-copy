@@ -1,0 +1,4 @@
+2f4ec20cc43ab042982fa65ed15aa45498e9bcbed0a4d56eff14c9d09a02bce4  darknet-source.tar.gz
+7a578617bdc04c63381a217a400ed792277412b6be46bc90047426a9399f256a  darknet/libdarknet.so
+faf3061abc075dfe95a7d148dfd27f3735682db07111f0e3ed8bec0a8e7799e6  darknet_benchmark
+e8a4f6c62188738d86dc6898d82724ec0964d0eb9d2ae0f0a9d53d65d108d562  /scratch/luu.qu/remora-python-20260911/yolov4.weights

@@ -1,0 +1,35 @@
+{
+  "ramp": {
+    "total_samples_ms": [
+      9.410455,
+      9.403988,
+      9.872301
+    ],
+    "total_mean_ms": 9.562248,
+    "predict_samples_ms": [
+      7.800827,
+      7.769716000000001,
+      7.793424
+    ],
+    "predict_mean_ms": 7.7879890000000005
+  },
+  "draper": {
+    "total_samples_ms": [
+      9.322263000000001,
+      9.300915999999999,
+      9.291084
+    ],
+    "total_mean_ms": 9.304754333333333,
+    "predict_samples_ms": [
+      7.7450790000000005,
+      7.712091,
+      7.732621
+    ],
+    "predict_mean_ms": 7.729930333333334
+  },
+  "published_expected_comparison": {
+    "failed_values": 0,
+    "max_absolute_error": 2.372264862060547e-05,
+    "reference": "published Futhark demo expected output, not an independent new Darknet run"
+  }
+}

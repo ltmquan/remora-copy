@@ -1,0 +1,6 @@
+tiny_optimized/memory/im2col-remora 2812
+tiny_optimized/memory/im2col-direct 2812
+baseline-direct-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.735324859619141e-06, 'mean_abs': 1.8516501291504886e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+baseline-remora-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.735324859619141e-06, 'mean_abs': 1.8516501291504886e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+im2col-direct-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 4.5299530029296875e-06, 'mean_abs': 1.7032090403516923e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+im2col-remora-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 4.5299530029296875e-06, 'mean_abs': 1.7032090403516923e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}

@@ -1,0 +1,7 @@
+Correctness black
+Correctness white
+Correctness noise
+Correctness gradient
+Correctness checkerboard
+Correctness evalbox
+results/memory 30050

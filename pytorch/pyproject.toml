@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "remora-torch"
+version = "0.4.0"
+description = "Compile typed Remora programs to standalone PyTorch modules"
+requires-python = ">=3.10"
+dependencies = ["torch>=2.2"]
+
+[project.scripts]
+remora-torch = "remora_torch.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["remora_torch*"]
+
+[tool.setuptools.package-data]
+remora_torch = ["native_contracts.json"]

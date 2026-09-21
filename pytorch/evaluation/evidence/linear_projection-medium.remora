@@ -1,0 +1,2 @@
+(def (fun (pair-product (left [Float 128]) (right [Float 128])) (@reduce/zero (Float) (128 []) f.+ 0.0 (f.* left right))))(entry (main (rows [Float 128 128]) (weights [Float 96 128]))
+        ((fn ((row [Float 128])) (pair-product row weights)) rows))

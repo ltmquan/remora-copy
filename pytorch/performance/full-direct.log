@@ -1,0 +1,10 @@
+setup_seconds 2.987952
+first inference started
+first_eager_seconds 2.848788
+warmup 0: 0.041231s
+warmup 1: 0.028477s
+warmup 2: 0.024132s
+MEMORY_PHASE resident
+MEMORY_PHASE transfer
+MEMORY_PHASE validation
+{"backend": "torch", "model": "direct", "mode": "eager", "compile_mode": "default", "device": "cuda", "weights": "/scratch/luu.qu/remora-python-20260911/yolov4.weights", "fold_bn": false, "runs": 10, "warmup": 3, "output": "/scratch/luu.qu/remora-copy/pytorch/performance-20260912/full-direct.json", "changed_input_max_delta": 8.367815017700195, "changed_input_validation": "passed", "setup_seconds": 2.9879518328234553, "first_eager_seconds": 2.8487882260233164, "warmup_seconds": [0.041230990551412106, 0.0284768994897604, 0.024132015183568], "run_seconds": [0.023547599092125893, 0.02339913696050644, 0.024365797638893127, 0.025181454606354237, 0.024779409170150757, 0.022961781360208988, 0.023044928908348083, 0.0229877308011055, 0.022975454106926918, 0.022968405857682228], "median_seconds": 0.02322203293442726, "transfer_warmup_seconds": [0.029683305881917477, 0.03590387012809515, 0.027665586210787296], "end_to_end_seconds": [0.026936153881251812, 0.02702079899609089, 0.02700737863779068, 0.026820155791938305, 0.026201612316071987, 0.02430575992912054, 0.024416443891823292, 0.02442206349223852, 0.024461337365210056, 0.024361825548112392], "end_to_end_median_seconds": 0.02533147484064102, "tinygrad_beam": "0", "input_sha256": "ccd50c843493cfdc36d179764a89948945b94ac83e969aa19a4e069e6ceb0dba", "remora_ast_sha256": "9b06a5f2be536d964c1e74f0134d75d3f05b8722fca41269b4b3e6ffd70f8a1d", "versions": {"numpy": "2.5.3", "torch": "2.8.0+cu128", "tinygrad": "0.14.0"}, "precision": "float32; torch TF32 disabled; tinygrad ALLOW_TF32=0", "gpu": "Tesla V100-SXM2-32GB", "cuda": "12.8", "cudnn": 91002}

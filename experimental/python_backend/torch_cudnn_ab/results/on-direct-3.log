@@ -1,0 +1,104 @@
+setup_seconds 1.286522
+first inference started
+first_eager_seconds 0.723759
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/interpreter.py:322: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/interpreter.py:322: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/interpreter.py:322: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/interpreter.py:322: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/interpreter.py:322: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/interpreter.py:322: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/interpreter.py:322: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/experimental/proxy_tensor.py:1360: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return func(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/experimental/proxy_tensor.py:1360: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return func(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/experimental/proxy_tensor.py:1360: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return func(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/experimental/proxy_tensor.py:1360: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return func(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/experimental/proxy_tensor.py:1360: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return func(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/experimental/proxy_tensor.py:1360: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return func(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/experimental/proxy_tensor.py:1360: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return func(*args, **kwargs)
+warmup 0: 6.980967s
+warmup 1: 0.203677s
+warmup 2: 0.009774s
+warmup 3: 0.009514s
+warmup 4: 0.009335s
+MEMORY_PHASE resident
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_dynamo/utils.py:3421: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return node.target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/interpreter.py:322: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/interpreter.py:322: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/interpreter.py:322: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/interpreter.py:322: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/interpreter.py:322: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/interpreter.py:322: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/interpreter.py:322: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return target(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/experimental/proxy_tensor.py:1360: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return func(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/experimental/proxy_tensor.py:1360: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return func(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/experimental/proxy_tensor.py:1360: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return func(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/experimental/proxy_tensor.py:1360: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return func(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/experimental/proxy_tensor.py:1360: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return func(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/experimental/proxy_tensor.py:1360: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return func(*args, **kwargs)
+/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/fx/experimental/proxy_tensor.py:1360: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return func(*args, **kwargs)
+MEMORY_PHASE transfer
+MEMORY_PHASE validation
+{"backend": "torch", "model": "direct", "mode": "compile", "compile_mode": "reduce-overhead", "device": "cuda", "weights": "/scratch/luu.qu/remora-python-20260911/yolov4.weights", "fold_bn": true, "runs": 30, "warmup": 5, "output": "/scratch/luu.qu/remora-copy/experimental/torch-cudnn-ab-20260912/results/on-direct-3", "changed_input_max_delta": 8.367902755737305, "changed_input_validation": "passed", "setup_seconds": 1.2865215530619025, "first_eager_seconds": 0.7237592898309231, "warmup_seconds": [6.98096710909158, 0.20367747731506824, 0.009773883037269115, 0.00951414369046688, 0.009335054084658623], "run_seconds": [0.009311363101005554, 0.009316221810877323, 0.009303574450314045, 0.009296058677136898, 0.009295742027461529, 0.00929841585457325, 0.009288173168897629, 0.009277957491576672, 0.00926998257637024, 0.009273171424865723, 0.009274922311306, 0.009276436641812325, 0.009282379411160946, 0.00928935594856739, 0.00927894376218319, 0.00928756408393383, 0.009291752241551876, 0.009274065494537354, 0.00926954485476017, 0.009274547919631004, 0.009278981946408749, 0.009280889295041561, 0.00928298570215702, 0.009294972755014896, 0.009298738092184067, 0.009314533323049545, 0.009307201951742172, 0.009321697056293488, 0.00929702166467905, 0.009306492283940315], "median_seconds": 0.00928876455873251, "transfer_warmup_seconds": [3.4605523217469454, 0.2323983022943139, 0.012696129269897938, 0.010623738169670105, 0.010363033972680569], "end_to_end_seconds": [0.010253965854644775, 0.010222072713077068, 0.01020482461899519, 0.010185398161411285, 0.010187474079430103, 0.01017112284898758, 0.010171754285693169, 0.010178917087614536, 0.010182487778365612, 0.010146553628146648, 0.010160909965634346, 0.010159182362258434, 0.01017278153449297, 0.010195787064731121, 0.010216020978987217, 0.010195485316216946, 0.012913485988974571, 0.010862834751605988, 0.010183485224843025, 0.010166153311729431, 0.010157492943108082, 0.01014736108481884, 0.010207862593233585, 0.010158374905586243, 0.010169241577386856, 0.010160364210605621, 0.010172617621719837, 0.010165899060666561, 0.01017054170370102, 0.010187966749072075], "end_to_end_median_seconds": 0.010175849311053753, "tinygrad_beam": "0", "input_sha256": "ccd50c843493cfdc36d179764a89948945b94ac83e969aa19a4e069e6ceb0dba", "remora_ast_sha256": "9b06a5f2be536d964c1e74f0134d75d3f05b8722fca41269b4b3e6ffd70f8a1d", "versions": {"numpy": "2.5.3", "torch": "2.8.0+cu128", "tinygrad": "0.14.0"}, "precision": "float32; torch TF32 disabled; tinygrad ALLOW_TF32=0", "gpu": "NVIDIA H200", "cuda": "12.8", "cudnn": 91002}

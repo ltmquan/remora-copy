@@ -1,0 +1,457 @@
+{
+  "gpu": "Tesla V100-SXM2-32GB",
+  "torch": "2.8.0+cu128",
+  "tf32": false,
+  "warmups": 3,
+  "runs": 10,
+  "timing": "Host wall time with CUDA synchronization; inputs resident, output stays resident; setup and correctness checks excluded; PyTorch eager execution",
+  "cases": [
+    {
+      "case": "conv_same",
+      "shapes": {
+        "x": [
+          2,
+          4,
+          4
+        ],
+        "w": [
+          3,
+          2,
+          3,
+          3
+        ]
+      },
+      "output_shape": [
+        3,
+        16
+      ],
+      "lowering": "native",
+      "source_sha256": "57dc286303d605aeb7403bfcc36ad7b2bfd002eaaabc3dfd75e39958c7b4df5c",
+      "correctness_max_abs": {
+        "remora_pytorch": 1.1920928955078125e-07,
+        "direct_pytorch": 1.1920928955078125e-07,
+        "remora_futhark": 2.38418579102e-07
+      },
+      "remora_futhark": {
+        "median_ms": 0.0142930075,
+        "min_ms": 0.013862737,
+        "max_ms": 0.014809892,
+        "samples_ms": [
+          0.014809892,
+          0.014110934,
+          0.014340039,
+          0.014567748,
+          0.013990328,
+          0.013862737,
+          0.014548656,
+          0.014306046,
+          0.014279969,
+          0.014082994
+        ]
+      },
+      "remora_pytorch": {
+        "median_ms": 0.059891026467084885,
+        "min_ms": 0.058424659073352814,
+        "max_ms": 0.07428089156746864,
+        "samples_ms": [
+          0.06652995944023132,
+          0.06925873458385468,
+          0.07428089156746864,
+          0.06160512566566467,
+          0.05994085222482681,
+          0.05920557305216789,
+          0.058424659073352814,
+          0.05984120070934296,
+          0.05842698737978935,
+          0.059205107390880585
+        ]
+      },
+      "direct_pytorch": {
+        "median_ms": 0.041462481021881104,
+        "min_ms": 0.040790997445583344,
+        "max_ms": 0.043229199945926666,
+        "samples_ms": [
+          0.04188297316431999,
+          0.043229199945926666,
+          0.041948165744543076,
+          0.041443854570388794,
+          0.04148110747337341,
+          0.041795894503593445,
+          0.040790997445583344,
+          0.041292980313301086,
+          0.04141172394156456,
+          0.041138846427202225
+        ]
+      },
+      "profile_top": [
+        {
+          "function": "('/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/benchmark.py', 53, '<lambda>')",
+          "calls": 1,
+          "cumulative_seconds": 0.000147092
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/conv_same/generated.py', 240, 'main')",
+          "calls": 1,
+          "cumulative_seconds": 0.00013849
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/conv_same/generated.py', 195, 'raw_conv')",
+          "calls": 1,
+          "cumulative_seconds": 9.451e-05
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/cuda/__init__.py', 1075, 'synchronize')",
+          "calls": 1,
+          "cumulative_seconds": 6.9607e-05
+        },
+        {
+          "function": "('~', 0, '<built-in method torch.conv2d>')",
+          "calls": 1,
+          "cumulative_seconds": 4.9726000000000005e-05
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/cuda/__init__.py', 530, '__init__')",
+          "calls": 1,
+          "cumulative_seconds": 4.5179e-05
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/cuda/_utils.py', 334, '_get_device_index')",
+          "calls": 1,
+          "cumulative_seconds": 4.2973000000000003e-05
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_utils.py', 831, '_get_device_index')",
+          "calls": 1,
+          "cumulative_seconds": 3.6708e-05
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/conv_same/generated.py', 129, '_prepare')",
+          "calls": 1,
+          "cumulative_seconds": 3.4424e-05
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_utils.py', 805, '_get_current_device_index')",
+          "calls": 1,
+          "cumulative_seconds": 3.3334e-05
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_utils.py', 789, '_get_device_attr')",
+          "calls": 1,
+          "cumulative_seconds": 3.0663e-05
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_utils.py', 772, '_get_available_device_type')",
+          "calls": 1,
+          "cumulative_seconds": 2.0932000000000002e-05
+        }
+      ]
+    },
+    {
+      "case": "spp_cascade",
+      "shapes": {
+        "x": [
+          2,
+          5,
+          5
+        ]
+      },
+      "output_shape": [
+        8,
+        5,
+        5
+      ],
+      "lowering": "native",
+      "source_sha256": "4c6d19247b6d20f31b9ece5281811750130272eda9ab3bb864290071fb871975",
+      "correctness_max_abs": {
+        "remora_pytorch": 0.0,
+        "direct_pytorch": 0.0,
+        "remora_futhark": 0.0
+      },
+      "remora_futhark": {
+        "median_ms": 0.09148777450000001,
+        "min_ms": 0.090957619,
+        "max_ms": 0.093025155,
+        "samples_ms": [
+          0.091291964,
+          0.091416761,
+          0.09248592,
+          0.091394875,
+          0.090957619,
+          0.093025155,
+          0.091291033,
+          0.092170201,
+          0.091558788,
+          0.091778114
+        ]
+      },
+      "remora_pytorch": {
+        "median_ms": 0.15340466052293777,
+        "min_ms": 0.1464630477130413,
+        "max_ms": 0.18371595069766045,
+        "samples_ms": [
+          0.1569683663547039,
+          0.15911320224404335,
+          0.1494297757744789,
+          0.18371595069766045,
+          0.16729999333620071,
+          0.147972721606493,
+          0.1464630477130413,
+          0.1516132615506649,
+          0.15020696446299553,
+          0.15519605949521065
+        ]
+      },
+      "direct_pytorch": {
+        "median_ms": 0.13416213914752007,
+        "min_ms": 0.133490189909935,
+        "max_ms": 0.1430809497833252,
+        "samples_ms": [
+          0.13623200356960297,
+          0.13570161536335945,
+          0.13502733781933784,
+          0.13390369713306427,
+          0.1342841424047947,
+          0.1430809497833252,
+          0.133490189909935,
+          0.1336880959570408,
+          0.13404013589024544,
+          0.13387063518166542
+        ]
+      },
+      "profile_top": [
+        {
+          "function": "('/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/benchmark.py', 53, '<lambda>')",
+          "calls": 1,
+          "cumulative_seconds": 0.000253115
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/spp_cascade/generated.py', 240, 'main')",
+          "calls": 1,
+          "cumulative_seconds": 0.000245415
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/spp_cascade/generated.py', 198, 'spp')",
+          "calls": 1,
+          "cumulative_seconds": 0.00021347800000000002
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/spp_cascade/generated.py', 200, 'pool')",
+          "calls": 3,
+          "cumulative_seconds": 0.000183017
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/nn/functional.py', 5209, 'pad')",
+          "calls": 3,
+          "cumulative_seconds": 0.000116909
+        },
+        {
+          "function": "('~', 0, '<built-in method torch._C._nn.pad>')",
+          "calls": 3,
+          "cumulative_seconds": 0.00010304800000000001
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/cuda/__init__.py', 1075, 'synchronize')",
+          "calls": 1,
+          "cumulative_seconds": 7.1592e-05
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_jit_internal.py', 617, 'fn')",
+          "calls": 3,
+          "cumulative_seconds": 5.5161e-05
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/nn/functional.py', 804, '_max_pool2d')",
+          "calls": 3,
+          "cumulative_seconds": 4.6535e-05
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/cuda/__init__.py', 530, '__init__')",
+          "calls": 1,
+          "cumulative_seconds": 4.1777e-05
+        },
+        {
+          "function": "('~', 0, '<built-in method torch.max_pool2d>')",
+          "calls": 3,
+          "cumulative_seconds": 4.1409e-05
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/cuda/_utils.py', 334, '_get_device_index')",
+          "calls": 1,
+          "cumulative_seconds": 3.9606e-05
+        }
+      ]
+    },
+    {
+      "case": "composed_pipeline",
+      "shapes": {
+        "x": [
+          1,
+          5,
+          5
+        ],
+        "pw": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "pmean": [
+          1
+        ],
+        "pvar": [
+          1
+        ],
+        "pscale": [
+          1
+        ],
+        "pbias": [
+          1
+        ],
+        "fw": [
+          1,
+          4,
+          3,
+          3
+        ],
+        "fmean": [
+          1
+        ],
+        "fvar": [
+          1
+        ],
+        "fscale": [
+          1
+        ],
+        "fbias": [
+          1
+        ],
+        "hw": [
+          21,
+          1,
+          1,
+          1
+        ],
+        "hbias": [
+          21
+        ],
+        "aw": [
+          3
+        ],
+        "ah": [
+          3
+        ]
+      },
+      "output_shape": [
+        300,
+        7
+      ],
+      "lowering": "native",
+      "source_sha256": "c38a3fce84a4c35d8c4796d509ab51dc66ade4359dd9cff60799a9bed034ea43",
+      "correctness_max_abs": {
+        "remora_pytorch": 5.960464477539063e-08,
+        "direct_pytorch": 1.1920928955078125e-07
+      },
+      "remora_futhark": {
+        "error": "Known compiler limitation encountered.  Sorry.\nRevise your program or try a different Futhark compiler.\nCannot allocate memory block mem_21179 : mem@f32 in kernel block.\n"
+      },
+      "remora_pytorch": {
+        "median_ms": 1.3981913216412067,
+        "min_ms": 1.3797478750348091,
+        "max_ms": 1.4217137359082699,
+        "samples_ms": [
+          1.4217137359082699,
+          1.4001848176121712,
+          1.4099287800490856,
+          1.3917922042310238,
+          1.4031860046088696,
+          1.3903859071433544,
+          1.4006192795932293,
+          1.3961978256702423,
+          1.3797478750348091,
+          1.3844757340848446
+        ]
+      },
+      "direct_pytorch": {
+        "median_ms": 1.2007479090243578,
+        "min_ms": 1.1902432888746262,
+        "max_ms": 1.2067798525094986,
+        "samples_ms": [
+          1.2017199769616127,
+          1.2003551237285137,
+          1.2011406943202019,
+          1.2020752765238285,
+          1.1993292719125748,
+          1.1955131776630878,
+          1.1943541467189789,
+          1.2067798525094986,
+          1.2012296356260777,
+          1.1902432888746262
+        ]
+      },
+      "profile_top": [
+        {
+          "function": "('/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/benchmark.py', 53, '<lambda>')",
+          "calls": 1,
+          "cumulative_seconds": 0.001473088
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/composed_pipeline/generated.py', 240, 'main')",
+          "calls": 1,
+          "cumulative_seconds": 0.001455261
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/composed_pipeline/generated.py', 219, 'decode')",
+          "calls": 1,
+          "cumulative_seconds": 0.000587491
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/composed_pipeline/generated.py', 178, 'conv')",
+          "calls": 3,
+          "cumulative_seconds": 0.000548372
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/composed_pipeline/generated.py', 227, '<lambda>')",
+          "calls": 3,
+          "cumulative_seconds": 0.000227511
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_tensor.py', 33, 'wrapped')",
+          "calls": 8,
+          "cumulative_seconds": 0.00019043100000000002
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/composed_pipeline/generated.py', 198, 'spp')",
+          "calls": 1,
+          "cumulative_seconds": 0.00017283400000000002
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-copy/pytorch/native-performance-20260912/composed_pipeline/generated.py', 200, 'pool')",
+          "calls": 3,
+          "cumulative_seconds": 0.000146711
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/_tensor.py', 1132, '__rpow__')",
+          "calls": 5,
+          "cumulative_seconds": 0.00011230900000000001
+        },
+        {
+          "function": "('~', 0, '<built-in method torch.pow>')",
+          "calls": 5,
+          "cumulative_seconds": 0.000107689
+        },
+        {
+          "function": "('~', 0, '<built-in method torch.conv2d>')",
+          "calls": 3,
+          "cumulative_seconds": 9.3842e-05
+        },
+        {
+          "function": "('/scratch/luu.qu/remora-python-20260911/venv/lib/python3.13/site-packages/torch/nn/functional.py', 5209, 'pad')",
+          "calls": 3,
+          "cumulative_seconds": 8.716500000000001e-05
+        }
+      ]
+    }
+  ],
+  "completed": true,
+  "all_three_available": false
+}

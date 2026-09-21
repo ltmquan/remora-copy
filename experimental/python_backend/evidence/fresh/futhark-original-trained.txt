@@ -1,0 +1,27 @@
+setup_seconds 14.147473126
+resident_warmup_seconds -3 2.647616450
+resident_warmup_seconds -2 0.914314299
+resident_warmup_seconds -1 0.910899676
+resident_run_seconds 0 0.910643442
+resident_run_seconds 1 0.910885878
+resident_run_seconds 2 0.910742813
+resident_run_seconds 3 0.910760358
+resident_run_seconds 4 0.910581953
+resident_run_seconds 5 0.910594287
+resident_run_seconds 6 0.910640609
+resident_run_seconds 7 0.910618810
+resident_run_seconds 8 0.910710985
+resident_run_seconds 9 0.910588935
+transfer_warmup_seconds -3 0.913185181
+transfer_warmup_seconds -2 0.911539223
+transfer_warmup_seconds -1 0.911429198
+transfer_run_seconds 0 0.911274008
+transfer_run_seconds 1 0.911391959
+transfer_run_seconds 2 0.911340337
+transfer_run_seconds 3 0.911560375
+transfer_run_seconds 4 0.911426465
+transfer_run_seconds 5 0.911414352
+transfer_run_seconds 6 0.912891752
+transfer_run_seconds 7 0.912286761
+transfer_run_seconds 8 0.911285887
+transfer_run_seconds 9 0.911338013

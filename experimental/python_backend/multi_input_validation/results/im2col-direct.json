@@ -1,0 +1,69 @@
+{
+  "backend": "tinygrad",
+  "model": "direct",
+  "mode": "jit",
+  "compile_mode": "default",
+  "device": null,
+  "weights": "/scratch/luu.qu/remora-python-20260911/yolov4.weights",
+  "fold_bn": false,
+  "runs": 10,
+  "warmup": 3,
+  "output": "results/im2col-direct",
+  "inputs": [
+    {
+      "name": "black",
+      "shape": [
+        3,
+        608,
+        608
+      ],
+      "sha256": "0f23b2e1fedc786c1f35f8dbcef4761065ce39491b5534c32e7b3a2693cc3ac6"
+    },
+    {
+      "name": "white",
+      "shape": [
+        3,
+        608,
+        608
+      ],
+      "sha256": "c6b96b8b39ffd913e669ef4281830cfab496e5ca3bf3a791c3f0cdb4a4895354"
+    },
+    {
+      "name": "noise",
+      "shape": [
+        3,
+        608,
+        608
+      ],
+      "sha256": "67abd93905cbe459d31ac4bf7a3d1ce9e74b898d6f9bfb80380a9fa2c9458df3"
+    },
+    {
+      "name": "gradient",
+      "shape": [
+        3,
+        608,
+        608
+      ],
+      "sha256": "be458a75c2beb432471748e58d6f106c0417ed9e23d5701f304693bd7febe21e"
+    },
+    {
+      "name": "checkerboard",
+      "shape": [
+        3,
+        608,
+        608
+      ],
+      "sha256": "1f42e32baf270880ed8f64125cc4dbaef2a4dfe71743b424ab8f5e2134d81fcd"
+    },
+    {
+      "name": "evalbox",
+      "shape": [
+        3,
+        608,
+        608
+      ],
+      "sha256": "cddfceceda356f69d0a4991352a7a0d32daa7d1f62b0c0c7075911adca741615"
+    }
+  ],
+  "cudnn_enabled": null
+}

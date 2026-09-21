@@ -1,0 +1,913 @@
+{
+  "source": "/Users/quanluusmacbook/MOCHA/remora-copy/examples/darknet/yolov4.remora",
+  "source_sha256": "334346d83578f49a52507fab11d0cfed0da269b10f20ab012ade4f6ca98a6e89",
+  "definition_count": 55,
+  "definitions_sha256": "36f1a79e7797ef520c0486ed9d4d09699f1ac206d1db63a5b8eda2377e4415b5",
+  "torch": "2.14.0",
+  "numpy": "2.5.3",
+  "device": "cpu",
+  "atol": 1e-05,
+  "rtol": 0.0001,
+  "scope": "Exact helper bodies with small typed entries; not full 608x608 network inference",
+  "cases": [
+    {
+      "name": "conv_same",
+      "lowerings": {
+        "auto": {
+          "selected": "native",
+          "generated_sha256": "e6ce76c37dc47729caaac2ef5df309afbec70a7a623d9948556c139d8eb49361"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                16
+              ],
+              "scalars": 48,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                16
+              ],
+              "scalars": 48,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 9.5367431640625e-07,
+              "max_error_over_tolerance": 0.03588835062344345
+            }
+          }
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                16
+              ],
+              "scalars": 48,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 1.1920928955078125e-07,
+              "max_error_over_tolerance": 0.0072393334976981975
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "conv_stride2_remainder",
+      "lowerings": {
+        "auto": {
+          "selected": "native",
+          "generated_sha256": "9e009033e411a8f05636772e683f4894e1c0fce304e338fcd590356ac39ed855"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                4
+              ],
+              "scalars": 12,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                4
+              ],
+              "scalars": 12,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 4.76837158203125e-07,
+              "max_error_over_tolerance": 0.03588831842412958
+            }
+          }
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                4
+              ],
+              "scalars": 12,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 1.1920928955078125e-07,
+              "max_error_over_tolerance": 0.0017250287795176431
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "conv_1x1",
+      "lowerings": {
+        "auto": {
+          "selected": "native",
+          "generated_sha256": "56cb34356d272f3ada240fbcf44deeb6bd846c21e201b9b3aba122511eb48e54"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                9
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                9
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 1.1920928955078125e-07,
+              "max_error_over_tolerance": 0.0008374206579516968
+            }
+          }
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                9
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 5.960464477539063e-08,
+              "max_error_over_tolerance": 0.0008430956502806868
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "batch_norm",
+      "lowerings": {
+        "auto": {
+          "selected": "static",
+          "generated_sha256": "b4ad6846dc941e2f9ec7ce3e1296fc96b24ee5d962e550fccd8754ef372dc968"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "activations",
+      "lowerings": {
+        "auto": {
+          "selected": "static",
+          "generated_sha256": "7d66b8fc3852fd6865c4f0775ef663fe6c02a7a3dd484c5b97c3b822964b2982"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                7
+              ],
+              "scalars": 63,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                7
+              ],
+              "scalars": 63,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 5.960464477539063e-08,
+              "max_error_over_tolerance": 0.0008387468431036633
+            }
+          }
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                7
+              ],
+              "scalars": 63,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 5.960464477539063e-08,
+              "max_error_over_tolerance": 0.0014806863857964505
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "conv_bn_mish",
+      "lowerings": {
+        "auto": {
+          "selected": "native",
+          "generated_sha256": "4576aa28accab8d1e5e475b8b9ab203f6a41826de12c722e9e06464420361511"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 4.76837158203125e-07,
+              "max_error_over_tolerance": 0.022024405237150598
+            }
+          }
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 2.980232238769531e-07,
+              "max_error_over_tolerance": 0.0027243436219841146
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "conv_bn_leaky",
+      "lowerings": {
+        "auto": {
+          "selected": "native",
+          "generated_sha256": "b79885e9a6100a617834e98325de00cab817eeb6e29f073dba95b33ab36a3ee6"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 4.76837158203125e-07,
+              "max_error_over_tolerance": 0.004335147345785513
+            }
+          }
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 2.384185791015625e-07,
+              "max_error_over_tolerance": 0.0019516161567588058
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "residual",
+      "lowerings": {
+        "auto": {
+          "selected": "native",
+          "generated_sha256": "8c15f229330f140bc30dbd7e792fde13bc4ee369ba08131edcdba0adc9048d10"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 1.1920928955078125e-07,
+              "max_error_over_tolerance": 0.0008572679104869652
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "spp_cascade",
+      "lowerings": {
+        "auto": {
+          "selected": "native",
+          "generated_sha256": "c9c8b2231c578aee29dfc9948154cc6ef9e9d4266dc465474829331fa7c0b949"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                8,
+                5,
+                5
+              ],
+              "scalars": 200,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                8,
+                5,
+                5
+              ],
+              "scalars": 200,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                8,
+                5,
+                5
+              ],
+              "scalars": 200,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "upsample",
+      "lowerings": {
+        "auto": {
+          "selected": "native",
+          "generated_sha256": "c3f1e3d065a12ad278f210b5a67cc97ad2eec7f6463131a4b701589129ca7f65"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                6,
+                6
+              ],
+              "scalars": 72,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                6,
+                6
+              ],
+              "scalars": 72,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                6,
+                6
+              ],
+              "scalars": 72,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "route",
+      "lowerings": {
+        "auto": {
+          "selected": "native",
+          "generated_sha256": "d3a52cb1f480a66f5053bf54fed4fabeb644c206264c2b2a82f47cfd0dec8bab"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                3
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                3
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                3
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "decode_anchors",
+      "lowerings": {
+        "auto": {
+          "selected": "general",
+          "generated_sha256": "3cdbb62d17d6d34af39662de7eabed578bd615a6a368fef63ba8f04f7b4662bf"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                7,
+                2,
+                2
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                7,
+                2,
+                2
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                7,
+                2,
+                2
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "detection_head",
+      "lowerings": {
+        "auto": {
+          "selected": "native",
+          "generated_sha256": "c21ece624bac0e91b47a08b89bb35cf6b9757757b675c514756565bc73765716"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                12,
+                7
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 1.4901161193847656e-08,
+              "max_error_over_tolerance": 0.00042574746268136157
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                12,
+                7
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 1.1920928955078125e-06,
+              "max_error_over_tolerance": 0.005850868796677793
+            }
+          }
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                12,
+                7
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 5.960464477539063e-08,
+              "max_error_over_tolerance": 0.0008066497885415979
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "composed_pipeline",
+      "lowerings": {
+        "auto": {
+          "selected": "native",
+          "generated_sha256": "db4df1c9c377b4a348da145f0985f2c036170fda03de846b7968e992e05105d8"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                300,
+                7
+              ],
+              "scalars": 2100,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 3.725290298461914e-09,
+              "max_error_over_tolerance": 0.00024835268533054646
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                300,
+                7
+              ],
+              "scalars": 2100,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 1.1920928955078125e-07,
+              "max_error_over_tolerance": 0.0018889379537024328
+            }
+          }
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                300,
+                7
+              ],
+              "scalars": 2100,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 5.960464477539063e-08,
+              "max_error_over_tolerance": 0.0010464223729456453
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

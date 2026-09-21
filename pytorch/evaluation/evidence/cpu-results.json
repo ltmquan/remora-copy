@@ -1,0 +1,312 @@
+{
+  "torch": "2.14.0",
+  "device": "cpu",
+  "device_name": "CPU",
+  "scope": "kernel ports only, not full DARPA applications",
+  "cases": [
+    {
+      "name": "squared_l2",
+      "size": "small",
+      "shapes": [
+        [
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "source_sha256": "31b1871fe47a89f78967fdacbf1f6bfb3514278563b98451d49202894e0c330c",
+      "ops": [
+        "sum"
+      ],
+      "fixtures": [
+        {
+          "seed": 0,
+          "direct_and_static": true,
+          "interpreter": true
+        },
+        {
+          "seed": 1,
+          "direct_and_static": true,
+          "interpreter": true
+        },
+        {
+          "seed": 2,
+          "direct_and_static": true,
+          "interpreter": true
+        }
+      ],
+      "median_ms": {
+        "tensor": 0.21520804148167372,
+        "static": 0.22079201880842447,
+        "direct": 0.004499917849898338
+      }
+    },
+    {
+      "name": "linear_projection",
+      "size": "small",
+      "shapes": [
+        [
+          3,
+          4
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "source_sha256": "c68e55af13c57cdd913d009c1ca0c8d82ef7dd2b09faaadea769083aae7656c4",
+      "ops": [
+        "matmul"
+      ],
+      "fixtures": [
+        {
+          "seed": 0,
+          "direct_and_static": true,
+          "interpreter": true
+        },
+        {
+          "seed": 1,
+          "direct_and_static": true,
+          "interpreter": true
+        },
+        {
+          "seed": 2,
+          "direct_and_static": true,
+          "interpreter": true
+        }
+      ],
+      "median_ms": {
+        "tensor": 0.004707952030003071,
+        "static": 0.23633299861103296,
+        "direct": 0.002084067091345787
+      }
+    },
+    {
+      "name": "rms_norm",
+      "size": "small",
+      "shapes": [
+        [
+          3,
+          4
+        ],
+        [
+          4
+        ]
+      ],
+      "source_sha256": "9eced4e46b8d47234f17f1a2c0b50ba45e60d08453e3a22647e4ea61cfab116d",
+      "ops": [
+        "sum"
+      ],
+      "fixtures": [
+        {
+          "seed": 0,
+          "direct_and_static": true,
+          "interpreter": true
+        },
+        {
+          "seed": 1,
+          "direct_and_static": true,
+          "interpreter": true
+        },
+        {
+          "seed": 2,
+          "direct_and_static": true,
+          "interpreter": true
+        }
+      ],
+      "median_ms": {
+        "tensor": 0.3215419128537178,
+        "static": 0.35991694312542677,
+        "direct": 0.009416020475327969
+      }
+    },
+    {
+      "name": "reconstruction_error",
+      "size": "small",
+      "shapes": [
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "source_sha256": "f161b56550be59a1dfeb0fd73e10a2645b8a3276637895f95560b6db7a0c85bd",
+      "ops": [
+        "sum"
+      ],
+      "fixtures": [
+        {
+          "seed": 0,
+          "direct_and_static": true,
+          "interpreter": true
+        },
+        {
+          "seed": 1,
+          "direct_and_static": true,
+          "interpreter": true
+        },
+        {
+          "seed": 2,
+          "direct_and_static": true,
+          "interpreter": true
+        }
+      ],
+      "median_ms": {
+        "tensor": 0.22616703063249588,
+        "static": 0.23679202422499657,
+        "direct": 0.004375004209578037
+      }
+    },
+    {
+      "name": "squared_l2",
+      "size": "medium",
+      "shapes": [
+        [
+          128
+        ],
+        [
+          128,
+          128
+        ]
+      ],
+      "source_sha256": "1d027f600f0bf41d9bbd3ccd48004cca77070ed9c52f5a40dc6695321ef1608f",
+      "ops": [
+        "sum"
+      ],
+      "fixtures": [
+        {
+          "seed": 0,
+          "direct_and_static": true
+        },
+        {
+          "seed": 1,
+          "direct_and_static": true
+        },
+        {
+          "seed": 2,
+          "direct_and_static": true
+        }
+      ],
+      "median_ms": {
+        "tensor": 0.2647920046001673,
+        "static": 0.64316694624722,
+        "direct": 0.010666903108358383
+      }
+    },
+    {
+      "name": "linear_projection",
+      "size": "medium",
+      "shapes": [
+        [
+          128,
+          128
+        ],
+        [
+          96,
+          128
+        ]
+      ],
+      "source_sha256": "580367e1eb5464a14c834a871b4a65d04b98111c47c7657521a2ed0bbd601d99",
+      "ops": [
+        "matmul"
+      ],
+      "fixtures": [
+        {
+          "seed": 0,
+          "direct_and_static": true
+        },
+        {
+          "seed": 1,
+          "direct_and_static": true
+        },
+        {
+          "seed": 2,
+          "direct_and_static": true
+        }
+      ],
+      "median_ms": {
+        "tensor": 0.01183303538709879,
+        "static": 3.3249580301344395,
+        "direct": 0.01025001984089613
+      }
+    },
+    {
+      "name": "rms_norm",
+      "size": "medium",
+      "shapes": [
+        [
+          128,
+          128
+        ],
+        [
+          128
+        ]
+      ],
+      "source_sha256": "c2f58b7092e0b309d50403b93a3b18b767a2c82ed49f09755e5aeeae4c110365",
+      "ops": [
+        "sum"
+      ],
+      "fixtures": [
+        {
+          "seed": 0,
+          "direct_and_static": true
+        },
+        {
+          "seed": 1,
+          "direct_and_static": true
+        },
+        {
+          "seed": 2,
+          "direct_and_static": true
+        }
+      ],
+      "median_ms": {
+        "tensor": 0.3577079623937607,
+        "static": 0.7117919158190489,
+        "direct": 0.01808302477002144
+      }
+    },
+    {
+      "name": "reconstruction_error",
+      "size": "medium",
+      "shapes": [
+        [
+          128,
+          128
+        ],
+        [
+          128,
+          128
+        ]
+      ],
+      "source_sha256": "0a668be2d1f4f1ab131a50f5d5650fff0e4b0a45be5a6af12a0d9e14a9f9f47d",
+      "ops": [
+        "sum"
+      ],
+      "fixtures": [
+        {
+          "seed": 0,
+          "direct_and_static": true
+        },
+        {
+          "seed": 1,
+          "direct_and_static": true
+        },
+        {
+          "seed": 2,
+          "direct_and_static": true
+        }
+      ],
+      "median_ms": {
+        "tensor": 0.22958300542086363,
+        "static": 0.7224999135360122,
+        "direct": 0.01208402682095766
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+test_shapes_activations_and_repeated_input (test_tinygrad_optimized.OptimizedConvolutionTests.test_shapes_activations_and_repeated_input) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 5.786s
+
+OK

@@ -1,0 +1,152 @@
+{
+  "fresh_futhark": {
+    "rounds": [
+      {
+        "round": 1,
+        "resident_ms": 910.8060415,
+        "transfer_ms": 911.5715455,
+        "max_absolute_error": 4.708766937255859e-06
+      },
+      {
+        "round": 2,
+        "resident_ms": 911.004193,
+        "transfer_ms": 911.594872,
+        "max_absolute_error": 4.708766937255859e-06
+      },
+      {
+        "round": 3,
+        "resident_ms": 911.0105470000001,
+        "transfer_ms": 911.6144505,
+        "max_absolute_error": 4.708766937255859e-06
+      }
+    ],
+    "resident_ms": 911.004193,
+    "transfer_ms": 911.594872,
+    "passed": true
+  },
+  "modified_futhark": {
+    "rounds": [
+      {
+        "round": 1,
+        "resident_ms": 482.009116,
+        "transfer_ms": 482.837158,
+        "max_absolute_error": 6.8694353103637695e-06
+      },
+      {
+        "round": 2,
+        "resident_ms": 481.86028999999996,
+        "transfer_ms": 482.711421,
+        "max_absolute_error": 6.8694353103637695e-06
+      },
+      {
+        "round": 3,
+        "resident_ms": 481.906088,
+        "transfer_ms": 482.71352700000006,
+        "max_absolute_error": 6.8694353103637695e-06
+      }
+    ],
+    "resident_ms": 481.906088,
+    "transfer_ms": 482.71352700000006,
+    "passed": true
+  },
+  "baseline-remora": {
+    "rounds": [
+      {
+        "round": 1,
+        "resident_ms": 152.2341570816934,
+        "transfer_ms": 156.29431838169694,
+        "max_absolute_error": 6.735324859619141e-06
+      },
+      {
+        "round": 2,
+        "resident_ms": 152.2550731897354,
+        "transfer_ms": 156.2955123372376,
+        "max_absolute_error": 6.735324859619141e-06
+      },
+      {
+        "round": 3,
+        "resident_ms": 152.23734499886632,
+        "transfer_ms": 156.27511637285352,
+        "max_absolute_error": 6.735324859619141e-06
+      }
+    ],
+    "resident_ms": 152.23734499886632,
+    "transfer_ms": 156.29431838169694,
+    "passed": true
+  },
+  "baseline-direct": {
+    "rounds": [
+      {
+        "round": 1,
+        "resident_ms": 152.24257111549377,
+        "transfer_ms": 156.2717561610043,
+        "max_absolute_error": 6.735324859619141e-06
+      },
+      {
+        "round": 2,
+        "resident_ms": 152.23540784791112,
+        "transfer_ms": 156.30103927105665,
+        "max_absolute_error": 6.735324859619141e-06
+      },
+      {
+        "round": 3,
+        "resident_ms": 152.26272819563746,
+        "transfer_ms": 156.3022448681295,
+        "max_absolute_error": 6.735324859619141e-06
+      }
+    ],
+    "resident_ms": 152.24257111549377,
+    "transfer_ms": 156.30103927105665,
+    "passed": true
+  },
+  "im2col-remora": {
+    "rounds": [
+      {
+        "round": 1,
+        "resident_ms": 36.49586718529463,
+        "transfer_ms": 40.86785716935992,
+        "max_absolute_error": 4.5299530029296875e-06
+      },
+      {
+        "round": 2,
+        "resident_ms": 36.48709459230304,
+        "transfer_ms": 40.77761573716998,
+        "max_absolute_error": 4.5299530029296875e-06
+      },
+      {
+        "round": 3,
+        "resident_ms": 36.4844249561429,
+        "transfer_ms": 40.75103020295501,
+        "max_absolute_error": 4.5299530029296875e-06
+      }
+    ],
+    "resident_ms": 36.48709459230304,
+    "transfer_ms": 40.77761573716998,
+    "passed": true
+  },
+  "im2col-direct": {
+    "rounds": [
+      {
+        "round": 1,
+        "resident_ms": 36.454027984291315,
+        "transfer_ms": 40.69833690300584,
+        "max_absolute_error": 4.5299530029296875e-06
+      },
+      {
+        "round": 2,
+        "resident_ms": 36.519503220915794,
+        "transfer_ms": 40.87600251659751,
+        "max_absolute_error": 4.5299530029296875e-06
+      },
+      {
+        "round": 3,
+        "resident_ms": 36.47362673655152,
+        "transfer_ms": 40.7213238067925,
+        "max_absolute_error": 4.5299530029296875e-06
+      }
+    ],
+    "resident_ms": 36.47362673655152,
+    "transfer_ms": 40.7213238067925,
+    "passed": true
+  }
+}

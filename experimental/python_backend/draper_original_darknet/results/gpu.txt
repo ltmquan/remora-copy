@@ -1,0 +1,2 @@
+name, uuid, driver_version
+NVIDIA H200, GPU-5d37678f-b3f2-b1cf-aa2f-b32112ae1cca, 570.86.15

@@ -1,0 +1,3 @@
+(entry (main (rows [Float 128 128]) (weight [Float 128]))
+        ((fn ((row [Float 128])) (f.* weight (f./ row (sqrt (f.+ 0.00001
+          (f./ (@reduce/zero (Float) (128 []) f.+ 0.0 (f.* row row)) 128.0)))))) rows))

@@ -1,0 +1,10 @@
+/usr/bin/ld: /tmp/ccZQzAMQ.o: in function `gpu_memcpy.constprop.0':
+yolov4.c:(.text+0x20b9): undefined reference to `cudaEventCreate'
+/usr/bin/ld: yolov4.c:(.text+0x20c3): undefined reference to `cudaEventCreate'
+/usr/bin/ld: /tmp/ccZQzAMQ.o: in function `memcpy_host2gpu.part.0.constprop.0':
+yolov4.c:(.text+0x3439): undefined reference to `cudaEventCreate'
+/usr/bin/ld: yolov4.c:(.text+0x3443): undefined reference to `cudaEventCreate'
+/usr/bin/ld: /tmp/ccZQzAMQ.o: in function `gpu_launch_kernel.constprop.0':
+yolov4.c:(.text+0x20fb0): undefined reference to `cudaEventCreate'
+/usr/bin/ld: /tmp/ccZQzAMQ.o:yolov4.c:(.text+0x20fba): more undefined references to `cudaEventCreate' follow
+collect2: error: ld returned 1 exit status

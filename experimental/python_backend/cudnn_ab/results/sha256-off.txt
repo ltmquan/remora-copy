@@ -1,0 +1,3 @@
+d30062614de6dcac725b69fdd65c1459bf6204398d6b16ef18ae14f4f624b707  off/libdarknet.so
+9dac03228cc548b5c23ccaf9e78e6091b1d39ee0e4ecea1a560015800c07ff58  off/src/convolutional_layer.c
+cc1833ad47f3558b74a16acb5786ab7244b6d34521f2e256a160d3fedcc6a51f  benchmark-off

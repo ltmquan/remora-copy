@@ -1,0 +1,2881 @@
+name_source {14221}
+
+types {
+
+}
+
+let {segmap_tblock_size_5244 : i64} =
+  get_size(segmap_tblock_size_5162, thread_block_size)
+let {num_tblocks_5245 : i64} =
+  calc_num_tblocks(361i64, segmap_num_tblocks_5164, segmap_tblock_size_5244)
+let {mem_12799 : mem@device} =
+  alloc(5776i64, @device)
+let {scalar_dist_5247 : [19i64][19i64][2i64]i64 @ mem_12799 ->
+                        {offset: 0i64;
+                         strides: [19i64, 1i64, 361i64];
+                         shape: [19i64, 19i64, 2i64]}} =
+  segmap(thread; virtualise; grid=num_tblocks_5245; blocksize=segmap_tblock_size_5244)
+  (gtid_5248 < 19i64, gtid_5249 < 19i64) (~phys_tid_5250) : {[2i64]i64} {
+    let {mem_12786 : mem@[2i64]i64} =
+      alloc(16i64, @[2i64]i64)
+    let {array_5253 : [2i64]i64 @ mem_12786 ->
+                      {offset: 0i64;
+                       strides: [1i64];
+                       shape: [2i64]}} =
+      [gtid_5248, gtid_5249] : []i64
+    return {returns array_5253}
+  }
+let {segmap_tblock_size_5404 : i64} =
+  get_size(segmap_tblock_size_5326, thread_block_size)
+let {num_tblocks_5405 : i64} =
+  calc_num_tblocks(25i64, segmap_num_tblocks_5328, segmap_tblock_size_5404)
+let {mem_12818 : mem@device} =
+  alloc(400i64, @device)
+let {scalar_dist_5407 : [5i64][5i64][2i64]i64 @ mem_12818 ->
+                        {offset: 0i64;
+                         strides: [5i64, 1i64, 25i64];
+                         shape: [5i64, 5i64, 2i64]}} =
+  segmap(thread; virtualise; grid=num_tblocks_5405; blocksize=segmap_tblock_size_5404)
+  (gtid_5408 < 5i64, gtid_5409 < 5i64) (~phys_tid_5410) : {[2i64]i64} {
+    let {mem_12805 : mem@[2i64]i64} =
+      alloc(16i64, @[2i64]i64)
+    let {array_5413 : [2i64]i64 @ mem_12805 ->
+                      {offset: 0i64;
+                       strides: [1i64];
+                       shape: [2i64]}} =
+      [gtid_5408, gtid_5409] : []i64
+    return {returns array_5413}
+  }
+let {segmap_tblock_size_5544 : i64} =
+  get_size(segmap_tblock_size_5466, thread_block_size)
+let {num_tblocks_5545 : i64} =
+  calc_num_tblocks(81i64, segmap_num_tblocks_5468, segmap_tblock_size_5544)
+let {mem_12837 : mem@device} =
+  alloc(1296i64, @device)
+let {scalar_dist_5547 : [9i64][9i64][2i64]i64 @ mem_12837 ->
+                        {offset: 0i64;
+                         strides: [9i64, 1i64, 81i64];
+                         shape: [9i64, 9i64, 2i64]}} =
+  segmap(thread; virtualise; grid=num_tblocks_5545; blocksize=segmap_tblock_size_5544)
+  (gtid_5548 < 9i64, gtid_5549 < 9i64) (~phys_tid_5550) : {[2i64]i64} {
+    let {mem_12824 : mem@[2i64]i64} =
+      alloc(16i64, @[2i64]i64)
+    let {array_5553 : [2i64]i64 @ mem_12824 ->
+                      {offset: 0i64;
+                       strides: [1i64];
+                       shape: [2i64]}} =
+      [gtid_5548, gtid_5549] : []i64
+    return {returns array_5553}
+  }
+let {segmap_tblock_size_5684 : i64} =
+  get_size(segmap_tblock_size_5606, thread_block_size)
+let {num_tblocks_5685 : i64} =
+  calc_num_tblocks(169i64, segmap_num_tblocks_5608, segmap_tblock_size_5684)
+let {mem_12856 : mem@device} =
+  alloc(2704i64, @device)
+let {scalar_dist_5687 : [13i64][13i64][2i64]i64 @ mem_12856 ->
+                        {offset: 0i64;
+                         strides: [13i64, 1i64, 169i64];
+                         shape: [13i64, 13i64, 2i64]}} =
+  segmap(thread; virtualise; grid=num_tblocks_5685; blocksize=segmap_tblock_size_5684)
+  (gtid_5688 < 13i64, gtid_5689 < 13i64) (~phys_tid_5690) : {[2i64]i64} {
+    let {mem_12843 : mem@[2i64]i64} =
+      alloc(16i64, @[2i64]i64)
+    let {array_5693 : [2i64]i64 @ mem_12843 ->
+                      {offset: 0i64;
+                       strides: [1i64];
+                       shape: [2i64]}} =
+      [gtid_5688, gtid_5689] : []i64
+    return {returns array_5693}
+  }
+
+entry("main",
+      {image: [][][]f32},
+      [][][]f32)
+  entry_main (image_mem_12857 : mem@device,
+              image_612 : [512i64][19i64][19i64]f32 @ image_mem_12857 ->
+                          {offset: 0i64;
+                           strides: [361i64, 19i64, 1i64];
+                           shape: [512i64, 19i64, 19i64]})
+  : {mem@device#([0], []),
+     [2048i64][19i64][19i64]f32 @ ?0@device ->
+     {offset: 0i64;
+      strides: [361i64, 19i64, 1i64];
+      shape: [2048i64, 19i64, 19i64]}#([1], [1])} = {
+  let {mem_12859 : mem@device} =
+    alloc(7220i64, @device)
+  let {map_2888 : [5i64][19i64][19i64]f32 @ mem_12859 ->
+                  {offset: 0i64;
+                   strides: [361i64, 19i64, 1i64];
+                   shape: [5i64, 19i64, 19i64]}} =
+    replicate([5i64][19i64][19i64], -1.0e30f32)
+  let {mem_12860 : mem@device} =
+    alloc(8i64, @device)
+  let {map_2890 : [2i64]f32 @ mem_12860 ->
+                  {offset: 0i64;
+                   strides: [1i64];
+                   shape: [2i64]}} =
+    replicate([2i64], -1.0e30f32)
+  let {mem_12861 : mem@device} =
+    alloc(24i64, @device)
+  let {map_3052 : [6i64]f32 @ mem_12861 ->
+                  {offset: 0i64;
+                   strides: [1i64];
+                   shape: [6i64]}} =
+    replicate([6i64], -1.0e30f32)
+  let {mem_12862 : mem@device} =
+    alloc(18772i64, @device)
+  let {map_3050 : [13i64][19i64][19i64]f32 @ mem_12862 ->
+                  {offset: 0i64;
+                   strides: [361i64, 19i64, 1i64];
+                   shape: [13i64, 19i64, 19i64]}} =
+    replicate([13i64][19i64][19i64], -1.0e30f32)
+  let {mem_12863 : mem@device} =
+    alloc(16i64, @device)
+  let {map_2971 : [4i64]f32 @ mem_12863 ->
+                  {offset: 0i64;
+                   strides: [1i64];
+                   shape: [4i64]}} =
+    replicate([4i64], -1.0e30f32)
+  let {mem_12864 : mem@device} =
+    alloc(12996i64, @device)
+  let {map_2969 : [9i64][19i64][19i64]f32 @ mem_12864 ->
+                  {offset: 0i64;
+                   strides: [361i64, 19i64, 1i64];
+                   shape: [9i64, 19i64, 19i64]}} =
+    replicate([9i64][19i64][19i64], -1.0e30f32)
+  let {suff_outer_par_12459 : bool} =
+    cmp_size(suff_outer_par_9, threshold(def, )) <= 512i64
+  let {suff_outer_par_11163 : bool} =
+    cmp_size(suff_outer_par_1, threshold(def, )) <= 2560i64
+  let {segmap_tblock_size_11236 : i64} =
+    get_size(segmap_tblock_size_6160, thread_block_size)
+  let {segmap_tblock_size_11255 : i64} =
+    get_size(segmap_tblock_size_6268, thread_block_size)
+  let {suff_outer_par_11298 : bool} =
+    cmp_size(suff_outer_par_0, threshold(def, )) <= 924160i64
+  let {uniform_segred_tblock_size_11336 : i64} =
+    get_size(uniform_segred_tblock_size_6965, thread_block_size)
+  let {num_tblocks_11337 : i64} =
+    calc_num_tblocks(4620800i64, uniform_segred_num_tblocks_6967, uniform_segred_tblock_size_11336)
+  let {segmap_tblock_size_11310 : i64} =
+    get_size(segmap_tblock_size_7017, thread_block_size)
+  let {uniform_segred_tblock_size_11170 : i64} =
+    get_size(uniform_segred_tblock_size_6070, thread_block_size)
+  let {num_tblocks_11171 : i64} =
+    calc_num_tblocks(2560i64, uniform_segred_num_tblocks_6072, uniform_segred_tblock_size_11170)
+  let {suff_outer_par_11366 : bool} =
+    cmp_size(suff_outer_par_2, threshold(def, )) <= 184832i64
+  let {uniform_segred_tblock_size_11401 : i64} =
+    get_size(uniform_segred_tblock_size_7507, thread_block_size)
+  let {num_tblocks_11402 : i64} =
+    calc_num_tblocks(924160i64, uniform_segred_num_tblocks_7509, uniform_segred_tblock_size_11401)
+  let {segmap_tblock_size_11377 : i64} =
+    get_size(segmap_tblock_size_7555, thread_block_size)
+  let {suff_outer_par_11418 : bool} =
+    cmp_size(suff_outer_par_4, threshold(def, )) <= 4608i64
+  let {segmap_tblock_size_11491 : i64} =
+    get_size(segmap_tblock_size_7875, thread_block_size)
+  let {segmap_tblock_size_11510 : i64} =
+    get_size(segmap_tblock_size_7983, thread_block_size)
+  let {suff_outer_par_11553 : bool} =
+    cmp_size(suff_outer_par_3, threshold(def, )) <= 1663488i64
+  let {uniform_segred_tblock_size_11591 : i64} =
+    get_size(uniform_segred_tblock_size_8680, thread_block_size)
+  let {num_tblocks_11592 : i64} =
+    calc_num_tblocks(14971392i64, uniform_segred_num_tblocks_8682, uniform_segred_tblock_size_11591)
+  let {segmap_tblock_size_11565 : i64} =
+    get_size(segmap_tblock_size_8732, thread_block_size)
+  let {uniform_segred_tblock_size_11425 : i64} =
+    get_size(uniform_segred_tblock_size_7785, thread_block_size)
+  let {num_tblocks_11426 : i64} =
+    calc_num_tblocks(4608i64, uniform_segred_num_tblocks_7787, uniform_segred_tblock_size_11425)
+  let {suff_outer_par_11621 : bool} =
+    cmp_size(suff_outer_par_5, threshold(def, )) <= 184832i64
+  let {uniform_segred_tblock_size_11656 : i64} =
+    get_size(uniform_segred_tblock_size_9222, thread_block_size)
+  let {num_tblocks_11657 : i64} =
+    calc_num_tblocks(1663488i64, uniform_segred_num_tblocks_9224, uniform_segred_tblock_size_11656)
+  let {segmap_tblock_size_11632 : i64} =
+    get_size(segmap_tblock_size_9270, thread_block_size)
+  let {suff_outer_par_11673 : bool} =
+    cmp_size(suff_outer_par_7, threshold(def, )) <= 6656i64
+  let {segmap_tblock_size_11746 : i64} =
+    get_size(segmap_tblock_size_9590, thread_block_size)
+  let {segmap_tblock_size_11765 : i64} =
+    get_size(segmap_tblock_size_9698, thread_block_size)
+  let {suff_outer_par_11808 : bool} =
+    cmp_size(suff_outer_par_6, threshold(def, )) <= 2402816i64
+  let {uniform_segred_tblock_size_11846 : i64} =
+    get_size(uniform_segred_tblock_size_10395, thread_block_size)
+  let {num_tblocks_11847 : i64} =
+    calc_num_tblocks(31236608i64, uniform_segred_num_tblocks_10397, uniform_segred_tblock_size_11846)
+  let {segmap_tblock_size_11820 : i64} =
+    get_size(segmap_tblock_size_10447, thread_block_size)
+  let {uniform_segred_tblock_size_11680 : i64} =
+    get_size(uniform_segred_tblock_size_9500, thread_block_size)
+  let {num_tblocks_11681 : i64} =
+    calc_num_tblocks(6656i64, uniform_segred_num_tblocks_9502, uniform_segred_tblock_size_11680)
+  let {suff_outer_par_11876 : bool} =
+    cmp_size(suff_outer_par_8, threshold(def, )) <= 184832i64
+  let {uniform_segred_tblock_size_11911 : i64} =
+    get_size(uniform_segred_tblock_size_10937, thread_block_size)
+  let {num_tblocks_11912 : i64} =
+    calc_num_tblocks(2402816i64, uniform_segred_num_tblocks_10939, uniform_segred_tblock_size_11911)
+  let {segmap_tblock_size_11887 : i64} =
+    get_size(segmap_tblock_size_10985, thread_block_size)
+  let {segmap_tblock_size_12280 : i64} =
+    get_size(segmap_tblock_size_12099, thread_block_size)
+  let {num_tblocks_12281 : i64} =
+    calc_num_tblocks(512i64, segmap_num_tblocks_12101, segmap_tblock_size_12280)
+  let {segmap_usable_groups_11237 : i64} =
+    sdiv_up_safe64(9241600i64, segmap_tblock_size_11236)
+  let {segmap_usable_groups_11256 : i64} =
+    sdiv_up_safe64(4620800i64, segmap_tblock_size_11255)
+  let {segmap_usable_groups_11311 : i64} =
+    sdiv_up_safe64(924160i64, segmap_tblock_size_11310)
+  let {num_threads_12913 : i64} =
+    mul_nw64(uniform_segred_tblock_size_11170, num_tblocks_11171)
+  let {bytes_12958 : i64} =
+    mul_nw64(14440i64, num_threads_12913)
+  let {segmap_usable_groups_11492 : i64} =
+    sdiv_up_safe64(29942784i64, segmap_tblock_size_11491)
+  let {segmap_usable_groups_11511 : i64} =
+    sdiv_up_safe64(14971392i64, segmap_tblock_size_11510)
+  let {segmap_usable_groups_11566 : i64} =
+    sdiv_up_safe64(1663488i64, segmap_tblock_size_11565)
+  let {num_threads_13074 : i64} =
+    mul_nw64(uniform_segred_tblock_size_11425, num_tblocks_11426)
+  let {bytes_13119 : i64} =
+    mul_nw64(25992i64, num_threads_13074)
+  let {segmap_usable_groups_11747 : i64} =
+    sdiv_up_safe64(62473216i64, segmap_tblock_size_11746)
+  let {segmap_usable_groups_11766 : i64} =
+    sdiv_up_safe64(31236608i64, segmap_tblock_size_11765)
+  let {segmap_usable_groups_11821 : i64} =
+    sdiv_up_safe64(2402816i64, segmap_tblock_size_11820)
+  let {num_threads_13235 : i64} =
+    mul_nw64(uniform_segred_tblock_size_11680, num_tblocks_11681)
+  let {bytes_13280 : i64} =
+    mul_nw64(37544i64, num_threads_13235)
+  let {mem_13803 : mem@device} =
+    alloc(2957312i64, @device)
+  let {num_threads_13912 : i64} =
+    mul_nw64(segmap_tblock_size_12280, num_tblocks_12281)
+  let {total_size_13913 : i64} =
+    mul_nw64(12996i64, num_threads_13912)
+  let {total_size_13914 : i64} =
+    mul_nw64(18772i64, num_threads_13912)
+  let {total_size_13915 : i64} =
+    mul_nw64(1444i64, num_threads_13912)
+  let {total_size_13916 : i64} =
+    mul_nw64(1444i64, num_threads_13912)
+  let {total_size_13917 : i64} =
+    mul_nw64(1444i64, num_threads_13912)
+  let {total_size_13918 : i64} =
+    mul_nw64(18772i64, num_threads_13912)
+  let {total_size_13919 : i64} =
+    mul_nw64(1444i64, num_threads_13912)
+  let {total_size_13920 : i64} =
+    mul_nw64(1444i64, num_threads_13912)
+  let {ctx_13950 : i64} =
+    mul_nw64(361i64, num_threads_13912)
+  let {ctx_13951 : i64} =
+    mul_nw64(19i64, num_threads_13912)
+  let {ctx_14006 : i64} =
+    mul_nw64(361i64, num_threads_13912)
+  let {ctx_14007 : i64} =
+    mul_nw64(19i64, num_threads_13912)
+  let {ctx_14017 : i64} =
+    mul_nw64(19i64, num_threads_13912)
+  let {ctx_14032 : i64} =
+    mul_nw64(19i64, num_threads_13912)
+  let {ctx_14042 : i64} =
+    mul_nw64(361i64, num_threads_13912)
+  let {ctx_14043 : i64} =
+    mul_nw64(19i64, num_threads_13912)
+  let {ctx_14098 : i64} =
+    mul_nw64(361i64, num_threads_13912)
+  let {ctx_14099 : i64} =
+    mul_nw64(19i64, num_threads_13912)
+  let {ctx_14109 : i64} =
+    mul_nw64(19i64, num_threads_13912)
+  let {ctx_14124 : i64} =
+    mul_nw64(19i64, num_threads_13912)
+  let {ctx_14134 : i64} =
+    mul_nw64(361i64, num_threads_13912)
+  let {ctx_14135 : i64} =
+    mul_nw64(19i64, num_threads_13912)
+  let {ctx_14190 : i64} =
+    mul_nw64(361i64, num_threads_13912)
+  let {ctx_14191 : i64} =
+    mul_nw64(19i64, num_threads_13912)
+  let {ctx_14201 : i64} =
+    mul_nw64(19i64, num_threads_13912)
+  let {ctx_14216 : i64} =
+    mul_nw64(19i64, num_threads_13912)
+  let {ext_mem_13797 : mem@device,
+       ext_13796 : i64,
+       ext_13795 : i64,
+       ext_13794 : i64,
+       ext_13793 : i64,
+       ext_mem_13792 : mem@device,
+       ext_13791 : i64,
+       ext_13790 : i64,
+       ext_13789 : i64,
+       ext_13788 : i64,
+       match_res_12460 : [512i64][19i64][19i64]f32 @ mem_13803 ->
+                         {offset: 0i64;
+                          strides: [361i64, 19i64, 1i64];
+                          shape: [512i64, 19i64, 19i64]},
+       match_res_12461 : [512i64][19i64][19i64]f32 @ ext_mem_13797 ->
+                         {offset: ext_13796;
+                          strides: [ext_13795, ext_13794, ext_13793];
+                          shape: [512i64, 19i64, 19i64]},
+       match_res_12462 : [512i64][19i64][19i64]f32 @ ext_mem_13792 ->
+                         {offset: ext_13791;
+                          strides: [ext_13790, ext_13789, ext_13788];
+                          shape: [512i64, 19i64, 19i64]}} =
+    if <equiv> suff_outer_par_12459
+    then {
+      let {mem_13360 : mem@device} =
+        alloc(739328i64, @device)
+      let {image_coalesced_12771 : [512i64][19i64][19i64]f32 @ mem_13360 ->
+                                   {offset: 0i64;
+                                    strides: [1i64, 9728i64, 512i64];
+                                    shape: [512i64, 19i64, 19i64]}} =
+        manifest(image_612, (1, 2, 0))
+      let {mem_13774 : mem@device} =
+        alloc(739328i64, @device)
+      let {mem_13787 : mem@device} =
+        alloc(739328i64, @device)
+      let {color_13904 : mem@device} =
+        alloc(total_size_13913, @device)
+      let {color_13905 : mem@device} =
+        alloc(total_size_13914, @device)
+      let {color_13906 : mem@device} =
+        alloc(total_size_13915, @device)
+      let {color_13907 : mem@device} =
+        alloc(total_size_13916, @device)
+      let {color_13908 : mem@device} =
+        alloc(total_size_13917, @device)
+      let {color_13909 : mem@device} =
+        alloc(total_size_13918, @device)
+      let {color_13910 : mem@device} =
+        alloc(total_size_13919, @device)
+      let {color_13911 : mem@device} =
+        alloc(total_size_13920, @device)
+      let {outer_map_12283 : [512i64][19i64][19i64]f32 @ mem_13803 ->
+                             {offset: 0i64;
+                              strides: [361i64, 19i64, 1i64];
+                              shape: [512i64, 19i64, 19i64]},
+           outer_map_12284 : [512i64][19i64][19i64]f32 @ mem_13774 ->
+                             {offset: 0i64;
+                              strides: [1i64, 9728i64, 512i64];
+                              shape: [512i64, 19i64, 19i64]},
+           outer_map_12285 : [512i64][19i64][19i64]f32 @ mem_13787 ->
+                             {offset: 0i64;
+                              strides: [1i64, 9728i64, 512i64];
+                              shape: [512i64, 19i64, 19i64]}} =
+        segmap(thread; virtualise; grid=num_tblocks_12281; blocksize=segmap_tblock_size_12280)
+        (gtid_12286 < 512i64) (~phys_tid_12287) : {[19i64][19i64]f32, [19i64][19i64]f32, [19i64][19i64]f32} {
+          let {mem_13370 : mem@[19i64][31i64]f32} =
+            alloc(2356i64, @[19i64][31i64]f32)
+          let {result_12545 : [19i64][31i64]f32 @ mem_13370 ->
+                              {offset: 0i64;
+                               strides: [31i64, 1i64];
+                               shape: [19i64, 31i64]}} =
+            scratch(f32, 19i64, 31i64)
+          let {mem_13379 : mem@[19i64][27i64]f32} =
+            alloc(2052i64, @[19i64][27i64]f32)
+          let {result_12546 : [19i64][27i64]f32 @ mem_13379 ->
+                              {offset: 0i64;
+                               strides: [27i64, 1i64];
+                               shape: [19i64, 27i64]}} =
+            scratch(f32, 19i64, 27i64)
+          let {mem_13388 : mem@[19i64][23i64]f32} =
+            alloc(1748i64, @[19i64][23i64]f32)
+          let {result_12547 : [19i64][23i64]f32 @ mem_13388 ->
+                              {offset: 0i64;
+                               strides: [23i64, 1i64];
+                               shape: [19i64, 23i64]}} =
+            scratch(f32, 19i64, 23i64)
+          let {mem_13396 : mem@[23i64]f32} =
+            alloc(92i64, @[23i64]f32)
+          let {mem_13401 : mem@[27i64]f32} =
+            alloc(108i64, @[27i64]f32)
+          let {mem_13406 : mem@[31i64]f32} =
+            alloc(124i64, @[31i64]f32)
+          let {map_12289 : [19i64][31i64]f32 @ mem_13370 ->
+                           {offset: 0i64;
+                            strides: [31i64, 1i64];
+                            shape: [19i64, 31i64]},
+               map_12290 : [19i64][27i64]f32 @ mem_13379 ->
+                           {offset: 0i64;
+                            strides: [27i64, 1i64];
+                            shape: [19i64, 27i64]},
+               map_12291 : [19i64][23i64]f32 @ mem_13388 ->
+                           {offset: 0i64;
+                            strides: [23i64, 1i64];
+                            shape: [19i64, 23i64]}} =
+            loop {out_12548 : *[19i64][31i64]f32 @ mem_13370 ->
+                              {offset: 0i64;
+                               strides: [31i64, 1i64];
+                               shape: [19i64, 31i64]},
+                  out_12549 : *[19i64][27i64]f32 @ mem_13379 ->
+                              {offset: 0i64;
+                               strides: [27i64, 1i64];
+                               shape: [19i64, 27i64]},
+                  out_12550 : *[19i64][23i64]f32 @ mem_13388 ->
+                              {offset: 0i64;
+                               strides: [23i64, 1i64];
+                               shape: [19i64, 23i64]}} = {result_12545, result_12546, result_12547}
+            for i_12551:i64 < 19i64 do {
+              let {x_12292 : [19i64]f32 @ mem_13360 ->
+                             {offset: add_nw64 (gtid_12286) (mul_nw64 (i_12551) (9728i64));
+                              strides: [512i64];
+                              shape: [19i64]}} =
+                image_coalesced_12771[gtid_12286, i_12551, 0i64 :+ 19i64 * 1i64]
+              let {append_12293 : [23i64]f32 @ mem_13396 ->
+                                  {offset: 0i64;
+                                   strides: [1i64];
+                                   shape: [23i64]}} =
+                concat@0(23i64, map_2890, x_12292, map_2890)
+              let {append_12294 : [27i64]f32 @ mem_13401 ->
+                                  {offset: 0i64;
+                                   strides: [1i64];
+                                   shape: [27i64]}} =
+                concat@0(27i64, map_2971, x_12292, map_2971)
+              let {append_12295 : [31i64]f32 @ mem_13406 ->
+                                  {offset: 0i64;
+                                   strides: [1i64];
+                                   shape: [31i64]}} =
+                concat@0(31i64, map_3052, x_12292, map_3052)
+              let {lw_dest_12552 : [19i64][31i64]f32 @ mem_13370 ->
+                                   {offset: 0i64;
+                                    strides: [31i64, 1i64];
+                                    shape: [19i64, 31i64]}} =
+                out_12548 with [i_12551, 0i64 :+ 31i64 * 1i64] = append_12295
+              let {lw_dest_12553 : [19i64][27i64]f32 @ mem_13379 ->
+                                   {offset: 0i64;
+                                    strides: [27i64, 1i64];
+                                    shape: [19i64, 27i64]}} =
+                out_12549 with [i_12551, 0i64 :+ 27i64 * 1i64] = append_12294
+              let {lw_dest_12554 : [19i64][23i64]f32 @ mem_13388 ->
+                                   {offset: 0i64;
+                                    strides: [23i64, 1i64];
+                                    shape: [19i64, 23i64]}} =
+                out_12550 with [i_12551, 0i64 :+ 23i64 * 1i64] = append_12293
+              in {lw_dest_12552, lw_dest_12553, lw_dest_12554}
+            }
+          let {map_desired_form_db_copy_13831 : [5i64][19i64][19i64]f32 @ color_13904 ->
+                                                {offset: phys_tid_12287;
+                                                 strides: [mul_nw64 (num_threads_13912) (361i64), mul_nw64 (num_threads_13912) (19i64), num_threads_13912];
+                                                 shape: [5i64, 19i64, 19i64]}} =
+            replicate([5i64][19i64][19i64], -1.0e30f32)
+          let {mem_13427 : mem@[5i64][19i64][19i64]f32} =
+            alloc(7220i64, @[5i64][19i64][19i64]f32)
+          let {mem_13437 : mem@[19i64][19i64]f32} =
+            alloc(1444i64, @[19i64][19i64]f32)
+          let {mem_13443 : mem@[19i64]f32} =
+            alloc(76i64, @[19i64]f32)
+          let {mem_13449 : mem@[2i64]i64} =
+            alloc(16i64, @[2i64]i64)
+          let {mem_13467 : mem@[5i64][19i64][19i64]f32} =
+            alloc(7220i64, @[5i64][19i64][19i64]f32)
+          let {mem_13477 : mem@[19i64][19i64]f32} =
+            alloc(1444i64, @[19i64][19i64]f32)
+          let {mem_13483 : mem@[19i64]f32} =
+            alloc(76i64, @[19i64]f32)
+          let {ext_mem_13494 : mem@device,
+               ext_mem_unused_13829 : mem@device,
+               reduce_12299 : [5i64][19i64][19i64]f32 @ ext_mem_ext_14008 ->
+                              {offset: phys_tid_12287;
+                               strides: [ext_14010, ext_14011, num_threads_13912];
+                               shape: [5i64, 19i64, 19i64]},
+               ext_mem_ext_14008 : mem@device,
+               ext_14010 : i64,
+               ext_14011 : i64} =
+            loop {mem_param_13414 : mem@device,
+                  mem_param_out_13830 : mem@device,
+                  redout_12555 : *[5i64][19i64][19i64]f32 @ mem_param_ext_13945 ->
+                                 {offset: phys_tid_12287;
+                                  strides: [ext_13947, ext_13948, num_threads_13912];
+                                  shape: [5i64, 19i64, 19i64]},
+                  mem_param_ext_13945 : mem@device,
+                  ext_13947 : i64,
+                  ext_13948 : i64} = {color_13904, color_13905, map_desired_form_db_copy_13831, color_13904, ctx_13950, ctx_13951}
+            for i_12556:i64 < 5i64 do {
+              let {result_12557 : [5i64][19i64][19i64]f32 @ mem_13427 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [5i64, 19i64, 19i64]}} =
+                scratch(f32, 5i64, 19i64, 19i64)
+              let {map_12301 : [5i64][19i64][19i64]f32 @ mem_13427 ->
+                               {offset: 0i64;
+                                strides: [361i64, 19i64, 1i64];
+                                shape: [5i64, 19i64, 19i64]}} =
+                loop {out_12558 : *[5i64][19i64][19i64]f32 @ mem_13427 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [5i64, 19i64, 19i64]}} = {result_12557}
+                for i_12559:i64 < 5i64 do {
+                  let {result_12561 : [19i64][19i64]f32 @ mem_13437 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} =
+                    scratch(f32, 19i64, 19i64)
+                  let {map_12303 : [19i64][19i64]f32 @ mem_13437 ->
+                                   {offset: 0i64;
+                                    strides: [19i64, 1i64];
+                                    shape: [19i64, 19i64]}} =
+                    loop {out_12562 : *[19i64][19i64]f32 @ mem_13437 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} = {result_12561}
+                    for i_12563:i64 < 19i64 do {
+                      let {result_12565 : [19i64]f32 @ mem_13443 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} =
+                        scratch(f32, 19i64)
+                      let {map_12305 : [19i64]f32 @ mem_13443 ->
+                                       {offset: 0i64;
+                                        strides: [1i64];
+                                        shape: [19i64]}} =
+                        loop {out_12566 : *[19i64]f32 @ mem_13443 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} = {result_12565}
+                        for i_12567:i64 < 19i64 do {
+                          let {result_12569 : [2i64]i64 @ mem_13449 ->
+                                              {offset: 0i64;
+                                               strides: [1i64];
+                                               shape: [2i64]}} =
+                            scratch(i64, 2i64)
+                          let {map_12307 : [2i64]i64 @ mem_13449 ->
+                                           {offset: 0i64;
+                                            strides: [1i64];
+                                            shape: [2i64]}} =
+                            loop {out_12570 : *[2i64]i64 @ mem_13449 ->
+                                              {offset: 0i64;
+                                               strides: [1i64];
+                                               shape: [2i64]}} = {result_12569}
+                            for i_12571:i64 < 2i64 do {
+                              let {x_12308 : i64} =
+                                scalar_dist_5407[i_12556, i_12559, i_12571]
+                              let {x_12309 : i64} =
+                                scalar_dist_5247[i_12563, i_12567, i_12571]
+                              let {binop_12310 : i64} =
+                                add64(x_12308, x_12309)
+                              let {lw_dest_12572 : [2i64]i64 @ mem_13449 ->
+                                                   {offset: 0i64;
+                                                    strides: [1i64];
+                                                    shape: [2i64]}} =
+                                out_12570 with [i_12571] = binop_12310
+                              in {lw_dest_12572}
+                            }
+                          let {i_12312 : i64} =
+                            map_12307[0i64]
+                          let {index_concat_cmp_12314 : bool} =
+                            sle64(21i64, i_12312)
+                          let {index_concat_branch_12315 : f32} =
+                            if index_concat_cmp_12314
+                            then {-1.0e30f32} else {
+                              let {index_concat_cmp_12316 : bool} =
+                                sle64(2i64, i_12312)
+                              let {index_concat_branch_12317 : f32} =
+                                if index_concat_cmp_12316
+                                then {
+                                  let {i_12313 : i64} =
+                                    map_12307[1i64]
+                                  let {index_concat_i_12318 : i64} =
+                                    sub64(i_12312, 2i64)
+                                  let {index_concat_12319 : f32} =
+                                    map_12291[index_concat_i_12318, i_12313]
+                                  in {index_concat_12319}
+                                } else {-1.0e30f32}
+                                : {f32}
+                              in {index_concat_branch_12317}
+                            }
+                            : {f32}
+                          let {lw_dest_12568 : [19i64]f32 @ mem_13443 ->
+                                               {offset: 0i64;
+                                                strides: [1i64];
+                                                shape: [19i64]}} =
+                            out_12566 with [i_12567] = index_concat_branch_12315
+                          in {lw_dest_12568}
+                        }
+                      let {lw_dest_12564 : [19i64][19i64]f32 @ mem_13437 ->
+                                           {offset: 0i64;
+                                            strides: [19i64, 1i64];
+                                            shape: [19i64, 19i64]}} =
+                        out_12562 with [i_12563, 0i64 :+ 19i64 * 1i64] = map_12305
+                      in {lw_dest_12564}
+                    }
+                  let {lw_dest_12560 : [5i64][19i64][19i64]f32 @ mem_13427 ->
+                                       {offset: 0i64;
+                                        strides: [361i64, 19i64, 1i64];
+                                        shape: [5i64, 19i64, 19i64]}} =
+                    out_12558 with [i_12559, 0i64 :+ 19i64 * 1i64, 0i64 :+ 19i64 * 1i64] = map_12303
+                  in {lw_dest_12560}
+                }
+              let {result_12573 : [5i64][19i64][19i64]f32 @ mem_13467 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [5i64, 19i64, 19i64]}} =
+                scratch(f32, 5i64, 19i64, 19i64)
+              let {map_12325 : [5i64][19i64][19i64]f32 @ mem_13467 ->
+                               {offset: 0i64;
+                                strides: [361i64, 19i64, 1i64];
+                                shape: [5i64, 19i64, 19i64]}} =
+                loop {out_12574 : *[5i64][19i64][19i64]f32 @ mem_13467 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [5i64, 19i64, 19i64]}} = {result_12573}
+                for i_12575:i64 < 5i64 do {
+                  let {result_12577 : [19i64][19i64]f32 @ mem_13477 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} =
+                    scratch(f32, 19i64, 19i64)
+                  let {map_12328 : [19i64][19i64]f32 @ mem_13477 ->
+                                   {offset: 0i64;
+                                    strides: [19i64, 1i64];
+                                    shape: [19i64, 19i64]}} =
+                    loop {out_12578 : *[19i64][19i64]f32 @ mem_13477 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} = {result_12577}
+                    for i_12579:i64 < 19i64 do {
+                      let {result_12581 : [19i64]f32 @ mem_13483 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} =
+                        scratch(f32, 19i64)
+                      let {map_12331 : [19i64]f32 @ mem_13483 ->
+                                       {offset: 0i64;
+                                        strides: [1i64];
+                                        shape: [19i64]}} =
+                        loop {out_12582 : *[19i64]f32 @ mem_13483 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} = {result_12581}
+                        for i_12583:i64 < 19i64 do {
+                          let {x_12332 : f32} =
+                            redout_12555[i_12575, i_12579, i_12583]
+                          let {x_12333 : f32} =
+                            map_12301[i_12575, i_12579, i_12583]
+                          let {binop_12334 : f32} =
+                            fmax32(x_12332, x_12333)
+                          let {lw_dest_12584 : [19i64]f32 @ mem_13483 ->
+                                               {offset: 0i64;
+                                                strides: [1i64];
+                                                shape: [19i64]}} =
+                            out_12582 with [i_12583] = binop_12334
+                          in {lw_dest_12584}
+                        }
+                      let {lw_dest_12580 : [19i64][19i64]f32 @ mem_13477 ->
+                                           {offset: 0i64;
+                                            strides: [19i64, 1i64];
+                                            shape: [19i64, 19i64]}} =
+                        out_12578 with [i_12579, 0i64 :+ 19i64 * 1i64] = map_12331
+                      in {lw_dest_12580}
+                    }
+                  let {lw_dest_12576 : [5i64][19i64][19i64]f32 @ mem_13467 ->
+                                       {offset: 0i64;
+                                        strides: [361i64, 19i64, 1i64];
+                                        shape: [5i64, 19i64, 19i64]}} =
+                    out_12574 with [i_12575, 0i64 :+ 19i64 * 1i64, 0i64 :+ 19i64 * 1i64] = map_12328
+                  in {lw_dest_12576}
+                }
+              let {map_desired_form_13489 : [5i64][19i64][19i64]f32 @ mem_param_out_13830 ->
+                                            {offset: phys_tid_12287;
+                                             strides: [mul_nw64 (num_threads_13912) (361i64), mul_nw64 (num_threads_13912) (19i64), num_threads_13912];
+                                             shape: [5i64, 19i64, 19i64]}} =
+                manifest(map_12325, (0, 1, 2))
+              in {mem_param_out_13830, mem_param_13414, map_desired_form_13489, mem_param_out_13830, ctx_14006, ctx_14007}
+            }
+          let {map_desired_form_db_copy_13843 : [19i64][19i64]f32 @ color_13907 ->
+                                                {offset: phys_tid_12287;
+                                                 strides: [mul_nw64 (num_threads_13912) (19i64), num_threads_13912];
+                                                 shape: [19i64, 19i64]}} =
+            replicate([19i64][19i64], -1.0e30f32)
+          let {mem_13507 : mem@[19i64][19i64]f32} =
+            alloc(1444i64, @[19i64][19i64]f32)
+          let {mem_13513 : mem@[19i64]f32} =
+            alloc(76i64, @[19i64]f32)
+          let {ext_mem_13522 : mem@device,
+               ext_mem_unused_13841 : mem@device,
+               reduce_12338 : [19i64][19i64]f32 @ ext_mem_ext_14033 ->
+                              {offset: phys_tid_12287;
+                               strides: [ext_14035, num_threads_13912];
+                               shape: [19i64, 19i64]},
+               ext_mem_ext_14033 : mem@device,
+               ext_14035 : i64} =
+            loop {mem_param_13498 : mem@device,
+                  mem_param_out_13842 : mem@device,
+                  redout_12585 : *[19i64][19i64]f32 @ mem_param_ext_14013 ->
+                                 {offset: phys_tid_12287;
+                                  strides: [ext_14015, num_threads_13912];
+                                  shape: [19i64, 19i64]},
+                  mem_param_ext_14013 : mem@device,
+                  ext_14015 : i64} = {color_13907, color_13911, map_desired_form_db_copy_13843, color_13907, ctx_14017}
+            for i_12586:i64 < 5i64 do {
+              let {result_12587 : [19i64][19i64]f32 @ mem_13507 ->
+                                  {offset: 0i64;
+                                   strides: [19i64, 1i64];
+                                   shape: [19i64, 19i64]}} =
+                scratch(f32, 19i64, 19i64)
+              let {map_12342 : [19i64][19i64]f32 @ mem_13507 ->
+                               {offset: 0i64;
+                                strides: [19i64, 1i64];
+                                shape: [19i64, 19i64]}} =
+                loop {out_12588 : *[19i64][19i64]f32 @ mem_13507 ->
+                                  {offset: 0i64;
+                                   strides: [19i64, 1i64];
+                                   shape: [19i64, 19i64]}} = {result_12587}
+                for i_12589:i64 < 19i64 do {
+                  let {result_12591 : [19i64]f32 @ mem_13513 ->
+                                      {offset: 0i64;
+                                       strides: [1i64];
+                                       shape: [19i64]}} =
+                    scratch(f32, 19i64)
+                  let {map_12345 : [19i64]f32 @ mem_13513 ->
+                                   {offset: 0i64;
+                                    strides: [1i64];
+                                    shape: [19i64]}} =
+                    loop {out_12592 : *[19i64]f32 @ mem_13513 ->
+                                      {offset: 0i64;
+                                       strides: [1i64];
+                                       shape: [19i64]}} = {result_12591}
+                    for i_12593:i64 < 19i64 do {
+                      let {x_12346 : f32} =
+                        redout_12585[i_12589, i_12593]
+                      let {x_12347 : f32} =
+                        reduce_12299[i_12586, i_12589, i_12593]
+                      let {binop_12348 : f32} =
+                        fmax32(x_12346, x_12347)
+                      let {lw_dest_12594 : [19i64]f32 @ mem_13513 ->
+                                           {offset: 0i64;
+                                            strides: [1i64];
+                                            shape: [19i64]}} =
+                        out_12592 with [i_12593] = binop_12348
+                      in {lw_dest_12594}
+                    }
+                  let {lw_dest_12590 : [19i64][19i64]f32 @ mem_13507 ->
+                                       {offset: 0i64;
+                                        strides: [19i64, 1i64];
+                                        shape: [19i64, 19i64]}} =
+                    out_12588 with [i_12589, 0i64 :+ 19i64 * 1i64] = map_12345
+                  in {lw_dest_12590}
+                }
+              let {map_desired_form_13518 : [19i64][19i64]f32 @ mem_param_out_13842 ->
+                                            {offset: phys_tid_12287;
+                                             strides: [mul_nw64 (num_threads_13912) (19i64), num_threads_13912];
+                                             shape: [19i64, 19i64]}} =
+                manifest(map_12342, (0, 1))
+              in {mem_param_out_13842, mem_param_13498, map_desired_form_13518, mem_param_out_13842, ctx_14032}
+            }
+          let {map_desired_form_db_copy_13859 : [9i64][19i64][19i64]f32 @ color_13904 ->
+                                                {offset: phys_tid_12287;
+                                                 strides: [mul_nw64 (num_threads_13912) (361i64), mul_nw64 (num_threads_13912) (19i64), num_threads_13912];
+                                                 shape: [9i64, 19i64, 19i64]}} =
+            replicate([9i64][19i64][19i64], -1.0e30f32)
+          let {mem_13540 : mem@[9i64][19i64][19i64]f32} =
+            alloc(12996i64, @[9i64][19i64][19i64]f32)
+          let {mem_13550 : mem@[19i64][19i64]f32} =
+            alloc(1444i64, @[19i64][19i64]f32)
+          let {mem_13556 : mem@[19i64]f32} =
+            alloc(76i64, @[19i64]f32)
+          let {mem_13562 : mem@[2i64]i64} =
+            alloc(16i64, @[2i64]i64)
+          let {mem_13580 : mem@[9i64][19i64][19i64]f32} =
+            alloc(12996i64, @[9i64][19i64][19i64]f32)
+          let {mem_13590 : mem@[19i64][19i64]f32} =
+            alloc(1444i64, @[19i64][19i64]f32)
+          let {mem_13596 : mem@[19i64]f32} =
+            alloc(76i64, @[19i64]f32)
+          let {ext_mem_13607 : mem@device,
+               ext_mem_unused_13857 : mem@device,
+               reduce_12351 : [9i64][19i64][19i64]f32 @ ext_mem_ext_14100 ->
+                              {offset: phys_tid_12287;
+                               strides: [ext_14102, ext_14103, num_threads_13912];
+                               shape: [9i64, 19i64, 19i64]},
+               ext_mem_ext_14100 : mem@device,
+               ext_14102 : i64,
+               ext_14103 : i64} =
+            loop {mem_param_13527 : mem@device,
+                  mem_param_out_13858 : mem@device,
+                  redout_12595 : *[9i64][19i64][19i64]f32 @ mem_param_ext_14037 ->
+                                 {offset: phys_tid_12287;
+                                  strides: [ext_14039, ext_14040, num_threads_13912];
+                                  shape: [9i64, 19i64, 19i64]},
+                  mem_param_ext_14037 : mem@device,
+                  ext_14039 : i64,
+                  ext_14040 : i64} = {color_13904, color_13905, map_desired_form_db_copy_13859, color_13904, ctx_14042, ctx_14043}
+            for i_12596:i64 < 9i64 do {
+              let {result_12597 : [9i64][19i64][19i64]f32 @ mem_13540 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [9i64, 19i64, 19i64]}} =
+                scratch(f32, 9i64, 19i64, 19i64)
+              let {map_12353 : [9i64][19i64][19i64]f32 @ mem_13540 ->
+                               {offset: 0i64;
+                                strides: [361i64, 19i64, 1i64];
+                                shape: [9i64, 19i64, 19i64]}} =
+                loop {out_12598 : *[9i64][19i64][19i64]f32 @ mem_13540 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [9i64, 19i64, 19i64]}} = {result_12597}
+                for i_12599:i64 < 9i64 do {
+                  let {result_12601 : [19i64][19i64]f32 @ mem_13550 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} =
+                    scratch(f32, 19i64, 19i64)
+                  let {map_12355 : [19i64][19i64]f32 @ mem_13550 ->
+                                   {offset: 0i64;
+                                    strides: [19i64, 1i64];
+                                    shape: [19i64, 19i64]}} =
+                    loop {out_12602 : *[19i64][19i64]f32 @ mem_13550 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} = {result_12601}
+                    for i_12603:i64 < 19i64 do {
+                      let {result_12605 : [19i64]f32 @ mem_13556 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} =
+                        scratch(f32, 19i64)
+                      let {map_12357 : [19i64]f32 @ mem_13556 ->
+                                       {offset: 0i64;
+                                        strides: [1i64];
+                                        shape: [19i64]}} =
+                        loop {out_12606 : *[19i64]f32 @ mem_13556 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} = {result_12605}
+                        for i_12607:i64 < 19i64 do {
+                          let {result_12609 : [2i64]i64 @ mem_13562 ->
+                                              {offset: 0i64;
+                                               strides: [1i64];
+                                               shape: [2i64]}} =
+                            scratch(i64, 2i64)
+                          let {map_12359 : [2i64]i64 @ mem_13562 ->
+                                           {offset: 0i64;
+                                            strides: [1i64];
+                                            shape: [2i64]}} =
+                            loop {out_12610 : *[2i64]i64 @ mem_13562 ->
+                                              {offset: 0i64;
+                                               strides: [1i64];
+                                               shape: [2i64]}} = {result_12609}
+                            for i_12611:i64 < 2i64 do {
+                              let {x_12360 : i64} =
+                                scalar_dist_5547[i_12596, i_12599, i_12611]
+                              let {x_12361 : i64} =
+                                scalar_dist_5247[i_12603, i_12607, i_12611]
+                              let {binop_12362 : i64} =
+                                add64(x_12360, x_12361)
+                              let {lw_dest_12612 : [2i64]i64 @ mem_13562 ->
+                                                   {offset: 0i64;
+                                                    strides: [1i64];
+                                                    shape: [2i64]}} =
+                                out_12610 with [i_12611] = binop_12362
+                              in {lw_dest_12612}
+                            }
+                          let {i_12364 : i64} =
+                            map_12359[0i64]
+                          let {index_concat_cmp_12366 : bool} =
+                            sle64(23i64, i_12364)
+                          let {index_concat_branch_12367 : f32} =
+                            if index_concat_cmp_12366
+                            then {-1.0e30f32} else {
+                              let {index_concat_cmp_12368 : bool} =
+                                sle64(4i64, i_12364)
+                              let {index_concat_branch_12369 : f32} =
+                                if index_concat_cmp_12368
+                                then {
+                                  let {i_12365 : i64} =
+                                    map_12359[1i64]
+                                  let {index_concat_i_12370 : i64} =
+                                    sub64(i_12364, 4i64)
+                                  let {index_concat_12371 : f32} =
+                                    map_12290[index_concat_i_12370, i_12365]
+                                  in {index_concat_12371}
+                                } else {-1.0e30f32}
+                                : {f32}
+                              in {index_concat_branch_12369}
+                            }
+                            : {f32}
+                          let {lw_dest_12608 : [19i64]f32 @ mem_13556 ->
+                                               {offset: 0i64;
+                                                strides: [1i64];
+                                                shape: [19i64]}} =
+                            out_12606 with [i_12607] = index_concat_branch_12367
+                          in {lw_dest_12608}
+                        }
+                      let {lw_dest_12604 : [19i64][19i64]f32 @ mem_13550 ->
+                                           {offset: 0i64;
+                                            strides: [19i64, 1i64];
+                                            shape: [19i64, 19i64]}} =
+                        out_12602 with [i_12603, 0i64 :+ 19i64 * 1i64] = map_12357
+                      in {lw_dest_12604}
+                    }
+                  let {lw_dest_12600 : [9i64][19i64][19i64]f32 @ mem_13540 ->
+                                       {offset: 0i64;
+                                        strides: [361i64, 19i64, 1i64];
+                                        shape: [9i64, 19i64, 19i64]}} =
+                    out_12598 with [i_12599, 0i64 :+ 19i64 * 1i64, 0i64 :+ 19i64 * 1i64] = map_12355
+                  in {lw_dest_12600}
+                }
+              let {result_12613 : [9i64][19i64][19i64]f32 @ mem_13580 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [9i64, 19i64, 19i64]}} =
+                scratch(f32, 9i64, 19i64, 19i64)
+              let {map_12377 : [9i64][19i64][19i64]f32 @ mem_13580 ->
+                               {offset: 0i64;
+                                strides: [361i64, 19i64, 1i64];
+                                shape: [9i64, 19i64, 19i64]}} =
+                loop {out_12614 : *[9i64][19i64][19i64]f32 @ mem_13580 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [9i64, 19i64, 19i64]}} = {result_12613}
+                for i_12615:i64 < 9i64 do {
+                  let {result_12617 : [19i64][19i64]f32 @ mem_13590 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} =
+                    scratch(f32, 19i64, 19i64)
+                  let {map_12380 : [19i64][19i64]f32 @ mem_13590 ->
+                                   {offset: 0i64;
+                                    strides: [19i64, 1i64];
+                                    shape: [19i64, 19i64]}} =
+                    loop {out_12618 : *[19i64][19i64]f32 @ mem_13590 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} = {result_12617}
+                    for i_12619:i64 < 19i64 do {
+                      let {result_12621 : [19i64]f32 @ mem_13596 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} =
+                        scratch(f32, 19i64)
+                      let {map_12383 : [19i64]f32 @ mem_13596 ->
+                                       {offset: 0i64;
+                                        strides: [1i64];
+                                        shape: [19i64]}} =
+                        loop {out_12622 : *[19i64]f32 @ mem_13596 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} = {result_12621}
+                        for i_12623:i64 < 19i64 do {
+                          let {x_12384 : f32} =
+                            redout_12595[i_12615, i_12619, i_12623]
+                          let {x_12385 : f32} =
+                            map_12353[i_12615, i_12619, i_12623]
+                          let {binop_12386 : f32} =
+                            fmax32(x_12384, x_12385)
+                          let {lw_dest_12624 : [19i64]f32 @ mem_13596 ->
+                                               {offset: 0i64;
+                                                strides: [1i64];
+                                                shape: [19i64]}} =
+                            out_12622 with [i_12623] = binop_12386
+                          in {lw_dest_12624}
+                        }
+                      let {lw_dest_12620 : [19i64][19i64]f32 @ mem_13590 ->
+                                           {offset: 0i64;
+                                            strides: [19i64, 1i64];
+                                            shape: [19i64, 19i64]}} =
+                        out_12618 with [i_12619, 0i64 :+ 19i64 * 1i64] = map_12383
+                      in {lw_dest_12620}
+                    }
+                  let {lw_dest_12616 : [9i64][19i64][19i64]f32 @ mem_13580 ->
+                                       {offset: 0i64;
+                                        strides: [361i64, 19i64, 1i64];
+                                        shape: [9i64, 19i64, 19i64]}} =
+                    out_12614 with [i_12615, 0i64 :+ 19i64 * 1i64, 0i64 :+ 19i64 * 1i64] = map_12380
+                  in {lw_dest_12616}
+                }
+              let {map_desired_form_13602 : [9i64][19i64][19i64]f32 @ mem_param_out_13858 ->
+                                            {offset: phys_tid_12287;
+                                             strides: [mul_nw64 (num_threads_13912) (361i64), mul_nw64 (num_threads_13912) (19i64), num_threads_13912];
+                                             shape: [9i64, 19i64, 19i64]}} =
+                manifest(map_12377, (0, 1, 2))
+              in {mem_param_out_13858, mem_param_13527, map_desired_form_13602, mem_param_out_13858, ctx_14098, ctx_14099}
+            }
+          let {map_desired_form_db_copy_13871 : [19i64][19i64]f32 @ color_13906 ->
+                                                {offset: phys_tid_12287;
+                                                 strides: [mul_nw64 (num_threads_13912) (19i64), num_threads_13912];
+                                                 shape: [19i64, 19i64]}} =
+            replicate([19i64][19i64], -1.0e30f32)
+          let {mem_13620 : mem@[19i64][19i64]f32} =
+            alloc(1444i64, @[19i64][19i64]f32)
+          let {mem_13626 : mem@[19i64]f32} =
+            alloc(76i64, @[19i64]f32)
+          let {ext_mem_13635 : mem@device,
+               ext_mem_unused_13869 : mem@device,
+               reduce_12390 : [19i64][19i64]f32 @ ext_mem_ext_14125 ->
+                              {offset: phys_tid_12287;
+                               strides: [ext_14127, num_threads_13912];
+                               shape: [19i64, 19i64]},
+               ext_mem_ext_14125 : mem@device,
+               ext_14127 : i64} =
+            loop {mem_param_13611 : mem@device,
+                  mem_param_out_13870 : mem@device,
+                  redout_12625 : *[19i64][19i64]f32 @ mem_param_ext_14105 ->
+                                 {offset: phys_tid_12287;
+                                  strides: [ext_14107, num_threads_13912];
+                                  shape: [19i64, 19i64]},
+                  mem_param_ext_14105 : mem@device,
+                  ext_14107 : i64} = {color_13906, color_13910, map_desired_form_db_copy_13871, color_13906, ctx_14109}
+            for i_12626:i64 < 9i64 do {
+              let {result_12627 : [19i64][19i64]f32 @ mem_13620 ->
+                                  {offset: 0i64;
+                                   strides: [19i64, 1i64];
+                                   shape: [19i64, 19i64]}} =
+                scratch(f32, 19i64, 19i64)
+              let {map_12394 : [19i64][19i64]f32 @ mem_13620 ->
+                               {offset: 0i64;
+                                strides: [19i64, 1i64];
+                                shape: [19i64, 19i64]}} =
+                loop {out_12628 : *[19i64][19i64]f32 @ mem_13620 ->
+                                  {offset: 0i64;
+                                   strides: [19i64, 1i64];
+                                   shape: [19i64, 19i64]}} = {result_12627}
+                for i_12629:i64 < 19i64 do {
+                  let {result_12631 : [19i64]f32 @ mem_13626 ->
+                                      {offset: 0i64;
+                                       strides: [1i64];
+                                       shape: [19i64]}} =
+                    scratch(f32, 19i64)
+                  let {map_12397 : [19i64]f32 @ mem_13626 ->
+                                   {offset: 0i64;
+                                    strides: [1i64];
+                                    shape: [19i64]}} =
+                    loop {out_12632 : *[19i64]f32 @ mem_13626 ->
+                                      {offset: 0i64;
+                                       strides: [1i64];
+                                       shape: [19i64]}} = {result_12631}
+                    for i_12633:i64 < 19i64 do {
+                      let {x_12398 : f32} =
+                        redout_12625[i_12629, i_12633]
+                      let {x_12399 : f32} =
+                        reduce_12351[i_12626, i_12629, i_12633]
+                      let {binop_12400 : f32} =
+                        fmax32(x_12398, x_12399)
+                      let {lw_dest_12634 : [19i64]f32 @ mem_13626 ->
+                                           {offset: 0i64;
+                                            strides: [1i64];
+                                            shape: [19i64]}} =
+                        out_12632 with [i_12633] = binop_12400
+                      in {lw_dest_12634}
+                    }
+                  let {lw_dest_12630 : [19i64][19i64]f32 @ mem_13620 ->
+                                       {offset: 0i64;
+                                        strides: [19i64, 1i64];
+                                        shape: [19i64, 19i64]}} =
+                    out_12628 with [i_12629, 0i64 :+ 19i64 * 1i64] = map_12397
+                  in {lw_dest_12630}
+                }
+              let {map_desired_form_13631 : [19i64][19i64]f32 @ mem_param_out_13870 ->
+                                            {offset: phys_tid_12287;
+                                             strides: [mul_nw64 (num_threads_13912) (19i64), num_threads_13912];
+                                             shape: [19i64, 19i64]}} =
+                manifest(map_12394, (0, 1))
+              in {mem_param_out_13870, mem_param_13611, map_desired_form_13631, mem_param_out_13870, ctx_14124}
+            }
+          let {map_desired_form_db_copy_13887 : [13i64][19i64][19i64]f32 @ color_13905 ->
+                                                {offset: phys_tid_12287;
+                                                 strides: [mul_nw64 (num_threads_13912) (361i64), mul_nw64 (num_threads_13912) (19i64), num_threads_13912];
+                                                 shape: [13i64, 19i64, 19i64]}} =
+            replicate([13i64][19i64][19i64], -1.0e30f32)
+          let {mem_13653 : mem@[13i64][19i64][19i64]f32} =
+            alloc(18772i64, @[13i64][19i64][19i64]f32)
+          let {mem_13663 : mem@[19i64][19i64]f32} =
+            alloc(1444i64, @[19i64][19i64]f32)
+          let {mem_13669 : mem@[19i64]f32} =
+            alloc(76i64, @[19i64]f32)
+          let {mem_13675 : mem@[2i64]i64} =
+            alloc(16i64, @[2i64]i64)
+          let {mem_13693 : mem@[13i64][19i64][19i64]f32} =
+            alloc(18772i64, @[13i64][19i64][19i64]f32)
+          let {mem_13703 : mem@[19i64][19i64]f32} =
+            alloc(1444i64, @[19i64][19i64]f32)
+          let {mem_13709 : mem@[19i64]f32} =
+            alloc(76i64, @[19i64]f32)
+          let {ext_mem_13720 : mem@device,
+               ext_mem_unused_13885 : mem@device,
+               reduce_12403 : [13i64][19i64][19i64]f32 @ ext_mem_ext_14192 ->
+                              {offset: phys_tid_12287;
+                               strides: [ext_14194, ext_14195, num_threads_13912];
+                               shape: [13i64, 19i64, 19i64]},
+               ext_mem_ext_14192 : mem@device,
+               ext_14194 : i64,
+               ext_14195 : i64} =
+            loop {mem_param_13640 : mem@device,
+                  mem_param_out_13886 : mem@device,
+                  redout_12635 : *[13i64][19i64][19i64]f32 @ mem_param_ext_14129 ->
+                                 {offset: phys_tid_12287;
+                                  strides: [ext_14131, ext_14132, num_threads_13912];
+                                  shape: [13i64, 19i64, 19i64]},
+                  mem_param_ext_14129 : mem@device,
+                  ext_14131 : i64,
+                  ext_14132 : i64} = {color_13905, color_13909, map_desired_form_db_copy_13887, color_13905, ctx_14134, ctx_14135}
+            for i_12636:i64 < 13i64 do {
+              let {result_12637 : [13i64][19i64][19i64]f32 @ mem_13653 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [13i64, 19i64, 19i64]}} =
+                scratch(f32, 13i64, 19i64, 19i64)
+              let {map_12405 : [13i64][19i64][19i64]f32 @ mem_13653 ->
+                               {offset: 0i64;
+                                strides: [361i64, 19i64, 1i64];
+                                shape: [13i64, 19i64, 19i64]}} =
+                loop {out_12638 : *[13i64][19i64][19i64]f32 @ mem_13653 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [13i64, 19i64, 19i64]}} = {result_12637}
+                for i_12639:i64 < 13i64 do {
+                  let {result_12641 : [19i64][19i64]f32 @ mem_13663 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} =
+                    scratch(f32, 19i64, 19i64)
+                  let {map_12407 : [19i64][19i64]f32 @ mem_13663 ->
+                                   {offset: 0i64;
+                                    strides: [19i64, 1i64];
+                                    shape: [19i64, 19i64]}} =
+                    loop {out_12642 : *[19i64][19i64]f32 @ mem_13663 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} = {result_12641}
+                    for i_12643:i64 < 19i64 do {
+                      let {result_12645 : [19i64]f32 @ mem_13669 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} =
+                        scratch(f32, 19i64)
+                      let {map_12409 : [19i64]f32 @ mem_13669 ->
+                                       {offset: 0i64;
+                                        strides: [1i64];
+                                        shape: [19i64]}} =
+                        loop {out_12646 : *[19i64]f32 @ mem_13669 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} = {result_12645}
+                        for i_12647:i64 < 19i64 do {
+                          let {result_12649 : [2i64]i64 @ mem_13675 ->
+                                              {offset: 0i64;
+                                               strides: [1i64];
+                                               shape: [2i64]}} =
+                            scratch(i64, 2i64)
+                          let {map_12411 : [2i64]i64 @ mem_13675 ->
+                                           {offset: 0i64;
+                                            strides: [1i64];
+                                            shape: [2i64]}} =
+                            loop {out_12650 : *[2i64]i64 @ mem_13675 ->
+                                              {offset: 0i64;
+                                               strides: [1i64];
+                                               shape: [2i64]}} = {result_12649}
+                            for i_12651:i64 < 2i64 do {
+                              let {x_12412 : i64} =
+                                scalar_dist_5687[i_12636, i_12639, i_12651]
+                              let {x_12413 : i64} =
+                                scalar_dist_5247[i_12643, i_12647, i_12651]
+                              let {binop_12414 : i64} =
+                                add64(x_12412, x_12413)
+                              let {lw_dest_12652 : [2i64]i64 @ mem_13675 ->
+                                                   {offset: 0i64;
+                                                    strides: [1i64];
+                                                    shape: [2i64]}} =
+                                out_12650 with [i_12651] = binop_12414
+                              in {lw_dest_12652}
+                            }
+                          let {i_12416 : i64} =
+                            map_12411[0i64]
+                          let {index_concat_cmp_12418 : bool} =
+                            sle64(25i64, i_12416)
+                          let {index_concat_branch_12419 : f32} =
+                            if index_concat_cmp_12418
+                            then {-1.0e30f32} else {
+                              let {index_concat_cmp_12420 : bool} =
+                                sle64(6i64, i_12416)
+                              let {index_concat_branch_12421 : f32} =
+                                if index_concat_cmp_12420
+                                then {
+                                  let {i_12417 : i64} =
+                                    map_12411[1i64]
+                                  let {index_concat_i_12422 : i64} =
+                                    sub64(i_12416, 6i64)
+                                  let {index_concat_12423 : f32} =
+                                    map_12289[index_concat_i_12422, i_12417]
+                                  in {index_concat_12423}
+                                } else {-1.0e30f32}
+                                : {f32}
+                              in {index_concat_branch_12421}
+                            }
+                            : {f32}
+                          let {lw_dest_12648 : [19i64]f32 @ mem_13669 ->
+                                               {offset: 0i64;
+                                                strides: [1i64];
+                                                shape: [19i64]}} =
+                            out_12646 with [i_12647] = index_concat_branch_12419
+                          in {lw_dest_12648}
+                        }
+                      let {lw_dest_12644 : [19i64][19i64]f32 @ mem_13663 ->
+                                           {offset: 0i64;
+                                            strides: [19i64, 1i64];
+                                            shape: [19i64, 19i64]}} =
+                        out_12642 with [i_12643, 0i64 :+ 19i64 * 1i64] = map_12409
+                      in {lw_dest_12644}
+                    }
+                  let {lw_dest_12640 : [13i64][19i64][19i64]f32 @ mem_13653 ->
+                                       {offset: 0i64;
+                                        strides: [361i64, 19i64, 1i64];
+                                        shape: [13i64, 19i64, 19i64]}} =
+                    out_12638 with [i_12639, 0i64 :+ 19i64 * 1i64, 0i64 :+ 19i64 * 1i64] = map_12407
+                  in {lw_dest_12640}
+                }
+              let {result_12653 : [13i64][19i64][19i64]f32 @ mem_13693 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [13i64, 19i64, 19i64]}} =
+                scratch(f32, 13i64, 19i64, 19i64)
+              let {map_12429 : [13i64][19i64][19i64]f32 @ mem_13693 ->
+                               {offset: 0i64;
+                                strides: [361i64, 19i64, 1i64];
+                                shape: [13i64, 19i64, 19i64]}} =
+                loop {out_12654 : *[13i64][19i64][19i64]f32 @ mem_13693 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [13i64, 19i64, 19i64]}} = {result_12653}
+                for i_12655:i64 < 13i64 do {
+                  let {result_12657 : [19i64][19i64]f32 @ mem_13703 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} =
+                    scratch(f32, 19i64, 19i64)
+                  let {map_12432 : [19i64][19i64]f32 @ mem_13703 ->
+                                   {offset: 0i64;
+                                    strides: [19i64, 1i64];
+                                    shape: [19i64, 19i64]}} =
+                    loop {out_12658 : *[19i64][19i64]f32 @ mem_13703 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} = {result_12657}
+                    for i_12659:i64 < 19i64 do {
+                      let {result_12661 : [19i64]f32 @ mem_13709 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} =
+                        scratch(f32, 19i64)
+                      let {map_12435 : [19i64]f32 @ mem_13709 ->
+                                       {offset: 0i64;
+                                        strides: [1i64];
+                                        shape: [19i64]}} =
+                        loop {out_12662 : *[19i64]f32 @ mem_13709 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} = {result_12661}
+                        for i_12663:i64 < 19i64 do {
+                          let {x_12436 : f32} =
+                            redout_12635[i_12655, i_12659, i_12663]
+                          let {x_12437 : f32} =
+                            map_12405[i_12655, i_12659, i_12663]
+                          let {binop_12438 : f32} =
+                            fmax32(x_12436, x_12437)
+                          let {lw_dest_12664 : [19i64]f32 @ mem_13709 ->
+                                               {offset: 0i64;
+                                                strides: [1i64];
+                                                shape: [19i64]}} =
+                            out_12662 with [i_12663] = binop_12438
+                          in {lw_dest_12664}
+                        }
+                      let {lw_dest_12660 : [19i64][19i64]f32 @ mem_13703 ->
+                                           {offset: 0i64;
+                                            strides: [19i64, 1i64];
+                                            shape: [19i64, 19i64]}} =
+                        out_12658 with [i_12659, 0i64 :+ 19i64 * 1i64] = map_12435
+                      in {lw_dest_12660}
+                    }
+                  let {lw_dest_12656 : [13i64][19i64][19i64]f32 @ mem_13693 ->
+                                       {offset: 0i64;
+                                        strides: [361i64, 19i64, 1i64];
+                                        shape: [13i64, 19i64, 19i64]}} =
+                    out_12654 with [i_12655, 0i64 :+ 19i64 * 1i64, 0i64 :+ 19i64 * 1i64] = map_12432
+                  in {lw_dest_12656}
+                }
+              let {map_desired_form_13715 : [13i64][19i64][19i64]f32 @ mem_param_out_13886 ->
+                                            {offset: phys_tid_12287;
+                                             strides: [mul_nw64 (num_threads_13912) (361i64), mul_nw64 (num_threads_13912) (19i64), num_threads_13912];
+                                             shape: [13i64, 19i64, 19i64]}} =
+                manifest(map_12429, (0, 1, 2))
+              in {mem_param_out_13886, mem_param_13640, map_desired_form_13715, mem_param_out_13886, ctx_14190, ctx_14191}
+            }
+          let {map_desired_form_db_copy_13899 : [19i64][19i64]f32 @ color_13904 ->
+                                                {offset: phys_tid_12287;
+                                                 strides: [mul_nw64 (num_threads_13912) (19i64), num_threads_13912];
+                                                 shape: [19i64, 19i64]}} =
+            replicate([19i64][19i64], -1.0e30f32)
+          let {mem_13733 : mem@[19i64][19i64]f32} =
+            alloc(1444i64, @[19i64][19i64]f32)
+          let {mem_13739 : mem@[19i64]f32} =
+            alloc(76i64, @[19i64]f32)
+          let {ext_mem_13748 : mem@device,
+               ext_mem_unused_13897 : mem@device,
+               reduce_12442 : [19i64][19i64]f32 @ ext_mem_ext_14217 ->
+                              {offset: phys_tid_12287;
+                               strides: [ext_14219, num_threads_13912];
+                               shape: [19i64, 19i64]},
+               ext_mem_ext_14217 : mem@device,
+               ext_14219 : i64} =
+            loop {mem_param_13724 : mem@device,
+                  mem_param_out_13898 : mem@device,
+                  redout_12665 : *[19i64][19i64]f32 @ mem_param_ext_14197 ->
+                                 {offset: phys_tid_12287;
+                                  strides: [ext_14199, num_threads_13912];
+                                  shape: [19i64, 19i64]},
+                  mem_param_ext_14197 : mem@device,
+                  ext_14199 : i64} = {color_13904, color_13908, map_desired_form_db_copy_13899, color_13904, ctx_14201}
+            for i_12666:i64 < 13i64 do {
+              let {result_12667 : [19i64][19i64]f32 @ mem_13733 ->
+                                  {offset: 0i64;
+                                   strides: [19i64, 1i64];
+                                   shape: [19i64, 19i64]}} =
+                scratch(f32, 19i64, 19i64)
+              let {map_12446 : [19i64][19i64]f32 @ mem_13733 ->
+                               {offset: 0i64;
+                                strides: [19i64, 1i64];
+                                shape: [19i64, 19i64]}} =
+                loop {out_12668 : *[19i64][19i64]f32 @ mem_13733 ->
+                                  {offset: 0i64;
+                                   strides: [19i64, 1i64];
+                                   shape: [19i64, 19i64]}} = {result_12667}
+                for i_12669:i64 < 19i64 do {
+                  let {result_12671 : [19i64]f32 @ mem_13739 ->
+                                      {offset: 0i64;
+                                       strides: [1i64];
+                                       shape: [19i64]}} =
+                    scratch(f32, 19i64)
+                  let {map_12449 : [19i64]f32 @ mem_13739 ->
+                                   {offset: 0i64;
+                                    strides: [1i64];
+                                    shape: [19i64]}} =
+                    loop {out_12672 : *[19i64]f32 @ mem_13739 ->
+                                      {offset: 0i64;
+                                       strides: [1i64];
+                                       shape: [19i64]}} = {result_12671}
+                    for i_12673:i64 < 19i64 do {
+                      let {x_12450 : f32} =
+                        redout_12665[i_12669, i_12673]
+                      let {x_12451 : f32} =
+                        reduce_12403[i_12666, i_12669, i_12673]
+                      let {binop_12452 : f32} =
+                        fmax32(x_12450, x_12451)
+                      let {lw_dest_12674 : [19i64]f32 @ mem_13739 ->
+                                           {offset: 0i64;
+                                            strides: [1i64];
+                                            shape: [19i64]}} =
+                        out_12672 with [i_12673] = binop_12452
+                      in {lw_dest_12674}
+                    }
+                  let {lw_dest_12670 : [19i64][19i64]f32 @ mem_13733 ->
+                                       {offset: 0i64;
+                                        strides: [19i64, 1i64];
+                                        shape: [19i64, 19i64]}} =
+                    out_12668 with [i_12669, 0i64 :+ 19i64 * 1i64] = map_12449
+                  in {lw_dest_12670}
+                }
+              let {map_desired_form_13744 : [19i64][19i64]f32 @ mem_param_out_13898 ->
+                                            {offset: phys_tid_12287;
+                                             strides: [mul_nw64 (num_threads_13912) (19i64), num_threads_13912];
+                                             shape: [19i64, 19i64]}} =
+                manifest(map_12446, (0, 1))
+              in {mem_param_out_13898, mem_param_13724, map_desired_form_13744, mem_param_out_13898, ctx_14216}
+            }
+          return {returns reduce_12442,
+                  returns reduce_12390,
+                  returns reduce_12338}
+        }
+      in {mem_13774, 0i64, 1i64, 9728i64, 512i64, mem_13787, 0i64, 1i64, 9728i64, 512i64, outer_map_12283, outer_map_12284, outer_map_12285}
+    } else {
+      let {ext_mem_12999 : mem@device,
+           ext_12998 : i64,
+           ext_12997 : i64,
+           ext_12996 : i64,
+           ext_12995 : i64,
+           ext_12994 : i64,
+           uniform_redomap_alt_11164 : [512i64][5i64][19i64][19i64]f32 @ ext_mem_12999 ->
+                                       {offset: ext_12998;
+                                        strides: [ext_12997, ext_12996, ext_12995, ext_12994];
+                                        shape: [512i64, 5i64, 19i64, 19i64]}} =
+        if <equiv> suff_outer_par_11163
+        then {
+          let {mem_12912 : mem@device} =
+            alloc(400i64, @device)
+          let {scalar_dist_coalesced_12772 : [5i64][5i64][2i64]i64 @ mem_12912 ->
+                                             {offset: 0i64;
+                                              strides: [1i64, 10i64, 5i64];
+                                              shape: [5i64, 5i64, 2i64]}} =
+            manifest(scalar_dist_5407, (1, 2, 0))
+          let {mem_12959 : mem@device} =
+            alloc(bytes_12958, @device)
+          let {mem_12993 : mem@device} =
+            alloc(3696640i64, @device)
+          let {uniformSegRed_11173 : [512i64][5i64][19i64][19i64]f32 @ mem_12993 ->
+                                     {offset: 0i64;
+                                      strides: [1805i64, 361i64, 19i64, 1i64];
+                                      shape: [512i64, 5i64, 19i64, 19i64]}} =
+            segred(thread; ; grid=num_tblocks_11171; blocksize=uniform_segred_tblock_size_11170)
+            (gtid_11174 < 512i64, gtid_11175 < 5i64) (~phys_tid_11176)
+            : {[5i64][19i64][19i64]f32} {
+              let {mem_12926 : mem@[5i64][19i64][19i64]f32} =
+                alloc(7220i64, @[5i64][19i64][19i64]f32)
+              let {result_12675 : [5i64][19i64][19i64]f32 @ mem_12926 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [5i64, 19i64, 19i64]}} =
+                scratch(f32, 5i64, 19i64, 19i64)
+              let {mem_12936 : mem@[19i64][19i64]f32} =
+                alloc(1444i64, @[19i64][19i64]f32)
+              let {mem_12942 : mem@[19i64]f32} =
+                alloc(76i64, @[19i64]f32)
+              let {mem_12948 : mem@[2i64]i64} =
+                alloc(16i64, @[2i64]i64)
+              let {map_11179 : [5i64][19i64][19i64]f32 @ mem_12926 ->
+                               {offset: 0i64;
+                                strides: [361i64, 19i64, 1i64];
+                                shape: [5i64, 19i64, 19i64]}} =
+                loop {out_12676 : *[5i64][19i64][19i64]f32 @ mem_12926 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [5i64, 19i64, 19i64]}} = {result_12675}
+                for i_12677:i64 < 5i64 do {
+                  let {result_12679 : [19i64][19i64]f32 @ mem_12936 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} =
+                    scratch(f32, 19i64, 19i64)
+                  let {map_11181 : [19i64][19i64]f32 @ mem_12936 ->
+                                   {offset: 0i64;
+                                    strides: [19i64, 1i64];
+                                    shape: [19i64, 19i64]}} =
+                    loop {out_12680 : *[19i64][19i64]f32 @ mem_12936 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} = {result_12679}
+                    for i_12681:i64 < 19i64 do {
+                      let {result_12683 : [19i64]f32 @ mem_12942 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} =
+                        scratch(f32, 19i64)
+                      let {map_11183 : [19i64]f32 @ mem_12942 ->
+                                       {offset: 0i64;
+                                        strides: [1i64];
+                                        shape: [19i64]}} =
+                        loop {out_12684 : *[19i64]f32 @ mem_12942 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} = {result_12683}
+                        for i_12685:i64 < 19i64 do {
+                          let {result_12687 : [2i64]i64 @ mem_12948 ->
+                                              {offset: 0i64;
+                                               strides: [1i64];
+                                               shape: [2i64]}} =
+                            scratch(i64, 2i64)
+                          let {map_11185 : [2i64]i64 @ mem_12948 ->
+                                           {offset: 0i64;
+                                            strides: [1i64];
+                                            shape: [2i64]}} =
+                            loop {out_12688 : *[2i64]i64 @ mem_12948 ->
+                                              {offset: 0i64;
+                                               strides: [1i64];
+                                               shape: [2i64]}} = {result_12687}
+                            for i_12689:i64 < 2i64 do {
+                              let {x_11186 : i64} =
+                                scalar_dist_coalesced_12772[gtid_11175, i_12677, i_12689]
+                              let {x_11187 : i64} =
+                                scalar_dist_5247[i_12681, i_12685, i_12689]
+                              let {binop_11188 : i64} =
+                                add64(x_11186, x_11187)
+                              let {lw_dest_12690 : [2i64]i64 @ mem_12948 ->
+                                                   {offset: 0i64;
+                                                    strides: [1i64];
+                                                    shape: [2i64]}} =
+                                out_12688 with [i_12689] = binop_11188
+                              in {lw_dest_12690}
+                            }
+                          let {i_11190 : i64} =
+                            map_11185[0i64]
+                          let {index_concat_cmp_11192 : bool} =
+                            sle64(21i64, i_11190)
+                          let {index_concat_branch_11193 : f32} =
+                            if index_concat_cmp_11192
+                            then {-1.0e30f32} else {
+                              let {index_concat_cmp_11194 : bool} =
+                                sle64(2i64, i_11190)
+                              let {index_concat_branch_11195 : f32} =
+                                if index_concat_cmp_11194
+                                then {
+                                  let {i_11191 : i64} =
+                                    map_11185[1i64]
+                                  let {index_concat_i_11196 : i64} =
+                                    sub64(i_11190, 2i64)
+                                  let {index_concat_cmp_12525 : bool} =
+                                    sle64(21i64, i_11191)
+                                  let {index_concat_branch_12533 : f32} =
+                                    if index_concat_cmp_12525
+                                    then {-1.0e30f32} else {
+                                      let {index_concat_cmp_12528 : bool} =
+                                        sle64(2i64, i_11191)
+                                      let {index_concat_branch_12532 : f32} =
+                                        if index_concat_cmp_12528
+                                        then {
+                                          let {index_concat_i_12529 : i64} =
+                                            sub64(i_11191, 2i64)
+                                          let {index_concat_12530 : f32} =
+                                            image_612[gtid_11174, index_concat_i_11196, index_concat_i_12529]
+                                          in {index_concat_12530}
+                                        } else {-1.0e30f32}
+                                        : {f32}
+                                      in {index_concat_branch_12532}
+                                    }
+                                    : {f32}
+                                  in {index_concat_branch_12533}
+                                } else {-1.0e30f32}
+                                : {f32}
+                              in {index_concat_branch_11195}
+                            }
+                            : {f32}
+                          let {lw_dest_12686 : [19i64]f32 @ mem_12942 ->
+                                               {offset: 0i64;
+                                                strides: [1i64];
+                                                shape: [19i64]}} =
+                            out_12684 with [i_12685] = index_concat_branch_11193
+                          in {lw_dest_12686}
+                        }
+                      let {lw_dest_12682 : [19i64][19i64]f32 @ mem_12936 ->
+                                           {offset: 0i64;
+                                            strides: [19i64, 1i64];
+                                            shape: [19i64, 19i64]}} =
+                        out_12680 with [i_12681, 0i64 :+ 19i64 * 1i64] = map_11183
+                      in {lw_dest_12682}
+                    }
+                  let {lw_dest_12678 : [5i64][19i64][19i64]f32 @ mem_12926 ->
+                                       {offset: 0i64;
+                                        strides: [361i64, 19i64, 1i64];
+                                        shape: [5i64, 19i64, 19i64]}} =
+                    out_12676 with [i_12677, 0i64 :+ 19i64 * 1i64, 0i64 :+ 19i64 * 1i64] = map_11181
+                  in {lw_dest_12678}
+                }
+              return {returns map_11179}
+            }
+            ({map_2888},
+            ,
+            \ {x_11201 : [5i64][19i64][19i64]f32 @ mem_12959 ->
+                         {offset: mul_nw64 (phys_tid_11176) (1805i64);
+                          strides: [361i64, 19i64, 1i64];
+                          shape: [5i64, 19i64, 19i64]},
+               x_11202 : [5i64][19i64][19i64]f32 @ mem_12959 ->
+                         {offset: mul_nw64 (add_nw64 (phys_tid_11176) (num_threads_12913)) (1805i64);
+                          strides: [361i64, 19i64, 1i64];
+                          shape: [5i64, 19i64, 19i64]}}
+              : {[5i64][19i64][19i64]f32} ->
+              let {mem_12972 : mem@[5i64][19i64][19i64]f32} =
+                alloc(7220i64, @[5i64][19i64][19i64]f32)
+              let {result_12691 : [5i64][19i64][19i64]f32 @ mem_12972 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [5i64, 19i64, 19i64]}} =
+                scratch(f32, 5i64, 19i64, 19i64)
+              let {mem_12982 : mem@[19i64][19i64]f32} =
+                alloc(1444i64, @[19i64][19i64]f32)
+              let {mem_12988 : mem@[19i64]f32} =
+                alloc(76i64, @[19i64]f32)
+              let {map_11203 : [5i64][19i64][19i64]f32 @ mem_12972 ->
+                               {offset: 0i64;
+                                strides: [361i64, 19i64, 1i64];
+                                shape: [5i64, 19i64, 19i64]}} =
+                loop {out_12692 : *[5i64][19i64][19i64]f32 @ mem_12972 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [5i64, 19i64, 19i64]}} = {result_12691}
+                for i_12693:i64 < 5i64 do {
+                  let {result_12695 : [19i64][19i64]f32 @ mem_12982 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} =
+                    scratch(f32, 19i64, 19i64)
+                  let {map_11206 : [19i64][19i64]f32 @ mem_12982 ->
+                                   {offset: 0i64;
+                                    strides: [19i64, 1i64];
+                                    shape: [19i64, 19i64]}} =
+                    loop {out_12696 : *[19i64][19i64]f32 @ mem_12982 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} = {result_12695}
+                    for i_12697:i64 < 19i64 do {
+                      let {result_12699 : [19i64]f32 @ mem_12988 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} =
+                        scratch(f32, 19i64)
+                      let {map_11209 : [19i64]f32 @ mem_12988 ->
+                                       {offset: 0i64;
+                                        strides: [1i64];
+                                        shape: [19i64]}} =
+                        loop {out_12700 : *[19i64]f32 @ mem_12988 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} = {result_12699}
+                        for i_12701:i64 < 19i64 do {
+                          let {x_11210 : f32} =
+                            x_11201[i_12693, i_12697, i_12701]
+                          let {x_11211 : f32} =
+                            x_11202[i_12693, i_12697, i_12701]
+                          let {binop_11212 : f32} =
+                            fmax32(x_11210, x_11211)
+                          let {lw_dest_12702 : [19i64]f32 @ mem_12988 ->
+                                               {offset: 0i64;
+                                                strides: [1i64];
+                                                shape: [19i64]}} =
+                            out_12700 with [i_12701] = binop_11212
+                          in {lw_dest_12702}
+                        }
+                      let {lw_dest_12698 : [19i64][19i64]f32 @ mem_12982 ->
+                                           {offset: 0i64;
+                                            strides: [19i64, 1i64];
+                                            shape: [19i64, 19i64]}} =
+                        out_12696 with [i_12697, 0i64 :+ 19i64 * 1i64] = map_11209
+                      in {lw_dest_12698}
+                    }
+                  let {lw_dest_12694 : [5i64][19i64][19i64]f32 @ mem_12972 ->
+                                       {offset: 0i64;
+                                        strides: [361i64, 19i64, 1i64];
+                                        shape: [5i64, 19i64, 19i64]}} =
+                    out_12692 with [i_12693, 0i64 :+ 19i64 * 1i64, 0i64 :+ 19i64 * 1i64] = map_11206
+                  in {lw_dest_12694}
+                }
+              in {map_11203})
+          in {mem_12993, 0i64, 1805i64, 361i64, 19i64, 1i64, uniformSegRed_11173}
+        } else {
+          let {mem_12866 : mem@device} =
+            alloc(73932800i64, @device)
+          let {scalar_dist_11238 : [512i64][5i64][5i64][19i64][19i64][2i64]i64 @ mem_12866 ->
+                                   {offset: 0i64;
+                                    strides: [18050i64, 3610i64, 722i64, 38i64, 2i64, 1i64];
+                                    shape: [512i64, 5i64, 5i64, 19i64, 19i64, 2i64]}} =
+            segmap(thread; ; grid=segmap_usable_groups_11237; blocksize=segmap_tblock_size_11236)
+            (gtid_11239 < 512i64, gtid_11240 < 5i64, gtid_11241 < 5i64, gtid_11242 < 19i64, gtid_11243 < 19i64, gtid_11244 < 2i64) (~phys_tid_11245) : {i64} {
+              let {x_11246 : i64} =
+                scalar_dist_5407[gtid_11240, gtid_11241, gtid_11244]
+              let {x_11247 : i64} =
+                scalar_dist_5247[gtid_11242, gtid_11243, gtid_11244]
+              let {binop_11248 : i64} =
+                add64(x_11246, x_11247)
+              return {returns binop_11248}
+            }
+          let {mem_12868 : mem@device} =
+            alloc(18483200i64, @device)
+          let {scalar_dist_11257 : [512i64][5i64][5i64][19i64][19i64]f32 @ mem_12868 ->
+                                   {offset: 0i64;
+                                    strides: [9025i64, 1805i64, 361i64, 19i64, 1i64];
+                                    shape: [512i64, 5i64, 5i64, 19i64, 19i64]}} =
+            segmap(thread; ; grid=segmap_usable_groups_11256; blocksize=segmap_tblock_size_11255)
+            (gtid_11258 < 512i64, gtid_11259 < 5i64, gtid_11260 < 5i64, gtid_11261 < 19i64, gtid_11262 < 19i64) (~phys_tid_11263) : {f32} {
+              let {i_11266 : i64} =
+                scalar_dist_11238[gtid_11258, gtid_11259, gtid_11260, gtid_11261, gtid_11262, 0i64]
+              let {index_concat_cmp_11268 : bool} =
+                sle64(21i64, i_11266)
+              let {index_concat_branch_11269 : f32} =
+                if index_concat_cmp_11268
+                then {-1.0e30f32} else {
+                  let {index_concat_cmp_11270 : bool} =
+                    sle64(2i64, i_11266)
+                  let {index_concat_branch_11271 : f32} =
+                    if index_concat_cmp_11270
+                    then {
+                      let {i_11267 : i64} =
+                        scalar_dist_11238[gtid_11258, gtid_11259, gtid_11260, gtid_11261, gtid_11262, 1i64]
+                      let {index_concat_i_11272 : i64} =
+                        sub64(i_11266, 2i64)
+                      let {index_concat_cmp_12536 : bool} =
+                        sle64(21i64, i_11267)
+                      let {index_concat_branch_12544 : f32} =
+                        if index_concat_cmp_12536
+                        then {-1.0e30f32} else {
+                          let {index_concat_cmp_12539 : bool} =
+                            sle64(2i64, i_11267)
+                          let {index_concat_branch_12543 : f32} =
+                            if index_concat_cmp_12539
+                            then {
+                              let {index_concat_i_12540 : i64} =
+                                sub64(i_11267, 2i64)
+                              let {index_concat_12541 : f32} =
+                                image_612[gtid_11258, index_concat_i_11272, index_concat_i_12540]
+                              in {index_concat_12541}
+                            } else {-1.0e30f32}
+                            : {f32}
+                          in {index_concat_branch_12543}
+                        }
+                        : {f32}
+                      in {index_concat_branch_12544}
+                    } else {-1.0e30f32}
+                    : {f32}
+                  in {index_concat_branch_11271}
+                }
+                : {f32}
+              return {returns index_concat_branch_11269}
+            }
+          let {ext_mem_12899 : mem@device,
+               ext_12898 : i64,
+               ext_12897 : i64,
+               ext_12896 : i64,
+               ext_12895 : i64,
+               ext_12894 : i64,
+               match_res_11299 : [512i64][5i64][19i64][19i64]f32 @ ext_mem_12899 ->
+                                 {offset: ext_12898;
+                                  strides: [ext_12897, ext_12896, ext_12895, ext_12894];
+                                  shape: [512i64, 5i64, 19i64, 19i64]}} =
+            if <equiv> suff_outer_par_11298
+            then {
+              let {mem_12893 : mem@device} =
+                alloc(3696640i64, @device)
+              let {outer_map_11312 : [512i64][5i64][19i64][19i64]f32 @ mem_12893 ->
+                                     {offset: 0i64;
+                                      strides: [1805i64, 361i64, 19i64, 1i64];
+                                      shape: [512i64, 5i64, 19i64, 19i64]}} =
+                segmap(thread; ; grid=segmap_usable_groups_11311; blocksize=segmap_tblock_size_11310)
+                (gtid_11313 < 512i64, gtid_11314 < 5i64, gtid_11315 < 19i64, gtid_11316 < 19i64) (~phys_tid_11317) : {f32} {
+                  let {map_11320 : f32} =
+                    loop {redout_12703 : f32} = {-1.0e30f32}
+                    for i_12704:i64 < 5i64 do {
+                      let {x_11321 : f32} =
+                        scalar_dist_11257[gtid_11313, i_12704, gtid_11314, gtid_11315, gtid_11316]
+                      let {binop_11324 : f32} =
+                        fmax32(x_11321, redout_12703)
+                      in {binop_11324}
+                    }
+                  return {returns map_11320}
+                }
+              in {mem_12893, 0i64, 1805i64, 361i64, 19i64, 1i64, outer_map_11312}
+            } else {
+              let {mem_12889 : mem@device} =
+                alloc(18483200i64, @device)
+              let {scalar_dist_coalesced_12773 : [512i64][5i64][5i64][19i64][19i64]f32 @ mem_12889 ->
+                                                 {offset: 0i64;
+                                                  strides: [9025i64, 1i64, 1805i64, 95i64, 5i64];
+                                                  shape: [512i64, 5i64, 5i64, 19i64, 19i64]}} =
+                manifest(scalar_dist_11257, (0, 2, 3, 4, 1))
+              let {mem_12891 : mem@device} =
+                alloc(3696640i64, @device)
+              let {uniformSegRed_11339 : [512i64][5i64][19i64][19i64]f32 @ mem_12891 ->
+                                         {offset: 0i64;
+                                          strides: [1805i64, 361i64, 19i64, 1i64];
+                                          shape: [512i64, 5i64, 19i64, 19i64]}} =
+                segred(thread; ; grid=num_tblocks_11337; blocksize=uniform_segred_tblock_size_11336)
+                (gtid_11340 < 512i64, gtid_11341 < 5i64, gtid_11342 < 19i64, gtid_11343 < 19i64, gtid_11344 < 5i64) (~phys_tid_11345)
+                : {f32} {
+                  let {x_11346 : f32} =
+                    scalar_dist_coalesced_12773[gtid_11340, gtid_11344, gtid_11341, gtid_11342, gtid_11343]
+                  return {returns x_11346}
+                }
+                ({-1.0e30f32},
+                ,
+                commutative \ {x_11347 : f32,
+                               x_11348 : f32}
+                  : {f32} ->
+                  let {binop_11349 : f32} =
+                    fmax32(x_11347, x_11348)
+                  in {binop_11349})
+              in {mem_12891, 0i64, 1805i64, 361i64, 19i64, 1i64, uniformSegRed_11339}
+            }
+            : {mem@device,
+               i64,
+               i64,
+               i64,
+               i64,
+               i64,
+               [512i64][5i64][19i64][19i64]f32 @ ?0@device ->
+               {offset: ?1;
+                strides: [?2, ?3, ?4, ?5];
+                shape: [512i64, 5i64, 19i64, 19i64]}}
+          in {ext_mem_12899, ext_12898, ext_12897, ext_12896, ext_12895, ext_12894, match_res_11299}
+        }
+        : {mem@device,
+           i64,
+           i64,
+           i64,
+           i64,
+           i64,
+           [512i64][5i64][19i64][19i64]f32 @ ?0@device ->
+           {offset: ?1;
+            strides: [?2, ?3, ?4, ?5];
+            shape: [512i64, 5i64, 19i64, 19i64]}}
+      let {ext_mem_13025 : mem@device,
+           ext_13024 : i64,
+           ext_13023 : i64,
+           ext_13022 : i64,
+           ext_13021 : i64,
+           match_res_11367 : [512i64][19i64][19i64]f32 @ ext_mem_13025 ->
+                             {offset: ext_13024;
+                              strides: [ext_13023, ext_13022, ext_13021];
+                              shape: [512i64, 19i64, 19i64]}} =
+        if <equiv> suff_outer_par_11366
+        then {
+          let {segmap_usable_groups_11378 : i64} =
+            sdiv_up64(184832i64, segmap_tblock_size_11377)
+          let {mem_13020 : mem@device} =
+            alloc(739328i64, @device)
+          let {outer_map_11379 : [512i64][19i64][19i64]f32 @ mem_13020 ->
+                                 {offset: 0i64;
+                                  strides: [361i64, 19i64, 1i64];
+                                  shape: [512i64, 19i64, 19i64]}} =
+            segmap(thread; ; grid=segmap_usable_groups_11378; blocksize=segmap_tblock_size_11377)
+            (gtid_11380 < 512i64, gtid_11381 < 19i64, gtid_11382 < 19i64) (~phys_tid_11383) : {f32} {
+              let {map_11386 : f32} =
+                loop {redout_12705 : f32} = {-1.0e30f32}
+                for i_12706:i64 < 5i64 do {
+                  let {x_11387 : f32} =
+                    uniform_redomap_alt_11164[gtid_11380, i_12706, gtid_11381, gtid_11382]
+                  let {binop_11390 : f32} =
+                    fmax32(x_11387, redout_12705)
+                  in {binop_11390}
+                }
+              return {returns map_11386}
+            }
+          in {mem_13020, 0i64, 361i64, 19i64, 1i64, outer_map_11379}
+        } else {
+          let {mem_13016 : mem@device} =
+            alloc(3696640i64, @device)
+          let {uniform_redomap_alt_coalesced_12774 : [512i64][5i64][19i64][19i64]f32 @ mem_13016 ->
+                                                     {offset: 0i64;
+                                                      strides: [1805i64, 1i64, 95i64, 5i64];
+                                                      shape: [512i64, 5i64, 19i64, 19i64]}} =
+            manifest(uniform_redomap_alt_11164, (0, 2, 3, 1))
+          let {mem_13018 : mem@device} =
+            alloc(739328i64, @device)
+          let {uniformSegRed_11404 : [512i64][19i64][19i64]f32 @ mem_13018 ->
+                                     {offset: 0i64;
+                                      strides: [361i64, 19i64, 1i64];
+                                      shape: [512i64, 19i64, 19i64]}} =
+            segred(thread; ; grid=num_tblocks_11402; blocksize=uniform_segred_tblock_size_11401)
+            (gtid_11405 < 512i64, gtid_11406 < 19i64, gtid_11407 < 19i64, gtid_11408 < 5i64) (~phys_tid_11409)
+            : {f32} {
+              let {x_11410 : f32} =
+                uniform_redomap_alt_coalesced_12774[gtid_11405, gtid_11408, gtid_11406, gtid_11407]
+              return {returns x_11410}
+            }
+            ({-1.0e30f32},
+            ,
+            commutative \ {x_11411 : f32,
+                           x_11412 : f32}
+              : {f32} ->
+              let {binop_11413 : f32} =
+                fmax32(x_11411, x_11412)
+              in {binop_11413})
+          in {mem_13018, 0i64, 361i64, 19i64, 1i64, uniformSegRed_11404}
+        }
+        : {mem@device,
+           i64,
+           i64,
+           i64,
+           i64,
+           [512i64][19i64][19i64]f32 @ ?0@device ->
+           {offset: ?1;
+            strides: [?2, ?3, ?4];
+            shape: [512i64, 19i64, 19i64]}}
+      let {ext_mem_13160 : mem@device,
+           ext_13159 : i64,
+           ext_13158 : i64,
+           ext_13157 : i64,
+           ext_13156 : i64,
+           ext_13155 : i64,
+           uniform_redomap_alt_11419 : [512i64][9i64][19i64][19i64]f32 @ ext_mem_13160 ->
+                                       {offset: ext_13159;
+                                        strides: [ext_13158, ext_13157, ext_13156, ext_13155];
+                                        shape: [512i64, 9i64, 19i64, 19i64]}} =
+        if <equiv> suff_outer_par_11418
+        then {
+          let {mem_13073 : mem@device} =
+            alloc(1296i64, @device)
+          let {scalar_dist_coalesced_12775 : [9i64][9i64][2i64]i64 @ mem_13073 ->
+                                             {offset: 0i64;
+                                              strides: [1i64, 18i64, 9i64];
+                                              shape: [9i64, 9i64, 2i64]}} =
+            manifest(scalar_dist_5547, (1, 2, 0))
+          let {mem_13120 : mem@device} =
+            alloc(bytes_13119, @device)
+          let {mem_13154 : mem@device} =
+            alloc(6653952i64, @device)
+          let {uniformSegRed_11428 : [512i64][9i64][19i64][19i64]f32 @ mem_13154 ->
+                                     {offset: 0i64;
+                                      strides: [3249i64, 361i64, 19i64, 1i64];
+                                      shape: [512i64, 9i64, 19i64, 19i64]}} =
+            segred(thread; ; grid=num_tblocks_11426; blocksize=uniform_segred_tblock_size_11425)
+            (gtid_11429 < 512i64, gtid_11430 < 9i64) (~phys_tid_11431)
+            : {[9i64][19i64][19i64]f32} {
+              let {mem_13087 : mem@[9i64][19i64][19i64]f32} =
+                alloc(12996i64, @[9i64][19i64][19i64]f32)
+              let {result_12707 : [9i64][19i64][19i64]f32 @ mem_13087 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [9i64, 19i64, 19i64]}} =
+                scratch(f32, 9i64, 19i64, 19i64)
+              let {mem_13097 : mem@[19i64][19i64]f32} =
+                alloc(1444i64, @[19i64][19i64]f32)
+              let {mem_13103 : mem@[19i64]f32} =
+                alloc(76i64, @[19i64]f32)
+              let {mem_13109 : mem@[2i64]i64} =
+                alloc(16i64, @[2i64]i64)
+              let {map_11434 : [9i64][19i64][19i64]f32 @ mem_13087 ->
+                               {offset: 0i64;
+                                strides: [361i64, 19i64, 1i64];
+                                shape: [9i64, 19i64, 19i64]}} =
+                loop {out_12708 : *[9i64][19i64][19i64]f32 @ mem_13087 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [9i64, 19i64, 19i64]}} = {result_12707}
+                for i_12709:i64 < 9i64 do {
+                  let {result_12711 : [19i64][19i64]f32 @ mem_13097 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} =
+                    scratch(f32, 19i64, 19i64)
+                  let {map_11436 : [19i64][19i64]f32 @ mem_13097 ->
+                                   {offset: 0i64;
+                                    strides: [19i64, 1i64];
+                                    shape: [19i64, 19i64]}} =
+                    loop {out_12712 : *[19i64][19i64]f32 @ mem_13097 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} = {result_12711}
+                    for i_12713:i64 < 19i64 do {
+                      let {result_12715 : [19i64]f32 @ mem_13103 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} =
+                        scratch(f32, 19i64)
+                      let {map_11438 : [19i64]f32 @ mem_13103 ->
+                                       {offset: 0i64;
+                                        strides: [1i64];
+                                        shape: [19i64]}} =
+                        loop {out_12716 : *[19i64]f32 @ mem_13103 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} = {result_12715}
+                        for i_12717:i64 < 19i64 do {
+                          let {result_12719 : [2i64]i64 @ mem_13109 ->
+                                              {offset: 0i64;
+                                               strides: [1i64];
+                                               shape: [2i64]}} =
+                            scratch(i64, 2i64)
+                          let {map_11440 : [2i64]i64 @ mem_13109 ->
+                                           {offset: 0i64;
+                                            strides: [1i64];
+                                            shape: [2i64]}} =
+                            loop {out_12720 : *[2i64]i64 @ mem_13109 ->
+                                              {offset: 0i64;
+                                               strides: [1i64];
+                                               shape: [2i64]}} = {result_12719}
+                            for i_12721:i64 < 2i64 do {
+                              let {x_11441 : i64} =
+                                scalar_dist_coalesced_12775[gtid_11430, i_12709, i_12721]
+                              let {x_11442 : i64} =
+                                scalar_dist_5247[i_12713, i_12717, i_12721]
+                              let {binop_11443 : i64} =
+                                add64(x_11441, x_11442)
+                              let {lw_dest_12722 : [2i64]i64 @ mem_13109 ->
+                                                   {offset: 0i64;
+                                                    strides: [1i64];
+                                                    shape: [2i64]}} =
+                                out_12720 with [i_12721] = binop_11443
+                              in {lw_dest_12722}
+                            }
+                          let {i_11445 : i64} =
+                            map_11440[0i64]
+                          let {index_concat_cmp_11447 : bool} =
+                            sle64(23i64, i_11445)
+                          let {index_concat_branch_11448 : f32} =
+                            if index_concat_cmp_11447
+                            then {-1.0e30f32} else {
+                              let {index_concat_cmp_11449 : bool} =
+                                sle64(4i64, i_11445)
+                              let {index_concat_branch_11450 : f32} =
+                                if index_concat_cmp_11449
+                                then {
+                                  let {i_11446 : i64} =
+                                    map_11440[1i64]
+                                  let {index_concat_i_11451 : i64} =
+                                    sub64(i_11445, 4i64)
+                                  let {index_concat_cmp_12503 : bool} =
+                                    sle64(23i64, i_11446)
+                                  let {index_concat_branch_12511 : f32} =
+                                    if index_concat_cmp_12503
+                                    then {-1.0e30f32} else {
+                                      let {index_concat_cmp_12506 : bool} =
+                                        sle64(4i64, i_11446)
+                                      let {index_concat_branch_12510 : f32} =
+                                        if index_concat_cmp_12506
+                                        then {
+                                          let {index_concat_i_12507 : i64} =
+                                            sub64(i_11446, 4i64)
+                                          let {index_concat_12508 : f32} =
+                                            image_612[gtid_11429, index_concat_i_11451, index_concat_i_12507]
+                                          in {index_concat_12508}
+                                        } else {-1.0e30f32}
+                                        : {f32}
+                                      in {index_concat_branch_12510}
+                                    }
+                                    : {f32}
+                                  in {index_concat_branch_12511}
+                                } else {-1.0e30f32}
+                                : {f32}
+                              in {index_concat_branch_11450}
+                            }
+                            : {f32}
+                          let {lw_dest_12718 : [19i64]f32 @ mem_13103 ->
+                                               {offset: 0i64;
+                                                strides: [1i64];
+                                                shape: [19i64]}} =
+                            out_12716 with [i_12717] = index_concat_branch_11448
+                          in {lw_dest_12718}
+                        }
+                      let {lw_dest_12714 : [19i64][19i64]f32 @ mem_13097 ->
+                                           {offset: 0i64;
+                                            strides: [19i64, 1i64];
+                                            shape: [19i64, 19i64]}} =
+                        out_12712 with [i_12713, 0i64 :+ 19i64 * 1i64] = map_11438
+                      in {lw_dest_12714}
+                    }
+                  let {lw_dest_12710 : [9i64][19i64][19i64]f32 @ mem_13087 ->
+                                       {offset: 0i64;
+                                        strides: [361i64, 19i64, 1i64];
+                                        shape: [9i64, 19i64, 19i64]}} =
+                    out_12708 with [i_12709, 0i64 :+ 19i64 * 1i64, 0i64 :+ 19i64 * 1i64] = map_11436
+                  in {lw_dest_12710}
+                }
+              return {returns map_11434}
+            }
+            ({map_2969},
+            ,
+            \ {x_11456 : [9i64][19i64][19i64]f32 @ mem_13120 ->
+                         {offset: mul_nw64 (phys_tid_11431) (3249i64);
+                          strides: [361i64, 19i64, 1i64];
+                          shape: [9i64, 19i64, 19i64]},
+               x_11457 : [9i64][19i64][19i64]f32 @ mem_13120 ->
+                         {offset: mul_nw64 (add_nw64 (phys_tid_11431) (num_threads_13074)) (3249i64);
+                          strides: [361i64, 19i64, 1i64];
+                          shape: [9i64, 19i64, 19i64]}}
+              : {[9i64][19i64][19i64]f32} ->
+              let {mem_13133 : mem@[9i64][19i64][19i64]f32} =
+                alloc(12996i64, @[9i64][19i64][19i64]f32)
+              let {result_12723 : [9i64][19i64][19i64]f32 @ mem_13133 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [9i64, 19i64, 19i64]}} =
+                scratch(f32, 9i64, 19i64, 19i64)
+              let {mem_13143 : mem@[19i64][19i64]f32} =
+                alloc(1444i64, @[19i64][19i64]f32)
+              let {mem_13149 : mem@[19i64]f32} =
+                alloc(76i64, @[19i64]f32)
+              let {map_11458 : [9i64][19i64][19i64]f32 @ mem_13133 ->
+                               {offset: 0i64;
+                                strides: [361i64, 19i64, 1i64];
+                                shape: [9i64, 19i64, 19i64]}} =
+                loop {out_12724 : *[9i64][19i64][19i64]f32 @ mem_13133 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [9i64, 19i64, 19i64]}} = {result_12723}
+                for i_12725:i64 < 9i64 do {
+                  let {result_12727 : [19i64][19i64]f32 @ mem_13143 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} =
+                    scratch(f32, 19i64, 19i64)
+                  let {map_11461 : [19i64][19i64]f32 @ mem_13143 ->
+                                   {offset: 0i64;
+                                    strides: [19i64, 1i64];
+                                    shape: [19i64, 19i64]}} =
+                    loop {out_12728 : *[19i64][19i64]f32 @ mem_13143 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} = {result_12727}
+                    for i_12729:i64 < 19i64 do {
+                      let {result_12731 : [19i64]f32 @ mem_13149 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} =
+                        scratch(f32, 19i64)
+                      let {map_11464 : [19i64]f32 @ mem_13149 ->
+                                       {offset: 0i64;
+                                        strides: [1i64];
+                                        shape: [19i64]}} =
+                        loop {out_12732 : *[19i64]f32 @ mem_13149 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} = {result_12731}
+                        for i_12733:i64 < 19i64 do {
+                          let {x_11465 : f32} =
+                            x_11456[i_12725, i_12729, i_12733]
+                          let {x_11466 : f32} =
+                            x_11457[i_12725, i_12729, i_12733]
+                          let {binop_11467 : f32} =
+                            fmax32(x_11465, x_11466)
+                          let {lw_dest_12734 : [19i64]f32 @ mem_13149 ->
+                                               {offset: 0i64;
+                                                strides: [1i64];
+                                                shape: [19i64]}} =
+                            out_12732 with [i_12733] = binop_11467
+                          in {lw_dest_12734}
+                        }
+                      let {lw_dest_12730 : [19i64][19i64]f32 @ mem_13143 ->
+                                           {offset: 0i64;
+                                            strides: [19i64, 1i64];
+                                            shape: [19i64, 19i64]}} =
+                        out_12728 with [i_12729, 0i64 :+ 19i64 * 1i64] = map_11464
+                      in {lw_dest_12730}
+                    }
+                  let {lw_dest_12726 : [9i64][19i64][19i64]f32 @ mem_13133 ->
+                                       {offset: 0i64;
+                                        strides: [361i64, 19i64, 1i64];
+                                        shape: [9i64, 19i64, 19i64]}} =
+                    out_12724 with [i_12725, 0i64 :+ 19i64 * 1i64, 0i64 :+ 19i64 * 1i64] = map_11461
+                  in {lw_dest_12726}
+                }
+              in {map_11458})
+          in {mem_13154, 0i64, 3249i64, 361i64, 19i64, 1i64, uniformSegRed_11428}
+        } else {
+          let {mem_13027 : mem@device} =
+            alloc(239542272i64, @device)
+          let {scalar_dist_11493 : [512i64][9i64][9i64][19i64][19i64][2i64]i64 @ mem_13027 ->
+                                   {offset: 0i64;
+                                    strides: [58482i64, 6498i64, 722i64, 38i64, 2i64, 1i64];
+                                    shape: [512i64, 9i64, 9i64, 19i64, 19i64, 2i64]}} =
+            segmap(thread; ; grid=segmap_usable_groups_11492; blocksize=segmap_tblock_size_11491)
+            (gtid_11494 < 512i64, gtid_11495 < 9i64, gtid_11496 < 9i64, gtid_11497 < 19i64, gtid_11498 < 19i64, gtid_11499 < 2i64) (~phys_tid_11500) : {i64} {
+              let {x_11501 : i64} =
+                scalar_dist_5547[gtid_11495, gtid_11496, gtid_11499]
+              let {x_11502 : i64} =
+                scalar_dist_5247[gtid_11497, gtid_11498, gtid_11499]
+              let {binop_11503 : i64} =
+                add64(x_11501, x_11502)
+              return {returns binop_11503}
+            }
+          let {mem_13029 : mem@device} =
+            alloc(59885568i64, @device)
+          let {scalar_dist_11512 : [512i64][9i64][9i64][19i64][19i64]f32 @ mem_13029 ->
+                                   {offset: 0i64;
+                                    strides: [29241i64, 3249i64, 361i64, 19i64, 1i64];
+                                    shape: [512i64, 9i64, 9i64, 19i64, 19i64]}} =
+            segmap(thread; ; grid=segmap_usable_groups_11511; blocksize=segmap_tblock_size_11510)
+            (gtid_11513 < 512i64, gtid_11514 < 9i64, gtid_11515 < 9i64, gtid_11516 < 19i64, gtid_11517 < 19i64) (~phys_tid_11518) : {f32} {
+              let {i_11521 : i64} =
+                scalar_dist_11493[gtid_11513, gtid_11514, gtid_11515, gtid_11516, gtid_11517, 0i64]
+              let {index_concat_cmp_11523 : bool} =
+                sle64(23i64, i_11521)
+              let {index_concat_branch_11524 : f32} =
+                if index_concat_cmp_11523
+                then {-1.0e30f32} else {
+                  let {index_concat_cmp_11525 : bool} =
+                    sle64(4i64, i_11521)
+                  let {index_concat_branch_11526 : f32} =
+                    if index_concat_cmp_11525
+                    then {
+                      let {i_11522 : i64} =
+                        scalar_dist_11493[gtid_11513, gtid_11514, gtid_11515, gtid_11516, gtid_11517, 1i64]
+                      let {index_concat_i_11527 : i64} =
+                        sub64(i_11521, 4i64)
+                      let {index_concat_cmp_12514 : bool} =
+                        sle64(23i64, i_11522)
+                      let {index_concat_branch_12522 : f32} =
+                        if index_concat_cmp_12514
+                        then {-1.0e30f32} else {
+                          let {index_concat_cmp_12517 : bool} =
+                            sle64(4i64, i_11522)
+                          let {index_concat_branch_12521 : f32} =
+                            if index_concat_cmp_12517
+                            then {
+                              let {index_concat_i_12518 : i64} =
+                                sub64(i_11522, 4i64)
+                              let {index_concat_12519 : f32} =
+                                image_612[gtid_11513, index_concat_i_11527, index_concat_i_12518]
+                              in {index_concat_12519}
+                            } else {-1.0e30f32}
+                            : {f32}
+                          in {index_concat_branch_12521}
+                        }
+                        : {f32}
+                      in {index_concat_branch_12522}
+                    } else {-1.0e30f32}
+                    : {f32}
+                  in {index_concat_branch_11526}
+                }
+                : {f32}
+              return {returns index_concat_branch_11524}
+            }
+          let {ext_mem_13060 : mem@device,
+               ext_13059 : i64,
+               ext_13058 : i64,
+               ext_13057 : i64,
+               ext_13056 : i64,
+               ext_13055 : i64,
+               match_res_11554 : [512i64][9i64][19i64][19i64]f32 @ ext_mem_13060 ->
+                                 {offset: ext_13059;
+                                  strides: [ext_13058, ext_13057, ext_13056, ext_13055];
+                                  shape: [512i64, 9i64, 19i64, 19i64]}} =
+            if <equiv> suff_outer_par_11553
+            then {
+              let {mem_13054 : mem@device} =
+                alloc(6653952i64, @device)
+              let {outer_map_11567 : [512i64][9i64][19i64][19i64]f32 @ mem_13054 ->
+                                     {offset: 0i64;
+                                      strides: [3249i64, 361i64, 19i64, 1i64];
+                                      shape: [512i64, 9i64, 19i64, 19i64]}} =
+                segmap(thread; ; grid=segmap_usable_groups_11566; blocksize=segmap_tblock_size_11565)
+                (gtid_11568 < 512i64, gtid_11569 < 9i64, gtid_11570 < 19i64, gtid_11571 < 19i64) (~phys_tid_11572) : {f32} {
+                  let {map_11575 : f32} =
+                    loop {redout_12735 : f32} = {-1.0e30f32}
+                    for i_12736:i64 < 9i64 do {
+                      let {x_11576 : f32} =
+                        scalar_dist_11512[gtid_11568, i_12736, gtid_11569, gtid_11570, gtid_11571]
+                      let {binop_11579 : f32} =
+                        fmax32(x_11576, redout_12735)
+                      in {binop_11579}
+                    }
+                  return {returns map_11575}
+                }
+              in {mem_13054, 0i64, 3249i64, 361i64, 19i64, 1i64, outer_map_11567}
+            } else {
+              let {mem_13050 : mem@device} =
+                alloc(59885568i64, @device)
+              let {scalar_dist_coalesced_12776 : [512i64][9i64][9i64][19i64][19i64]f32 @ mem_13050 ->
+                                                 {offset: 0i64;
+                                                  strides: [29241i64, 1i64, 3249i64, 171i64, 9i64];
+                                                  shape: [512i64, 9i64, 9i64, 19i64, 19i64]}} =
+                manifest(scalar_dist_11512, (0, 2, 3, 4, 1))
+              let {mem_13052 : mem@device} =
+                alloc(6653952i64, @device)
+              let {uniformSegRed_11594 : [512i64][9i64][19i64][19i64]f32 @ mem_13052 ->
+                                         {offset: 0i64;
+                                          strides: [3249i64, 361i64, 19i64, 1i64];
+                                          shape: [512i64, 9i64, 19i64, 19i64]}} =
+                segred(thread; ; grid=num_tblocks_11592; blocksize=uniform_segred_tblock_size_11591)
+                (gtid_11595 < 512i64, gtid_11596 < 9i64, gtid_11597 < 19i64, gtid_11598 < 19i64, gtid_11599 < 9i64) (~phys_tid_11600)
+                : {f32} {
+                  let {x_11601 : f32} =
+                    scalar_dist_coalesced_12776[gtid_11595, gtid_11599, gtid_11596, gtid_11597, gtid_11598]
+                  return {returns x_11601}
+                }
+                ({-1.0e30f32},
+                ,
+                commutative \ {x_11602 : f32,
+                               x_11603 : f32}
+                  : {f32} ->
+                  let {binop_11604 : f32} =
+                    fmax32(x_11602, x_11603)
+                  in {binop_11604})
+              in {mem_13052, 0i64, 3249i64, 361i64, 19i64, 1i64, uniformSegRed_11594}
+            }
+            : {mem@device,
+               i64,
+               i64,
+               i64,
+               i64,
+               i64,
+               [512i64][9i64][19i64][19i64]f32 @ ?0@device ->
+               {offset: ?1;
+                strides: [?2, ?3, ?4, ?5];
+                shape: [512i64, 9i64, 19i64, 19i64]}}
+          in {ext_mem_13060, ext_13059, ext_13058, ext_13057, ext_13056, ext_13055, match_res_11554}
+        }
+        : {mem@device,
+           i64,
+           i64,
+           i64,
+           i64,
+           i64,
+           [512i64][9i64][19i64][19i64]f32 @ ?0@device ->
+           {offset: ?1;
+            strides: [?2, ?3, ?4, ?5];
+            shape: [512i64, 9i64, 19i64, 19i64]}}
+      let {ext_mem_13186 : mem@device,
+           ext_13185 : i64,
+           ext_13184 : i64,
+           ext_13183 : i64,
+           ext_13182 : i64,
+           match_res_11622 : [512i64][19i64][19i64]f32 @ ext_mem_13186 ->
+                             {offset: ext_13185;
+                              strides: [ext_13184, ext_13183, ext_13182];
+                              shape: [512i64, 19i64, 19i64]}} =
+        if <equiv> suff_outer_par_11621
+        then {
+          let {segmap_usable_groups_11633 : i64} =
+            sdiv_up64(184832i64, segmap_tblock_size_11632)
+          let {mem_13181 : mem@device} =
+            alloc(739328i64, @device)
+          let {outer_map_11634 : [512i64][19i64][19i64]f32 @ mem_13181 ->
+                                 {offset: 0i64;
+                                  strides: [361i64, 19i64, 1i64];
+                                  shape: [512i64, 19i64, 19i64]}} =
+            segmap(thread; ; grid=segmap_usable_groups_11633; blocksize=segmap_tblock_size_11632)
+            (gtid_11635 < 512i64, gtid_11636 < 19i64, gtid_11637 < 19i64) (~phys_tid_11638) : {f32} {
+              let {map_11641 : f32} =
+                loop {redout_12737 : f32} = {-1.0e30f32}
+                for i_12738:i64 < 9i64 do {
+                  let {x_11642 : f32} =
+                    uniform_redomap_alt_11419[gtid_11635, i_12738, gtid_11636, gtid_11637]
+                  let {binop_11645 : f32} =
+                    fmax32(x_11642, redout_12737)
+                  in {binop_11645}
+                }
+              return {returns map_11641}
+            }
+          in {mem_13181, 0i64, 361i64, 19i64, 1i64, outer_map_11634}
+        } else {
+          let {mem_13177 : mem@device} =
+            alloc(6653952i64, @device)
+          let {uniform_redomap_alt_coalesced_12777 : [512i64][9i64][19i64][19i64]f32 @ mem_13177 ->
+                                                     {offset: 0i64;
+                                                      strides: [3249i64, 1i64, 171i64, 9i64];
+                                                      shape: [512i64, 9i64, 19i64, 19i64]}} =
+            manifest(uniform_redomap_alt_11419, (0, 2, 3, 1))
+          let {mem_13179 : mem@device} =
+            alloc(739328i64, @device)
+          let {uniformSegRed_11659 : [512i64][19i64][19i64]f32 @ mem_13179 ->
+                                     {offset: 0i64;
+                                      strides: [361i64, 19i64, 1i64];
+                                      shape: [512i64, 19i64, 19i64]}} =
+            segred(thread; ; grid=num_tblocks_11657; blocksize=uniform_segred_tblock_size_11656)
+            (gtid_11660 < 512i64, gtid_11661 < 19i64, gtid_11662 < 19i64, gtid_11663 < 9i64) (~phys_tid_11664)
+            : {f32} {
+              let {x_11665 : f32} =
+                uniform_redomap_alt_coalesced_12777[gtid_11660, gtid_11663, gtid_11661, gtid_11662]
+              return {returns x_11665}
+            }
+            ({-1.0e30f32},
+            ,
+            commutative \ {x_11666 : f32,
+                           x_11667 : f32}
+              : {f32} ->
+              let {binop_11668 : f32} =
+                fmax32(x_11666, x_11667)
+              in {binop_11668})
+          in {mem_13179, 0i64, 361i64, 19i64, 1i64, uniformSegRed_11659}
+        }
+        : {mem@device,
+           i64,
+           i64,
+           i64,
+           i64,
+           [512i64][19i64][19i64]f32 @ ?0@device ->
+           {offset: ?1;
+            strides: [?2, ?3, ?4];
+            shape: [512i64, 19i64, 19i64]}}
+      let {ext_mem_13321 : mem@device,
+           ext_13320 : i64,
+           ext_13319 : i64,
+           ext_13318 : i64,
+           ext_13317 : i64,
+           ext_13316 : i64,
+           uniform_redomap_alt_11674 : [512i64][13i64][19i64][19i64]f32 @ ext_mem_13321 ->
+                                       {offset: ext_13320;
+                                        strides: [ext_13319, ext_13318, ext_13317, ext_13316];
+                                        shape: [512i64, 13i64, 19i64, 19i64]}} =
+        if <equiv> suff_outer_par_11673
+        then {
+          let {mem_13234 : mem@device} =
+            alloc(2704i64, @device)
+          let {scalar_dist_coalesced_12778 : [13i64][13i64][2i64]i64 @ mem_13234 ->
+                                             {offset: 0i64;
+                                              strides: [1i64, 26i64, 13i64];
+                                              shape: [13i64, 13i64, 2i64]}} =
+            manifest(scalar_dist_5687, (1, 2, 0))
+          let {mem_13281 : mem@device} =
+            alloc(bytes_13280, @device)
+          let {mem_13315 : mem@device} =
+            alloc(9611264i64, @device)
+          let {uniformSegRed_11683 : [512i64][13i64][19i64][19i64]f32 @ mem_13315 ->
+                                     {offset: 0i64;
+                                      strides: [4693i64, 361i64, 19i64, 1i64];
+                                      shape: [512i64, 13i64, 19i64, 19i64]}} =
+            segred(thread; ; grid=num_tblocks_11681; blocksize=uniform_segred_tblock_size_11680)
+            (gtid_11684 < 512i64, gtid_11685 < 13i64) (~phys_tid_11686)
+            : {[13i64][19i64][19i64]f32} {
+              let {mem_13248 : mem@[13i64][19i64][19i64]f32} =
+                alloc(18772i64, @[13i64][19i64][19i64]f32)
+              let {result_12739 : [13i64][19i64][19i64]f32 @ mem_13248 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [13i64, 19i64, 19i64]}} =
+                scratch(f32, 13i64, 19i64, 19i64)
+              let {mem_13258 : mem@[19i64][19i64]f32} =
+                alloc(1444i64, @[19i64][19i64]f32)
+              let {mem_13264 : mem@[19i64]f32} =
+                alloc(76i64, @[19i64]f32)
+              let {mem_13270 : mem@[2i64]i64} =
+                alloc(16i64, @[2i64]i64)
+              let {map_11689 : [13i64][19i64][19i64]f32 @ mem_13248 ->
+                               {offset: 0i64;
+                                strides: [361i64, 19i64, 1i64];
+                                shape: [13i64, 19i64, 19i64]}} =
+                loop {out_12740 : *[13i64][19i64][19i64]f32 @ mem_13248 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [13i64, 19i64, 19i64]}} = {result_12739}
+                for i_12741:i64 < 13i64 do {
+                  let {result_12743 : [19i64][19i64]f32 @ mem_13258 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} =
+                    scratch(f32, 19i64, 19i64)
+                  let {map_11691 : [19i64][19i64]f32 @ mem_13258 ->
+                                   {offset: 0i64;
+                                    strides: [19i64, 1i64];
+                                    shape: [19i64, 19i64]}} =
+                    loop {out_12744 : *[19i64][19i64]f32 @ mem_13258 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} = {result_12743}
+                    for i_12745:i64 < 19i64 do {
+                      let {result_12747 : [19i64]f32 @ mem_13264 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} =
+                        scratch(f32, 19i64)
+                      let {map_11693 : [19i64]f32 @ mem_13264 ->
+                                       {offset: 0i64;
+                                        strides: [1i64];
+                                        shape: [19i64]}} =
+                        loop {out_12748 : *[19i64]f32 @ mem_13264 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} = {result_12747}
+                        for i_12749:i64 < 19i64 do {
+                          let {result_12751 : [2i64]i64 @ mem_13270 ->
+                                              {offset: 0i64;
+                                               strides: [1i64];
+                                               shape: [2i64]}} =
+                            scratch(i64, 2i64)
+                          let {map_11695 : [2i64]i64 @ mem_13270 ->
+                                           {offset: 0i64;
+                                            strides: [1i64];
+                                            shape: [2i64]}} =
+                            loop {out_12752 : *[2i64]i64 @ mem_13270 ->
+                                              {offset: 0i64;
+                                               strides: [1i64];
+                                               shape: [2i64]}} = {result_12751}
+                            for i_12753:i64 < 2i64 do {
+                              let {x_11696 : i64} =
+                                scalar_dist_coalesced_12778[gtid_11685, i_12741, i_12753]
+                              let {x_11697 : i64} =
+                                scalar_dist_5247[i_12745, i_12749, i_12753]
+                              let {binop_11698 : i64} =
+                                add64(x_11696, x_11697)
+                              let {lw_dest_12754 : [2i64]i64 @ mem_13270 ->
+                                                   {offset: 0i64;
+                                                    strides: [1i64];
+                                                    shape: [2i64]}} =
+                                out_12752 with [i_12753] = binop_11698
+                              in {lw_dest_12754}
+                            }
+                          let {i_11700 : i64} =
+                            map_11695[0i64]
+                          let {index_concat_cmp_11702 : bool} =
+                            sle64(25i64, i_11700)
+                          let {index_concat_branch_11703 : f32} =
+                            if index_concat_cmp_11702
+                            then {-1.0e30f32} else {
+                              let {index_concat_cmp_11704 : bool} =
+                                sle64(6i64, i_11700)
+                              let {index_concat_branch_11705 : f32} =
+                                if index_concat_cmp_11704
+                                then {
+                                  let {i_11701 : i64} =
+                                    map_11695[1i64]
+                                  let {index_concat_i_11706 : i64} =
+                                    sub64(i_11700, 6i64)
+                                  let {index_concat_cmp_12481 : bool} =
+                                    sle64(25i64, i_11701)
+                                  let {index_concat_branch_12489 : f32} =
+                                    if index_concat_cmp_12481
+                                    then {-1.0e30f32} else {
+                                      let {index_concat_cmp_12484 : bool} =
+                                        sle64(6i64, i_11701)
+                                      let {index_concat_branch_12488 : f32} =
+                                        if index_concat_cmp_12484
+                                        then {
+                                          let {index_concat_i_12485 : i64} =
+                                            sub64(i_11701, 6i64)
+                                          let {index_concat_12486 : f32} =
+                                            image_612[gtid_11684, index_concat_i_11706, index_concat_i_12485]
+                                          in {index_concat_12486}
+                                        } else {-1.0e30f32}
+                                        : {f32}
+                                      in {index_concat_branch_12488}
+                                    }
+                                    : {f32}
+                                  in {index_concat_branch_12489}
+                                } else {-1.0e30f32}
+                                : {f32}
+                              in {index_concat_branch_11705}
+                            }
+                            : {f32}
+                          let {lw_dest_12750 : [19i64]f32 @ mem_13264 ->
+                                               {offset: 0i64;
+                                                strides: [1i64];
+                                                shape: [19i64]}} =
+                            out_12748 with [i_12749] = index_concat_branch_11703
+                          in {lw_dest_12750}
+                        }
+                      let {lw_dest_12746 : [19i64][19i64]f32 @ mem_13258 ->
+                                           {offset: 0i64;
+                                            strides: [19i64, 1i64];
+                                            shape: [19i64, 19i64]}} =
+                        out_12744 with [i_12745, 0i64 :+ 19i64 * 1i64] = map_11693
+                      in {lw_dest_12746}
+                    }
+                  let {lw_dest_12742 : [13i64][19i64][19i64]f32 @ mem_13248 ->
+                                       {offset: 0i64;
+                                        strides: [361i64, 19i64, 1i64];
+                                        shape: [13i64, 19i64, 19i64]}} =
+                    out_12740 with [i_12741, 0i64 :+ 19i64 * 1i64, 0i64 :+ 19i64 * 1i64] = map_11691
+                  in {lw_dest_12742}
+                }
+              return {returns map_11689}
+            }
+            ({map_3050},
+            ,
+            \ {x_11711 : [13i64][19i64][19i64]f32 @ mem_13281 ->
+                         {offset: mul_nw64 (phys_tid_11686) (4693i64);
+                          strides: [361i64, 19i64, 1i64];
+                          shape: [13i64, 19i64, 19i64]},
+               x_11712 : [13i64][19i64][19i64]f32 @ mem_13281 ->
+                         {offset: mul_nw64 (add_nw64 (phys_tid_11686) (num_threads_13235)) (4693i64);
+                          strides: [361i64, 19i64, 1i64];
+                          shape: [13i64, 19i64, 19i64]}}
+              : {[13i64][19i64][19i64]f32} ->
+              let {mem_13294 : mem@[13i64][19i64][19i64]f32} =
+                alloc(18772i64, @[13i64][19i64][19i64]f32)
+              let {result_12755 : [13i64][19i64][19i64]f32 @ mem_13294 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [13i64, 19i64, 19i64]}} =
+                scratch(f32, 13i64, 19i64, 19i64)
+              let {mem_13304 : mem@[19i64][19i64]f32} =
+                alloc(1444i64, @[19i64][19i64]f32)
+              let {mem_13310 : mem@[19i64]f32} =
+                alloc(76i64, @[19i64]f32)
+              let {map_11713 : [13i64][19i64][19i64]f32 @ mem_13294 ->
+                               {offset: 0i64;
+                                strides: [361i64, 19i64, 1i64];
+                                shape: [13i64, 19i64, 19i64]}} =
+                loop {out_12756 : *[13i64][19i64][19i64]f32 @ mem_13294 ->
+                                  {offset: 0i64;
+                                   strides: [361i64, 19i64, 1i64];
+                                   shape: [13i64, 19i64, 19i64]}} = {result_12755}
+                for i_12757:i64 < 13i64 do {
+                  let {result_12759 : [19i64][19i64]f32 @ mem_13304 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} =
+                    scratch(f32, 19i64, 19i64)
+                  let {map_11716 : [19i64][19i64]f32 @ mem_13304 ->
+                                   {offset: 0i64;
+                                    strides: [19i64, 1i64];
+                                    shape: [19i64, 19i64]}} =
+                    loop {out_12760 : *[19i64][19i64]f32 @ mem_13304 ->
+                                      {offset: 0i64;
+                                       strides: [19i64, 1i64];
+                                       shape: [19i64, 19i64]}} = {result_12759}
+                    for i_12761:i64 < 19i64 do {
+                      let {result_12763 : [19i64]f32 @ mem_13310 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} =
+                        scratch(f32, 19i64)
+                      let {map_11719 : [19i64]f32 @ mem_13310 ->
+                                       {offset: 0i64;
+                                        strides: [1i64];
+                                        shape: [19i64]}} =
+                        loop {out_12764 : *[19i64]f32 @ mem_13310 ->
+                                          {offset: 0i64;
+                                           strides: [1i64];
+                                           shape: [19i64]}} = {result_12763}
+                        for i_12765:i64 < 19i64 do {
+                          let {x_11720 : f32} =
+                            x_11711[i_12757, i_12761, i_12765]
+                          let {x_11721 : f32} =
+                            x_11712[i_12757, i_12761, i_12765]
+                          let {binop_11722 : f32} =
+                            fmax32(x_11720, x_11721)
+                          let {lw_dest_12766 : [19i64]f32 @ mem_13310 ->
+                                               {offset: 0i64;
+                                                strides: [1i64];
+                                                shape: [19i64]}} =
+                            out_12764 with [i_12765] = binop_11722
+                          in {lw_dest_12766}
+                        }
+                      let {lw_dest_12762 : [19i64][19i64]f32 @ mem_13304 ->
+                                           {offset: 0i64;
+                                            strides: [19i64, 1i64];
+                                            shape: [19i64, 19i64]}} =
+                        out_12760 with [i_12761, 0i64 :+ 19i64 * 1i64] = map_11719
+                      in {lw_dest_12762}
+                    }
+                  let {lw_dest_12758 : [13i64][19i64][19i64]f32 @ mem_13294 ->
+                                       {offset: 0i64;
+                                        strides: [361i64, 19i64, 1i64];
+                                        shape: [13i64, 19i64, 19i64]}} =
+                    out_12756 with [i_12757, 0i64 :+ 19i64 * 1i64, 0i64 :+ 19i64 * 1i64] = map_11716
+                  in {lw_dest_12758}
+                }
+              in {map_11713})
+          in {mem_13315, 0i64, 4693i64, 361i64, 19i64, 1i64, uniformSegRed_11683}
+        } else {
+          let {mem_13188 : mem@device} =
+            alloc(499785728i64, @device)
+          let {scalar_dist_11748 : [512i64][13i64][13i64][19i64][19i64][2i64]i64 @ mem_13188 ->
+                                   {offset: 0i64;
+                                    strides: [122018i64, 9386i64, 722i64, 38i64, 2i64, 1i64];
+                                    shape: [512i64, 13i64, 13i64, 19i64, 19i64, 2i64]}} =
+            segmap(thread; ; grid=segmap_usable_groups_11747; blocksize=segmap_tblock_size_11746)
+            (gtid_11749 < 512i64, gtid_11750 < 13i64, gtid_11751 < 13i64, gtid_11752 < 19i64, gtid_11753 < 19i64, gtid_11754 < 2i64) (~phys_tid_11755) : {i64} {
+              let {x_11756 : i64} =
+                scalar_dist_5687[gtid_11750, gtid_11751, gtid_11754]
+              let {x_11757 : i64} =
+                scalar_dist_5247[gtid_11752, gtid_11753, gtid_11754]
+              let {binop_11758 : i64} =
+                add64(x_11756, x_11757)
+              return {returns binop_11758}
+            }
+          let {mem_13190 : mem@device} =
+            alloc(124946432i64, @device)
+          let {scalar_dist_11767 : [512i64][13i64][13i64][19i64][19i64]f32 @ mem_13190 ->
+                                   {offset: 0i64;
+                                    strides: [61009i64, 4693i64, 361i64, 19i64, 1i64];
+                                    shape: [512i64, 13i64, 13i64, 19i64, 19i64]}} =
+            segmap(thread; ; grid=segmap_usable_groups_11766; blocksize=segmap_tblock_size_11765)
+            (gtid_11768 < 512i64, gtid_11769 < 13i64, gtid_11770 < 13i64, gtid_11771 < 19i64, gtid_11772 < 19i64) (~phys_tid_11773) : {f32} {
+              let {i_11776 : i64} =
+                scalar_dist_11748[gtid_11768, gtid_11769, gtid_11770, gtid_11771, gtid_11772, 0i64]
+              let {index_concat_cmp_11778 : bool} =
+                sle64(25i64, i_11776)
+              let {index_concat_branch_11779 : f32} =
+                if index_concat_cmp_11778
+                then {-1.0e30f32} else {
+                  let {index_concat_cmp_11780 : bool} =
+                    sle64(6i64, i_11776)
+                  let {index_concat_branch_11781 : f32} =
+                    if index_concat_cmp_11780
+                    then {
+                      let {i_11777 : i64} =
+                        scalar_dist_11748[gtid_11768, gtid_11769, gtid_11770, gtid_11771, gtid_11772, 1i64]
+                      let {index_concat_i_11782 : i64} =
+                        sub64(i_11776, 6i64)
+                      let {index_concat_cmp_12492 : bool} =
+                        sle64(25i64, i_11777)
+                      let {index_concat_branch_12500 : f32} =
+                        if index_concat_cmp_12492
+                        then {-1.0e30f32} else {
+                          let {index_concat_cmp_12495 : bool} =
+                            sle64(6i64, i_11777)
+                          let {index_concat_branch_12499 : f32} =
+                            if index_concat_cmp_12495
+                            then {
+                              let {index_concat_i_12496 : i64} =
+                                sub64(i_11777, 6i64)
+                              let {index_concat_12497 : f32} =
+                                image_612[gtid_11768, index_concat_i_11782, index_concat_i_12496]
+                              in {index_concat_12497}
+                            } else {-1.0e30f32}
+                            : {f32}
+                          in {index_concat_branch_12499}
+                        }
+                        : {f32}
+                      in {index_concat_branch_12500}
+                    } else {-1.0e30f32}
+                    : {f32}
+                  in {index_concat_branch_11781}
+                }
+                : {f32}
+              return {returns index_concat_branch_11779}
+            }
+          let {ext_mem_13221 : mem@device,
+               ext_13220 : i64,
+               ext_13219 : i64,
+               ext_13218 : i64,
+               ext_13217 : i64,
+               ext_13216 : i64,
+               match_res_11809 : [512i64][13i64][19i64][19i64]f32 @ ext_mem_13221 ->
+                                 {offset: ext_13220;
+                                  strides: [ext_13219, ext_13218, ext_13217, ext_13216];
+                                  shape: [512i64, 13i64, 19i64, 19i64]}} =
+            if <equiv> suff_outer_par_11808
+            then {
+              let {mem_13215 : mem@device} =
+                alloc(9611264i64, @device)
+              let {outer_map_11822 : [512i64][13i64][19i64][19i64]f32 @ mem_13215 ->
+                                     {offset: 0i64;
+                                      strides: [4693i64, 361i64, 19i64, 1i64];
+                                      shape: [512i64, 13i64, 19i64, 19i64]}} =
+                segmap(thread; ; grid=segmap_usable_groups_11821; blocksize=segmap_tblock_size_11820)
+                (gtid_11823 < 512i64, gtid_11824 < 13i64, gtid_11825 < 19i64, gtid_11826 < 19i64) (~phys_tid_11827) : {f32} {
+                  let {map_11830 : f32} =
+                    loop {redout_12767 : f32} = {-1.0e30f32}
+                    for i_12768:i64 < 13i64 do {
+                      let {x_11831 : f32} =
+                        scalar_dist_11767[gtid_11823, i_12768, gtid_11824, gtid_11825, gtid_11826]
+                      let {binop_11834 : f32} =
+                        fmax32(x_11831, redout_12767)
+                      in {binop_11834}
+                    }
+                  return {returns map_11830}
+                }
+              in {mem_13215, 0i64, 4693i64, 361i64, 19i64, 1i64, outer_map_11822}
+            } else {
+              let {mem_13211 : mem@device} =
+                alloc(124946432i64, @device)
+              let {scalar_dist_coalesced_12779 : [512i64][13i64][13i64][19i64][19i64]f32 @ mem_13211 ->
+                                                 {offset: 0i64;
+                                                  strides: [61009i64, 1i64, 4693i64, 247i64, 13i64];
+                                                  shape: [512i64, 13i64, 13i64, 19i64, 19i64]}} =
+                manifest(scalar_dist_11767, (0, 2, 3, 4, 1))
+              let {mem_13213 : mem@device} =
+                alloc(9611264i64, @device)
+              let {uniformSegRed_11849 : [512i64][13i64][19i64][19i64]f32 @ mem_13213 ->
+                                         {offset: 0i64;
+                                          strides: [4693i64, 361i64, 19i64, 1i64];
+                                          shape: [512i64, 13i64, 19i64, 19i64]}} =
+                segred(thread; ; grid=num_tblocks_11847; blocksize=uniform_segred_tblock_size_11846)
+                (gtid_11850 < 512i64, gtid_11851 < 13i64, gtid_11852 < 19i64, gtid_11853 < 19i64, gtid_11854 < 13i64) (~phys_tid_11855)
+                : {f32} {
+                  let {x_11856 : f32} =
+                    scalar_dist_coalesced_12779[gtid_11850, gtid_11854, gtid_11851, gtid_11852, gtid_11853]
+                  return {returns x_11856}
+                }
+                ({-1.0e30f32},
+                ,
+                commutative \ {x_11857 : f32,
+                               x_11858 : f32}
+                  : {f32} ->
+                  let {binop_11859 : f32} =
+                    fmax32(x_11857, x_11858)
+                  in {binop_11859})
+              in {mem_13213, 0i64, 4693i64, 361i64, 19i64, 1i64, uniformSegRed_11849}
+            }
+            : {mem@device,
+               i64,
+               i64,
+               i64,
+               i64,
+               i64,
+               [512i64][13i64][19i64][19i64]f32 @ ?0@device ->
+               {offset: ?1;
+                strides: [?2, ?3, ?4, ?5];
+                shape: [512i64, 13i64, 19i64, 19i64]}}
+          in {ext_mem_13221, ext_13220, ext_13219, ext_13218, ext_13217, ext_13216, match_res_11809}
+        }
+        : {mem@device,
+           i64,
+           i64,
+           i64,
+           i64,
+           i64,
+           [512i64][13i64][19i64][19i64]f32 @ ?0@device ->
+           {offset: ?1;
+            strides: [?2, ?3, ?4, ?5];
+            shape: [512i64, 13i64, 19i64, 19i64]}}
+      let {match_res_11877 : [512i64][19i64][19i64]f32 @ mem_13803 ->
+                             {offset: 0i64;
+                              strides: [361i64, 19i64, 1i64];
+                              shape: [512i64, 19i64, 19i64]}} =
+        if <equiv> suff_outer_par_11876
+        then {
+          let {segmap_usable_groups_11888 : i64} =
+            sdiv_up64(184832i64, segmap_tblock_size_11887)
+          let {outer_map_11889 : [512i64][19i64][19i64]f32 @ mem_13803 ->
+                                 {offset: 0i64;
+                                  strides: [361i64, 19i64, 1i64];
+                                  shape: [512i64, 19i64, 19i64]}} =
+            segmap(thread; ; grid=segmap_usable_groups_11888; blocksize=segmap_tblock_size_11887)
+            (gtid_11890 < 512i64, gtid_11891 < 19i64, gtid_11892 < 19i64) (~phys_tid_11893) : {f32} {
+              let {map_11896 : f32} =
+                loop {redout_12769 : f32} = {-1.0e30f32}
+                for i_12770:i64 < 13i64 do {
+                  let {x_11897 : f32} =
+                    uniform_redomap_alt_11674[gtid_11890, i_12770, gtid_11891, gtid_11892]
+                  let {binop_11900 : f32} =
+                    fmax32(x_11897, redout_12769)
+                  in {binop_11900}
+                }
+              return {returns map_11896}
+            }
+          in {outer_map_11889}
+        } else {
+          let {mem_13338 : mem@device} =
+            alloc(9611264i64, @device)
+          let {uniform_redomap_alt_coalesced_12780 : [512i64][13i64][19i64][19i64]f32 @ mem_13338 ->
+                                                     {offset: 0i64;
+                                                      strides: [4693i64, 1i64, 247i64, 13i64];
+                                                      shape: [512i64, 13i64, 19i64, 19i64]}} =
+            manifest(uniform_redomap_alt_11674, (0, 2, 3, 1))
+          let {uniformSegRed_11914 : [512i64][19i64][19i64]f32 @ mem_13803 ->
+                                     {offset: 0i64;
+                                      strides: [361i64, 19i64, 1i64];
+                                      shape: [512i64, 19i64, 19i64]}} =
+            segred(thread; ; grid=num_tblocks_11912; blocksize=uniform_segred_tblock_size_11911)
+            (gtid_11915 < 512i64, gtid_11916 < 19i64, gtid_11917 < 19i64, gtid_11918 < 13i64) (~phys_tid_11919)
+            : {f32} {
+              let {x_11920 : f32} =
+                uniform_redomap_alt_coalesced_12780[gtid_11915, gtid_11918, gtid_11916, gtid_11917]
+              return {returns x_11920}
+            }
+            ({-1.0e30f32},
+            ,
+            commutative \ {x_11921 : f32,
+                           x_11922 : f32}
+              : {f32} ->
+              let {binop_11923 : f32} =
+                fmax32(x_11921, x_11922)
+              in {binop_11923})
+          in {uniformSegRed_11914}
+        }
+        : {[512i64][19i64][19i64]f32 @ mem_13803 ->
+           {offset: 0i64;
+            strides: [361i64, 19i64, 1i64];
+            shape: [512i64, 19i64, 19i64]}}
+      in {ext_mem_13186, ext_13185, ext_13184, ext_13183, ext_13182, ext_mem_13025, ext_13024, ext_13023, ext_13022, ext_13021, match_res_11877, match_res_11622, match_res_11367}
+    }
+    : {mem@device,
+       i64,
+       i64,
+       i64,
+       i64,
+       mem@device,
+       i64,
+       i64,
+       i64,
+       i64,
+       [512i64][19i64][19i64]f32 @ mem_13803 ->
+       {offset: 0i64;
+        strides: [361i64, 19i64, 1i64];
+        shape: [512i64, 19i64, 19i64]},
+       [512i64][19i64][19i64]f32 @ ?0@device ->
+       {offset: ?6;
+        strides: [?7, ?8, ?9];
+        shape: [512i64, 19i64, 19i64]},
+       [512i64][19i64][19i64]f32 @ ?5@device ->
+       {offset: ?11;
+        strides: [?12, ?13, ?14];
+        shape: [512i64, 19i64, 19i64]}}
+  let {append_3130 : [2048i64][19i64][19i64]f32 @ mem_13803 ->
+                     {offset: 0i64;
+                      strides: [361i64, 19i64, 1i64];
+                      shape: [2048i64, 19i64, 19i64]}} =
+    concat@0(2048i64, match_res_12460, match_res_12461, match_res_12462, image_612)
+  in {mem_13803, append_3130}
+}

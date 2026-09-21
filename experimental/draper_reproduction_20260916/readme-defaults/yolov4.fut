@@ -1,0 +1,8 @@
+-- YOLOv4 inference on a 608x608 image.
+--
+-- The real program is yolov4.fut_soacs (Futhark IR); yolov4.fut is a dummy file
+-- that merely contains spec data.
+-- ==
+-- entry: main
+-- input @ yolov4_input.bin
+-- output @ yolov4_expected.bin

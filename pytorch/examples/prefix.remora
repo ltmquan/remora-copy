@@ -1,0 +1,4 @@
+;; Each vector element broadcasts across its corresponding matrix row.
+;; Remora aligns frames from the left: [2] with [2 3].
+(entry (main (rows [Float 2]) (matrix [Float 2 3]))
+  (f.+ rows matrix))

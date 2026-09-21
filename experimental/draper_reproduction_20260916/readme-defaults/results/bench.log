@@ -1,0 +1,28 @@
+Reporting arithmetic mean runtime of at least 10 runs for each dataset (min 0.5s).
+More runs automatically performed for up to 300s to ensure accurate measurement.
+
+yolov4.fut (no tuning file):
+yolov4_input.bin:     482756μs (95% CI: [  482221.4,   484645.6])
+	Command being timed: "timeout --kill-after=10s 540s futhark bench --skip-compilation --json=results/bench.json yolov4.fut"
+	User time (seconds): 100.85
+	System time (seconds): 2.40
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:43.72
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 732120
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 195
+	Minor (reclaiming a frame) page faults: 509919
+	Voluntary context switches: 2366
+	Involuntary context switches: 121
+	Swaps: 0
+	File system inputs: 40952
+	File system outputs: 15136
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

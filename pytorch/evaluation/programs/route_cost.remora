@@ -1,0 +1,5 @@
+;; Arc-cost accumulation, corresponding to the distance matrix callback and
+;; route cost sum in darpa-mocha/41_or-tools/vrp_problem.cc. This is not a solver.
+(entry (main (costs [Int 4 4]) (arcs [Int 3 2]))
+  (@reduce/zero (Int) (3 []) + 0
+    (@index2d (Int) (4 4) costs arcs)))

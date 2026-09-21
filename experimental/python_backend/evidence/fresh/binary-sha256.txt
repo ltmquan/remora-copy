@@ -1,0 +1,2 @@
+dad27b92fd37bf52ff2c41d109ad53cd157f397296db9238fc00d13003263378  fresh_futhark/model.c
+69099adadc69eb9065da74b6053a0690c19163021d20300a97de4be00cf3f3e3  fresh_futhark/benchmark

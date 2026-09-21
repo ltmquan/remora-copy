@@ -1,0 +1,34 @@
+tinygrad-direct-jit-synthetic vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 2.384185791015625e-07, 'mean_abs': 6.025402277393482e-09, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-remora-jit-synthetic vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 2.384185791015625e-07, 'mean_abs': 6.025402277393482e-09, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-direct-eager-synthetic vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 2.384185791015625e-07, 'mean_abs': 5.939020483249936e-09, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-remora-eager-synthetic vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 2.384185791015625e-07, 'mean_abs': 5.939020483249936e-09, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-eager-synthetic remora vs direct {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 0.0, 'mean_abs': 0.0, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-jit-synthetic remora vs direct {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 0.0, 'mean_abs': 0.0, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+yolov4.weights: OK
+tinygrad-direct-jit-synthetic vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 2.384185791015625e-07, 'mean_abs': 6.025402277393482e-09, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-remora-jit-synthetic vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 2.384185791015625e-07, 'mean_abs': 6.025402277393482e-09, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-direct-eager-synthetic vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 2.384185791015625e-07, 'mean_abs': 5.939020483249936e-09, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-remora-eager-synthetic vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 2.384185791015625e-07, 'mean_abs': 5.939020483249936e-09, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-eager-synthetic remora vs direct {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 0.0, 'mean_abs': 0.0, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-jit-synthetic remora vs direct {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 0.0, 'mean_abs': 0.0, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-direct-jit-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.735324859619141e-06, 'mean_abs': 1.8516501291504886e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-remora-jit-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.735324859619141e-06, 'mean_abs': 1.8516501291504886e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-direct-eager-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 4.351139068603516e-06, 'mean_abs': 1.5123187374036563e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-remora-eager-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 4.351139068603516e-06, 'mean_abs': 1.5123187374036563e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-eager-trained remora vs direct {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 0.0, 'mean_abs': 0.0, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-jit-trained remora vs direct {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 0.0, 'mean_abs': 0.0, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-direct-jit-synthetic vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 2.384185791015625e-07, 'mean_abs': 6.025402277393482e-09, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-remora-jit-synthetic vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 2.384185791015625e-07, 'mean_abs': 6.025402277393482e-09, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-direct-eager-synthetic vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 2.384185791015625e-07, 'mean_abs': 5.939020483249936e-09, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-remora-eager-synthetic vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 2.384185791015625e-07, 'mean_abs': 5.939020483249936e-09, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-eager-synthetic remora vs direct {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 0.0, 'mean_abs': 0.0, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-jit-synthetic remora vs direct {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 0.0, 'mean_abs': 0.0, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-direct-jit-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.735324859619141e-06, 'mean_abs': 1.8516501291504886e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-remora-jit-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.735324859619141e-06, 'mean_abs': 1.8516501291504886e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-direct-compile-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.4373016357421875e-06, 'mean_abs': 1.6746699902370474e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-direct-eager-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 4.351139068603516e-06, 'mean_abs': 1.5123187374036563e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-remora-compile-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 6.4373016357421875e-06, 'mean_abs': 1.6746699902370474e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-remora-eager-trained vs darknet {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 4.351139068603516e-06, 'mean_abs': 1.5123187374036563e-08, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-eager-trained remora vs direct {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 0.0, 'mean_abs': 0.0, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+torch-compile-trained remora vs direct {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 0.0, 'mean_abs': 0.0, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}
+tinygrad-jit-trained remora vs direct {'elements': 1933155, 'nonfinite': 0, 'failed': 0, 'max_abs': 0.0, 'mean_abs': 0.0, 'atol': 1e-05, 'rtol': 0.0001, 'passed': True}

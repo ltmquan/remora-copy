@@ -1,0 +1,2292 @@
+{
+  "source": "/Users/quanluusmacbook/MOCHA/remora-copy/examples/darknet/yolov4.remora",
+  "source_sha256": "334346d83578f49a52507fab11d0cfed0da269b10f20ab012ade4f6ca98a6e89",
+  "definition_count": 55,
+  "definitions_sha256": "36f1a79e7797ef520c0486ed9d4d09699f1ac206d1db63a5b8eda2377e4415b5",
+  "torch": "2.14.0",
+  "numpy": "2.5.3",
+  "device": "cpu",
+  "atol": 1e-05,
+  "rtol": 0.0001,
+  "scope": "Exact helper bodies with small typed entries; not full 608x608 network inference",
+  "cases": [
+    {
+      "name": "conv_same",
+      "retained_definitions": [
+        "conv-2d/rem",
+        "dot",
+        "e",
+        "f-bias",
+        "f-det-all",
+        "f-det-p3",
+        "f-det-p4",
+        "f-det-p5",
+        "f-image",
+        "f-mean",
+        "f-scale",
+        "f-var",
+        "f-w",
+        "idxs-of/2",
+        "im2col/rem",
+        "lifted-subarray/2",
+        "lifted_dot",
+        "matmul",
+        "pad/2",
+        "replicate",
+        "subarray/2",
+        "tmsg",
+        "wdir"
+      ],
+      "test_source_sha256": "57dc286303d605aeb7403bfcc36ad7b2bfd002eaaabc3dfd75e39958c7b4df5c",
+      "lowerings": {
+        "auto": {
+          "selected": "general",
+          "compile_seconds": 16.5908435001038,
+          "generated_sha256": "85188cd7affbdc44980b95c9af30bca0e2e0bcde27d50961c96d76c979b5aa51"
+        },
+        "general": {
+          "selected": "general",
+          "compile_seconds": 7.976178625016473,
+          "generated_sha256": "85188cd7affbdc44980b95c9af30bca0e2e0bcde27d50961c96d76c979b5aa51"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                16
+              ],
+              "scalars": 48,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                16
+              ],
+              "scalars": 48,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                16
+              ],
+              "scalars": 48,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 7.788002124987543
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                16
+              ],
+              "scalars": 48,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                16
+              ],
+              "scalars": 48,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                16
+              ],
+              "scalars": 48,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 9.5367431640625e-07,
+              "max_error_over_tolerance": 0.03588835062344345
+            }
+          },
+          "interpreter_seconds": 7.68409441690892
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                16
+              ],
+              "scalars": 48,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                16
+              ],
+              "scalars": 48,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                16
+              ],
+              "scalars": 48,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 1.1920928955078125e-07,
+              "max_error_over_tolerance": 0.0072393334976981975
+            }
+          },
+          "interpreter_seconds": 9.753629583050497
+        }
+      ]
+    },
+    {
+      "name": "conv_stride2_remainder",
+      "retained_definitions": [
+        "conv-2d/rem",
+        "dot",
+        "e",
+        "f-bias",
+        "f-det-all",
+        "f-det-p3",
+        "f-det-p4",
+        "f-det-p5",
+        "f-image",
+        "f-mean",
+        "f-scale",
+        "f-var",
+        "f-w",
+        "idxs-of/2",
+        "im2col/rem",
+        "lifted-subarray/2",
+        "lifted_dot",
+        "matmul",
+        "pad/2",
+        "replicate",
+        "subarray/2",
+        "tmsg",
+        "wdir"
+      ],
+      "test_source_sha256": "3733016d5b8ca84fecc75de715206f27d1fba43f3f0bc68cc96e4ef17bace4ed",
+      "lowerings": {
+        "auto": {
+          "selected": "general",
+          "compile_seconds": 16.490295666037127,
+          "generated_sha256": "3adb21ca2cd91243c221e04b9c250dd91b189dc5c48e5b2e8a29e23b298fdedc"
+        },
+        "general": {
+          "selected": "general",
+          "compile_seconds": 7.989788332954049,
+          "generated_sha256": "3adb21ca2cd91243c221e04b9c250dd91b189dc5c48e5b2e8a29e23b298fdedc"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                4
+              ],
+              "scalars": 12,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                4
+              ],
+              "scalars": 12,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                4
+              ],
+              "scalars": 12,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 7.545605292078108
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                4
+              ],
+              "scalars": 12,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                4
+              ],
+              "scalars": 12,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                4
+              ],
+              "scalars": 12,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 4.76837158203125e-07,
+              "max_error_over_tolerance": 0.03588831842412958
+            }
+          },
+          "interpreter_seconds": 7.436078583006747
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                4
+              ],
+              "scalars": 12,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                4
+              ],
+              "scalars": 12,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                4
+              ],
+              "scalars": 12,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 1.1920928955078125e-07,
+              "max_error_over_tolerance": 0.0017250287795176431
+            }
+          },
+          "interpreter_seconds": 7.289555583032779
+        }
+      ]
+    },
+    {
+      "name": "conv_1x1",
+      "retained_definitions": [
+        "conv-2d/rem",
+        "dot",
+        "e",
+        "f-bias",
+        "f-det-all",
+        "f-det-p3",
+        "f-det-p4",
+        "f-det-p5",
+        "f-image",
+        "f-mean",
+        "f-scale",
+        "f-var",
+        "f-w",
+        "idxs-of/2",
+        "im2col/rem",
+        "lifted-subarray/2",
+        "lifted_dot",
+        "matmul",
+        "pad/2",
+        "replicate",
+        "subarray/2",
+        "tmsg",
+        "wdir"
+      ],
+      "test_source_sha256": "8ef3e25209e106ece0c4a3dfea3a10c3796e3ee0d2987e22d867c8607679a4f6",
+      "lowerings": {
+        "auto": {
+          "selected": "general",
+          "compile_seconds": 18.635631500044838,
+          "generated_sha256": "d7e981a81ba3c2c451dcb247487041b720799225ac05cc95a37fbdc75a706c98"
+        },
+        "general": {
+          "selected": "general",
+          "compile_seconds": 9.158887624973431,
+          "generated_sha256": "d7e981a81ba3c2c451dcb247487041b720799225ac05cc95a37fbdc75a706c98"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                9
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                9
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                9
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 7.465203291969374
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                9
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                9
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                9
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 1.1920928955078125e-07,
+              "max_error_over_tolerance": 0.0008374206579516968
+            }
+          },
+          "interpreter_seconds": 7.290565000032075
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                9
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                9
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                9
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 5.960464477539063e-08,
+              "max_error_over_tolerance": 0.0008430956502806868
+            }
+          },
+          "interpreter_seconds": 8.066494832979515
+        }
+      ]
+    },
+    {
+      "name": "batch_norm",
+      "retained_definitions": [
+        "batch-norm-2d-apply",
+        "e",
+        "f-bias",
+        "f-det-all",
+        "f-det-p3",
+        "f-det-p4",
+        "f-det-p5",
+        "f-image",
+        "f-mean",
+        "f-scale",
+        "f-var",
+        "f-w",
+        "replicate",
+        "tmsg",
+        "wdir"
+      ],
+      "test_source_sha256": "e4f45d28d95ed77b5894dc4c95803bcf382d9b982f18543d629bdbbd820c668b",
+      "lowerings": {
+        "auto": {
+          "selected": "static",
+          "compile_seconds": 3.3212492500897497,
+          "generated_sha256": "b4ad6846dc941e2f9ec7ce3e1296fc96b24ee5d962e550fccd8754ef372dc968"
+        },
+        "general": {
+          "selected": "general",
+          "compile_seconds": 3.469968041055836,
+          "generated_sha256": "fe5c2b53acd90e91b9450fa96ab6ec6bf0215b95fe91058a4af0d07a295561e1"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 3.0462885829620063
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 3.3804695000872016
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 3.3364347910974175
+        }
+      ]
+    },
+    {
+      "name": "activations",
+      "retained_definitions": [
+        "e",
+        "f-bias",
+        "f-det-all",
+        "f-det-p3",
+        "f-det-p4",
+        "f-det-p5",
+        "f-image",
+        "f-mean",
+        "f-scale",
+        "f-var",
+        "f-w",
+        "leaky-relu",
+        "mish",
+        "sigmoid",
+        "softplus",
+        "tmsg",
+        "wdir"
+      ],
+      "test_source_sha256": "745d46fe41ce555b6cfbad637b474722d29b5e885b04f2f3acdb1124ce8e483b",
+      "lowerings": {
+        "auto": {
+          "selected": "static",
+          "compile_seconds": 0.16696979198604822,
+          "generated_sha256": "7d66b8fc3852fd6865c4f0775ef663fe6c02a7a3dd484c5b97c3b822964b2982"
+        },
+        "general": {
+          "selected": "general",
+          "compile_seconds": 0.20586920890491456,
+          "generated_sha256": "8f4dfb650a7d91869d7c4d2e227f7640f42362b3a330e2024c670105d9a426e8"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                7
+              ],
+              "scalars": 63,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                7
+              ],
+              "scalars": 63,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                7
+              ],
+              "scalars": 63,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 0.15230895800050348
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                7
+              ],
+              "scalars": 63,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 5.960464477539063e-08,
+              "max_error_over_tolerance": 0.0008387468431036633
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                7
+              ],
+              "scalars": 63,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                7
+              ],
+              "scalars": 63,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 5.960464477539063e-08,
+              "max_error_over_tolerance": 0.0008387468431036633
+            }
+          },
+          "interpreter_seconds": 0.1652908748947084
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                7
+              ],
+              "scalars": 63,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 5.960464477539063e-08,
+              "max_error_over_tolerance": 0.0014806863857964505
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                7
+              ],
+              "scalars": 63,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 5.960464477539063e-08,
+              "max_error_over_tolerance": 0.0014806863857964505
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                7
+              ],
+              "scalars": 63,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 5.960464477539063e-08,
+              "max_error_over_tolerance": 0.0014806863857964505
+            }
+          },
+          "interpreter_seconds": 0.14128791692201048
+        }
+      ]
+    },
+    {
+      "name": "conv_bn_mish",
+      "retained_definitions": [
+        "conv-2d/rem",
+        "conv-bias",
+        "conv-bn-mish",
+        "dot",
+        "e",
+        "f-bias",
+        "f-det-all",
+        "f-det-p3",
+        "f-det-p4",
+        "f-det-p5",
+        "f-image",
+        "f-mean",
+        "f-scale",
+        "f-var",
+        "f-w",
+        "fuse-bn",
+        "idxs-of/2",
+        "im2col/rem",
+        "lifted-subarray/2",
+        "lifted_dot",
+        "matmul",
+        "mish",
+        "pad/2",
+        "replicate",
+        "softplus",
+        "subarray/2",
+        "tmsg",
+        "wdir"
+      ],
+      "test_source_sha256": "567f7a52102246d30d9534703b28ad0b451610e8fac701eed2e053346c3065e8",
+      "lowerings": {
+        "auto": {
+          "selected": "general",
+          "compile_seconds": 25.13931204203982,
+          "generated_sha256": "eddd99921786db9a67206f07b38fdab7b518929078b6ca68fe8107e4aed80282"
+        },
+        "general": {
+          "selected": "general",
+          "compile_seconds": 11.91669537499547,
+          "generated_sha256": "eddd99921786db9a67206f07b38fdab7b518929078b6ca68fe8107e4aed80282"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 9.91438641701825
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 10.795994458021596
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 10.315787625033408
+        }
+      ]
+    },
+    {
+      "name": "conv_bn_leaky",
+      "retained_definitions": [
+        "conv-2d/rem",
+        "conv-bias",
+        "conv-bn-leaky",
+        "dot",
+        "e",
+        "f-bias",
+        "f-det-all",
+        "f-det-p3",
+        "f-det-p4",
+        "f-det-p5",
+        "f-image",
+        "f-mean",
+        "f-scale",
+        "f-var",
+        "f-w",
+        "fuse-bn",
+        "idxs-of/2",
+        "im2col/rem",
+        "leaky-relu",
+        "lifted-subarray/2",
+        "lifted_dot",
+        "matmul",
+        "pad/2",
+        "replicate",
+        "subarray/2",
+        "tmsg",
+        "wdir"
+      ],
+      "test_source_sha256": "bc91aee6a03ad26e516d971a7f8b820a45257d2d0e30fa4fd4acb1eda95b6fa2",
+      "lowerings": {
+        "auto": {
+          "selected": "general",
+          "compile_seconds": 18.093250083038583,
+          "generated_sha256": "059ade614373788ace7ed9253812b258803683d92c7ace4dc67e43324743cc90"
+        },
+        "general": {
+          "selected": "general",
+          "compile_seconds": 9.631346915964969,
+          "generated_sha256": "059ade614373788ace7ed9253812b258803683d92c7ace4dc67e43324743cc90"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 9.10071304102894
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 9.058639083057642
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 11.585712583968416
+        }
+      ]
+    },
+    {
+      "name": "residual",
+      "retained_definitions": [
+        "conv-2d/rem",
+        "conv-bias",
+        "conv-bn-mish",
+        "dot",
+        "e",
+        "f-bias",
+        "f-det-all",
+        "f-det-p3",
+        "f-det-p4",
+        "f-det-p5",
+        "f-image",
+        "f-mean",
+        "f-scale",
+        "f-var",
+        "f-w",
+        "fuse-bn",
+        "idxs-of/2",
+        "im2col/rem",
+        "lifted-subarray/2",
+        "lifted_dot",
+        "matmul",
+        "mish",
+        "pad/2",
+        "replicate",
+        "res-block",
+        "shortcut",
+        "softplus",
+        "subarray/2",
+        "tmsg",
+        "wdir"
+      ],
+      "test_source_sha256": "f78e6de51b58979e5b97a96fca1a6c3efe7d52cd92af15967fcaaec433e8fe68",
+      "lowerings": {
+        "auto": {
+          "selected": "general",
+          "compile_seconds": 25.346781917032786,
+          "generated_sha256": "8965bdd1b1728b5bdf629fc3e4ab04125597bb4726650f79160349f9e2d3c14a"
+        },
+        "general": {
+          "selected": "general",
+          "compile_seconds": 13.262507208040915,
+          "generated_sha256": "8965bdd1b1728b5bdf629fc3e4ab04125597bb4726650f79160349f9e2d3c14a"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 11.100587834022008
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 12.855100458022207
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 1.1920928955078125e-07,
+              "max_error_over_tolerance": 0.0008572679104869652
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                2,
+                3,
+                3
+              ],
+              "scalars": 18,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 1.1920928955078125e-07,
+              "max_error_over_tolerance": 0.0008572679104869652
+            }
+          },
+          "interpreter_seconds": 10.854434167034924
+        }
+      ]
+    },
+    {
+      "name": "spp_cascade",
+      "retained_definitions": [
+        "e",
+        "f-bias",
+        "f-det-all",
+        "f-det-p3",
+        "f-det-p4",
+        "f-det-p5",
+        "f-image",
+        "f-max2d",
+        "f-mean",
+        "f-scale",
+        "f-var",
+        "f-w",
+        "idxs-of/2",
+        "lifted-subarray/2",
+        "max-pool-2d",
+        "pad/2",
+        "replicate",
+        "spp",
+        "subarray/2",
+        "tmsg",
+        "wdir"
+      ],
+      "test_source_sha256": "4c6d19247b6d20f31b9ece5281811750130272eda9ab3bb864290071fb871975",
+      "lowerings": {
+        "auto": {
+          "selected": "general",
+          "compile_seconds": 17.943439750000834,
+          "generated_sha256": "b2cfe09263ff57ec3f1580327ee4fa4e26f694be0084cb401323be5dd99d2df1"
+        },
+        "general": {
+          "selected": "general",
+          "compile_seconds": 8.558766249916516,
+          "generated_sha256": "b2cfe09263ff57ec3f1580327ee4fa4e26f694be0084cb401323be5dd99d2df1"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                8,
+                5,
+                5
+              ],
+              "scalars": 200,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                8,
+                5,
+                5
+              ],
+              "scalars": 200,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                8,
+                5,
+                5
+              ],
+              "scalars": 200,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 7.835025416919962
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                8,
+                5,
+                5
+              ],
+              "scalars": 200,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                8,
+                5,
+                5
+              ],
+              "scalars": 200,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                8,
+                5,
+                5
+              ],
+              "scalars": 200,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 11.557593374978751
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                8,
+                5,
+                5
+              ],
+              "scalars": 200,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                8,
+                5,
+                5
+              ],
+              "scalars": 200,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                8,
+                5,
+                5
+              ],
+              "scalars": 200,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 7.51661704108119
+        }
+      ]
+    },
+    {
+      "name": "upsample",
+      "retained_definitions": [
+        "e",
+        "f-bias",
+        "f-det-all",
+        "f-det-p3",
+        "f-det-p4",
+        "f-det-p5",
+        "f-image",
+        "f-mean",
+        "f-scale",
+        "f-var",
+        "f-w",
+        "replicate",
+        "tmsg",
+        "transpose4d/0213",
+        "upsample-nearest",
+        "wdir"
+      ],
+      "test_source_sha256": "5120246809ff455791181433be0869d3d0a712f484ae014880e8b4252a122e2b",
+      "lowerings": {
+        "auto": {
+          "selected": "static",
+          "compile_seconds": 3.682277207961306,
+          "generated_sha256": "147ec35c8c78ca1319b2286d13d41c8da643971e8f98749545c8d67fe1d8fd87"
+        },
+        "general": {
+          "selected": "general",
+          "compile_seconds": 4.2708631249843165,
+          "generated_sha256": "1f583a9ea469da4fb53bc1909c82cf4821529ac6167be3badfbaaff486908f10"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                6,
+                6
+              ],
+              "scalars": 72,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                2,
+                6,
+                6
+              ],
+              "scalars": 72,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                2,
+                6,
+                6
+              ],
+              "scalars": 72,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 4.276632166933268
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                6,
+                6
+              ],
+              "scalars": 72,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                2,
+                6,
+                6
+              ],
+              "scalars": 72,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                2,
+                6,
+                6
+              ],
+              "scalars": 72,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 3.85475141601637
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                2,
+                6,
+                6
+              ],
+              "scalars": 72,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                2,
+                6,
+                6
+              ],
+              "scalars": 72,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                2,
+                6,
+                6
+              ],
+              "scalars": 72,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 4.007659542025067
+        }
+      ]
+    },
+    {
+      "name": "route",
+      "retained_definitions": [
+        "e",
+        "f-bias",
+        "f-det-all",
+        "f-det-p3",
+        "f-det-p4",
+        "f-det-p5",
+        "f-image",
+        "f-mean",
+        "f-scale",
+        "f-var",
+        "f-w",
+        "route2",
+        "tmsg",
+        "wdir"
+      ],
+      "test_source_sha256": "99f3fb291e19e16e7412aad67dde55c0349f21dea6622320b8959239a33aaca6",
+      "lowerings": {
+        "auto": {
+          "selected": "static",
+          "compile_seconds": 0.17143870797008276,
+          "generated_sha256": "c92be7e189fedf2197b2e0d7e319c3aa5b199c4bcfe1cb4ee7016f4db1c08eb2"
+        },
+        "general": {
+          "selected": "general",
+          "compile_seconds": 0.19349800003692508,
+          "generated_sha256": "e4b5dfc5ac93f998e9c56f39acc0a891dd48533bd27aae335a1480f3ec0a9bf0"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                3
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                3
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                3
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 0.13280083297286183
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                3
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                3
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                3
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 0.15499808394815773
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                3
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                3
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                3,
+                3
+              ],
+              "scalars": 27,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 0.1480820409487933
+        }
+      ]
+    },
+    {
+      "name": "decode_anchors",
+      "retained_definitions": [
+        "e",
+        "f-bias",
+        "f-det-all",
+        "f-det-p3",
+        "f-det-p4",
+        "f-det-p5",
+        "f-image",
+        "f-mean",
+        "f-scale",
+        "f-var",
+        "f-w",
+        "idxs-of/2",
+        "plane",
+        "planes",
+        "sigmoid",
+        "subarray/1",
+        "tmsg",
+        "wdir",
+        "yolo-anchor"
+      ],
+      "test_source_sha256": "55450d0e27bbaf4ef70511e4aa49e3bad69afaac68551347fc227cb521315f7f",
+      "lowerings": {
+        "auto": {
+          "selected": "general",
+          "compile_seconds": 16.676040292019024,
+          "generated_sha256": "3cdbb62d17d6d34af39662de7eabed578bd615a6a368fef63ba8f04f7b4662bf"
+        },
+        "general": {
+          "selected": "general",
+          "compile_seconds": 11.886225207941607,
+          "generated_sha256": "3cdbb62d17d6d34af39662de7eabed578bd615a6a368fef63ba8f04f7b4662bf"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                7,
+                2,
+                2
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                7,
+                2,
+                2
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                7,
+                2,
+                2
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 1.4901161193847656e-08,
+              "max_error_over_tolerance": 0.00042574746268136157
+            }
+          },
+          "interpreter_seconds": 9.21943691605702
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                7,
+                2,
+                2
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                7,
+                2,
+                2
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                7,
+                2,
+                2
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 5.960464477539063e-08,
+              "max_error_over_tolerance": 0.0008591574881726661
+            }
+          },
+          "interpreter_seconds": 9.525080249994062
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                3,
+                7,
+                2,
+                2
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                3,
+                7,
+                2,
+                2
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "independent_torch": {
+              "passed": true,
+              "shape": [
+                3,
+                7,
+                2,
+                2
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 5.960464477539063e-08,
+              "max_error_over_tolerance": 0.0007798947135897496
+            }
+          },
+          "interpreter_seconds": 8.64702741696965
+        }
+      ]
+    },
+    {
+      "name": "detection_head",
+      "retained_definitions": [
+        "conv-2d/rem",
+        "conv-bias",
+        "conv-bn-leaky",
+        "dot",
+        "e",
+        "f-bias",
+        "f-det-all",
+        "f-det-p3",
+        "f-det-p4",
+        "f-det-p5",
+        "f-image",
+        "f-mean",
+        "f-scale",
+        "f-var",
+        "f-w",
+        "fuse-bn",
+        "idxs-of/2",
+        "im2col/rem",
+        "leaky-relu",
+        "lifted-subarray/2",
+        "lifted_dot",
+        "matmul",
+        "pad/2",
+        "plane",
+        "planes",
+        "replicate",
+        "sigmoid",
+        "subarray/1",
+        "subarray/2",
+        "tmsg",
+        "wdir",
+        "yolo-anchor",
+        "yolo-head"
+      ],
+      "test_source_sha256": "1cbde2f4b282e245a34ffa18158dc1ab3044c7b342cc0e44b5276d5bd2f42850",
+      "lowerings": {
+        "auto": {
+          "selected": "general",
+          "compile_seconds": 46.04151541600004,
+          "generated_sha256": "978a340296b6b57f93342abb147fc83916ce7a9d3198757ca15c9f5b881950ff"
+        },
+        "general": {
+          "selected": "general",
+          "compile_seconds": 22.7638549170224,
+          "generated_sha256": "978a340296b6b57f93342abb147fc83916ce7a9d3198757ca15c9f5b881950ff"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                12,
+                7
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                12,
+                7
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 21.817077458952554
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                12,
+                7
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                12,
+                7
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 19.156829040963203
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                12,
+                7
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                12,
+                7
+              ],
+              "scalars": 84,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 20.622839084011503
+        }
+      ]
+    },
+    {
+      "name": "composed_pipeline",
+      "retained_definitions": [
+        "conv-2d/rem",
+        "conv-bias",
+        "conv-bn-leaky",
+        "conv-bn-mish",
+        "dot",
+        "e",
+        "f-bias",
+        "f-det-all",
+        "f-det-p3",
+        "f-det-p4",
+        "f-det-p5",
+        "f-image",
+        "f-max2d",
+        "f-mean",
+        "f-scale",
+        "f-var",
+        "f-w",
+        "fuse-bn",
+        "idxs-of/2",
+        "im2col/rem",
+        "leaky-relu",
+        "lifted-subarray/2",
+        "lifted_dot",
+        "matmul",
+        "max-pool-2d",
+        "mish",
+        "pad/2",
+        "plane",
+        "planes",
+        "replicate",
+        "sigmoid",
+        "softplus",
+        "spp",
+        "subarray/1",
+        "subarray/2",
+        "tmsg",
+        "transpose4d/0213",
+        "upsample-nearest",
+        "wdir",
+        "yolo-anchor",
+        "yolo-head"
+      ],
+      "test_source_sha256": "c38a3fce84a4c35d8c4796d509ab51dc66ade4359dd9cff60799a9bed034ea43",
+      "lowerings": {
+        "auto": {
+          "selected": "general",
+          "compile_seconds": 62.58359375002328,
+          "generated_sha256": "464f595aafb82d73b0a4c7d69295a605afba2c546235df09a602b39331dc130a"
+        },
+        "general": {
+          "selected": "general",
+          "compile_seconds": 30.61420387495309,
+          "generated_sha256": "464f595aafb82d73b0a4c7d69295a605afba2c546235df09a602b39331dc130a"
+        }
+      },
+      "fixtures": [
+        {
+          "seed": 0,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                300,
+                7
+              ],
+              "scalars": 2100,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                300,
+                7
+              ],
+              "scalars": 2100,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 0.0,
+              "max_error_over_tolerance": 0.0
+            }
+          },
+          "interpreter_seconds": 26.5691907920409
+        },
+        {
+          "seed": 1,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                300,
+                7
+              ],
+              "scalars": 2100,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 1.1920928955078125e-07,
+              "max_error_over_tolerance": 0.0013785194929479975
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                300,
+                7
+              ],
+              "scalars": 2100,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 1.1920928955078125e-07,
+              "max_error_over_tolerance": 0.0013785194929479975
+            }
+          },
+          "interpreter_seconds": 27.079026542021893
+        },
+        {
+          "seed": 17,
+          "comparisons": {
+            "auto": {
+              "passed": true,
+              "shape": [
+                300,
+                7
+              ],
+              "scalars": 2100,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 2.9802322387695312e-08,
+              "max_error_over_tolerance": 0.0006139077158696594
+            },
+            "general": {
+              "passed": true,
+              "shape": [
+                300,
+                7
+              ],
+              "scalars": 2100,
+              "mismatches": 0,
+              "nonfinite": 0,
+              "max_abs": 2.9802322387695312e-08,
+              "max_error_over_tolerance": 0.0006139077158696594
+            }
+          },
+          "interpreter_seconds": 27.01734912500251
+        }
+      ]
+    }
+  ],
+  "passed": true,
+  "failed_fixtures": [],
+  "failed_compilations": []
+}

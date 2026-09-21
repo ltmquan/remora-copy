@@ -1,0 +1,1 @@
+-I/shared/EL9/explorer/OpenCV/4.10.0/include/opencv4 -lopencv_highgui -lopencv_videoio -lopencv_imgcodecs -lopencv_imgproc -lopencv_core -lopencv_calib3d -lopencv_video -lopencv_dnn 
