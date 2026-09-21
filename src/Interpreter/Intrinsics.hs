@@ -6,6 +6,7 @@ module Interpreter.Intrinsics
 where
 
 import Control.Monad
+import Control.Monad.Error.Class (MonadError, throwError)
 import Data.Binary.Get (getFloatle, runGet)
 import Data.Bits hiding (And)
 import Data.ByteString.Lazy qualified as B
@@ -55,7 +56,7 @@ asDim = either id (error "asDim: expected a dimension, got a shape")
 asShape :: Either Int [Int] -> [Int]
 asShape = either (error "asShape: expected a shape, got a dimension") id
 
-intrinsics :: forall m. (Monad m) => Intrinsics m
+intrinsics :: forall m. (MonadError Error m) => Intrinsics m
 intrinsics =
   flip map (M.toList Intrinsics.intrinsics) $ \(vname, t) ->
     IntrinsicVal vname t (val $ varName vname)
@@ -280,7 +281,14 @@ intrinsics =
         pure $ iFun2 $ \_ _ ->
           pure $ vFun2 $ \arr idx ->
             case (asArray arr, asArray idx) of
-              (([_, n], elts), (_, [i, j])) -> pure $ elts L.!! (n * asInt i + asInt j)
+              (([m, n], elts), (_, [i, j])) ->
+                let row = asInt i
+                    col = asInt j
+                 in if row >= 0 && row < m && col >= 0 && col < n
+                      then pure $ elts L.!! (n * row + col)
+                      else throwError $
+                        "index2d: index out of bounds: " <> prettyText [row, col]
+                          <> " for shape " <> prettyText [m, n]
               _ -> error "index2d: bad arguments"
     intrinsic "trace" =
       tFun2 $ \_ _ ->
