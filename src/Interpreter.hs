@@ -332,15 +332,15 @@ intExp (Let bs e _ _) =
 intExp expr@(Struct s (Info (_, pframe)) _) = do
   let (fnames, shps, es) = neUnzip3 s
   pframe' <- intShape pframe
-  let pcnt = product pframe'
   shps' <- mapM intShape $ NE.toList shps
   es' <- mapM intExp $ NE.toList es
   replFieldsEs <-
     zipWithM
       ( \shp' v' -> case v' of
           ValArray inShp vs -> do
-            let splitVs = split (product inShp `div` product shp') (product shp') vs
-            let replFactor = pcnt `div` (product inShp `div` product shp')
+            let frame = inShp \\ shp'
+            let splitVs = split (product frame) (product shp') vs
+            let replFactor = product $ drop (length frame) pframe'
             pure $ concat $ replicate replFactor $ map (ValArray shp') splitVs
           _ ->
             error $
@@ -361,14 +361,9 @@ intExp expr@(FieldProj e f _ _) = do
   e' <- intExp e
   let (ns, recs) = asArray e'
   case recs of
-    [] ->
-      error $
-        unlines
-          [ "field proj: empty array of records in projection",
-            prettyString e,
-            "in",
-            prettyString expr
-          ]
+    [] -> do
+      shape <- intShape $ shapeOf expr
+      pure $ ValArray shape []
     rs@(r : _) | Just vs' <- mapM projMaybe rs -> do
       pure $ collapse $ ValArray (ns <> valShapeOf r) vs'
       where
